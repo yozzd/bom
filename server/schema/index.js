@@ -1,7 +1,9 @@
 const { typeDefs: Auth } = require('./auth/typeDefs');
+const { typeDefs: Bom } = require('./bom/typeDefs');
 const { typeDefs: User } = require('./user/typeDefs');
 
 const { resolvers: authResolvers } = require('./auth/resolvers');
+const { resolvers: bomResolvers } = require('./bom/resolvers');
 const { resolvers: userResolvers } = require('./user/resolvers');
 
 const Query = `
@@ -15,6 +17,6 @@ const Query = `
 `;
 
 module.exports = {
-  typeDefs: [Query, Auth, User],
-  resolvers: [authResolvers, userResolvers],
+  typeDefs: [Query, Auth, Bom, User],
+  resolvers: [authResolvers, bomResolvers, userResolvers],
 };
