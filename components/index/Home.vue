@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-for="(v,i) in items" :key="v.id">
-      {{ i+1 }} {{ v.ltNo }}
+      {{ i+1 }} {{ v.ltNo }} {{ v.wos.length }}
     </div>
   </div>
 </template>

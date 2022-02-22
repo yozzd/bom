@@ -12,6 +12,7 @@ const typeDefs = `
   type Wo {
     id: Int
     woNo: String
+    status: Int
   }
 `;
 

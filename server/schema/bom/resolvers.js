@@ -8,7 +8,7 @@ const resolvers = {
         attributes: ['id', 'ltNo'],
         include: [{
           model: Wo,
-          attributes: ['id', 'woNo'],
+          attributes: ['id', 'woNo', 'status'],
           where: { status: 0 },
         }],
       });

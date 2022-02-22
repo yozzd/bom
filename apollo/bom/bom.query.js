@@ -8,6 +8,7 @@ const GetLt = gql`
       wos {
         id
         woNo
+        status
       }
     }
   }

@@ -72,7 +72,7 @@ const Wo = sequelize.define('wo', {
     type: DataTypes.INTEGER,
     defaultValue: 0,
   },
-  sttus: {
+  status: {
     type: DataTypes.INTEGER,
     defaultValue: 0,
   },
