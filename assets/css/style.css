@@ -1,0 +1,43 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+
+body {
+  font-family: 'Inter', sans-serif;
+  font-feature-settings: 'tnum';
+  font-size: 14px;
+  @apply overflow-x-hidden;
+}
+
+body,
+.el-button,
+.el-input__inner,
+.el-textarea__inner {
+  font-family: 'Inter', sans-serif;
+}
+
+.el-alert,
+.el-button,
+.el-input__inner {
+  @apply rounded-lg;
+}
+
+.el-input__inner:focus,
+.el-textarea__inner:focus {
+  @apply ring-3 ring-blue-200 ring-opacity-50;
+}
+
+.el-form-item {
+  @apply mb-4;
+}
+
+.el-form--label-top .el-form-item__label {
+  @apply p-0 font-medium;
+}
+
+.el-form-item.is-error .el-input__inner,
+.el-form-item.is-error .el-input__inner:focus {
+  @apply ring-3 ring-red-200 ring-opacity-50;
+}
+
+.el-form-item__error {
+  @apply pt-2;
+}
