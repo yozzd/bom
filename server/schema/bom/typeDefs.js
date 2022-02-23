@@ -1,15 +1,15 @@
 const typeDefs = `
   extend type Query {
-    getLt: [Lt]
+    getLT: [LT]
   }
 
-  type Lt {
+  type LT {
     id: Int
     ltNo: String
-    wos: [Wo]
+    wos: [WO]
   }
   
-  type Wo {
+  type WO {
     id: Int
     woNo: String
     status: Int

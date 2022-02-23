@@ -1,7 +1,7 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../../config/db');
 
-const Lt = sequelize.define('lt', {
+const LT = sequelize.define('lt', {
   id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
@@ -16,7 +16,7 @@ const Lt = sequelize.define('lt', {
   underscored: true,
 });
 
-const Wo = sequelize.define('wo', {
+const WO = sequelize.define('wo', {
   id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
@@ -88,9 +88,9 @@ const Wo = sequelize.define('wo', {
   underscored: true,
 });
 
-Lt.hasMany(Wo, {
+LT.hasMany(WO, {
   foreignKey: 'idLt',
 });
-Wo.belongsTo(Lt);
+WO.belongsTo(LT);
 
-module.exports = { Lt, Wo };
+module.exports = { LT, WO };

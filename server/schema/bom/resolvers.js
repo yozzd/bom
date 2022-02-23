@@ -1,13 +1,13 @@
-const { Lt, Wo } = require('./model');
+const { LT, WO } = require('./model');
 const { isAuthenticated } = require('../auth/service');
 
 const resolvers = {
   Query: {
-    getLt: isAuthenticated(async () => {
-      const lt = await Lt.findAll({
+    getLT: isAuthenticated(async () => {
+      const lt = await LT.findAll({
         attributes: ['id', 'ltNo'],
         include: [{
-          model: Wo,
+          model: WO,
           attributes: ['id', 'woNo', 'status'],
           where: { status: 0 },
         }],

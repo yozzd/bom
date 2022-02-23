@@ -1,8 +1,8 @@
 import gql from 'graphql-tag';
 
-const GetLt = gql`
-  query getLt {
-    getLt {
+const GetLT = gql`
+  query getLT {
+    getLT {
       id
       ltNo
       wos {
@@ -14,4 +14,4 @@ const GetLt = gql`
   }
 `;
 
-export default GetLt;
+export default GetLT;

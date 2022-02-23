@@ -1,13 +1,14 @@
 <template>
   <div>
-    <div v-for="(v,i) in items" :key="v.id">
+    <!--<div v-for="(v,i) in items" :key="v.id">
       {{ i+1 }} {{ v.ltNo }} {{ v.wos.length }}
-    </div>
+    </div>-->
+    {{ items }}
   </div>
 </template>
 
 <script>
-import GetLt from '../../apollo/bom/bom.query';
+import GetLT from '../../apollo/bom/bom.query';
 
 export default {
   data() {
@@ -17,13 +18,13 @@ export default {
     };
   },
   apollo: {
-    getLt: {
-      query: GetLt,
+    getLT: {
+      query: GetLT,
       prefetch: false,
       result({ data, loading }) {
         if (!loading) {
-          const { getLt } = data;
-          this.items = getLt;
+          const { getLT } = data;
+          this.items = getLT;
         }
       },
       error({ graphQLErrors, networkError }) {
