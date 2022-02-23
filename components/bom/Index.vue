@@ -34,7 +34,6 @@
         :element-loading-text="'Loading...'"
         element-loading-spinner="el-icon-loading"
         max-height="500"
-        size="small"
         border
       >
         <el-table-column type="index" width="50" align="center"></el-table-column>
@@ -42,7 +41,6 @@
           <template slot-scope="scope">
             <el-link
               type="primary"
-              class="font-sm"
               :underline="false"
               @click="openLT(scope.row)"
             >
