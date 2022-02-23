@@ -1,20 +1,36 @@
 <template>
-  <div class="flex flex-col space-y-4">
-    <div>
-      <el-select v-model="status" placeholder="Select" @change="handleChange">
-        <el-option
-          v-for="item in options"
-          :key="item.value"
-          :label="item.label"
-          :value="item.value"
-        >
-        </el-option>
-      </el-select>
+  <div class="flex flex-col space-y-8">
+    <div class="flex space-x-4 items-center">
+      <div class="w-48">
+        <el-select v-model="status" placeholder="Select" @change="handleChange">
+          <el-option
+            v-for="item in options"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          >
+          </el-option>
+        </el-select>
+      </div>
+      <div class="flex-1"></div>
+      <div class="w-64">
+        <el-input
+          v-model="search"
+          placeholder="Search"
+          clearable
+        />
+      </div>
     </div>
+
+    <ErrorHandler
+      v-if="errors"
+      :errors="errors"
+    />
+
     <div>
       <el-table
         v-loading="$apollo.loading"
-        :data="items"
+        :data="tableData"
         :element-loading-text="'Loading...'"
         element-loading-spinner="el-icon-loading"
         max-height="500"
@@ -22,20 +38,46 @@
         border
       >
         <el-table-column type="index" width="50" align="center"></el-table-column>
-        <el-table-column prop="ltNo" label="LT No." width="300"></el-table-column>
+        <el-table-column label="LT No." min-width="300">
+          <template slot-scope="scope">
+            <el-link
+              type="primary"
+              class="font-sm"
+              :underline="false"
+              @click="openLT(scope.row)"
+            >
+              {{ scope.row.ltNo }}
+            </el-link>
+          </template>
+        </el-table-column>
       </el-table>
+    </div>
+    <div>
+      <el-pagination
+        :current-page.sync="page"
+        :page-sizes="pageSizes"
+        :page-size="pageSize"
+        :total="items.length"
+        :pager-count="pagerCount"
+        layout="total, sizes, prev, pager, next"
+        class="flex justify-end"
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+      >
+      </el-pagination>
     </div>
   </div>
 </template>
 
 <script>
+import MiniSearch from 'minisearch';
+import table from '../../mixins/table';
 import GetLT from '../../apollo/bom/bom.query';
 
 export default {
+  mixins: [table],
   data() {
     return {
-      items: [],
-      errors: [],
       status: 0,
       options: [{
         value: 0,
@@ -50,11 +92,19 @@ export default {
         value: 1,
         label: 'Close',
       }],
+      miniSearch: new MiniSearch({
+        idField: 'id',
+        fields: ['ltNo'],
+        storeFields: ['id', 'ltNo'],
+      }),
     };
   },
   methods: {
     handleChange(v) {
       this.status = v;
+    },
+    openLT(row) {
+      console.log(row);
     },
   },
   apollo: {
@@ -70,6 +120,8 @@ export default {
         if (!loading) {
           const { getLT } = data;
           this.items = getLT;
+          this.miniSearch.removeAll();
+          this.miniSearch.addAll(this.items);
         }
       },
       error({ graphQLErrors, networkError }) {
