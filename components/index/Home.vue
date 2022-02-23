@@ -1,18 +1,30 @@
 <template>
-  <div>
-    <!--<div v-for="(v,i) in items" :key="v.id">
-      {{ i+1 }} {{ v.ltNo }} {{ v.wos.length }}
-    </div>-->
-    <el-select v-model="status" placeholder="Select" @change="handleChange">
-      <el-option
-        v-for="item in options"
-        :key="item.value"
-        :label="item.label"
-        :value="item.value"
+  <div class="flex flex-col space-y-4">
+    <div>
+      <el-select v-model="status" placeholder="Select" @change="handleChange">
+        <el-option
+          v-for="item in options"
+          :key="item.value"
+          :label="item.label"
+          :value="item.value"
+        >
+        </el-option>
+      </el-select>
+    </div>
+    <div>
+      <el-table
+        v-loading="$apollo.loading"
+        :data="items"
+        :element-loading-text="'Loading...'"
+        element-loading-spinner="el-icon-loading"
+        max-height="500"
+        size="small"
+        border
       >
-      </el-option>
-    </el-select>
-    {{ items }}
+        <el-table-column type="index" width="50" align="center"></el-table-column>
+        <el-table-column prop="ltNo" label="LT No." width="300"></el-table-column>
+      </el-table>
+    </div>
   </div>
 </template>
 
