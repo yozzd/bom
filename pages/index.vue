@@ -1,10 +1,13 @@
 <template>
-  <IndexHome />
+  <div></div>
 </template>
 
 <script>
 export default {
-  layout: 'layout1',
-  middleware: ['auth'],
+  middleware: [
+    ({ redirect }) => {
+      redirect({ name: 'bom' });
+    },
+  ],
 };
 </script>
