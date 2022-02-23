@@ -14,10 +14,6 @@ body,
   font-family: 'Inter', sans-serif;
 }
 
-.font-sm {
-  font-size: 12px;
-}
-
 .el-alert,
 .el-button,
 .el-input__inner {
@@ -60,7 +56,7 @@ body,
 .navbar a.nuxt-link-active,
 .navbar a.nuxt-link-exact-active {
   @apply block text-blue-600 px-4 py-2 mx2;
-  @apply rounded-lg bg-blue-50;
+  @apply font-bold rounded-lg bg-blue-50;
 }
 
 .el-table .el-table__cell {

@@ -31,9 +31,6 @@
       <el-table
         v-loading="$apollo.loading"
         :data="tableData"
-        :element-loading-text="'Loading...'"
-        element-loading-spinner="el-icon-loading"
-        max-height="500"
         border
       >
         <el-table-column type="index" width="50" align="center"></el-table-column>
@@ -42,7 +39,8 @@
             <el-link
               type="primary"
               :underline="false"
-              @click="openLT(scope.row)"
+              :href="`/bom/${scope.row.id}/${status}`"
+              target="_blank"
             >
               {{ scope.row.ltNo }}
             </el-link>
@@ -100,9 +98,6 @@ export default {
   methods: {
     handleChange(v) {
       this.status = v;
-    },
-    openLT(row) {
-      console.log(row);
     },
   },
   apollo: {
