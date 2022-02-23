@@ -1,8 +1,8 @@
 import gql from 'graphql-tag';
 
 const GetLT = gql`
-  query getLT {
-    getLT {
+  query getLT($status: Int) {
+    getLT(status: $status) {
       id
       ltNo
       wos {

@@ -1,6 +1,6 @@
 const typeDefs = `
   extend type Query {
-    getLT: [LT]
+    getLT(status: Int): [LT]
   }
 
   type LT {
