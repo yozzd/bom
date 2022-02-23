@@ -47,15 +47,20 @@ body,
 }
 
 .navbar {
-  @apply w-screen flex h-16 items-center;
+  @apply w-screen flex h-14 items-center;
   @apply space-x-8 px-8;
   @apply border-b border-gray-100;
 }
 
+.navbar a {
+  @apply block px-4 py-2 mx-2;
+  @apply mx-2;
+}
+
 .navbar a.nuxt-link-active,
 .navbar a.nuxt-link-exact-active {
-  @apply block text-blue-600 px-4 py-2;
-  @apply mx-2 rounded-lg bg-blue-50;
+  @apply block text-blue-600 px-4 py-2 mx2;
+  @apply rounded-lg bg-blue-50;
 }
 
 .el-table .el-table__cell {

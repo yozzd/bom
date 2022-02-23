@@ -1,6 +1,6 @@
 <template>
   <div class="navbar">
-    <div class="flex space-x-8 items-center">
+    <div class="flex items-center">
       <nuxt-link to="/bom/">
         Bom
       </nuxt-link>
