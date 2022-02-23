@@ -45,3 +45,15 @@ body,
 .el-form-item__error {
   @apply pt-2;
 }
+
+.navbar {
+  @apply w-screen flex h-16 items-center;
+  @apply space-x-8 px-8;
+  @apply border-b border-gray-100;
+}
+
+.navbar a.nuxt-link-active,
+.navbar a.nuxt-link-exact-active {
+  @apply block text-blue-600 px-4 py-2;
+  @apply mx-2 rounded-lg bg-blue-50;
+}

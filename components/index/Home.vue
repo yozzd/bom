@@ -22,7 +22,7 @@
       </div>
     </div>
 
-    <ErrorHandler
+    <IndexErrorHandler
       v-if="errors"
       :errors="errors"
     />
