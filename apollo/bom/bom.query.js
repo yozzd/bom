@@ -1,6 +1,6 @@
 import gql from 'graphql-tag';
 
-const GetLT = gql`
+export const GetLT = gql`
   query getLT($status: Int) {
     getLT(status: $status) {
       id
@@ -15,4 +15,12 @@ const GetLT = gql`
   }
 `;
 
-export default GetLT;
+export const GetWO = gql`
+  query getWO($idLt: Int, $status: Int) {
+    getWO(idLt: $idLt, status: $status) {
+      id
+      woNo
+      status
+    }
+  }
+`;

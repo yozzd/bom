@@ -34,7 +34,7 @@
         border
       >
         <el-table-column type="index" width="50" align="center"></el-table-column>
-        <el-table-column label="LT No." width="340">
+        <el-table-column label="LT" width="340">
           <template slot-scope="scope">
             <el-link
               type="primary"
@@ -74,7 +74,7 @@
 <script>
 import MiniSearch from 'minisearch';
 import table from '../../mixins/table';
-import GetLT from '../../apollo/bom/bom.query';
+import { GetLT } from '../../apollo/bom/bom.query';
 
 export default {
   mixins: [table],
