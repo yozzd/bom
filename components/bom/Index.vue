@@ -42,7 +42,7 @@
               :href="`/bom/${scope.row.id}/${status}`"
               target="_blank"
             >
-              {{ scope.row.ltNo }}
+              {{ scope.row.ltNo }} {{ scope.row.customer }}
             </el-link>
           </template>
         </el-table-column>

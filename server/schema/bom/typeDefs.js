@@ -6,6 +6,7 @@ const typeDefs = `
   type LT {
     id: Int
     ltNo: String
+    customer: String
     wos: [WO]
   }
   

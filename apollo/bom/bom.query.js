@@ -5,6 +5,7 @@ const GetLT = gql`
     getLT(status: $status) {
       id
       ltNo
+      customer
       wos {
         id
         woNo

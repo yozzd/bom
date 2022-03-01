@@ -1,5 +1,7 @@
+const fetch = require('node-fetch');
 const { DataTypes } = require('sequelize');
 const sequelize = require('../../config/db');
+const { pssUrl, pssAuth } = require('../../config');
 
 const LT = sequelize.define('lt', {
   id: {
@@ -10,6 +12,16 @@ const LT = sequelize.define('lt', {
   },
   ltNo: {
     type: DataTypes.STRING,
+  },
+  customer: {
+    type: DataTypes.VIRTUAL,
+    async get() {
+      const no = this.ltNo.split(' ').join('+');
+      const headers = { Authorization: pssAuth };
+      const info = await fetch(`${pssUrl}${no}`, { headers });
+      const t = await info.json();
+      return t.customer_name || 'PT. LABTECH PENTA INTERNATIONAL';
+    },
   },
 }, {
   tableName: 'bom_lt',
