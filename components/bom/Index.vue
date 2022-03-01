@@ -34,7 +34,7 @@
         border
       >
         <el-table-column type="index" width="50" align="center"></el-table-column>
-        <el-table-column label="LT No." min-width="300">
+        <el-table-column label="LT No." width="340">
           <template slot-scope="scope">
             <el-link
               type="primary"
@@ -42,8 +42,14 @@
               :href="`/bom/${scope.row.id}/${status}`"
               target="_blank"
             >
-              {{ scope.row.ltNo }} {{ scope.row.customer }}
+              {{ scope.row.ltNo }}
             </el-link>
+          </template>
+        </el-table-column>
+        <el-table-column prop="customer" label="Customer" width="400"></el-table-column>
+        <el-table-column label="WO" min-width="50">
+          <template slot-scope="scope">
+            {{ scope.row.wos.length }}
           </template>
         </el-table-column>
       </el-table>

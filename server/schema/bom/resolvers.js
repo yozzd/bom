@@ -11,7 +11,6 @@ const resolvers = {
           attributes: ['id', 'woNo', 'status'],
           where: { status },
         }],
-        limit: 2,
       });
 
       return lt;
