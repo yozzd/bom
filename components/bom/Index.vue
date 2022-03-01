@@ -34,7 +34,7 @@
         border
       >
         <el-table-column type="index" width="50" align="center"></el-table-column>
-        <el-table-column label="LT" width="340">
+        <el-table-column label="LTAll" width="340">
           <template slot-scope="scope">
             <el-link
               type="primary"
@@ -74,7 +74,7 @@
 <script>
 import MiniSearch from 'minisearch';
 import table from '../../mixins/table';
-import { GetLT } from '../../apollo/bom/bom.query';
+import { GetLTAll } from '../../apollo/bom/bom.query';
 
 export default {
   mixins: [table],
@@ -107,8 +107,8 @@ export default {
     },
   },
   apollo: {
-    getLT: {
-      query: GetLT,
+    getLTAll: {
+      query: GetLTAll,
       variables() {
         return {
           status: this.status,
@@ -117,8 +117,8 @@ export default {
       prefetch: false,
       result({ data, loading }) {
         if (!loading) {
-          const { getLT } = data;
-          this.items = getLT;
+          const { getLTAll } = data;
+          this.items = getLTAll;
           this.miniSearch.removeAll();
           this.miniSearch.addAll(this.items);
         }

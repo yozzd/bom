@@ -1,8 +1,8 @@
 import gql from 'graphql-tag';
 
-export const GetLT = gql`
-  query getLT($status: Int) {
-    getLT(status: $status) {
+export const GetLTAll = gql`
+  query getLTAll($status: Int) {
+    getLTAll(status: $status) {
       id
       ltNo
       customer
@@ -15,12 +15,17 @@ export const GetLT = gql`
   }
 `;
 
-export const GetWO = gql`
-  query getWO($idLt: Int, $status: Int) {
-    getWO(idLt: $idLt, status: $status) {
+export const GetLTOne = gql`
+  query getLTOne($idLt: Int, $status: Int) {
+    getLTOne(idLt: $idLt, status: $status) {
       id
-      woNo
-      status
+      ltNo
+      customer
+      wos {
+        id
+        woNo
+        status
+      }
     }
   }
 `;

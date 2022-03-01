@@ -1,10 +1,9 @@
-const { Op } = require('sequelize');
 const { LT, WO } = require('./model');
 const { isAuthenticated } = require('../auth/service');
 
 const resolvers = {
   Query: {
-    getLT: isAuthenticated(async (_, { status }) => {
+    getLTAll: isAuthenticated(async (_, { status }) => {
       const lt = await LT.findAll({
         attributes: ['id', 'ltNo', 'customer'],
         include: [{
@@ -16,15 +15,15 @@ const resolvers = {
 
       return lt;
     }),
-    getWO: isAuthenticated(async (_, { idLt, status }) => {
-      const wo = await WO.findAll({
-        attributes: ['id', 'woNo', 'status'],
-        where: {
-          [Op.and]: [
-            { idLt },
-            { status },
-          ],
-        },
+    getLTOne: isAuthenticated(async (_, { idLt, status }) => {
+      const wo = await LT.findOne({
+        attributes: ['id', 'ltNo', 'customer'],
+        where: { id: idLt },
+        include: [{
+          model: WO,
+          attributes: ['id', 'woNo', 'status'],
+          where: { status },
+        }],
       });
 
       return wo;
