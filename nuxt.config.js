@@ -37,6 +37,7 @@ export default {
   modules: [
     '@nuxtjs/apollo',
     '@nuxtjs/style-resources',
+    'vue-currency-filter/nuxt',
   ],
 
   apollo: {
@@ -58,6 +59,18 @@ export default {
       '@/assets/css/variables.scss',
     ],
   },
+
+  currencyFilter: [
+    {
+      symbol: '',
+      thousandsSeparator: ',',
+      fractionCount: 2,
+      fractionSeparator: '.',
+      symbolPosition: 'front',
+      symbolSpacing: true,
+      avoidEmptyDecimals: '',
+    },
+  ],
 
   build: {
     transpile: [/^element-ui/],

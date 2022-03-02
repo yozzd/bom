@@ -16,7 +16,13 @@
       :errors="errors"
     />
 
-    <div>
+    <div class="flex flex-col space-y-8">
+      <div class="flex space-x-4 items-center">
+        <div>
+          {{ lt.ltNo }}
+        </div>
+      </div>
+
       <el-table
         v-loading="$apollo.loading"
         :data="tableData"
@@ -38,19 +44,30 @@
         </el-table-column>
         <el-table-column prop="unit" label="Unit" align="center" width="50"></el-table-column>
         <el-table-column
-          label="Price / Unit"
-          width="100"
+          label="Budget (USD)"
+          align="right"
+          width="140"
         >
           <template slot-scope="scope">
-            {{ scope.row.totalPricePerUnit }}
+            {{ scope.row.budget | currency }}
           </template>
         </el-table-column>
         <el-table-column
-          label="Price / WO"
-          width="100"
+          label="Price / Unit (USD)"
+          align="right"
+          width="140"
         >
           <template slot-scope="scope">
-            {{ scope.row.totalPricePerWO }}
+            {{ scope.row.totalPricePerUnit | currency }}
+          </template>
+        </el-table-column>
+        <el-table-column
+          label="Price / WO (USD)"
+          align="right"
+          width="140"
+        >
+          <template slot-scope="scope">
+            {{ scope.row.totalPricePerWO | currency }}
           </template>
         </el-table-column>
         <el-table-column label="" min-width="50"></el-table-column>
@@ -83,6 +100,7 @@ export default {
   mixins: [table],
   data() {
     return {
+      lt: {},
       miniSearch: new MiniSearch({
         idField: 'id',
         fields: ['woNo'],
@@ -102,8 +120,10 @@ export default {
       prefetch: false,
       result({ data, loading }) {
         if (!loading) {
-          const { getLTOne } = data;
-          this.items = getLTOne.wos;
+          const { getLTOne: { ltNo, customer, wos } } = data;
+          this.lt.ltNo = ltNo;
+          this.lt.customer = customer;
+          this.items = wos;
           this.miniSearch.removeAll();
           this.miniSearch.addAll(this.items);
         }
