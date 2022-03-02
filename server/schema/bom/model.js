@@ -41,6 +41,9 @@ const WO = sequelize.define('wo', {
   idLt: {
     type: DataTypes.INTEGER,
   },
+  unit: {
+    type: DataTypes.INTEGER,
+  },
   cat: {
     type: DataTypes.TEXT,
   },
@@ -95,8 +98,41 @@ const WO = sequelize.define('wo', {
   issued: {
     type: DataTypes.DATE,
   },
+  totalPricePerUnit: {
+    type: DataTypes.VIRTUAL,
+  },
+  totalPricePerWO: {
+    type: DataTypes.VIRTUAL,
+  },
 }, {
   tableName: 'bom_wo',
+  underscored: true,
+});
+
+const WOHEADER = sequelize.define('header', {
+  id: {
+    type: DataTypes.INTEGER,
+    primaryKey: true,
+    allowNull: false,
+    autoIncrement: true,
+  },
+  hid: {
+    type: DataTypes.STRING,
+  },
+  header: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  idWo: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+  },
+  idLt: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+  },
+}, {
+  tableName: 'bom_header',
   underscored: true,
 });
 
@@ -276,12 +312,22 @@ const WOITEM = sequelize.define('item', {
 
 LT.hasMany(WO, {
   foreignKey: 'idLt',
+  targetKey: 'id',
 });
 WO.belongsTo(LT);
 
-WO.hasMany(WOITEM, {
+WO.hasMany(WOHEADER, {
   foreignKey: 'idWo',
+  targetKey: 'id',
 });
-WOITEM.belongsTo(WO);
+WOHEADER.belongsTo(WO);
 
-module.exports = { LT, WO, WOITEM };
+WOHEADER.hasMany(WOITEM, {
+  foreignKey: 'idHeader',
+  targetKey: 'id',
+});
+WOITEM.belongsTo(WOHEADER);
+
+module.exports = {
+  LT, WO, WOHEADER, WOITEM,
+};

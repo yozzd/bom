@@ -24,12 +24,10 @@ export const GetLTOne = gql`
       wos {
         id
         woNo
+        unit
         budget
-        items {
-          id
-          bomDescription
-          bomSpecification
-        }
+        totalPricePerUnit
+        totalPricePerWO
       }
     }
   }

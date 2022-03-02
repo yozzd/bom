@@ -1,6 +1,67 @@
 <template>
-  <div>
-    {{ items }}
+  <div class="flex flex-col space-y-8">
+    <div class="flex space-x-4 items-center">
+      <div class="flex-1"></div>
+      <div class="w-64">
+        <el-input
+          v-model="search"
+          placeholder="Search"
+          clearable
+        />
+      </div>
+    </div>
+
+    <IndexErrorHandler
+      v-if="errors"
+      :errors="errors"
+    />
+
+    <div>
+      <el-table
+        v-loading="$apollo.loading"
+        :data="tableData"
+        border
+      >
+        <el-table-column type="index" width="50" align="center"></el-table-column>
+        <el-table-column label="WO" width="340">
+          <template slot-scope="scope">
+            <el-link
+              type="primary"
+              :underline="false"
+              :href="`/bom/wo/${scope.row.id}`"
+              target="_blank"
+            >
+              {{ scope.row.woNo }}
+            </el-link>
+          </template>
+        </el-table-column>
+        <el-table-column prop="unit" label="Unit" width="50"></el-table-column>
+        <el-table-column
+          label="Total Price / Unit"
+          width="100"
+        >
+          <template slot-scope="scope">
+            {{ scope.row.totalPricePerUnit }}
+          </template>
+        </el-table-column>
+        <el-table-column label="" min-width="50"></el-table-column>
+      </el-table>
+    </div>
+    <div>
+      <el-pagination
+        :current-page.sync="page"
+        :page-sizes="pageSizes"
+        :page-size="pageSize"
+        :total="items.length"
+        :pager-count="pagerCount"
+        layout="total, sizes, prev, pager, next"
+        class="flex justify-end"
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+      >
+      </el-pagination>
+    </div>
+  </div>
   </div>
 </template>
 
@@ -15,8 +76,8 @@ export default {
     return {
       miniSearch: new MiniSearch({
         idField: 'id',
-        fields: ['ltNo'],
-        storeFields: ['id', 'ltNo'],
+        fields: ['woNo'],
+        storeFields: ['id', 'woNo', 'unit', 'totalPricePerUnit', 'totalPricePerWO'],
       }),
     };
   },
@@ -33,7 +94,7 @@ export default {
       result({ data, loading }) {
         if (!loading) {
           const { getLTOne } = data;
-          this.items = getLTOne;
+          this.items = getLTOne.wos;
           this.miniSearch.removeAll();
           this.miniSearch.addAll(this.items);
         }

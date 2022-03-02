@@ -14,8 +14,18 @@ const typeDefs = `
   type WO {
     id: Int
     woNo: String
+    unit: Int
     budget: Float
     status: Int
+    totalPricePerUnit: Float
+    totalPricePerWO: Float
+    headers: [WOHEADER]
+  }
+  
+  type WOHEADER {
+    id: Int
+    hid: String
+    header: String
     items: [WOITEM]
   }
   
