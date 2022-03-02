@@ -20,10 +20,11 @@
       <el-table
         v-loading="$apollo.loading"
         :data="tableData"
+        size="small"
         border
       >
-        <el-table-column type="index" width="50" align="center"></el-table-column>
-        <el-table-column label="WO" width="340">
+        <el-table-column type="index" align="center" width="50"></el-table-column>
+        <el-table-column label="WO" width="140">
           <template slot-scope="scope">
             <el-link
               type="primary"
@@ -31,11 +32,11 @@
               :href="`/bom/wo/${scope.row.id}`"
               target="_blank"
             >
-              {{ scope.row.woNo }}
+              <span class="text-xs">{{ scope.row.woNo }}</span>
             </el-link>
           </template>
         </el-table-column>
-        <el-table-column prop="unit" label="Unit" width="50"></el-table-column>
+        <el-table-column prop="unit" label="Unit" align="center" width="50"></el-table-column>
         <el-table-column
           label="Total Price / Unit"
           width="100"
