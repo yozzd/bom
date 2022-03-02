@@ -39,7 +39,7 @@
             <el-link
               type="primary"
               :underline="false"
-              :href="`/bom/${scope.row.id}/${status}`"
+              :href="`/bom/lt/${scope.row.id}/${status}`"
               target="_blank"
             >
               {{ scope.row.ltNo }}

@@ -86,7 +86,7 @@ export default {
       query: GetLTOne,
       variables() {
         return {
-          idLt: parseInt(this.$route.params.lt, 10),
+          idLt: parseInt(this.$route.params.id, 10),
           status: parseInt(this.$route.params.status, 10),
         };
       },
