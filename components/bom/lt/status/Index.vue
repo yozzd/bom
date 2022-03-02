@@ -38,11 +38,19 @@
         </el-table-column>
         <el-table-column prop="unit" label="Unit" align="center" width="50"></el-table-column>
         <el-table-column
-          label="Total Price / Unit"
+          label="Price / Unit"
           width="100"
         >
           <template slot-scope="scope">
             {{ scope.row.totalPricePerUnit }}
+          </template>
+        </el-table-column>
+        <el-table-column
+          label="Price / WO"
+          width="100"
+        >
+          <template slot-scope="scope">
+            {{ scope.row.totalPricePerWO }}
           </template>
         </el-table-column>
         <el-table-column label="" min-width="50"></el-table-column>
