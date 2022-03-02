@@ -31,6 +31,7 @@
       <el-table
         v-loading="$apollo.loading"
         :data="tableData"
+        size="small"
         border
       >
         <el-table-column type="index" width="50" align="center"></el-table-column>
@@ -42,7 +43,7 @@
               :href="`/bom/lt/${scope.row.id}/${status}`"
               target="_blank"
             >
-              {{ scope.row.ltNo }}
+              <span class="text-xs">{{ scope.row.ltNo }}</span>
             </el-link>
           </template>
         </el-table-column>
@@ -96,8 +97,8 @@ export default {
       }],
       miniSearch: new MiniSearch({
         idField: 'id',
-        fields: ['ltNo'],
-        storeFields: ['id', 'ltNo'],
+        fields: ['ltNo', 'customer'],
+        storeFields: ['id', 'ltNo', 'customer', 'wos'],
       }),
     };
   },
