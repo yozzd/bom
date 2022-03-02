@@ -34,7 +34,7 @@
         border
       >
         <el-table-column type="index" width="50" align="center"></el-table-column>
-        <el-table-column label="LTAll" width="340">
+        <el-table-column label="LT" width="340">
           <template slot-scope="scope">
             <el-link
               type="primary"

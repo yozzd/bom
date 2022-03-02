@@ -24,7 +24,12 @@ export const GetLTOne = gql`
       wos {
         id
         woNo
-        status
+        budget
+        items {
+          id
+          bomDescription
+          bomSpecification
+        }
       }
     }
   }

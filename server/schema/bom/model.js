@@ -100,9 +100,188 @@ const WO = sequelize.define('wo', {
   underscored: true,
 });
 
+const WOITEM = sequelize.define('item', {
+  id: {
+    type: DataTypes.BIGINT(20).UNSIGNED,
+    primaryKey: true,
+    allowNull: false,
+    autoIncrement: true,
+  },
+  bomDescription: {
+    type: DataTypes.STRING,
+  },
+  bomSpecification: {
+    type: DataTypes.TEXT,
+  },
+  bomModel: {
+    type: DataTypes.STRING,
+  },
+  bomBrand: {
+    type: DataTypes.STRING,
+  },
+  bomQty: {
+    type: DataTypes.DOUBLE(18, 2),
+  },
+  bomUnit: {
+    type: DataTypes.STRING,
+  },
+  bomQtyRqd: {
+    type: DataTypes.DOUBLE(18, 2),
+  },
+  bomQtyBalance: {
+    type: DataTypes.DOUBLE(18, 2),
+  },
+  bomQtyStock: {
+    type: DataTypes.DOUBLE(18, 2),
+  },
+  bomEta: {
+    type: DataTypes.DATE,
+  },
+  bomQtyRec: {
+    type: DataTypes.DOUBLE(18, 2),
+  },
+  bomDateRec: {
+    type: DataTypes.DATE,
+  },
+  bomCurrSizeC: {
+    type: DataTypes.STRING,
+  },
+  bomCurrSizeV: {
+    type: DataTypes.STRING,
+  },
+  bomCurrEaC: {
+    type: DataTypes.STRING,
+  },
+  bomCurrEaV: {
+    type: DataTypes.STRING,
+  },
+  bomUsdEa: {
+    type: DataTypes.DOUBLE(18, 2),
+  },
+  bomUsdUnit: {
+    type: DataTypes.DOUBLE(18, 2),
+  },
+  bomUsdTotal: {
+    type: DataTypes.DOUBLE(18, 2),
+  },
+  bomSupplier: {
+    type: DataTypes.STRING,
+  },
+  bomPoDate: {
+    type: DataTypes.DATE,
+  },
+  bomPoNo: {
+    type: DataTypes.STRING,
+  },
+  poZone: {
+    type: DataTypes.STRING,
+  },
+  poNo: {
+    type: DataTypes.STRING,
+  },
+  bomRemarks: {
+    type: DataTypes.TEXT,
+  },
+  bomEtaStatus: {
+    type: DataTypes.STRING,
+  },
+  bomStatus: {
+    type: DataTypes.INTEGER,
+  },
+  whRemarks: {
+    type: DataTypes.TEXT,
+  },
+  prRemarks: {
+    type: DataTypes.TEXT,
+  },
+  rndRemarks: {
+    type: DataTypes.TEXT,
+  },
+  hvacRemarks: {
+    type: DataTypes.TEXT,
+  },
+  mechanicalRemarks: {
+    type: DataTypes.TEXT,
+  },
+  electronicRemarks: {
+    type: DataTypes.TEXT,
+  },
+  fabricationRemarks: {
+    type: DataTypes.TEXT,
+  },
+  sr: {
+    type: DataTypes.INTEGER,
+    defaultValue: 0,
+  },
+  isMpr: {
+    type: DataTypes.INTEGER,
+    defaultValue: 0,
+  },
+  validasi: {
+    type: DataTypes.INTEGER,
+    defaultValue: 0,
+  },
+  packing: {
+    type: DataTypes.INTEGER,
+    defaultValue: 0,
+  },
+  cancel: {
+    type: DataTypes.INTEGER,
+    defaultValue: 0,
+  },
+  poQty: {
+    type: DataTypes.DOUBLE(18, 2),
+  },
+  poCurr: {
+    type: DataTypes.STRING,
+  },
+  poVal: {
+    type: DataTypes.STRING,
+  },
+  poRemarks: {
+    type: DataTypes.TEXT,
+  },
+  materialsProcessed: {
+    type: DataTypes.DOUBLE(18, 2),
+  },
+  yetToPurchase: {
+    type: DataTypes.DOUBLE(18, 2),
+  },
+  idHeader: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+  },
+  idWo: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+  },
+  idLt: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+  },
+  idMaterial: {
+    type: DataTypes.BIGINT(20),
+  },
+  hold: {
+    type: DataTypes.INTEGER,
+    defaultValue: 0,
+  },
+  priority: {
+    type: DataTypes.STRING,
+  },
+}, {
+  tableName: 'bom_data',
+  underscored: true,
+});
+
 LT.hasMany(WO, {
   foreignKey: 'idLt',
 });
 WO.belongsTo(LT);
 
-module.exports = { LT, WO };
+WO.hasMany(WOITEM, {
+  foreignKey: 'idWo',
+});
+WOITEM.belongsTo(WO);
+
+module.exports = { LT, WO, WOITEM };

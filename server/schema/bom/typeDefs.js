@@ -14,7 +14,15 @@ const typeDefs = `
   type WO {
     id: Int
     woNo: String
+    budget: Float
     status: Int
+    items: [WOITEM]
+  }
+  
+  type WOITEM {
+    id: Int
+    bomDescription: String
+    bomSpecification: String
   }
 `;
 

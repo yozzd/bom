@@ -1,4 +1,5 @@
-const { LT, WO } = require('./model');
+const { Op } = require('sequelize');
+const { LT, WO, WOITEM } = require('./model');
 const { isAuthenticated } = require('../auth/service');
 
 const resolvers = {
@@ -21,8 +22,18 @@ const resolvers = {
         where: { id: idLt },
         include: [{
           model: WO,
-          attributes: ['id', 'woNo', 'status'],
+          attributes: ['id', 'woNo', 'budget'],
           where: { status },
+          include: [{
+            model: WOITEM,
+            attributes: ['id', 'bomDescription', 'bomSpecification'],
+            where: {
+              [Op.and]: [
+                { cancel: 0 },
+                { idHeader: { [Op.not]: null } },
+              ],
+            },
+          }],
         }],
       });
 
