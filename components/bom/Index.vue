@@ -35,16 +35,13 @@
         border
       >
         <el-table-column type="index" align="center" width="50"></el-table-column>
-        <el-table-column label="LT" width="340">
+        <el-table-column label="LT" width="200">
           <template slot-scope="scope">
-            <el-link
-              type="primary"
-              :underline="false"
-              :href="`/bom/lt/${scope.row.id}/${status}`"
-              target="_blank"
-            >
-              <span class="text-xs">{{ scope.row.ltNo }}</span>
-            </el-link>
+            <p :title="scope.row.ltNo" class="text-xs truncate font-bold">
+              <a :href="`/bom/lt/${scope.row.id}/${status}`" target="_blank" >
+                {{ scope.row.ltNo }}
+              </a>
+            </p>
           </template>
         </el-table-column>
         <el-table-column prop="customer" label="Customer" width="400"></el-table-column>

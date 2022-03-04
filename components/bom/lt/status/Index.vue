@@ -39,14 +39,9 @@
         <el-table-column type="index" align="center" width="50"></el-table-column>
         <el-table-column label="WO" width="140">
           <template slot-scope="scope">
-            <el-link
-              type="primary"
-              :underline="false"
-              :href="`/bom/wo/${scope.row.id}`"
-              target="_blank"
-            >
-              <span class="text-xs">{{ scope.row.woNo }}</span>
-            </el-link>
+            <a :href="`/bom/wo/${scope.row.id}`" target="_blank" class="font-bold">
+              {{ scope.row.woNo }}
+            </a>
           </template>
         </el-table-column>
         <el-table-column prop="model" label="Model" width="120"></el-table-column>
