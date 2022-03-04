@@ -22,6 +22,7 @@ const typeDefs = `
     totalPricePerUnit: Float
     totalPricePerWO: Float
     difference: Float
+    totalYetToPurchase: Float
     headers: [WOHEADER]
   }
   

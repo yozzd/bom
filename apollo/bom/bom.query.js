@@ -31,6 +31,7 @@ export const GetLTOne = gql`
         totalPricePerUnit
         totalPricePerWO
         difference
+        totalYetToPurchase
       }
     }
   }

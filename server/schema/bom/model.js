@@ -93,6 +93,11 @@ const WO = sequelize.define('wo', {
   },
   budget: {
     type: DataTypes.DECIMAL(12, 2),
+    defaultValue: 0,
+    get() {
+      const val = this.getDataValue('budget') || 0;
+      return val;
+    },
   },
   refer: {
     type: DataTypes.TEXT,
@@ -124,6 +129,9 @@ const WO = sequelize.define('wo', {
       const diff = parseFloat(this.budget) - this.totalPricePerWO;
       return diff;
     },
+  },
+  totalYetToPurchase: {
+    type: DataTypes.VIRTUAL,
   },
 }, {
   tableName: 'bom_wo',

@@ -30,6 +30,7 @@ const resolvers = {
             'id', 'woNo', 'unit', 'budget', 'difference',
             [sequelize.literal('SUM(`wos->headers->items`.bom_usd_total) / wos.unit'), 'totalPricePerUnit'],
             [sequelize.literal('SUM(`wos->headers->items`.bom_usd_total)'), 'totalPricePerWO'],
+            [sequelize.literal('SUM(`wos->headers->items`.yet_to_purchase)'), 'totalYetToPurchase'],
           ],
           where: { status },
           include: [{
