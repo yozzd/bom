@@ -21,8 +21,12 @@
         <div>
           {{ lt.ltNo }}
         </div>
+        <div class="flex-1"></div>
         <div>
-          {{ lt.totalPriceWO | currency }}
+          Total Budget: USD {{ lt.totalBudget | currency }}
+        </div>
+        <div>
+          Total Price / WO: USD {{ lt.totalPriceWO | currency }}
         </div>
       </div>
 
@@ -125,11 +129,12 @@ export default {
         if (!loading) {
           const {
             getLTOne: {
-              ltNo, customer, totalPriceWO, wos,
+              ltNo, customer, totalBudget, totalPriceWO, wos,
             },
           } = data;
           this.lt.ltNo = ltNo;
           this.lt.customer = customer;
+          this.lt.totalBudget = totalBudget;
           this.lt.totalPriceWO = totalPriceWO;
           this.items = wos;
           this.miniSearch.removeAll();

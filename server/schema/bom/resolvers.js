@@ -21,7 +21,7 @@ const resolvers = {
     }),
     getLTOne: isAuthenticated(async (_, { idLt, status }) => {
       const wo = await LT.findOne({
-        attributes: ['id', 'ltNo', 'customer', 'totalPriceWO'],
+        attributes: ['id', 'ltNo', 'customer', 'totalBudget', 'totalPriceWO'],
         group: ['wos.id'],
         where: { id: idLt },
         include: [{
