@@ -10,6 +10,7 @@ const resolvers = {
     getLTAll: isAuthenticated(async (_, { status }) => {
       const lt = await LT.findAll({
         attributes: ['id', 'ltNo', 'customer'],
+        order: [['id', 'DESC']],
         include: [{
           model: WO,
           attributes: ['id', 'woNo', 'status'],
