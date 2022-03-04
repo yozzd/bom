@@ -128,14 +128,9 @@ export default {
       result({ data, loading }) {
         if (!loading) {
           const {
-            getLTOne: {
-              ltNo, customer, totalBudget, totalPriceWO, wos,
-            },
+            getLTOne: { wos, ...lt },
           } = data;
-          this.lt.ltNo = ltNo;
-          this.lt.customer = customer;
-          this.lt.totalBudget = totalBudget;
-          this.lt.totalPriceWO = totalPriceWO;
+          this.lt = lt;
           this.items = wos;
           this.miniSearch.removeAll();
           this.miniSearch.addAll(this.items);
