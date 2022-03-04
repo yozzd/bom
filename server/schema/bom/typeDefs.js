@@ -21,6 +21,7 @@ const typeDefs = `
     status: Int
     totalPricePerUnit: Float
     totalPricePerWO: Float
+    difference: Float
     headers: [WOHEADER]
   }
   

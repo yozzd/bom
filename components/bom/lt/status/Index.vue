@@ -77,6 +77,15 @@
             {{ scope.row.totalPricePerWO | currency }}
           </template>
         </el-table-column>
+        <el-table-column
+          label="Difference (USD)"
+          align="right"
+          width="140"
+        >
+          <template slot-scope="scope">
+            {{ scope.row.difference | currency }}
+          </template>
+        </el-table-column>
         <el-table-column label="" min-width="50"></el-table-column>
       </el-table>
     </div>

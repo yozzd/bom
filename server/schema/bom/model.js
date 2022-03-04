@@ -118,6 +118,13 @@ const WO = sequelize.define('wo', {
   totalPricePerWO: {
     type: DataTypes.VIRTUAL,
   },
+  difference: {
+    type: DataTypes.VIRTUAL,
+    get() {
+      const diff = parseFloat(this.budget) - this.totalPricePerWO;
+      return diff;
+    },
+  },
 }, {
   tableName: 'bom_wo',
   underscored: true,

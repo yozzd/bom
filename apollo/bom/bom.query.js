@@ -30,6 +30,7 @@ export const GetLTOne = gql`
         budget
         totalPricePerUnit
         totalPricePerWO
+        difference
       }
     }
   }
