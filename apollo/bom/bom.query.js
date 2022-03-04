@@ -28,6 +28,7 @@ export const GetLTOne = gql`
         woNo
         model
         product
+        issued
         unit
         budget
         totalPricePerUnit

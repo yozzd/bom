@@ -18,6 +18,7 @@ const typeDefs = `
     woNo: String
     model: String
     product: String
+    issued: String
     unit: Int
     budget: Float
     status: Int

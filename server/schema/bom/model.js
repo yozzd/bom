@@ -116,6 +116,10 @@ const WO = sequelize.define('wo', {
   },
   issued: {
     type: DataTypes.DATE,
+    get() {
+      if (this.getDataValue('issued') === '0000-00-00' || !this.getDataValue('issued')) return '';
+      return this.getDataValue('issued');
+    },
   },
   totalPricePerUnit: {
     type: DataTypes.VIRTUAL,
