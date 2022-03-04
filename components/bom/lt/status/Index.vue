@@ -18,7 +18,7 @@
 
     <div class="flex flex-col space-y-8">
       <div class="flex space-x-4 items-center">
-        <div>
+        <div class="font-bold">
           {{ lt.ltNo }} &bull; {{ lt.customer }}
         </div>
         <div class="flex-1"></div>

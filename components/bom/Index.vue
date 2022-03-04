@@ -38,7 +38,7 @@
         <el-table-column label="LT" width="200">
           <template slot-scope="scope">
             <p :title="scope.row.ltNo" class="text-xs truncate font-bold">
-              <a :href="`/bom/lt/${scope.row.id}/${status}`" target="_blank" >
+              <a :href="`/bom/lt/${scope.row.id}/${status}`" target="_blank">
                 {{ scope.row.ltNo }}
               </a>
             </p>
