@@ -27,7 +27,7 @@ const resolvers = {
         include: [{
           model: WO,
           attributes: [
-            'id', 'woNo', 'unit', 'budget', 'difference',
+            'id', 'woNo', 'model', 'product', 'unit', 'budget', 'difference',
             [sequelize.literal('SUM(`wos->headers->items`.bom_usd_total) / wos.unit'), 'totalPricePerUnit'],
             [sequelize.literal('SUM(`wos->headers->items`.bom_usd_total)'), 'totalPricePerWO'],
             [sequelize.literal('SUM(`wos->headers->items`.yet_to_purchase)'), 'totalYetToPurchase'],

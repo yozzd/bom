@@ -49,6 +49,17 @@
             </el-link>
           </template>
         </el-table-column>
+        <el-table-column prop="model" label="Model" width="120"></el-table-column>
+        <el-table-column
+          label="Product Name"
+          width="200"
+        >
+          <template slot-scope="scope">
+            <p :title="scope.row.product" class="truncate">
+              {{ scope.row.product }}
+            </p>
+          </template>
+        </el-table-column>
         <el-table-column prop="unit" label="Unit" align="center" width="50"></el-table-column>
         <el-table-column
           label="Budget (USD)"

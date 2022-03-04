@@ -16,6 +16,8 @@ const typeDefs = `
   type WO {
     id: Int
     woNo: String
+    model: String
+    product: String
     unit: Int
     budget: Float
     status: Int

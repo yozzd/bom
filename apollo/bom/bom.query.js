@@ -26,6 +26,8 @@ export const GetLTOne = gql`
       wos {
         id
         woNo
+        model
+        product
         unit
         budget
         totalPricePerUnit
