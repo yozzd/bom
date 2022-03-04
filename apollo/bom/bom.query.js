@@ -31,6 +31,8 @@ export const GetLTOne = gql`
         issued
         unit
         budget
+        totalIncomings
+        totalItems
         totalPricePerUnit
         totalPricePerWO
         difference

@@ -121,6 +121,12 @@ const WO = sequelize.define('wo', {
       return this.getDataValue('issued');
     },
   },
+  totalIncomings: {
+    type: DataTypes.VIRTUAL,
+  },
+  totalItems: {
+    type: DataTypes.VIRTUAL,
+  },
   totalPricePerUnit: {
     type: DataTypes.VIRTUAL,
   },

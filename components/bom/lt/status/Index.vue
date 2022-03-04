@@ -56,6 +56,15 @@
           </template>
         </el-table-column>
         <el-table-column prop="issued" label="Issued" width="100"></el-table-column>
+        <el-table-column
+          label="Incoming"
+          align="center"
+          width="80"
+        >
+          <template slot-scope="scope">
+            {{ scope.row.totalIncomings }} / {{ scope.row.totalItems }}
+          </template>
+        </el-table-column>
         <el-table-column prop="unit" label="Unit" align="center" width="50"></el-table-column>
         <el-table-column
           label="Budget (USD)"
