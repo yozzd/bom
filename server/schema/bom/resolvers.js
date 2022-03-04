@@ -25,6 +25,9 @@ const resolvers = {
         attributes: ['id', 'ltNo', 'customer', 'totalBudget', 'totalPriceWO'],
         group: ['wos.id'],
         where: { id: idLt },
+        order: [
+          [sequelize.literal('LENGTH(wo_no), wo_no')],
+        ],
         include: [{
           model: WO,
           attributes: [
