@@ -23,6 +23,13 @@ const LT = sequelize.define('lt', {
       return t.customer_name || 'PT. LABTECH PENTA INTERNATIONAL';
     },
   },
+  totalPriceWO: {
+    type: DataTypes.VIRTUAL,
+    get() {
+      const total = this.wos.reduce((a, b) => a + b.totalPricePerWO, 0);
+      return total;
+    },
+  },
 }, {
   tableName: 'bom_lt',
   underscored: true,

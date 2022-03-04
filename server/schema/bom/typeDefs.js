@@ -8,6 +8,7 @@ const typeDefs = `
     id: Int
     ltNo: String
     customer: String
+    totalPriceWO: Float
     wos: [WO]
   }
   

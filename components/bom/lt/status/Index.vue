@@ -21,6 +21,9 @@
         <div>
           {{ lt.ltNo }}
         </div>
+        <div>
+          {{ lt.totalPriceWO | currency }}
+        </div>
       </div>
 
       <el-table
@@ -120,9 +123,14 @@ export default {
       prefetch: false,
       result({ data, loading }) {
         if (!loading) {
-          const { getLTOne: { ltNo, customer, wos } } = data;
+          const {
+            getLTOne: {
+              ltNo, customer, totalPriceWO, wos,
+            },
+          } = data;
           this.lt.ltNo = ltNo;
           this.lt.customer = customer;
+          this.lt.totalPriceWO = totalPriceWO;
           this.items = wos;
           this.miniSearch.removeAll();
           this.miniSearch.addAll(this.items);

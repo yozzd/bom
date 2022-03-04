@@ -21,6 +21,7 @@ export const GetLTOne = gql`
       id
       ltNo
       customer
+      totalPriceWO
       wos {
         id
         woNo
