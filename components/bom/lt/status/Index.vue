@@ -211,7 +211,13 @@ export default {
       miniSearch: new MiniSearch({
         idField: 'id',
         fields: ['woNo'],
-        storeFields: ['id', 'woNo', 'unit', 'totalPricePerUnit', 'totalPricePerWO'],
+        storeFields: [
+          'id', 'woNo', 'model', 'product', 'issued', 'unit', 'budget',
+          'totalIncoming', 'totalValidation', 'totalItems', 'percentIncoming',
+          'percentValidation', 'totalPricePerUnit', 'totalPricePerWO',
+          'difference', 'totalYetToPurchase', 'totalDeviation',
+          'totalPackingPerUnit', 'totalPackingPerWO',
+        ],
       }),
     };
   },
