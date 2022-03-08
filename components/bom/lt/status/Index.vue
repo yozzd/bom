@@ -36,8 +36,8 @@
         size="small"
         border
       >
-        <el-table-column type="index" align="center" width="50"></el-table-column>
-        <el-table-column label="WO" width="140">
+        <el-table-column type="index" align="center" width="50" fixed></el-table-column>
+        <el-table-column label="WO" width="140" fixed>
           <template slot-scope="scope">
             <a :href="`/bom/wo/${scope.row.id}`" target="_blank" class="font-bold">
               {{ scope.row.woNo }}
