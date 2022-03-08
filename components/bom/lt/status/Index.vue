@@ -128,6 +128,15 @@
             {{ scope.row.totalYetToPurchase | currency }}
           </template>
         </el-table-column>
+        <el-table-column
+          label="Packing / WO (USD)"
+          align="right"
+          width="140"
+        >
+          <template slot-scope="scope">
+            {{ scope.row.totalPackingPerWO | currency }}
+          </template>
+        </el-table-column>
         <el-table-column label="" min-width="50"></el-table-column>
       </el-table>
     </div>

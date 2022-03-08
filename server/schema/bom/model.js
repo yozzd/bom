@@ -148,6 +148,9 @@ const WO = sequelize.define('wo', {
   totalYetToPurchase: {
     type: DataTypes.VIRTUAL,
   },
+  totalPackingPerWO: {
+    type: DataTypes.VIRTUAL,
+  },
 }, {
   tableName: 'bom_wo',
   underscored: true,

@@ -38,6 +38,7 @@ export const GetOneLT = gql`
         totalPricePerWO
         difference
         totalYetToPurchase
+        totalPackingPerWO
       }
     }
   }
