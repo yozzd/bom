@@ -26,15 +26,13 @@ const LT = sequelize.define('lt', {
   totalBudget: {
     type: DataTypes.VIRTUAL,
     get() {
-      const total = this.wos.reduce((a, b) => a + b.budget, 0);
-      return total;
+      return this.wos.reduce((a, b) => a + b.budget, 0);
     },
   },
   totalPriceWO: {
     type: DataTypes.VIRTUAL,
     get() {
-      const total = this.wos.reduce((a, b) => a + b.totalPricePerWO, 0);
-      return total;
+      return this.wos.reduce((a, b) => a + b.totalPricePerWO, 0);
     },
   },
 }, {
@@ -95,8 +93,7 @@ const WO = sequelize.define('wo', {
     type: DataTypes.DECIMAL(12, 2),
     defaultValue: 0,
     get() {
-      const val = parseFloat(this.getDataValue('budget')) || 0;
-      return val;
+      return parseFloat(this.getDataValue('budget')) || 0;
     },
   },
   refer: {
@@ -142,8 +139,7 @@ const WO = sequelize.define('wo', {
   difference: {
     type: DataTypes.VIRTUAL,
     get() {
-      const diff = this.budget - this.totalPricePerWO;
-      return diff;
+      return this.budget - this.totalPricePerWO;
     },
   },
   totalYetToPurchase: {
