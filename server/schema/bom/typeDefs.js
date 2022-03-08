@@ -22,9 +22,9 @@ const typeDefs = `
     unit: Int
     budget: Float
     status: Int
-    totalIncomings: Int
+    totalIncoming: Int
     totalItems: Int
-    percentIncomings: Float
+    percentIncoming: Float
     totalPricePerUnit: Float
     totalPricePerWO: Float
     difference: Float

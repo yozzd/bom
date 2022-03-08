@@ -62,7 +62,7 @@
           width="80"
         >
           <template slot-scope="scope">
-            {{ scope.row.totalIncomings }} / {{ scope.row.totalItems }}
+            {{ scope.row.totalIncoming }} / {{ scope.row.totalItems }}
           </template>
         </el-table-column>
         <el-table-column
@@ -75,7 +75,7 @@
             </p>
           </template>
           <template slot-scope="scope">
-            {{ scope.row.percentIncomings }}%
+            {{ scope.row.percentIncoming }}%
           </template>
         </el-table-column>
         <el-table-column prop="unit" label="Unit" align="center" width="50"></el-table-column>

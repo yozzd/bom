@@ -32,7 +32,7 @@ const resolvers = {
           model: WO,
           attributes: [
             'id', 'woNo', 'model', 'product', 'issued', 'unit', 'budget', 'difference',
-            [sequelize.literal('COUNT(IF(`wos->headers->items`.bom_qty_balance >= 0, 1, NULL))'), 'totalIncomings'],
+            [sequelize.literal('COUNT(IF(`wos->headers->items`.bom_qty_balance >= 0, 1, NULL))'), 'totalIncoming'],
             [sequelize.literal('COUNT(`wos->headers->items`.id)'), 'totalItems'],
             [sequelize.literal('SUM(`wos->headers->items`.bom_usd_total) / wos.unit'), 'totalPricePerUnit'],
             [sequelize.literal('SUM(`wos->headers->items`.bom_usd_total)'), 'totalPricePerWO'],

@@ -121,16 +121,16 @@ const WO = sequelize.define('wo', {
       return this.getDataValue('issued');
     },
   },
-  totalIncomings: {
+  totalIncoming: {
     type: DataTypes.VIRTUAL,
   },
   totalItems: {
     type: DataTypes.VIRTUAL,
   },
-  percentIncomings: {
+  percentIncoming: {
     type: DataTypes.VIRTUAL,
     get() {
-      return (this.totalIncomings / this.totalItems) * 100;
+      return (this.totalIncoming / this.totalItems) * 100;
     },
   },
   totalPricePerUnit: {

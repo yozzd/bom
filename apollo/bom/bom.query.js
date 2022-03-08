@@ -31,9 +31,9 @@ export const GetOneLT = gql`
         issued
         unit
         budget
-        totalIncomings
+        totalIncoming
         totalItems
-        percentIncomings
+        percentIncoming
         totalPricePerUnit
         totalPricePerWO
         difference
