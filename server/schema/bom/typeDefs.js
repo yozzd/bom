@@ -24,6 +24,7 @@ const typeDefs = `
     status: Int
     totalIncomings: Int
     totalItems: Int
+    percentIncomings: Float
     totalPricePerUnit: Float
     totalPricePerWO: Float
     difference: Float

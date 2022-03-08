@@ -65,6 +65,19 @@
             {{ scope.row.totalIncomings }} / {{ scope.row.totalItems }}
           </template>
         </el-table-column>
+        <el-table-column
+          align="center"
+          width="80"
+        >
+          <template slot="header">
+            <p title="% Incoming" class="truncate">
+              % Incoming
+            </p>
+          </template>
+          <template slot-scope="scope">
+            {{ scope.row.percentIncomings }}%
+          </template>
+        </el-table-column>
         <el-table-column prop="unit" label="Unit" align="center" width="50"></el-table-column>
         <el-table-column
           label="Budget (USD)"

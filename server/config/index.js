@@ -1,4 +1,4 @@
-require('dotenv').config()
+require('dotenv').config();
 
 const config = {
   userRoles: ['', '15', '14', '13', '12', '11'],
