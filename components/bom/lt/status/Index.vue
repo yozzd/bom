@@ -129,6 +129,15 @@
           </template>
         </el-table-column>
         <el-table-column
+          label="Deviation (USD)"
+          align="right"
+          width="140"
+        >
+          <template slot-scope="scope">
+            {{ scope.row.totalDeviation | currency }}
+          </template>
+        </el-table-column>
+        <el-table-column
           label="Packing / Unit (USD)"
           align="right"
           width="140"
