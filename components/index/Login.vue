@@ -28,7 +28,7 @@
           <el-input v-model="form.password" show-password></el-input>
         </el-form-item>
         <div class="mt-12">
-          <el-button type="primary" native-type="submit" class="w-full">
+          <el-button type="primary" native-type="submit" :loading="loading" class="w-full">
             Login
           </el-button>
         </div>
@@ -43,6 +43,7 @@
 export default {
   data() {
     return {
+      loading: false,
       form: {
         username: '',
         password: '',
@@ -63,10 +64,12 @@ export default {
       this.$refs[form].validate(async (valid) => {
         if (valid) {
           try {
+            this.loading = true;
             await this.$auth.login({
               username: this.form.username,
               password: this.form.password,
             });
+            this.loading = false;
             return true;
           } catch ({ graphQLErrors, networkError }) {
             this.errors = graphQLErrors || networkError.result.errors;
