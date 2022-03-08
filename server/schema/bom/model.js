@@ -130,11 +130,14 @@ const WO = sequelize.define('wo', {
       return (this.totalIncoming / this.totalItems) * 100;
     },
   },
-  totalPricePerUnit: {
-    type: DataTypes.VIRTUAL,
-  },
   totalPricePerWO: {
     type: DataTypes.VIRTUAL,
+  },
+  totalPricePerUnit: {
+    type: DataTypes.VIRTUAL,
+    get() {
+      return this.totalPricePerWO / this.unit;
+    },
   },
   difference: {
     type: DataTypes.VIRTUAL,
