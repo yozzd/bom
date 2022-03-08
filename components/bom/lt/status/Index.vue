@@ -75,7 +75,7 @@
             </p>
           </template>
           <template slot-scope="scope">
-            {{ scope.row.percentIncoming }}%
+            {{ scope.row.percentIncoming | currency }}%
           </template>
         </el-table-column>
         <el-table-column prop="unit" label="Unit" align="center" width="50"></el-table-column>
