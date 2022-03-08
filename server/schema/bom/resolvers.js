@@ -32,9 +32,8 @@ const resolvers = {
           model: WO,
           attributes: [
             'id', 'woNo', 'model', 'product', 'issued', 'unit', 'budget', 'difference',
-            [sequelize.literal('COUNT(IF(`wos->headers->items`.packing, 1, NULL))'), 'totalPackingItems'],
             [sequelize.literal('COUNT(CASE WHEN `wos->headers->items`.bom_qty_balance >= 0 AND `wos->headers->items`.packing = 0 THEN 1 ELSE NULL END)'), 'totalIncoming'],
-            [sequelize.literal('COUNT(`wos->headers->items`.id)'), 'totalItems'],
+            [sequelize.literal('COUNT(CASE WHEN `wos->headers->items`.packing = 0 THEN 1 ELSE NULL END)'), 'totalItems'],
             [sequelize.literal('SUM(`wos->headers->items`.bom_usd_total)'), 'totalPricePerWO'],
             [sequelize.literal('SUM(`wos->headers->items`.yet_to_purchase)'), 'totalYetToPurchase'],
             [sequelize.literal('SUM(IF(`wos->headers->items`.packing, `wos->headers->items`.bom_usd_total, 0))'), 'totalPackingPerWO'],

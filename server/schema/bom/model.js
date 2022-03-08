@@ -118,17 +118,11 @@ const WO = sequelize.define('wo', {
       return this.getDataValue('issued');
     },
   },
-  totalPackingItems: {
-    type: DataTypes.VIRTUAL,
-  },
   totalIncoming: {
     type: DataTypes.VIRTUAL,
   },
   totalItems: {
     type: DataTypes.VIRTUAL,
-    get() {
-      return this.getDataValue('totalItems') - this.totalPackingItems;
-    },
   },
   percentIncoming: {
     type: DataTypes.VIRTUAL,
