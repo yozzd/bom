@@ -210,7 +210,7 @@ export default {
       lt: {},
       miniSearch: new MiniSearch({
         idField: 'id',
-        fields: ['woNo'],
+        fields: ['woNo', 'model', 'product'],
         storeFields: [
           'id', 'woNo', 'model', 'product', 'issued', 'unit', 'budget',
           'totalIncoming', 'totalValidation', 'totalItems', 'percentIncoming',
