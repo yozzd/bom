@@ -33,6 +33,7 @@ const resolvers = {
           attributes: [
             'id', 'woNo', 'model', 'product', 'issued', 'unit', 'budget', 'difference',
             [sequelize.literal('COUNT(CASE WHEN `wos->headers->items`.bom_qty_balance >= 0 AND `wos->headers->items`.packing = 0 AND `wos->headers`.header NOT LIKE ("%deviation%")THEN 1 ELSE NULL END)'), 'totalIncoming'],
+            [sequelize.literal('COUNT(CASE WHEN `wos->headers->items`.validasi AND `wos->headers->items`.packing = 0 AND `wos->headers`.header NOT LIKE ("%deviation%")THEN 1 ELSE NULL END)'), 'totalValidation'],
             [sequelize.literal('COUNT(CASE WHEN `wos->headers->items`.packing = 0 AND `wos->headers`.header NOT LIKE ("%deviation%")THEN 1 ELSE NULL END)'), 'totalItems'],
             [sequelize.literal('SUM(CASE WHEN `wos->headers->items`.packing = 0 AND `wos->headers`.header NOT LIKE ("%deviation%") THEN `wos->headers->items`.bom_usd_total ELSE 0 END)'), 'totalPricePerWO'],
             [sequelize.literal('SUM(`wos->headers->items`.yet_to_purchase)'), 'totalYetToPurchase'],

@@ -78,6 +78,28 @@
             {{ scope.row.percentIncoming | currency }}%
           </template>
         </el-table-column>
+        <el-table-column
+          label="Validation"
+          align="center"
+          width="80"
+        >
+          <template slot-scope="scope">
+            {{ scope.row.totalValidation }} / {{ scope.row.totalItems }}
+          </template>
+        </el-table-column>
+        <el-table-column
+          align="center"
+          width="80"
+        >
+          <template slot="header">
+            <p title="% Validation" class="truncate">
+              % Validation
+            </p>
+          </template>
+          <template slot-scope="scope">
+            {{ scope.row.percentValidation | currency }}%
+          </template>
+        </el-table-column>
         <el-table-column prop="unit" label="Unit" align="center" width="50"></el-table-column>
         <el-table-column
           label="Budget (USD)"

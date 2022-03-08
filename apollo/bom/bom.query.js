@@ -32,8 +32,10 @@ export const GetOneLT = gql`
         unit
         budget
         totalIncoming
+        totalValidation
         totalItems
         percentIncoming
+        percentValidation
         totalPricePerUnit
         totalPricePerWO
         difference

@@ -23,8 +23,10 @@ const typeDefs = `
     budget: Float
     status: Int
     totalIncoming: Int
+    totalValidation: Int
     totalItems: Int
     percentIncoming: Float
+    percentValidation: Float
     totalPricePerUnit: Float
     totalPricePerWO: Float
     difference: Float
