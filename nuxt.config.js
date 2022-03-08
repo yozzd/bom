@@ -35,6 +35,7 @@ export default {
   ],
 
   modules: [
+    '@nuxtjs/dotenv',
     '@nuxtjs/apollo',
     '@nuxtjs/style-resources',
     'vue-currency-filter/nuxt',

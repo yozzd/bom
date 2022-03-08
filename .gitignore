@@ -89,7 +89,4 @@ sw.*
 # Vim swap files
 *.swp
 
-server/config/index.js
-server/config/db.js
-apollo/client/default.js
 static
