@@ -151,6 +151,12 @@ const WO = sequelize.define('wo', {
   totalPackingPerWO: {
     type: DataTypes.VIRTUAL,
   },
+  totalPackingPerUnit: {
+    type: DataTypes.VIRTUAL,
+    get() {
+      return this.totalPackingPerWO / this.unit;
+    },
+  },
 }, {
   tableName: 'bom_wo',
   underscored: true,
