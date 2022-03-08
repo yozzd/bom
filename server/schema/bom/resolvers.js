@@ -7,7 +7,7 @@ const { isAuthenticated } = require('../auth/service');
 
 const resolvers = {
   Query: {
-    getLTAll: isAuthenticated(async (_, { status }) => {
+    getAllLT: isAuthenticated(async (_, { status }) => {
       const lt = await LT.findAll({
         attributes: ['id', 'ltNo', 'customer'],
         order: [['id', 'DESC']],

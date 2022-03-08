@@ -1,8 +1,8 @@
 import gql from 'graphql-tag';
 
-export const GetLTAll = gql`
-  query getLTAll($status: Int) {
-    getLTAll(status: $status) {
+export const GetAllLT = gql`
+  query getAllLT($status: Int) {
+    getAllLT(status: $status) {
       id
       ltNo
       customer

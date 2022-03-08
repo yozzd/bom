@@ -72,7 +72,7 @@
 <script>
 import MiniSearch from 'minisearch';
 import table from '../../mixins/table';
-import { GetLTAll } from '../../apollo/bom/bom.query';
+import { GetAllLT } from '../../apollo/bom/bom.query';
 
 export default {
   mixins: [table],
@@ -105,8 +105,8 @@ export default {
     },
   },
   apollo: {
-    getLTAll: {
-      query: GetLTAll,
+    getAllLT: {
+      query: GetAllLT,
       variables() {
         return {
           status: this.status,
@@ -115,8 +115,8 @@ export default {
       prefetch: false,
       result({ data, loading }) {
         if (!loading) {
-          const { getLTAll } = data;
-          this.items = getLTAll;
+          const { getAllLT } = data;
+          this.items = getAllLT;
           this.miniSearch.removeAll();
           this.miniSearch.addAll(this.items);
         }
