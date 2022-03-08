@@ -15,9 +15,9 @@ export const GetAllLT = gql`
   }
 `;
 
-export const GetLTOne = gql`
-  query getLTOne($idLt: Int, $status: Int) {
-    getLTOne(idLt: $idLt, status: $status) {
+export const GetOneLT = gql`
+  query getOneLT($idLt: Int, $status: Int) {
+    getOneLT(idLt: $idLt, status: $status) {
       id
       ltNo
       customer

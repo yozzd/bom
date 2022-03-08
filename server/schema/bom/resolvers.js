@@ -20,7 +20,7 @@ const resolvers = {
 
       return lt;
     }),
-    getLTOne: isAuthenticated(async (_, { idLt, status }) => {
+    getOneLT: isAuthenticated(async (_, { idLt, status }) => {
       const lt = await LT.findOne({
         attributes: ['id', 'ltNo', 'customer', 'totalBudget', 'totalPriceWO'],
         group: ['wos.id'],

@@ -139,7 +139,7 @@
 <script>
 import MiniSearch from 'minisearch';
 import table from '../../../../mixins/table';
-import { GetLTOne } from '../../../../apollo/bom/bom.query';
+import { GetOneLT } from '../../../../apollo/bom/bom.query';
 
 export default {
   mixins: [table],
@@ -154,8 +154,8 @@ export default {
     };
   },
   apollo: {
-    getLTOne: {
-      query: GetLTOne,
+    getOneLT: {
+      query: GetOneLT,
       variables() {
         return {
           idLt: parseInt(this.$route.params.id, 10),
@@ -166,7 +166,7 @@ export default {
       result({ data, loading }) {
         if (!loading) {
           const {
-            getLTOne: { wos, ...lt },
+            getOneLT: { wos, ...lt },
           } = data;
           this.lt = lt;
           this.items = wos;
