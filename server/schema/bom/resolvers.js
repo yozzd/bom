@@ -36,7 +36,7 @@ const resolvers = {
             [sequelize.literal('COUNT(CASE WHEN `wos->headers->items`.packing = 0 THEN 1 ELSE NULL END)'), 'totalItems'],
             [sequelize.literal('SUM(`wos->headers->items`.bom_usd_total)'), 'totalPricePerWO'],
             [sequelize.literal('SUM(`wos->headers->items`.yet_to_purchase)'), 'totalYetToPurchase'],
-            [sequelize.literal('SUM(IF(`wos->headers->items`.packing, `wos->headers->items`.bom_usd_total, 0))'), 'totalPackingPerWO'],
+            [sequelize.literal('SUM(CASE WHEN `wos->headers->items`.packing THEN `wos->headers->items`.bom_usd_total ELSE 0 END)'), 'totalPackingPerWO'],
           ],
           where: { status },
           include: [{
