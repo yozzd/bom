@@ -1,7 +1,7 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../../config/db');
 
-const User = sequelize.define('pss_user', {
+const User = sequelize.define('user', {
   name: {
     type: DataTypes.STRING,
     primaryKey: true,
@@ -32,10 +32,10 @@ const User = sequelize.define('pss_user', {
   isManager: {
     type: DataTypes.INTEGER,
     defaultValue: 0,
-    field: 'is_manager',
   },
 }, {
-  freezeTableName: true,
+  tableName: 'pss_user',
+  underscored: true,
 });
 
 User.prototype.authenticate = function compare(password) {
