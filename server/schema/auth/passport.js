@@ -3,7 +3,10 @@ const { Strategy } = require('passport-local');
 
 const localAuthenticate = async (User, username, password, done) => {
   const user = await User.findOne({
-    attributes: ['name', 'password', 'group', 'department', 'isManager'],
+    attributes: [
+      'name', 'password', 'group', 'department',
+      'section', 'fullname', 'isManager',
+    ],
     where: { name: username },
   });
 

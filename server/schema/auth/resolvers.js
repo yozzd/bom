@@ -11,10 +11,10 @@ const authLocal = (req, res) => new Promise((resolve, reject) => {
     }
 
     const {
-      name, group, department, isManager,
+      name, group, department, section, fullname, isManager,
     } = user;
     const token = await res.jwtSign({
-      name, group, department, isManager,
+      name, group, department, section, fullname, isManager,
     });
 
     resolve({ name, token });
