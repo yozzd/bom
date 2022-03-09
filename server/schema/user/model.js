@@ -20,13 +20,13 @@ const User = sequelize.define('user', {
   department: {
     type: DataTypes.STRING,
     get() {
-      return parseInt(this.getDataValue('department'));
+      return parseInt(this.getDataValue('department'), 10);
     },
   },
   section: {
     type: DataTypes.STRING,
     get() {
-      return parseInt(this.getDataValue('section'));
+      return parseInt(this.getDataValue('section'), 10);
     },
   },
   fullname: {
