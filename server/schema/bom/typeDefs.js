@@ -21,7 +21,7 @@ const typeDefs = `
     issued: String
     unit: Int
     budget: Float
-    status: Int
+    stage: Int
     totalIncoming: Int
     totalValidation: Int
     totalItems: Int
