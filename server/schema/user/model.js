@@ -19,9 +19,15 @@ const User = sequelize.define('user', {
   },
   department: {
     type: DataTypes.STRING,
+    get() {
+      return parseInt(this.getDataValue('department'));
+    },
   },
   section: {
     type: DataTypes.STRING,
+    get() {
+      return parseInt(this.getDataValue('section'));
+    },
   },
   fullname: {
     type: DataTypes.STRING,
