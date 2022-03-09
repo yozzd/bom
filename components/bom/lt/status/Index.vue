@@ -209,7 +209,7 @@ export default {
         idField: 'id',
         fields: ['woNo', 'model', 'product'],
         storeFields: [
-          'id', 'woNo', 'model', 'product', 'issued', 'unit', 'budget',
+          'id', 'woNo', 'model', 'product', 'issued', 'unit', 'budget', 'stage',
           'totalIncoming', 'totalValidation', 'totalItems', 'percentIncoming',
           'percentValidation', 'totalPricePerUnit', 'totalPricePerWO',
           'difference', 'totalYetToPurchase', 'totalDeviation',
