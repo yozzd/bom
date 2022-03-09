@@ -4,18 +4,17 @@ const {
   LT, WO, WOHEADER, WOITEM,
 } = require('./model');
 const { isAuthenticated } = require('../auth/service');
-const { wherePic } = require('./method');
 
 const resolvers = {
   Query: {
-    getAllLT: isAuthenticated(async (_, { status }, ctx) => {
+    getAllLT: isAuthenticated(async (_, { status }) => {
       const lt = await LT.findAll({
         attributes: ['id', 'ltNo', 'customer'],
         order: [['id', 'DESC']],
         include: [{
           model: WO,
           attributes: ['id', 'woNo', 'status'],
-          where: wherePic(status, ctx),
+          where: { status },
         }],
       });
 
