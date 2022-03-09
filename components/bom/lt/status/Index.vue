@@ -1,16 +1,5 @@
 <template>
   <div class="flex flex-col space-y-8">
-    <div class="flex space-x-4 items-center">
-      <div class="flex-1"></div>
-      <div class="w-64">
-        <el-input
-          v-model="search"
-          placeholder="Search"
-          clearable
-        />
-      </div>
-    </div>
-
     <IndexErrorHandler
       v-if="errors"
       :errors="errors"
@@ -27,6 +16,14 @@
         </div>
         <div>
           Total Price / WO: USD {{ lt.totalPriceWO | currency }}
+        </div>
+        <div class="flex-1"></div>
+        <div class="w-64">
+          <el-input
+            v-model="search"
+            placeholder="Search"
+            clearable
+          />
         </div>
       </div>
 
