@@ -182,13 +182,16 @@
         :current-page.sync="page"
         :page-sizes="pageSizes"
         :page-size="pageSize"
-        :total="items.length"
+        :total="search ? tableData.length : items.length"
         :pager-count="pagerCount"
-        layout="total, sizes, prev, pager, next"
+        layout="slot, sizes, prev, pager, next"
         class="flex justify-end"
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
       >
+        <template #default>
+          <span class="font-normal">Total {{ tableData.length }}/{{ items.length }}</span>
+        </template>
       </el-pagination>
     </div>
   </div>

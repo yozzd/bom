@@ -22,6 +22,7 @@ const typeDefs = `
     unit: Int
     budget: Float
     stage: Int
+    status: Int
     totalIncoming: Int
     totalValidation: Int
     totalItems: Int
