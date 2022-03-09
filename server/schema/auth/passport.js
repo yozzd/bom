@@ -2,7 +2,11 @@ const passport = require('passport');
 const { Strategy } = require('passport-local');
 
 const localAuthenticate = async (User, username, password, done) => {
-  const user = await User.findOne({ attributes: ['name', 'password'], where: { name: username } });
+  const user = await User.findOne({
+    attributes: ['name', 'password', 'group', 'department', 'isManager'],
+    where: { name: username },
+  });
+
   if (!user) {
     return done(null, false, { message: 'Invalid Username or Password' });
   }

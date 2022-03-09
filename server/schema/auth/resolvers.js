@@ -9,8 +9,14 @@ const authLocal = (req, res) => new Promise((resolve, reject) => {
     if (!user) {
       reject(new Error('Something went wrong, please try again'));
     }
-    const { name, group } = user;
-    const token = await res.jwtSign({ name, group });
+
+    const {
+      name, group, department, isManager,
+    } = user;
+    const token = await res.jwtSign({
+      name, group, department, isManager,
+    });
+
     resolve({ name, token });
   })(req, res);
 });
