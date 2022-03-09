@@ -7,14 +7,42 @@ const { isAuthenticated } = require('../auth/service');
 
 const resolvers = {
   Query: {
-    getAllLT: isAuthenticated(async (_, { status }) => {
+    getAllLT: isAuthenticated(async (_, { status }, ctx) => {
+      const { group, department, isManager } = ctx.req.user;
+      let where = null;
+
+      if (group === 15 || (department === 170 && isManager)) {
+        where = {
+          [Op.and]: [
+            { status },
+            { pic: { [Op.in]: [2, 8] } },
+          ],
+        };
+      } else if (group === 16 || (department === 120 && isManager)) {
+        where = {
+          [Op.and]: [
+            { status },
+            { pic: { [Op.in]: [3, 8] } },
+          ],
+        };
+      } else if (group === 17 || (department === 110 && isManager)) {
+        where = {
+          [Op.and]: [
+            { status },
+            { pic: { [Op.in]: [1, 8] } },
+          ],
+        };
+      } else {
+        where = { status };
+      }
+
       const lt = await LT.findAll({
         attributes: ['id', 'ltNo', 'customer'],
         order: [['id', 'DESC']],
         include: [{
           model: WO,
           attributes: ['id', 'woNo', 'status'],
-          where: { status },
+          where,
         }],
       });
 

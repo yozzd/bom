@@ -1,4 +1,4 @@
-export const userRoles = ['', '15', '14', '13', '12', '11'];
+export const userRoles = process.env.USER_GROUP;
 
 export const isUnset = (o) => typeof o === 'undefined' || o === null;
 
