@@ -48,3 +48,23 @@ export const GetOneLT = gql`
     }
   }
 `;
+
+export const GetOneWO = gql`
+  query getOneWO($id: Int) {
+    getOneWO(id: $id) {
+      id
+      woNo
+      headers {
+        id
+        hid
+        header
+        items {
+          id
+          idMaterial
+          bomDescription
+          bomSpecification
+        }
+      }
+    }
+  }
+`;

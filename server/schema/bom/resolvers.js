@@ -60,6 +60,28 @@ const resolvers = {
 
       return lt;
     }),
+    getOneWO: isAuthenticated(async (_, { id }) => {
+      const wo = await WO.findOne({
+        attributes: ['id', 'woNo'],
+        where: { id },
+        include: [{
+          model: WOHEADER,
+          attributes: ['id', 'hid', 'header'],
+          include: [{
+            model: WOITEM,
+            attributes: ['id', 'idMaterial', 'bomDescription', 'bomSpecification'],
+            where: {
+              [Op.and]: [
+                { cancel: 0 },
+                { idHeader: { [Op.not]: null } },
+              ],
+            },
+          }],
+        }],
+      });
+
+      return wo;
+    }),
   },
   Mutation: {},
 };

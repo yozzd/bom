@@ -2,6 +2,7 @@ const typeDefs = `
   extend type Query {
     getAllLT(status: Int): [LT]
     getOneLT(idLt: Int, status: Int): LT
+    getOneWO(id: Int): WO
   }
 
   type LT {
@@ -47,6 +48,7 @@ const typeDefs = `
   
   type WOITEM {
     id: Int
+    idMaterial: Int
     bomDescription: String
     bomSpecification: String
   }
