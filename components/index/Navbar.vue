@@ -14,7 +14,7 @@
         type="primary"
         :underline="false"
       >
-        {{ $auth.$state.user.name }}
+        {{ $auth.$state.user.fullname }}
         <outline-chevron-down-icon class="heroicons heroicons-right" />
       </el-link>
       <el-dropdown-menu slot="dropdown">

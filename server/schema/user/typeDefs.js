@@ -5,8 +5,10 @@ const typeDefs = `
 
   type User {
     name: String
-    group: String
-    section: String
+    group: Int
+    department: Int
+    section: Int
+    fullname: String
   }
 `;
 

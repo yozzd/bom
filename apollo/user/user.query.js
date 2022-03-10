@@ -5,7 +5,9 @@ const Me = gql`
     me {
       name
       group
+      department
       section
+      fullname
     }
   }
 `;
