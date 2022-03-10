@@ -1,7 +1,37 @@
 <template>
-  <div>
-    {{ wo }}<br/>
-    {{ headers }}
+  <div class="flex flex-col space-y-8">
+    <IndexErrorHandler
+      v-if="errors"
+      :errors="errors"
+    />
+
+    <div class="flex flex-col space-y-8">
+      <div class="flex space-x-4 items-center">
+        <div class="font-bold">
+          {{ wo.woNo }} <span v-if="wo.stage">[STAGE-{{ wo.stage }}]</span>
+        </div>
+        <div class="flex-1"></div>
+      </div>
+      <div v-for="h in headers" :key="h.id" class="flex flex-col space-y-4">
+        <div class="text-xs font-bold">
+          {{ h.hid }} {{ h.header }}
+        </div>
+        <el-table
+          v-if="h.items.length"
+          :data="h.items"
+          size="small"
+          border
+        >
+          <el-table-column type="index" align="center" width="50" fixed></el-table-column>
+          <el-table-column label="Material" width="200" fixed>
+            <template slot-scope="scope">
+              {{ scope.row.bomDescription }}
+            </template>
+          </el-table-column>
+          <el-table-column label="" min-width="50"></el-table-column>
+        </el-table>
+      </div>
+    </div>
   </div>
 </template>
 
