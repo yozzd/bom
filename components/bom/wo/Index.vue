@@ -43,6 +43,7 @@ export default {
     return {
       wo: {},
       headers: {},
+      errors: [],
     };
   },
   apollo: {
