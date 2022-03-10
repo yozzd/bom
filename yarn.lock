@@ -6542,10 +6542,10 @@ fastify-websocket@^4.0.0:
     fastify-plugin "^3.0.0"
     ws "^8.0.0"
 
-fastify@^3.27.3:
-  version "3.27.3"
-  resolved "https://registry.yarnpkg.com/fastify/-/fastify-3.27.3.tgz#fb48dc55eaad09fcbff3cd001a8a2098c36b4232"
-  integrity sha512-Cvg0PF68JFzDREp7cEo1YSylzseK+w4FqREffB3sR4uaFHJf8g93rww5AMyvvOXdGVUyaD3r8IKUPn/VNcv8hw==
+fastify@^3.27.4:
+  version "3.27.4"
+  resolved "https://registry.yarnpkg.com/fastify/-/fastify-3.27.4.tgz#67ffd61b5bea74768a7de28dbef5b6bc58f9e953"
+  integrity sha512-SOfnHBxG9zxCSIvt6aHoR/cao8QBddWmGP/mb5KQKRc+KI1kB7b79M2hCDOTSyHdLAF2OX+oI6X3weeLc+MqKg==
   dependencies:
     "@fastify/ajv-compiler" "^1.0.0"
     abstract-logging "^2.0.0"
@@ -9006,10 +9006,10 @@ mercurius-upload@^3.0.1:
     fastify-plugin "^3.0.0"
     graphql-upload "^13.0.0"
 
-mercurius@^9.3.3:
-  version "9.3.3"
-  resolved "https://registry.yarnpkg.com/mercurius/-/mercurius-9.3.3.tgz#940c6563f909c23bff9ae30c872ffcc7b8568500"
-  integrity sha512-C6OFyu40MeEYrVCZItCliyWO4E4Xplprd0nv8jUTNPDozLKWQUHueXECEvhwH8XFYw0axdtxKAJVDaKkPZTOGg==
+mercurius@^9.3.4:
+  version "9.3.4"
+  resolved "https://registry.yarnpkg.com/mercurius/-/mercurius-9.3.4.tgz#62d5d38a5917aeaaf2f53641ec794cfe1534aa82"
+  integrity sha512-vymE7a8j8KJzQAefA0HnUBoGxoCDav01EA6GAd+QoPo/cvhswatHgVOYc3yOF5QK7RIOa17cC0l0ED94xjYNCA==
   dependencies:
     "@types/isomorphic-form-data" "^2.0.0"
     events.on "^1.0.1"
