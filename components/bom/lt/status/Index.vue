@@ -34,10 +34,10 @@
         border
       >
         <el-table-column type="index" align="center" width="50" fixed></el-table-column>
-        <el-table-column label="WO" width="180" fixed>
+        <el-table-column label="WO" width="200" fixed>
           <template slot-scope="scope">
             <a :href="`/bom/wo/${scope.row.id}`" target="_blank" class="font-bold">
-              {{ scope.row.woNo }} <span v-if="scope.row.stage">[STG-{{ scope.row.stage }}]</span>
+              {{ scope.row.woNo }} <span v-if="scope.row.stage">[STAGE-{{ scope.row.stage }}]</span>
             </a>
           </template>
         </el-table-column>
