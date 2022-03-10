@@ -1612,6 +1612,13 @@
     mkdirp "^1.0.4"
     rimraf "^3.0.2"
 
+"@nuxt-hero-icons/outline@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@nuxt-hero-icons/outline/-/outline-1.0.1.tgz#71e040cf05addecdb50c2f90c1d3bfae46944d29"
+  integrity sha512-2kMugIcVzU96BJZTmCIJTyruHQzZFS0KE66Wkfa+vWlQTZ7CESL4npVFfek2ENQjQvT075x2RyIhcIpWOQIupw==
+  dependencies:
+    heroicons "git+https://github.com/tailwindlabs/heroicons.git#master"
+
 "@nuxt/babel-preset-app@2.15.8":
   version "2.15.8"
   resolved "https://registry.yarnpkg.com/@nuxt/babel-preset-app/-/babel-preset-app-2.15.8.tgz#c78eb8c47c1cafec1c5aba6a52385a3ce877b968"
@@ -7549,6 +7556,10 @@ header-case@^2.0.4:
   dependencies:
     capital-case "^1.0.4"
     tslib "^2.0.3"
+
+"heroicons@git+https://github.com/tailwindlabs/heroicons.git#master":
+  version "1.0.6"
+  resolved "git+https://github.com/tailwindlabs/heroicons.git#71b15b9e72e0211c5dbb28fb75f280deedaec28d"
 
 hex-color-regex@^1.1.0:
   version "1.1.0"
