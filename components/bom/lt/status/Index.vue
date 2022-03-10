@@ -226,7 +226,7 @@ export default {
       query: GetOneLT,
       variables() {
         return {
-          idLt: parseInt(this.$route.params.id, 10),
+          id: parseInt(this.$route.params.id, 10),
           status: parseInt(this.$route.params.status, 10),
         };
       },

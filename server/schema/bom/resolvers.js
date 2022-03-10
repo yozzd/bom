@@ -20,11 +20,11 @@ const resolvers = {
 
       return lt;
     }),
-    getOneLT: isAuthenticated(async (_, { idLt, status }) => {
+    getOneLT: isAuthenticated(async (_, { id, status }) => {
       const lt = await LT.findOne({
         attributes: ['id', 'ltNo', 'customer', 'totalBudget', 'totalPriceWO'],
         group: ['wos.id'],
-        where: { id: idLt },
+        where: { id },
         order: [
           [sequelize.literal('LENGTH(wo_no), wo_no')],
         ],
