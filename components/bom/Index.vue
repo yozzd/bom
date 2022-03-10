@@ -2,7 +2,12 @@
   <div class="flex flex-col space-y-8">
     <div class="flex space-x-4 items-center">
       <div class="w-48">
-        <el-select v-model="status" placeholder="Select" @change="handleChange">
+        <el-select
+          v-model="status"
+          placeholder="Select"
+          class="el-select__primary"
+          @change="handleChange"
+        >
           <el-option
             v-for="item in options"
             :key="item.value"
