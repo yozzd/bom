@@ -30,6 +30,8 @@
     <div>
       <el-table
         v-loading="$apollo.loading"
+        element-loading-text="Loading..."
+        element-loading-spinner="el-icon-loading"
         :data="tableData"
         size="small"
         border

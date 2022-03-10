@@ -5,7 +5,12 @@
       :errors="errors"
     />
 
-    <div class="flex flex-col space-y-8">
+    <div
+      v-loading.fullscreen.lock="$apollo.loading"
+      class="flex flex-col space-y-8"
+      element-loading-text="Loading..."
+      element-loading-spinner="el-icon-loading"
+    >
       <div class="flex space-x-4 items-center">
         <div class="font-bold">
           {{ wo.woNo }} <span v-if="wo.stage">[STAGE-{{ wo.stage }}]</span>
