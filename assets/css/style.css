@@ -66,3 +66,13 @@ a {
 .el-table .el-table__cell {
   @apply py-1.5;
 }
+
+.heroicons {
+  @apply w-4 h-4 inline-block leading-none;
+  @apply align-middle not-italic font-normal;
+  @apply normal-case;
+}
+
+.heroicons-right {
+  @apply ml-[4px];
+}

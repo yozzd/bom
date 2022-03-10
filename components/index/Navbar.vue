@@ -15,7 +15,7 @@
         :underline="false"
       >
         {{ $auth.$state.user.name }}
-        <i class="el-icon-arrow-down el-icon--right"></i>
+        <outline-chevron-down-icon class="heroicons heroicons-right" />
       </el-link>
       <el-dropdown-menu slot="dropdown">
         <el-dropdown-item command="logout">
