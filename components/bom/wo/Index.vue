@@ -27,11 +27,26 @@
           size="small"
           border
         >
-          <el-table-column type="index" align="center" width="50" fixed></el-table-column>
-          <el-table-column label="Material" width="200" fixed>
-            <template slot-scope="scope">
-              {{ scope.row.bomDescription }}
-            </template>
+          <el-table-column
+            type="index"
+            label="No"
+            align="center"
+            width="50"
+            fixed
+          ></el-table-column>
+          <el-table-column label="Material" align="center">
+            <el-table-column label="CD" align="center" width="60" fixed>
+              <template slot-scope="scope">
+                {{ scope.row.idMaterial }}
+              </template>
+            </el-table-column>
+            <el-table-column label="Description" width="200" fixed>
+              <template slot-scope="scope">
+                <p :title="scope.row.bomDescription" class="truncate">
+                  {{ scope.row.bomDescription }}
+                </p>
+              </template>
+            </el-table-column>
           </el-table-column>
           <el-table-column label="" min-width="50"></el-table-column>
         </el-table>
