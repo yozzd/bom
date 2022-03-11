@@ -65,6 +65,7 @@ export const GetOneWO = gql`
           bomDescription
           bomSpecification
           bomModel
+          bomBrand
         }
       }
     }

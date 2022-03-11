@@ -52,6 +52,7 @@ const typeDefs = `
     bomDescription: String
     bomSpecification: String
     bomModel: String
+    bomBrand: String
   }
 `;
 
