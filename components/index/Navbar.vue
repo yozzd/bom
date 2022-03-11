@@ -2,10 +2,10 @@
   <div class="navbar">
     <div class="flex items-center">
       <nuxt-link to="/bom/">
-        Bom
+        BOM
       </nuxt-link>
       <nuxt-link to="/mpr/">
-        Mpr
+        MPR
       </nuxt-link>
     </div>
     <div class="flex-1"></div>
