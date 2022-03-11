@@ -51,6 +51,7 @@ const typeDefs = `
     idMaterial: Int
     bomDescription: String
     bomSpecification: String
+    bomModel: String
   }
 `;
 

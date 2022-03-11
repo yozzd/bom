@@ -70,7 +70,10 @@ const resolvers = {
           order: ['hid'],
           include: [{
             model: WOITEM,
-            attributes: ['id', 'idMaterial', 'bomDescription', 'bomSpecification'],
+            attributes: [
+              'id', 'idMaterial', 'bomDescription', 'bomSpecification',
+              'bomModel',
+            ],
             where: {
               [Op.and]: [
                 { cancel: 0 },

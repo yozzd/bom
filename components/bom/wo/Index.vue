@@ -54,6 +54,13 @@
                 </p>
               </template>
             </el-table-column>
+            <el-table-column label="Model" width="200" fixed>
+              <template slot-scope="scope">
+                <p :title="scope.row.bomModel" class="truncate">
+                  {{ scope.row.bomModel }}
+                </p>
+              </template>
+            </el-table-column>
           </el-table-column>
           <el-table-column label="" min-width="50"></el-table-column>
         </el-table>
