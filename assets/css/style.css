@@ -24,6 +24,10 @@ a {
   @apply rounded-lg;
 }
 
+.el-pagination .el-select .el-input .el-input__inner {
+  @apply rounded-md;
+}
+
 .el-input__inner:focus,
 .el-textarea__inner:focus {
   @apply ring-3 ring-blue-200 ring-opacity-50;
