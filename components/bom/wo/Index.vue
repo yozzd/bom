@@ -40,21 +40,21 @@
                 {{ scope.row.idMaterial }}
               </template>
             </el-table-column>
-            <el-table-column label="Description" width="200" fixed>
+            <el-table-column label="Description" width="150" fixed>
               <template slot-scope="scope">
                 <p :title="scope.row.bomDescription" class="truncate">
                   {{ scope.row.bomDescription }}
                 </p>
               </template>
             </el-table-column>
-            <el-table-column label="Specification" width="200" fixed>
+            <el-table-column label="Specification" width="150" fixed>
               <template slot-scope="scope">
                 <p :title="scope.row.bomSpecification" class="truncate">
                   {{ scope.row.bomSpecification }}
                 </p>
               </template>
             </el-table-column>
-            <el-table-column label="Model" width="200" fixed>
+            <el-table-column label="Model" width="150" fixed>
               <template slot-scope="scope">
                 <p :title="scope.row.bomModel" class="truncate">
                   {{ scope.row.bomModel }}
