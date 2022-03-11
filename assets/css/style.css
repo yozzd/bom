@@ -68,7 +68,7 @@ a {
 }
 
 .el-select.el-select__primary .el-input .el-input__inner {
-  @apply bg-blue-600 text-white border-0;
+  @apply bg-blue-600 text-white border border-blue-600;
 }
 
 .heroicons {
