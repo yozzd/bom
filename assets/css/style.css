@@ -3,8 +3,7 @@
 body {
   font-family: 'Inter', sans-serif;
   font-feature-settings: 'tnum';
-  font-size: 14px;
-  @apply overflow-x-hidden;
+  @apply text-14px overflow-x-hidden;
 }
 
 body,
@@ -87,4 +86,8 @@ a {
 
 .el-table--mini {
   @apply text-10px;
+}
+
+.el-table.el-table--mini .el-table__cell {
+  @apply py-0.5;
 }
