@@ -285,6 +285,10 @@ const WOITEM = sequelize.define('item', {
   },
   bomPoDate: {
     type: DataTypes.DATE,
+    get() {
+      if (this.getDataValue('bomPoDate') === '0000-00-00' || !this.getDataValue('bomPoDate')) return '';
+      return this.getDataValue('bomPoDate');
+    },
   },
   bomPoNo: {
     type: DataTypes.STRING,

@@ -76,7 +76,8 @@ const resolvers = {
               'bomQtyBalance', 'bomQtyStock', 'bomEta', 'bomQtyRec',
               'bomDateRec', 'bomCurrSizeC', 'bomCurrSizeV', 'bomCurrEaC',
               'bomCurrEaV', 'bomUsdEa', 'bomUsdUnit', 'bomUsdTotal',
-              'materialsProcessed', 'yetToPurchase', 'bomSupplier'
+              'materialsProcessed', 'yetToPurchase', 'bomSupplier',
+              'bomPoDate', 'bomPoNo',
             ],
             where: {
               [Op.and]: [

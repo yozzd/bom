@@ -71,6 +71,8 @@ const typeDefs = `
     materialsProcessed: Float
     yetToPurchase: Float
     bomSupplier: String
+    bomPoDate: String
+    bomPoNo: String
   }
 `;
 

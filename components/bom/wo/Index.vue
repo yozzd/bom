@@ -172,6 +172,19 @@
               </p>
             </template>
           </el-table-column>
+          <el-table-column label="PO / PR" align="center">
+            <el-table-column
+              label="Date"
+              prop="bomPoDate"
+              align="center"
+              width="100"
+            ></el-table-column>
+            <el-table-column label="No" align="center" width="80">
+              <template slot-scope="scope">
+                {{ scope.row.bomPoNo }}
+              </template>
+            </el-table-column>
+          </el-table-column>
           <el-table-column label="" min-width="50"></el-table-column>
         </el-table>
       </div>

@@ -84,6 +84,8 @@ export const GetOneWO = gql`
           materialsProcessed
           yetToPurchase
           bomSupplier
+          bomPoDate
+          bomPoNo
         }
       }
     }
