@@ -74,6 +74,10 @@ export const GetOneWO = gql`
           bomEta
           bomQtyRec
           bomDateRec
+          bomCurrSizeC
+          bomCurrSizeV
+          bomCurrEaC
+          bomCurrEaV
         }
       }
     }

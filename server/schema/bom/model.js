@@ -258,12 +258,18 @@ const WOITEM = sequelize.define('item', {
   },
   bomCurrSizeV: {
     type: DataTypes.STRING,
+    get() {
+      return parseFloat(this.getDataValue('bomCurrSizeV')) || 0;
+    },
   },
   bomCurrEaC: {
     type: DataTypes.STRING,
   },
   bomCurrEaV: {
     type: DataTypes.STRING,
+    get() {
+      return parseFloat(this.getDataValue('bomCurrEaV')) || 0;
+    },
   },
   bomUsdEa: {
     type: DataTypes.DOUBLE(18, 2),
