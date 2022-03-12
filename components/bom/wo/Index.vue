@@ -82,7 +82,9 @@
           ></el-table-column>
           <el-table-column label="Qty Balance" width="80">
             <template slot-scope="scope">
-              {{ scope.row.bomQtyBalance }}
+              <span
+                :class="[{ 'text-red-600': scope.row.bomQtyBalance < 0 }]"
+              >{{ scope.row.bomQtyBalance }}</span>
             </template>
           </el-table-column>
           <el-table-column label="" min-width="50"></el-table-column>
