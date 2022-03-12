@@ -237,6 +237,10 @@ const WOITEM = sequelize.define('item', {
   },
   bomEta: {
     type: DataTypes.DATE,
+    get() {
+      if (this.getDataValue('bomEta') === '0000-00-00' || !this.getDataValue('bomEta')) return '';
+      return this.getDataValue('bomEta');
+    },
   },
   bomQtyRec: {
     type: DataTypes.DOUBLE(18, 2),

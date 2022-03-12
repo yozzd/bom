@@ -71,6 +71,7 @@ export const GetOneWO = gql`
           bomQtyRqd
           bomQtyBalance
           bomQtyStock
+          bomEta
         }
       }
     }
