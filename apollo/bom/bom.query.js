@@ -78,6 +78,8 @@ export const GetOneWO = gql`
           bomCurrSizeV
           bomCurrEaC
           bomCurrEaV
+          bomUsdEa
+          bomUsdUnit
         }
       }
     }

@@ -65,6 +65,8 @@ const typeDefs = `
     bomCurrSizeV: Float
     bomCurrEaC: String
     bomCurrEaV: Float
+    bomUsdEa: Float
+    bomUsdUnit: Float
   }
 `;
 

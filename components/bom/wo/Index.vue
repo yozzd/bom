@@ -126,6 +126,16 @@
                 {{ scope.row.bomCurrEaC }} {{ scope.row.bomCurrEaV | currency }}
               </template>
             </el-table-column>
+            <el-table-column label="USD / Ea" align="right" width="100">
+              <template slot-scope="scope">
+                {{ scope.row.bomUsdEa | currency }}
+              </template>
+            </el-table-column>
+            <el-table-column label="USD / Unit" align="right" width="100">
+              <template slot-scope="scope">
+                {{ scope.row.bomUsdUnit | currency }}
+              </template>
+            </el-table-column>
           </el-table-column>
           <el-table-column label="" min-width="50"></el-table-column>
         </el-table>
