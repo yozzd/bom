@@ -68,6 +68,8 @@ const typeDefs = `
     bomUsdEa: Float
     bomUsdUnit: Float
     bomUsdTotal: Float
+    materialsProcessed: Float
+    yetToPurchase: Float
   }
 `;
 

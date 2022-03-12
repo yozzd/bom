@@ -81,6 +81,8 @@ export const GetOneWO = gql`
           bomUsdEa
           bomUsdUnit
           bomUsdTotal
+          materialsProcessed
+          yetToPurchase
         }
       }
     }

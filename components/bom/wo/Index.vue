@@ -145,6 +145,16 @@
               {{ scope.row.bomUsdTotal | currency }}
             </template>
           </el-table-column>
+          <el-table-column align="right" width="100">
+            <template slot="header">
+              <p title="Materials Processed (USD)" class="truncate">
+                Materials Processed (USD)
+              </p>
+            </template>
+            <template slot-scope="scope">
+              {{ scope.row.materialsProcessed | currency }}
+            </template>
+          </el-table-column>
           <el-table-column label="" min-width="50"></el-table-column>
         </el-table>
       </div>
