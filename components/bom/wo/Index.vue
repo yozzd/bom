@@ -80,6 +80,11 @@
             align="center"
             width="80"
           ></el-table-column>
+          <el-table-column label="Qty Balance" width="80">
+            <template slot-scope="scope">
+              {{ scope.row.bomQtyBalance }}
+            </template>
+          </el-table-column>
           <el-table-column label="" min-width="50"></el-table-column>
         </el-table>
       </div>
