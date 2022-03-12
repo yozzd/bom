@@ -70,6 +70,7 @@ const typeDefs = `
     bomUsdTotal: Float
     materialsProcessed: Float
     yetToPurchase: Float
+    bomSupplier: String
   }
 `;
 

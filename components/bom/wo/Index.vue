@@ -165,6 +165,13 @@
               {{ scope.row.yetToPurchase | currency }}
             </template>
           </el-table-column>
+          <el-table-column label="Supplier" width="140">
+            <template slot-scope="scope">
+              <p :title="scope.row.bomSupplier" class="truncate">
+                {{ scope.row.bomSupplier }}
+              </p>
+            </template>
+          </el-table-column>
           <el-table-column label="" min-width="50"></el-table-column>
         </el-table>
       </div>
