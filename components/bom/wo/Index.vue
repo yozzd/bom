@@ -74,6 +74,12 @@
               {{ scope.row.bomQty }} {{ scope.row.bomUnit }}
             </template>
           </el-table-column>
+          <el-table-column
+            label="Qty Rqd"
+            prop="bomQtyRqd"
+            align="center"
+            width="80"
+          ></el-table-column>
           <el-table-column label="" min-width="50"></el-table-column>
         </el-table>
       </div>

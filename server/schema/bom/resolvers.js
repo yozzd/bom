@@ -72,7 +72,7 @@ const resolvers = {
             model: WOITEM,
             attributes: [
               'id', 'idMaterial', 'bomDescription', 'bomSpecification',
-              'bomModel', 'bomBrand', 'bomQty', 'bomUnit'
+              'bomModel', 'bomBrand', 'bomQty', 'bomUnit', 'bomQtyRqd',
             ],
             where: {
               [Op.and]: [

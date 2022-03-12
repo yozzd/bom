@@ -55,6 +55,7 @@ const typeDefs = `
     bomBrand: String
     bomQty: Float
     bomUnit: String
+    bomQtyRqd: Float
   }
 `;
 

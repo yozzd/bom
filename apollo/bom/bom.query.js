@@ -68,6 +68,7 @@ export const GetOneWO = gql`
           bomBrand
           bomQty
           bomUnit
+          bomQtyRqd
         }
       }
     }
