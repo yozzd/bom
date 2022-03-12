@@ -34,40 +34,38 @@
             width="40"
             fixed
           ></el-table-column>
-          <el-table-column label="Material" align="center">
-            <el-table-column label="CD" align="center" width="60">
-              <template slot-scope="scope">
-                {{ scope.row.idMaterial }}
-              </template>
-            </el-table-column>
-            <el-table-column label="Description" width="140">
-              <template slot-scope="scope">
-                <p :title="scope.row.bomDescription" class="truncate">
-                  {{ scope.row.bomDescription }}
-                </p>
-              </template>
-            </el-table-column>
-            <el-table-column label="Specification" width="140">
-              <template slot-scope="scope">
-                <p :title="scope.row.bomSpecification" class="truncate">
-                  {{ scope.row.bomSpecification }}
-                </p>
-              </template>
-            </el-table-column>
-            <el-table-column label="Model" width="140">
-              <template slot-scope="scope">
-                <p :title="scope.row.bomModel" class="truncate">
-                  {{ scope.row.bomModel }}
-                </p>
-              </template>
-            </el-table-column>
-            <el-table-column label="Brand" width="140">
-              <template slot-scope="scope">
-                <p :title="scope.row.bomBrand" class="truncate">
-                  {{ scope.row.bomBrand }}
-                </p>
-              </template>
-            </el-table-column>
+          <el-table-column label="CD" align="center" width="60" fixed>
+            <template slot-scope="scope">
+              {{ scope.row.idMaterial }}
+            </template>
+          </el-table-column>
+          <el-table-column label="Description" width="140" fixed>
+            <template slot-scope="scope">
+              <p :title="scope.row.bomDescription" class="truncate">
+                {{ scope.row.bomDescription }}
+              </p>
+            </template>
+          </el-table-column>
+          <el-table-column label="Specification" width="140" fixed>
+            <template slot-scope="scope">
+              <p :title="scope.row.bomSpecification" class="truncate">
+                {{ scope.row.bomSpecification }}
+              </p>
+            </template>
+          </el-table-column>
+          <el-table-column label="Model" width="140">
+            <template slot-scope="scope">
+              <p :title="scope.row.bomModel" class="truncate">
+                {{ scope.row.bomModel }}
+              </p>
+            </template>
+          </el-table-column>
+          <el-table-column label="Brand" width="140">
+            <template slot-scope="scope">
+              <p :title="scope.row.bomBrand" class="truncate">
+                {{ scope.row.bomBrand }}
+              </p>
+            </template>
           </el-table-column>
           <el-table-column label="Qty / Unit" width="80">
             <template slot-scope="scope">
@@ -103,7 +101,7 @@
             width="100"
           ></el-table-column>
           <el-table-column label="W/H Received" align="center">
-            <el-table-column label="Qty" width="80">
+            <el-table-column label="Qty" align="center" width="80">
               <template slot-scope="scope">
                 {{ scope.row.bomQtyRec | currency }}
               </template>
