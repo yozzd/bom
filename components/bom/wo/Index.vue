@@ -74,12 +74,11 @@
               {{ scope.row.bomQty }} {{ scope.row.bomUnit }}
             </template>
           </el-table-column>
-          <el-table-column
-            label="Qty Rqd"
-            prop="bomQtyRqd"
-            align="center"
-            width="80"
-          ></el-table-column>
+          <el-table-column label="Qty Rqd" width="80">
+            <template slot-scope="scope">
+              {{ scope.row.bomQtyRqd | currency }}
+            </template>
+          </el-table-column>
           <el-table-column label="Qty Balance" align="center" width="80">
             <template slot-scope="scope">
               <span
@@ -104,12 +103,11 @@
             width="100"
           ></el-table-column>
           <el-table-column label="W/H Received" align="center">
-            <el-table-column
-              label="Qty"
-              prop="bomQtyRec"
-              align="center"
-              width="80"
-            ></el-table-column>
+            <el-table-column label="Qty" width="80">
+              <template slot-scope="scope">
+                {{ scope.row.bomQtyRec | currency }}
+              </template>
+            </el-table-column>
             <el-table-column
               label="Date"
               prop="bomDateRec"
