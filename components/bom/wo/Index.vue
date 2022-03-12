@@ -155,6 +155,16 @@
               {{ scope.row.materialsProcessed | currency }}
             </template>
           </el-table-column>
+          <el-table-column align="right" width="100">
+            <template slot="header">
+              <p title="Yet To Purchase (USD)" class="truncate">
+                Yet To Purchase (USD)
+              </p>
+            </template>
+            <template slot-scope="scope">
+              {{ scope.row.yetToPurchase | currency }}
+            </template>
+          </el-table-column>
           <el-table-column label="" min-width="50"></el-table-column>
         </el-table>
       </div>
