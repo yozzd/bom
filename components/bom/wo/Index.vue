@@ -103,6 +103,20 @@
             align="center"
             width="100"
           ></el-table-column>
+          <el-table-column label="W/H Received" align="center">
+            <el-table-column
+              label="Qty"
+              prop="bomQtyRec"
+              align="center"
+              width="80"
+            ></el-table-column>
+            <el-table-column
+              label="Date"
+              prop="bomDateRec"
+              align="center"
+              width="100"
+            ></el-table-column>
+          </el-table-column>
           <el-table-column label="" min-width="50"></el-table-column>
         </el-table>
       </div>

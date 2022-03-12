@@ -73,7 +73,8 @@ const resolvers = {
             attributes: [
               'id', 'idMaterial', 'bomDescription', 'bomSpecification',
               'bomModel', 'bomBrand', 'bomQty', 'bomUnit', 'bomQtyRqd',
-              'bomQtyBalance', 'bomQtyStock', 'bomEta',
+              'bomQtyBalance', 'bomQtyStock', 'bomEta', 'bomQtyRec',
+              'bomDateRec',
             ],
             where: {
               [Op.and]: [

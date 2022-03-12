@@ -59,6 +59,8 @@ const typeDefs = `
     bomQtyBalance: Float
     bomQtyStock: Float
     bomEta: String
+    bomQtyRec: Float
+    bomDateRec: String
   }
 `;
 
