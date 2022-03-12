@@ -80,6 +80,7 @@ export const GetOneWO = gql`
           bomCurrEaV
           bomUsdEa
           bomUsdUnit
+          bomUsdTotal
         }
       }
     }

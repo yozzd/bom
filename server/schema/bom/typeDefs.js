@@ -67,6 +67,7 @@ const typeDefs = `
     bomCurrEaV: Float
     bomUsdEa: Float
     bomUsdUnit: Float
+    bomUsdTotal: Float
   }
 `;
 

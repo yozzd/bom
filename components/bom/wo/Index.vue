@@ -135,6 +135,16 @@
               </template>
             </el-table-column>
           </el-table-column>
+          <el-table-column align="right" width="100">
+            <template slot="header">
+              <p title="Total Price (USD)" class="truncate">
+                Total Price (USD)
+              </p>
+            </template>
+            <template slot-scope="scope">
+              {{ scope.row.bomUsdTotal | currency }}
+            </template>
+          </el-table-column>
           <el-table-column label="" min-width="50"></el-table-column>
         </el-table>
       </div>
