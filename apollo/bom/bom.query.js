@@ -70,6 +70,7 @@ export const GetOneWO = gql`
           bomUnit
           bomQtyRqd
           bomQtyBalance
+          bomQtyStock
         }
       }
     }

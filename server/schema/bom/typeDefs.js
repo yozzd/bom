@@ -57,6 +57,7 @@ const typeDefs = `
     bomUnit: String
     bomQtyRqd: Float
     bomQtyBalance: Float
+    bomQtyStock: Float
   }
 `;
 
