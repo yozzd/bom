@@ -33,6 +33,15 @@
           </el-button>
         </div>
       </el-form>
+
+      <div class="flex">
+        <div class="flex-1">
+          &copy; 2022
+        </div>
+        <div class="press-start text-xs">
+          <a href="https://github.com/yozzd/bom" target="_blank">DB</a>
+        </div>
+      </div>
     </div>
     <div></div>
     <div></div>
