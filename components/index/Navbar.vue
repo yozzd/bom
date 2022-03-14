@@ -1,16 +1,16 @@
 <template>
   <div class="navbar">
     <div class="flex items-center">
-      <nuxt-link to="/" exact>
+      <nuxt-link :to="{ name: 'index' }" exact>
         <outline-home-icon class="heroicons w-4 h-4" />
       </nuxt-link>
-      <nuxt-link to="/bom/">
+      <nuxt-link :to="{ name: 'bom' }">
         BOM
       </nuxt-link>
-      <nuxt-link to="/mpr/">
+      <nuxt-link :to="{ name: 'mpr' }">
         MPR
       </nuxt-link>
-      <nuxt-link to="/outstanding-po/">
+      <nuxt-link :to="{ name: 'outstanding-po' }">
         OUTSTANDING PO
       </nuxt-link>
     </div>
