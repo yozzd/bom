@@ -3,7 +3,7 @@
     <div></div>
     <div></div>
     <div class="flex flex-col space-y-4">
-      <div class="text-2xl text-center font-bold">
+      <div class="text-2xl text-center font-bold press-start text-blue-600">
         BOM
       </div>
 
