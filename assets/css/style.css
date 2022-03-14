@@ -100,8 +100,8 @@ a {
 
 .card-button {
   @apply flex items-start space-x-2 press-start;
-  @apply px-1 pt-3 pb-2 border border-gray-100;
-  @apply text-black;
+  @apply px-1 pt-3 pb-2 border border-gray-200;
+  @apply text-black bg-gray-100;
 }
 
 .card-button div:nth-child(1) {
@@ -109,5 +109,5 @@ a {
 }
 
 .card-button:hover {
-  @apply text-blue-600 bg-blue-50 border-blue-100;
+  @apply text-blue-600 bg-blue-100 border-blue-200;
 }
