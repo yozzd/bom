@@ -1,6 +1,9 @@
 <template>
   <div class="navbar">
     <div class="flex items-center">
+      <nuxt-link to="/" exact>
+        <outline-home-icon class="heroicons w-4 h-4" />
+      </nuxt-link>
       <nuxt-link to="/bom/">
         BOM
       </nuxt-link>
