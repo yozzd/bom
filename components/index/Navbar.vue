@@ -10,6 +10,9 @@
       <nuxt-link to="/mpr/">
         MPR
       </nuxt-link>
+      <nuxt-link to="/outstanding-po/">
+        OUTSTANDING PO
+      </nuxt-link>
     </div>
     <div class="flex-1"></div>
     <el-dropdown trigger="click" @command="handleCommand">
