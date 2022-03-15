@@ -23,8 +23,8 @@
             <el-descriptions-item label="Model ">
               {{ wo.model }}
             </el-descriptions-item>
-            <el-descriptions-item label="Place">
-              Test
+            <el-descriptions-item label="Product Name ">
+              {{ wo.product }}
             </el-descriptions-item>
             <el-descriptions-item label="Remarks">
               Test

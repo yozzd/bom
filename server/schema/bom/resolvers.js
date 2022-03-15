@@ -63,7 +63,7 @@ const resolvers = {
     getOneWO: isAuthenticated(async (_, { id }) => {
       const wo = await WO.findOne({
         attributes: [
-          'id', 'woNo', 'cat', 'model', 'stage',
+          'id', 'woNo', 'cat', 'model', 'product', 'stage',
         ],
         where: { id },
         include: [{

@@ -56,6 +56,7 @@ export const GetOneWO = gql`
       woNo
       cat
       model
+      product
       stage
       headers {
         id
