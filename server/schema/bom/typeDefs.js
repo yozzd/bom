@@ -73,6 +73,7 @@ const typeDefs = `
     bomSupplier: String
     bomPoDate: String
     bomPoNo: String
+    bomRemarks: String
   }
 `;
 

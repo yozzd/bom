@@ -301,6 +301,10 @@ const WOITEM = sequelize.define('item', {
   },
   bomRemarks: {
     type: DataTypes.TEXT,
+    get() {
+      const arr = ['<p> </p>', '<p><br></p>'];
+      return arr.includes(this.getDataValue('bomRemarks')) ? '' : this.getDataValue('bomRemarks');
+    },
   },
   bomEtaStatus: {
     type: DataTypes.STRING,

@@ -19,5 +19,6 @@ module.exports = {
     'vue/html-self-closing': 0,
     'no-underscore-dangle': 0,
     'vue/multi-word-component-names': 0,
+    'vue/no-v-html': 0,
   },
 };
