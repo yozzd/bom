@@ -67,24 +67,29 @@
               </p>
             </template>
           </el-table-column>
-          <el-table-column label="Qty / Unit" width="80">
+          <el-table-column label="Qty / Unit" width="70">
             <template slot-scope="scope">
               {{ scope.row.bomQty }} {{ scope.row.bomUnit }}
             </template>
           </el-table-column>
-          <el-table-column label="Qty Rqd" width="80">
+          <el-table-column label="Qty Rqd" align="center" width="60">
             <template slot-scope="scope">
               {{ scope.row.bomQtyRqd | currency }}
             </template>
           </el-table-column>
-          <el-table-column label="Qty Balance" align="center" width="80">
+          <el-table-column align="center" width="60">
+            <template slot="header">
+              <p title="Qty Balance" class="truncate">
+                Qty Balance
+              </p>
+            </template>
             <template slot-scope="scope">
               <span
                 :class="[{ 'text-red-600': scope.row.bomQtyBalance < 0 }]"
               >{{ scope.row.bomQtyBalance }}</span>
             </template>
           </el-table-column>
-          <el-table-column align="center" width="80">
+          <el-table-column align="center" width="60">
             <template slot="header">
               <p title="Qty Stock @W/H" class="truncate">
                 Qty Stock @W/H
@@ -98,10 +103,10 @@
             label="ETA"
             prop="bomEta"
             align="center"
-            width="100"
+            width="90"
           ></el-table-column>
           <el-table-column label="W/H Received" align="center">
-            <el-table-column label="Qty" align="center" width="80">
+            <el-table-column label="Qty" align="center" width="60">
               <template slot-scope="scope">
                 {{ scope.row.bomQtyRec | currency }}
               </template>
@@ -110,7 +115,7 @@
               label="Date"
               prop="bomDateRec"
               align="center"
-              width="100"
+              width="90"
             ></el-table-column>
           </el-table-column>
           <el-table-column label="Price" align="center">
@@ -177,7 +182,7 @@
               label="Date"
               prop="bomPoDate"
               align="center"
-              width="100"
+              width="90"
             ></el-table-column>
             <el-table-column label="No" align="center" width="80">
               <template slot-scope="scope">

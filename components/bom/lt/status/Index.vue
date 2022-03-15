@@ -58,7 +58,7 @@
         <el-table-column
           label="Incoming"
           align="center"
-          width="70"
+          width="80"
         >
           <template slot-scope="scope">
             {{ scope.row.totalIncoming }} / {{ scope.row.totalItems }}
