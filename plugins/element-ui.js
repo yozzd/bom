@@ -7,8 +7,6 @@ import {
   Button,
   Checkbox,
   DatePicker,
-  Descriptions,
-  DescriptionsItem,
   Dialog,
   Dropdown,
   DropdownMenu,
@@ -48,8 +46,6 @@ Vue.use(BreadcrumbItem);
 Vue.use(Button);
 Vue.use(Checkbox);
 Vue.use(DatePicker);
-Vue.use(Descriptions);
-Vue.use(DescriptionsItem);
 Vue.use(Dialog);
 Vue.use(Dropdown);
 Vue.use(DropdownMenu);

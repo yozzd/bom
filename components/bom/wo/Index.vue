@@ -12,27 +12,17 @@
       element-loading-spinner="el-icon-loading"
     >
       <div class="flex space-x-4 items-center">
-        <div class="font-bold">
-          <el-descriptions>
-            <template slot="title">
-              {{ wo.woNo }} <span v-if="wo.stage">[STAGE-{{ wo.stage }}]</span>
-            </template>
-            <el-descriptions-item label="Cat. No. ">
-              {{ wo.cat }}
-            </el-descriptions-item>
-            <el-descriptions-item label="Model ">
-              {{ wo.model }}
-            </el-descriptions-item>
-            <el-descriptions-item label="Product Name ">
-              {{ wo.product }}
-            </el-descriptions-item>
-            <el-descriptions-item label="Remarks">
-              Test
-            </el-descriptions-item>
-            <el-descriptions-item label="Address">
-              Test
-            </el-descriptions-item>
-          </el-descriptions>
+        <div class="flex flex-col space-y-4">
+          <div class="font-bold">
+            {{ wo.woNo }} <span v-if="wo.stage">[STAGE-{{ wo.stage }}]</span>
+          </div>
+          <table>
+            <tr>
+              <td>Cat. No.</td>
+              <td>:</td>
+              <td>{{ wo.cat }}</td>
+            </tr>
+          </table>
         </div>
         <div class="flex-1"></div>
       </div>
