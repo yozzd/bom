@@ -74,6 +74,7 @@ const typeDefs = `
     bomPoDate: String
     bomPoNo: String
     bomRemarks: String
+    priority: String
   }
 `;
 
