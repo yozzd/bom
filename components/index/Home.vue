@@ -21,7 +21,7 @@
         03
       </div>
       <div class="text-3xl">
-          OUTSTANDING PO
+        OUTSTANDING PO
       </div>
     </nuxt-link>
   </div>

@@ -32,21 +32,21 @@
         element-loading-text="Loading..."
         element-loading-spinner="el-icon-loading"
         :data="tableData"
-        size="small"
+        size="mini"
         border
       >
         <el-table-column type="index" align="center" width="50" fixed></el-table-column>
-        <el-table-column label="WO" width="200" fixed>
+        <el-table-column label="WO" width="160" fixed>
           <template slot-scope="scope">
             <a :href="`/bom/wo/${scope.row.id}`" target="_blank" class="font-bold">
               {{ scope.row.woNo }} <span v-if="scope.row.stage">[STAGE-{{ scope.row.stage }}]</span>
             </a>
           </template>
         </el-table-column>
-        <el-table-column prop="model" label="Model" width="120"></el-table-column>
+        <el-table-column prop="model" label="Model" width="100"></el-table-column>
         <el-table-column
           label="Product Name"
-          width="200"
+          width="160"
         >
           <template slot-scope="scope">
             <p :title="scope.row.product" class="truncate">
@@ -54,11 +54,11 @@
             </p>
           </template>
         </el-table-column>
-        <el-table-column prop="issued" label="Issued" width="100"></el-table-column>
+        <el-table-column prop="issued" label="Issued" align="center" width="90"></el-table-column>
         <el-table-column
           label="Incoming"
           align="center"
-          width="80"
+          width="70"
         >
           <template slot-scope="scope">
             {{ scope.row.totalIncoming }} / {{ scope.row.totalItems }}
@@ -66,7 +66,7 @@
         </el-table-column>
         <el-table-column
           align="center"
-          width="80"
+          width="70"
         >
           <template slot="header">
             <p title="% Incoming" class="truncate">
@@ -80,7 +80,7 @@
         <el-table-column
           label="Validation"
           align="center"
-          width="80"
+          width="70"
         >
           <template slot-scope="scope">
             {{ scope.row.totalValidation }} / {{ scope.row.totalItems }}
@@ -88,7 +88,7 @@
         </el-table-column>
         <el-table-column
           align="center"
-          width="80"
+          width="70"
         >
           <template slot="header">
             <p title="% Validation" class="truncate">
@@ -103,43 +103,43 @@
         <el-table-column
           label="Budget (USD)"
           align="right"
-          width="140"
+          width="100"
         >
           <template slot-scope="scope">
             {{ scope.row.budget | currency }}
           </template>
         </el-table-column>
-        <el-table-column
-          label="Price / Unit (USD)"
-          align="right"
-          width="140"
-        >
+        <el-table-column align="right" width="100">
+          <template slot="header">
+            <p title="Price / Unit (USD)" class="truncate">
+              Price / Unit (USD)
+            </p>
+          </template>
           <template slot-scope="scope">
             {{ scope.row.totalPricePerUnit | currency }}
           </template>
         </el-table-column>
-        <el-table-column
-          label="Price / WO (USD)"
-          align="right"
-          width="140"
-        >
+        <el-table-column align="right" width="100">
+          <template slot="header">
+            <p title="Price / WO (USD)" class="truncate">
+              Price / WO (USD)
+            </p>
+          </template>
           <template slot-scope="scope">
             {{ scope.row.totalPricePerWO | currency }}
           </template>
         </el-table-column>
-        <el-table-column
-          label="Difference (USD)"
-          align="right"
-          width="140"
-        >
+        <el-table-column align="right" width="100">
+          <template slot="header">
+            <p title="Difference (USD)" class="truncate">
+              Difference (USD)
+            </p>
+          </template>
           <template slot-scope="scope">
             {{ scope.row.difference | currency }}
           </template>
         </el-table-column>
-        <el-table-column
-          align="right"
-          width="140"
-        >
+        <el-table-column align="right" width="100">
           <template slot="header">
             <p title="Yet To Purchase (USD)" class="truncate">
               Yet To Purchase (USD)
@@ -152,26 +152,28 @@
         <el-table-column
           label="Deviation (USD)"
           align="right"
-          width="140"
+          width="100"
         >
           <template slot-scope="scope">
             {{ scope.row.totalDeviation | currency }}
           </template>
         </el-table-column>
-        <el-table-column
-          label="Packing / Unit (USD)"
-          align="right"
-          width="140"
-        >
+        <el-table-column align="right" width="100">
+          <template slot="header">
+            <p title="Packing / Unit (USD)" class="truncate">
+              Packing / Unit (USD)
+            </p>
+          </template>
           <template slot-scope="scope">
             {{ scope.row.totalPackingPerUnit | currency }}
           </template>
         </el-table-column>
-        <el-table-column
-          label="Packing / WO (USD)"
-          align="right"
-          width="140"
-        >
+        <el-table-column align="right" width="100">
+          <template slot="header">
+            <p title="Packing / WO (USD)" class="truncate">
+              Packing / WO (USD)
+            </p>
+          </template>
           <template slot-scope="scope">
             {{ scope.row.totalPackingPerWO | currency }}
           </template>
