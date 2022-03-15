@@ -4,7 +4,7 @@
       <div>
         01
       </div>
-      <div class="text-4xl press-start">
+      <div class="text-3xl">
         BOM
       </div>
     </nuxt-link>
@@ -12,7 +12,7 @@
       <div>
         02
       </div>
-      <div class="text-4xl">
+      <div class="text-3xl">
         MPR
       </div>
     </nuxt-link>
@@ -20,13 +20,8 @@
       <div>
         03
       </div>
-      <div>
-        <p class="text-20px">
-          OUTSTANDING
-        </p>
-        <p class="text-20px">
-          PO
-        </p>
+      <div class="text-3xl">
+          OUTSTANDING PO
       </div>
     </nuxt-link>
   </div>
