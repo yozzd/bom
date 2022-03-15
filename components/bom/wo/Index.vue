@@ -13,7 +13,26 @@
     >
       <div class="flex space-x-4 items-center">
         <div class="font-bold">
-          {{ wo.woNo }} <span v-if="wo.stage">[STAGE-{{ wo.stage }}]</span>
+          <el-descriptions>
+            <template slot="title">
+              {{ wo.woNo }} <span v-if="wo.stage">[STAGE-{{ wo.stage }}]</span>
+            </template>
+            <el-descriptions-item label="Cat. No. ">
+              {{ wo.cat }}
+            </el-descriptions-item>
+            <el-descriptions-item label="Model ">
+              {{ wo.model }}
+            </el-descriptions-item>
+            <el-descriptions-item label="Place">
+              Test
+            </el-descriptions-item>
+            <el-descriptions-item label="Remarks">
+              Test
+            </el-descriptions-item>
+            <el-descriptions-item label="Address">
+              Test
+            </el-descriptions-item>
+          </el-descriptions>
         </div>
         <div class="flex-1"></div>
       </div>

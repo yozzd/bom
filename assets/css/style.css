@@ -119,3 +119,7 @@ a {
 .el-loading-spinner .el-loading-text {
   @apply press-start text-xs;
 }
+
+.el-descriptions :not(.is-bordered) .el-descriptions-item__cell {
+  @apply text-xs;
+}
