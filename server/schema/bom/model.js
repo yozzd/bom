@@ -248,7 +248,7 @@ const WOITEM = sequelize.define('item', {
   bomDateRec: {
     type: DataTypes.DATE,
     get() {
-      // Note: need to check po arrival date
+      // Note: need to check po arrival date & add more conditions
       if (this.getDataValue('bomDateRec') === '0000-00-00' || !this.getDataValue('bomDateRec')) return '';
       return this.getDataValue('bomDateRec');
     },
@@ -308,6 +308,11 @@ const WOITEM = sequelize.define('item', {
   },
   bomEtaStatus: {
     type: DataTypes.STRING,
+    get() {
+      // Note: need to check po arrival date & add more conditions
+      if (this.bomQty > 0 && this.bomQtyStock > 0 && this.bomQtyBalance >= 0) return 'ONTIME';
+      return '';
+    },
   },
   bomStatus: {
     type: DataTypes.INTEGER,

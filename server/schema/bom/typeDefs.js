@@ -75,6 +75,7 @@ const typeDefs = `
     bomPoNo: String
     bomRemarks: String
     priority: String
+    bomEtaStatus: String
   }
 `;
 

@@ -88,6 +88,7 @@ export const GetOneWO = gql`
           bomPoNo
           bomRemarks
           priority
+          bomEtaStatus
         }
       }
     }
