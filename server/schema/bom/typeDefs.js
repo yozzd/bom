@@ -17,6 +17,7 @@ const typeDefs = `
   type WO {
     id: Int
     woNo: String
+    idLt: Int
     cat: String
     model: String
     product: String

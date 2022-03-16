@@ -11,6 +11,22 @@
       element-loading-text="Loading..."
       element-loading-spinner="el-icon-loading"
     >
+      <el-breadcrumb separator="/">
+        <el-breadcrumb-item :to="{ name: 'index' }">
+          <outline-home-icon class="heroicons w-15px h-15px" />
+        </el-breadcrumb-item>
+        <el-breadcrumb-item :to="{ name: 'bom'}">
+          LT
+        </el-breadcrumb-item>
+        <el-breadcrumb-item
+          :to="{ name: 'bom-lt-id-status', params: { id: wo.idLt, status: wo.status } }"
+        >
+          WO
+        </el-breadcrumb-item>
+        <el-breadcrumb-item>
+          ITEMS
+        </el-breadcrumb-item>
+      </el-breadcrumb>
       <div class="flex space-x-4 items-center">
         <div class="flex flex-col space-y-4">
           <div class="font-bold">

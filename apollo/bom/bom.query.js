@@ -54,10 +54,12 @@ export const GetOneWO = gql`
     getOneWO(id: $id) {
       id
       woNo
+      idLt
       cat
       model
       product
       stage
+      status
       headers {
         id
         hid
