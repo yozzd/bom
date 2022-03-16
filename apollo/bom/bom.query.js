@@ -59,6 +59,9 @@ export const GetOneWO = gql`
       model
       product
       stage
+      sgd
+      budget
+      refer
       status
       headers {
         id

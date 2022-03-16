@@ -64,7 +64,7 @@ const resolvers = {
       const wo = await WO.findOne({
         attributes: [
           'id', 'woNo', 'idLt', 'cat', 'model', 'product', 'stage',
-          'status',
+          'sgd', 'budget', 'refer', 'status',
         ],
         where: { id },
         include: [{

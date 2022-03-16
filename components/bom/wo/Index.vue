@@ -28,15 +28,32 @@
         </el-breadcrumb-item>
       </el-breadcrumb>
       <div class="flex space-x-4 items-center">
-        <div class="flex flex-col space-y-4">
+        <div class="flex flex-col space-y-4 w-full">
           <div class="font-bold">
             {{ wo.woNo }} <span v-if="wo.stage">[STAGE-{{ wo.stage }}]</span>
           </div>
-          <table>
+          <table class="plain">
             <tr>
-              <td>Cat. No.</td>
+              <td class="">
+                Cat. No.
+              </td>
               <td>:</td>
               <td>{{ wo.cat }}</td>
+              <td class="">
+                Budget
+              </td>
+              <td>:</td>
+              <td>USD {{ wo.budget | currency }}</td>
+              <td class="">
+                Refer
+              </td>
+              <td>:</td>
+              <td>{{ wo.refer }}</td>
+              <td class="">
+                1 USD
+              </td>
+              <td>:</td>
+              <td>SGD {{ wo.sgd | currency }}</td>
             </tr>
           </table>
         </div>

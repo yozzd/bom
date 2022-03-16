@@ -21,10 +21,12 @@ const typeDefs = `
     cat: String
     model: String
     product: String
+    stage: Int
     issued: String
     unit: Int
+    sgd: Float
     budget: Float
-    stage: Int
+    refer: String
     status: Int
     totalIncoming: Int
     totalValidation: Int
