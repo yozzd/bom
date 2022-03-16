@@ -39,7 +39,11 @@
         <el-table-column label="WO" width="180" fixed>
           <template slot-scope="scope">
             <div class="flex">
-              <nuxt-link :to="{ name: 'bom-wo-id', params: { id: scope.row.id } }" class="flex-1">
+              <nuxt-link
+                :to="{ name: 'bom-wo-id', params: { id: scope.row.id } }"
+                :title="scope.row.woNo"
+                class="flex-1 truncate"
+              >
                 {{ scope.row.woNo }}
                 <span v-if="scope.row.stage">[STAGE-{{ scope.row.stage }}]</span>
               </nuxt-link>
