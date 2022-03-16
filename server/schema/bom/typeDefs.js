@@ -25,6 +25,7 @@ const typeDefs = `
     issued: String
     unit: Int
     sgd: Float
+    idr: Float
     budget: Float
     refer: String
     status: Int

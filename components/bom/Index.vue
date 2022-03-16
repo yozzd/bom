@@ -9,7 +9,7 @@
           @change="handleChange"
         >
           <el-option
-            v-for="item in options"
+            v-for="item in optionsWoStatus"
             :key="item.value"
             :label="item.label"
             :value="item.value"
@@ -94,26 +94,14 @@
 <script>
 import MiniSearch from 'minisearch';
 import table from '../../mixins/table';
+import woStatus from '../../mixins/woStatus';
 import { GetAllLT } from '../../apollo/bom/bom.query';
 
 export default {
-  mixins: [table],
+  mixins: [table, woStatus],
   data() {
     return {
       status: 0,
-      options: [{
-        value: 0,
-        label: 'Running',
-      }, {
-        value: 2,
-        label: 'Validasi Approval',
-      }, {
-        value: 3,
-        label: 'Temporary',
-      }, {
-        value: 1,
-        label: 'Close',
-      }],
       miniSearch: new MiniSearch({
         idField: 'id',
         fields: ['ltNo', 'customer'],

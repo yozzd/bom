@@ -33,28 +33,52 @@
             {{ wo.woNo }} <span v-if="wo.stage">[STAGE-{{ wo.stage }}]</span>
           </div>
           <table class="plain">
-            <tr>
-              <td class="">
-                Cat. No.
-              </td>
-              <td>:</td>
-              <td>{{ wo.cat }}</td>
-              <td class="">
-                Budget
-              </td>
-              <td>:</td>
-              <td>USD {{ wo.budget | currency }}</td>
-              <td class="">
-                Refer
-              </td>
-              <td>:</td>
-              <td>{{ wo.refer }}</td>
-              <td class="">
-                1 USD
-              </td>
-              <td>:</td>
-              <td>SGD {{ wo.sgd | currency }}</td>
-            </tr>
+            <tbody>
+              <tr>
+                <td class="">
+                  Cat. No.
+                </td>
+                <td>:</td>
+                <td>{{ wo.cat }}</td>
+                <td class="">
+                  Budget
+                </td>
+                <td>:</td>
+                <td>USD {{ wo.budget | currency }}</td>
+                <td class="">
+                  Refer
+                </td>
+                <td>:</td>
+                <td>{{ wo.refer }}</td>
+                <td class="">
+                  1 USD
+                </td>
+                <td>:</td>
+                <td>SGD {{ wo.sgd | currency }}</td>
+              </tr>
+              <tr>
+                <td class="">
+                  Model
+                </td>
+                <td>:</td>
+                <td>{{ wo.model }}</td>
+                <td class="">
+                  Expense
+                </td>
+                <td>:</td>
+                <td>USD {{ wo.totalPricePerWO | currency }}</td>
+                <td class="">
+                  Status
+                </td>
+                <td>:</td>
+                <td>{{ arrWoStatus[0][wo.status] }}</td>
+                <td class="">
+                  1 USD
+                </td>
+                <td>:</td>
+                <td>IDR {{ wo.idr | currency }}</td>
+              </tr>
+            </tbody>
           </table>
         </div>
         <div class="flex-1"></div>
@@ -271,14 +295,23 @@
 
 <script>
 import { GetOneWO } from '../../../apollo/bom/bom.query';
+import woStatus from '../../../mixins/woStatus';
 
 export default {
+  mixins: [woStatus],
   data() {
     return {
       wo: {},
       headers: {},
       errors: [],
     };
+  },
+  computed: {
+    arrWoStatus() {
+      return this.optionsWoStatus.map((v) => ({
+        [v.value]: v.label,
+      }));
+    },
   },
   apollo: {
     getOneWO: {

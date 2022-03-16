@@ -1,4 +1,5 @@
 const { Op } = require('sequelize');
+const merge = require('lodash/merge');
 const sequelize = require('../../config/db');
 const {
   LT, WO, WOHEADER, WOITEM,
@@ -64,7 +65,7 @@ const resolvers = {
       const wo = await WO.findOne({
         attributes: [
           'id', 'woNo', 'idLt', 'cat', 'model', 'product', 'stage',
-          'sgd', 'budget', 'refer', 'status',
+          'sgd', 'idr', 'budget', 'refer', 'status',
         ],
         where: { id },
         include: [{
@@ -81,6 +82,7 @@ const resolvers = {
               'bomCurrEaV', 'bomUsdEa', 'bomUsdUnit', 'bomUsdTotal',
               'materialsProcessed', 'yetToPurchase', 'bomSupplier',
               'bomPoDate', 'bomPoNo', 'bomRemarks', 'priority', 'bomEtaStatus',
+              'packing',
             ],
             where: {
               [Op.and]: [
@@ -93,7 +95,29 @@ const resolvers = {
         }],
       });
 
-      return wo;
+      const woSum = await WO.findOne({
+        attributes: [
+          [sequelize.literal('SUM(CASE WHEN `headers->items`.packing = 0 AND `headers`.header NOT LIKE ("%deviation%") THEN `headers->items`.bom_usd_total ELSE 0 END)'), 'totalPricePerWO'],
+        ],
+        where: { id },
+        include: [{
+          model: WOHEADER,
+          attributes: [],
+          include: [{
+            model: WOITEM,
+            attributes: [],
+            where: {
+              [Op.and]: [
+                { cancel: 0 },
+                { idHeader: { [Op.not]: null } },
+              ],
+            },
+            required: false,
+          }],
+        }],
+      });
+
+      return merge(wo, woSum);
     }),
   },
   Mutation: {},
