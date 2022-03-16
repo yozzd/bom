@@ -60,11 +60,13 @@ export const GetOneWO = gql`
       model
       product
       picName
+      rndic
       stage
       sgd
       idr
       euro
       gbp
+      myr
       budget
       refer
       status
@@ -72,6 +74,8 @@ export const GetOneWO = gql`
       difference
       totalMaterialsProcessed
       totalYetToPurchase
+      totalPackingPerUnit
+      totalPackingPerWO
       headers {
         id
         hid

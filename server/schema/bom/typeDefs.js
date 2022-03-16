@@ -23,12 +23,14 @@ const typeDefs = `
     model: String
     product: String
     picName: String
+    rndic: String
     stage: Int
     issued: String
     sgd: Float
     idr: Float
     euro: Float
     gbp: Float
+    myr: Float
     budget: Float
     refer: String
     status: Int

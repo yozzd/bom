@@ -122,6 +122,28 @@
                 <td>:</td>
                 <td>USD {{ wo.gbp | currency }}</td>
               </tr>
+              <tr>
+                <td class="">
+                  RND In-Charge
+                </td>
+                <td>:</td>
+                <td>{{ wo.rndic }}</td>
+                <td class="">
+                  Packing / Unit
+                </td>
+                <td>:</td>
+                <td>USD {{ wo.totalPackingPerUnit | currency }}</td>
+                <td class="">
+                  Packing / WO
+                </td>
+                <td>:</td>
+                <td>USD {{ wo.totalPackingPerWO | currency }}</td>
+                <td class="">
+                  1 MYR
+                </td>
+                <td>:</td>
+                <td>USD {{ wo.myr | currency }}</td>
+              </tr>
             </tbody>
           </table>
         </div>
