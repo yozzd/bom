@@ -35,110 +35,116 @@
           <table class="plain">
             <tbody>
               <tr>
-                <td class="">
+                <td class="w-32">
                   Cat. No.
                 </td>
                 <td>:</td>
-                <td>{{ wo.cat }}</td>
-                <td class="">
+                <td class="w-80">
+                  {{ wo.cat }}
+                </td>
+                <td class="w-32">
                   Budget
                 </td>
                 <td>:</td>
                 <td>USD {{ wo.budget | currency }}</td>
-                <td class="">
+                <td class="w-32">
                   Refer
                 </td>
                 <td>:</td>
                 <td>{{ wo.refer }}</td>
-                <td class="">
+                <td class="w-32">
                   1 USD
                 </td>
                 <td>:</td>
                 <td>SGD {{ wo.sgd | currency }}</td>
               </tr>
               <tr>
-                <td class="">
+                <td>
                   Model
                 </td>
                 <td>:</td>
                 <td>{{ wo.model }}</td>
-                <td class="">
+                <td>
                   Expense
                 </td>
                 <td>:</td>
                 <td>USD {{ wo.totalPricePerWO | currency }}</td>
-                <td class="">
+                <td>
                   Status
                 </td>
                 <td>:</td>
                 <td>{{ arrWoStatus[0][wo.status] }}</td>
-                <td class="">
+                <td>
                   1 USD
                 </td>
                 <td>:</td>
                 <td>IDR {{ wo.idr | currency }}</td>
               </tr>
               <tr>
-                <td class="">
+                <td>
                   Product Name
                 </td>
                 <td>:</td>
-                <td>{{ wo.product }}</td>
-                <td class="">
+                <td>
+                  <p :title="wo.product" class="w-80 truncate">
+                    {{ wo.product }}
+                  </p>
+                </td>
+                <td>
                   Difference
                 </td>
                 <td>:</td>
                 <td>USD {{ wo.difference | currency }}</td>
-                <td class="">
+                <td>
                   Materials Processed
                 </td>
                 <td>:</td>
                 <td>{{ wo.totalMaterialsProcessed | currency }}</td>
-                <td class="">
+                <td>
                   1 EURO
                 </td>
                 <td>:</td>
                 <td>USD {{ wo.euro | currency }}</td>
               </tr>
               <tr>
-                <td class="">
+                <td>
                   PIC
                 </td>
                 <td>:</td>
                 <td>{{ wo.picName }}</td>
-                <td class="">
+                <td>
                   Total Production
                 </td>
                 <td>:</td>
                 <td>{{ wo.unit }} Unit</td>
-                <td class="">
+                <td>
                   Yet To Purchase
                 </td>
                 <td>:</td>
                 <td>{{ wo.totalYetToPurchase | currency }}</td>
-                <td class="">
+                <td>
                   1 GBP
                 </td>
                 <td>:</td>
                 <td>USD {{ wo.gbp | currency }}</td>
               </tr>
               <tr>
-                <td class="">
+                <td>
                   RND In-Charge
                 </td>
                 <td>:</td>
                 <td>{{ wo.rndic }}</td>
-                <td class="">
+                <td>
                   Packing / Unit
                 </td>
                 <td>:</td>
                 <td>USD {{ wo.totalPackingPerUnit | currency }}</td>
-                <td class="">
+                <td>
                   Packing / WO
                 </td>
                 <td>:</td>
                 <td>USD {{ wo.totalPackingPerWO | currency }}</td>
-                <td class="">
+                <td>
                   1 MYR
                 </td>
                 <td>:</td>
