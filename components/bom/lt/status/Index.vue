@@ -6,6 +6,17 @@
     />
 
     <div class="flex flex-col space-y-8">
+      <el-breadcrumb separator="/">
+        <el-breadcrumb-item :to="{ name: 'index' }">
+          <outline-home-icon class="heroicons w-15px h-15px" />
+        </el-breadcrumb-item>
+        <el-breadcrumb-item :to="{ name: 'bom'}">
+          LT
+        </el-breadcrumb-item>
+        <el-breadcrumb-item>
+          WO
+        </el-breadcrumb-item>
+      </el-breadcrumb>
       <div class="flex space-x-4 items-center">
         <div class="font-bold">
           {{ lt.ltNo }} &bull; {{ lt.customer }}
