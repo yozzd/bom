@@ -26,6 +26,7 @@ const typeDefs = `
     unit: Int
     sgd: Float
     idr: Float
+    euro: Float
     budget: Float
     refer: String
     status: Int
@@ -37,6 +38,7 @@ const typeDefs = `
     totalPricePerUnit: Float
     totalPricePerWO: Float
     difference: Float
+    totalMaterialsProcessed: Float
     totalYetToPurchase: Float
     totalDeviation: Float
     totalPackingPerUnit: Float

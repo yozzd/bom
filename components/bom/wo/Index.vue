@@ -78,6 +78,28 @@
                 <td>:</td>
                 <td>IDR {{ wo.idr | currency }}</td>
               </tr>
+              <tr>
+                <td class="">
+                  Product Name
+                </td>
+                <td>:</td>
+                <td>{{ wo.product }}</td>
+                <td class="">
+                  Difference
+                </td>
+                <td>:</td>
+                <td>USD {{ wo.difference | currency }}</td>
+                <td class="">
+                  Materials Processed
+                </td>
+                <td>:</td>
+                <td>{{ wo.totalMaterialsProcessed | currency }}</td>
+                <td class="">
+                  1 EURO
+                </td>
+                <td>:</td>
+                <td>USD {{ wo.euro | currency }}</td>
+              </tr>
             </tbody>
           </table>
         </div>

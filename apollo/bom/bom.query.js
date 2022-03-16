@@ -61,10 +61,13 @@ export const GetOneWO = gql`
       stage
       sgd
       idr
+      euro
       budget
       refer
       status
       totalPricePerWO
+      difference
+      totalMaterialsProcessed
       headers {
         id
         hid

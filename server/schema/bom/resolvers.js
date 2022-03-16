@@ -65,7 +65,7 @@ const resolvers = {
       const wo = await WO.findOne({
         attributes: [
           'id', 'woNo', 'idLt', 'cat', 'model', 'product', 'stage',
-          'sgd', 'idr', 'budget', 'refer', 'status',
+          'sgd', 'idr', 'euro', 'budget', 'refer', 'status',
         ],
         where: { id },
         include: [{
@@ -82,7 +82,6 @@ const resolvers = {
               'bomCurrEaV', 'bomUsdEa', 'bomUsdUnit', 'bomUsdTotal',
               'materialsProcessed', 'yetToPurchase', 'bomSupplier',
               'bomPoDate', 'bomPoNo', 'bomRemarks', 'priority', 'bomEtaStatus',
-              'packing',
             ],
             where: {
               [Op.and]: [
@@ -97,7 +96,9 @@ const resolvers = {
 
       const woSum = await WO.findOne({
         attributes: [
+          'difference',
           [sequelize.literal('SUM(CASE WHEN `headers->items`.packing = 0 AND `headers`.header NOT LIKE ("%deviation%") THEN `headers->items`.bom_usd_total ELSE 0 END)'), 'totalPricePerWO'],
+          [sequelize.literal('SUM(`headers->items`.materials_processed)'), 'totalMaterialsProcessed'],
         ],
         where: { id },
         include: [{

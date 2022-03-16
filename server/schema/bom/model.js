@@ -154,6 +154,9 @@ const WO = sequelize.define('wo', {
       return this.budget - this.totalPricePerWO;
     },
   },
+  totalMaterialsProcessed: {
+    type: DataTypes.VIRTUAL,
+  },
   totalYetToPurchase: {
     type: DataTypes.VIRTUAL,
   },
