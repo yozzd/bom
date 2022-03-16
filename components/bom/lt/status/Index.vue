@@ -36,11 +36,17 @@
         border
       >
         <el-table-column type="index" align="center" width="50" fixed></el-table-column>
-        <el-table-column label="WO" width="160" fixed>
+        <el-table-column label="WO" width="180" fixed>
           <template slot-scope="scope">
-            <a :href="`/bom/wo/${scope.row.id}`" target="_blank" class="font-bold">
-              {{ scope.row.woNo }} <span v-if="scope.row.stage">[STAGE-{{ scope.row.stage }}]</span>
-            </a>
+            <div class="flex">
+              <nuxt-link :to="{ name: 'bom-wo-id', params: { id: scope.row.id } }" class="flex-1">
+                {{ scope.row.woNo }}
+                <span v-if="scope.row.stage">[STAGE-{{ scope.row.stage }}]</span>
+              </nuxt-link>
+              <a :href="`/bom/wo/${scope.row.id}`" title="Open in new tab" target="_blank">
+                <outline-external-link-icon class="heroicons w-4 h-4" />
+              </a>
+            </div>
           </template>
         </el-table-column>
         <el-table-column prop="model" label="Model" width="100"></el-table-column>
