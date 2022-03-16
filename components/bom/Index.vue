@@ -44,11 +44,23 @@
         <el-table-column type="index" align="center" width="50"></el-table-column>
         <el-table-column label="LT" width="200">
           <template slot-scope="scope">
-            <p :title="scope.row.ltNo" class="text-xs truncate font-bold">
-              <a :href="`/bom/lt/${scope.row.id}/${status}`" target="_blank">
+            <div class="flex">
+              <nuxt-link
+                :to="{ name: 'bom-lt-id-status', params: { id: scope.row.id, status } }"
+                :title="scope.row.ltNo"
+                class="flex-1 truncate"
+              >
                 {{ scope.row.ltNo }}
+                <span v-if="scope.row.stage">[STAGE-{{ scope.row.stage }}]</span>
+              </nuxt-link>
+              <a
+                :href="`/bom/lt/${scope.row.id}/${status}`"
+                title="Open in new tab"
+                target="_blank"
+              >
+                <outline-external-link-icon class="heroicons w-4 h-4" />
               </a>
-            </p>
+            </div>
           </template>
         </el-table-column>
         <el-table-column prop="customer" label="Customer" width="400"></el-table-column>
