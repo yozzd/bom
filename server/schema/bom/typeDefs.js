@@ -18,15 +18,17 @@ const typeDefs = `
     id: Int
     woNo: String
     idLt: Int
+    unit: Int
     cat: String
     model: String
     product: String
+    picName: String
     stage: Int
     issued: String
-    unit: Int
     sgd: Float
     idr: Float
     euro: Float
+    gbp: Float
     budget: Float
     refer: String
     status: Int

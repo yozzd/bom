@@ -100,6 +100,28 @@
                 <td>:</td>
                 <td>USD {{ wo.euro | currency }}</td>
               </tr>
+              <tr>
+                <td class="">
+                  PIC
+                </td>
+                <td>:</td>
+                <td>{{ wo.picName }}</td>
+                <td class="">
+                  Total Production
+                </td>
+                <td>:</td>
+                <td>{{ wo.unit }} Unit</td>
+                <td class="">
+                  Yet To Purchase
+                </td>
+                <td>:</td>
+                <td>{{ wo.totalYetToPurchase | currency }}</td>
+                <td class="">
+                  1 GBP
+                </td>
+                <td>:</td>
+                <td>USD {{ wo.gbp | currency }}</td>
+              </tr>
             </tbody>
           </table>
         </div>

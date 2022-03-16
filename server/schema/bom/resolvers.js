@@ -64,8 +64,8 @@ const resolvers = {
     getOneWO: isAuthenticated(async (_, { id }) => {
       const wo = await WO.findOne({
         attributes: [
-          'id', 'woNo', 'idLt', 'cat', 'model', 'product', 'stage',
-          'sgd', 'idr', 'euro', 'budget', 'refer', 'status',
+          'id', 'woNo', 'idLt', 'unit', 'cat', 'model', 'product', 'picName',
+          'stage', 'sgd', 'idr', 'euro', 'gbp', 'budget', 'refer', 'status',
         ],
         where: { id },
         include: [{
@@ -99,6 +99,7 @@ const resolvers = {
           'difference',
           [sequelize.literal('SUM(CASE WHEN `headers->items`.packing = 0 AND `headers`.header NOT LIKE ("%deviation%") THEN `headers->items`.bom_usd_total ELSE 0 END)'), 'totalPricePerWO'],
           [sequelize.literal('SUM(`headers->items`.materials_processed)'), 'totalMaterialsProcessed'],
+          [sequelize.literal('SUM(`headers->items`.yet_to_purchase)'), 'totalYetToPurchase'],
         ],
         where: { id },
         include: [{

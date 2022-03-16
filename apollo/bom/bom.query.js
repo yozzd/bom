@@ -55,19 +55,23 @@ export const GetOneWO = gql`
       id
       woNo
       idLt
+      unit
       cat
       model
       product
+      picName
       stage
       sgd
       idr
       euro
+      gbp
       budget
       refer
       status
       totalPricePerWO
       difference
       totalMaterialsProcessed
+      totalYetToPurchase
       headers {
         id
         hid
