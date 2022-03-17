@@ -5,7 +5,7 @@ const { isAuthenticated } = require('../auth/service');
 
 const resolvers = {
   Query: {
-    getAllOutstandinPo: isAuthenticated(async () => {
+    getAllOutstandingPo: isAuthenticated(async () => {
       const outstandingPo = await OUTSTANDINGPO.findAll({
         attributes: [
           'id', 'poIssue', 'poZone', 'poNo', 'poSupplier', 'poDescription',

@@ -113,7 +113,7 @@ const OUTSTANDINGPO = sequelize.define('outstandingPo', {
     type: DataTypes.TEXT,
   },
   poCancel: {
-    type: DataTypes.Int,
+    type: DataTypes.INTEGER,
     defaultValue: 0,
   },
   poCreatedOn: {

@@ -7,7 +7,7 @@ const { typeDefs: User } = require('./user/typeDefs');
 const { resolvers: authResolvers } = require('./auth/resolvers');
 const { resolvers: bomResolvers } = require('./bom/resolvers');
 const { resolvers: mprResolvers } = require('./mpr/resolvers');
-const { resolvers: outstandingPoResolvers } = require('./mpr/resolvers');
+const { resolvers: outstandingPoResolvers } = require('./outstandingPo/resolvers');
 const { resolvers: userResolvers } = require('./user/resolvers');
 
 const Query = `
