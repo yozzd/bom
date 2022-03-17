@@ -118,6 +118,28 @@ const MPR = sequelize.define('mpr', {
   underscored: true,
 });
 
+const MPRMODULE = sequelize.define('module', {
+  id: {
+    type: DataTypes.INTEGER,
+    primaryKey: true,
+    allowNull: false,
+    autoIncrement: true,
+  },
+  moduleChar: {
+    type: DataTypes.STRING,
+  },
+  moduleName: {
+    type: DataTypes.STRING,
+  },
+  idMpr: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+  },
+}, {
+  tableName: 'mpr_module',
+  underscored: true,
+});
+
 module.exports = {
-  MPR,
+  MPR, MPRMODULE,
 };
