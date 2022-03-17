@@ -86,7 +86,7 @@
                 </td>
                 <td>:</td>
                 <td>
-                  <p :title="wo.product" class="w-80 truncate">
+                  <p :title="wo.product" class="w-72 truncate">
                     {{ wo.product }}
                   </p>
                 </td>
