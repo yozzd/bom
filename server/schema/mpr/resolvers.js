@@ -8,7 +8,8 @@ const resolvers = {
     getAllMPR: isAuthenticated(async () => {
       const mpr = await MPR.findAll({
         attributes: [
-          'id', 'no', 'woNo', 'category', 'dor',
+          'id', 'no', 'woNo', 'model', 'product', 'projectName',
+          'unit', 'category', 'dor', 'idWo', 'packing'
         ],
         order: [
           ['category', 'DESC'],

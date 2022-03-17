@@ -6,8 +6,14 @@ export const GetAllMPR = gql`
       id
       no
       woNo
+      model
+      product
+      projectName
+      unit
       category
       dor
+      idWo
+      packing
     }
   }
 `;
