@@ -407,6 +407,7 @@ const WOITEM = sequelize.define('item', {
       if (this.validasi) return 'validated-row';
       else if (this.bomQty > 0 && this.bomQtyStock > 0 && this.bomQtyBalance >= 0) return 'stock-row';
       else if (this.bomQtyRec > 0 && this.bomPoNo) return 'coming-row';
+      else if (this.hold) return 'hold-row';
       return '';
     },
   },

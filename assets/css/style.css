@@ -135,3 +135,7 @@ table.plain {
 .el-table .coming-row {
   background: #a5d6a7;
 }
+
+.el-table .hold-row {
+  background: #b0bec5;
+}
