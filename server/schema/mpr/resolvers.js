@@ -5,11 +5,12 @@ const { isAuthenticated } = require('../auth/service');
 
 const resolvers = {
   Query: {
-    getAllMPR: isAuthenticated(async () => {
+    getAllMPR: isAuthenticated(async (_, { status }) => {
+      console.log(status);
       const mpr = await MPR.findAll({
         attributes: [
           'id', 'no', 'woNo', 'model', 'product', 'projectName',
-          'unit', 'category', 'dor', 'idWo', 'packing'
+          'unit', 'category', 'dor', 'idWo', 'packing',
         ],
         order: [
           ['category', 'DESC'],

@@ -1,6 +1,6 @@
 const typeDefs = `
   extend type Query {
-    getAllMPR: [MPR]
+    getAllMPR(status: Int): [MPR]
   }
 
   type MPR {
