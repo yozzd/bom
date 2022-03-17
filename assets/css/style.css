@@ -127,3 +127,7 @@ table.plain {
 .el-table .validated-row {
   background: #e1bee7;
 }
+
+.el-table .stocked-row {
+  background: #64b5f6;
+}
