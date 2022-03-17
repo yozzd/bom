@@ -83,13 +83,10 @@ const resolvers = {
               'bomCurrEaV', 'bomUsdEa', 'bomUsdUnit', 'bomUsdTotal',
               'materialsProcessed', 'yetToPurchase', 'bomSupplier',
               'bomPoDate', 'bomPoNo', 'bomRemarks', 'priority', 'bomEtaStatus',
-              'validasi', 'hold', 'colorClass',
+              'validasi', 'hold', 'cancel', 'colorClass',
             ],
             where: {
-              [Op.and]: [
-                { cancel: 0 },
-                { idHeader: { [Op.not]: null } },
-              ],
+              idHeader: { [Op.not]: null },
             },
             required: false,
           }],

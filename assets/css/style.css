@@ -139,3 +139,7 @@ table.plain {
 .el-table .hold-row {
   background: #b0bec5;
 }
+
+.el-table .cancel-row {
+  background: #ef5350;
+}
