@@ -12,7 +12,7 @@
     "lintfix": "yarn lint:js --fix"
   },
   "dependencies": {
-    "@graphql-tools/schema": "^8.3.2",
+    "@graphql-tools/schema": "^8.3.3",
     "@nuxt-hero-icons/outline": "^1.0.1",
     "@nuxtjs/apollo": "^4.0.1-rc.5",
     "@nuxtjs/dotenv": "^1.4.1",
