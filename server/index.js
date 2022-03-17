@@ -5,6 +5,7 @@ const cors = require('fastify-cors');
 const jwt = require('fastify-jwt');
 const { makeExecutableSchema } = require('@graphql-tools/schema');
 
+const sequelize = require('./config/db');
 const { typeDefs, resolvers } = require('./schema');
 
 const authPassport = require('./schema/auth/passport');
@@ -35,9 +36,19 @@ fastify.register(mercurius, {
   graphiql: true,
 });
 
+const connect = async () => {
+  try {
+    await sequelize.authenticate();
+    console.log('Connection has been established successfully.');
+  } catch (error) {
+    throw new mercurius.ErrorWithProps(error);
+  }
+};
+
 const start = async () => {
   try {
     await fastify.listen(5001, '0.0.0.0');
+    await connect();
   } catch (err) {
     fastify.log.error(err);
     process.exit(1);
