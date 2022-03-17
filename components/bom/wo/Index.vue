@@ -7,11 +7,11 @@
 
     <div
       v-loading.fullscreen.lock="$apollo.loading"
-      class="flex flex-col space-y-8"
+      class="flex flex-col divide-y divide-gray-400 divide-dashed"
       element-loading-text="Loading..."
       element-loading-spinner="el-icon-loading"
     >
-      <el-breadcrumb separator="/">
+      <el-breadcrumb separator="/" class="mb-4">
         <el-breadcrumb-item :to="{ name: 'index' }">
           <outline-home-icon class="heroicons w-15px h-15px" />
         </el-breadcrumb-item>
@@ -28,7 +28,7 @@
         </el-breadcrumb-item>
       </el-breadcrumb>
       <div class="flex space-x-4 items-center">
-        <div class="flex flex-col space-y-4 w-full">
+        <div class="flex flex-col space-y-4 w-full my-4">
           <div class="font-bold">
             {{ wo.woNo }} <span v-if="wo.stage">[STAGE-{{ wo.stage }}]</span>
           </div>
@@ -155,8 +155,8 @@
         </div>
         <div class="flex-1"></div>
       </div>
-      <div v-for="h in headers" :key="h.id" class="flex flex-col space-y-4">
-        <div class="text-xs font-bold">
+      <div v-for="h in headers" :key="h.id" class="flex flex-col">
+        <div class="text-xs font-bold my-4">
           {{ h.hid }} {{ h.header }}
         </div>
         <el-table
@@ -164,6 +164,7 @@
           :data="h.items"
           size="mini"
           border
+          class="mb-4"
           :row-class-name="highlighter"
         >
           <el-table-column
