@@ -110,6 +110,7 @@ export const GetOneWO = gql`
           bomRemarks
           priority
           bomEtaStatus
+          colorClass
         }
       }
     }

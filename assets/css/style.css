@@ -123,3 +123,7 @@ a {
 table.plain {
   @apply w-full text-xs;
 }
+
+.el-table .validated-row {
+  background: #e1bee7;
+}

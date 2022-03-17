@@ -87,6 +87,7 @@ const typeDefs = `
     bomRemarks: String
     priority: String
     bomEtaStatus: String
+    colorClass: String
   }
 `;
 

@@ -401,6 +401,13 @@ const WOITEM = sequelize.define('item', {
   priority: {
     type: DataTypes.STRING,
   },
+  colorClass: {
+    type: DataTypes.VIRTUAL,
+    get() {
+      if (this.validasi) return 'validated-row';
+      return '';
+    },
+  },
 }, {
   tableName: 'bom_data',
   underscored: true,

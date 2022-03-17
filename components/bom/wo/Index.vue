@@ -164,6 +164,7 @@
           :data="h.items"
           size="mini"
           border
+          :row-class-name="highlighter"
         >
           <el-table-column
             type="index"
@@ -383,6 +384,11 @@ export default {
       return this.optionsWoStatus.map((v) => ({
         [v.value]: v.label,
       }));
+    },
+  },
+  methods: {
+    highlighter({ row }) {
+      return row.colorClass;
     },
   },
   apollo: {

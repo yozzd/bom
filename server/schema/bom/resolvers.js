@@ -83,6 +83,7 @@ const resolvers = {
               'bomCurrEaV', 'bomUsdEa', 'bomUsdUnit', 'bomUsdTotal',
               'materialsProcessed', 'yetToPurchase', 'bomSupplier',
               'bomPoDate', 'bomPoNo', 'bomRemarks', 'priority', 'bomEtaStatus',
+              'validasi', 'colorClass',
             ],
             where: {
               [Op.and]: [
