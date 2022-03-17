@@ -4,7 +4,7 @@
 
 <script>
 export default {
-  layout: 'layout1',
+  layout: 'layout2',
   middleware: ['auth'],
   head() {
     return {
