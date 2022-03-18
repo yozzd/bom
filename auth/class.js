@@ -5,8 +5,8 @@ import {
   isSameURL,
   userRoles,
 } from './utilities';
-import AUTH from '../apollo/auth/auth.query';
-import Me from '../apollo/user/user.query';
+import AUTH from '../apollo/auth/query';
+import Me from '../apollo/user/query';
 
 export default class Auth {
   constructor(ctx, client) {

@@ -368,7 +368,7 @@
 </template>
 
 <script>
-import { GetOneWO } from '../../../apollo/bom/bom.query';
+import { GetOneWO } from '../../../apollo/bom/query';
 import woStatus from '../../../mixins/woStatus';
 
 export default {

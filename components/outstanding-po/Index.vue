@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import { GetAllOutstandingPo } from '../../apollo/outstandingPo/outstandingPo.query';
+import { GetAllOutstandingPo } from '../../apollo/outstandingPo/query';
 
 export default {
   data() {

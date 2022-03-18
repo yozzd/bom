@@ -31,7 +31,7 @@
 
 <script>
 import mprStatus from '../../mixins/mprStatus';
-import { GetAllMPR } from '../../apollo/mpr/mpr.query';
+import { GetAllMPR } from '../../apollo/mpr/query';
 
 export default {
   mixins: [mprStatus],

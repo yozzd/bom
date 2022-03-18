@@ -95,7 +95,7 @@
 import MiniSearch from 'minisearch';
 import table from '../../mixins/table';
 import woStatus from '../../mixins/woStatus';
-import { GetAllLT } from '../../apollo/bom/bom.query';
+import { GetAllLT } from '../../apollo/bom/query';
 
 export default {
   mixins: [table, woStatus],

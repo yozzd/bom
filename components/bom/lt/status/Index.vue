@@ -226,7 +226,7 @@
 <script>
 import MiniSearch from 'minisearch';
 import table from '../../../../mixins/table';
-import { GetOneLT } from '../../../../apollo/bom/bom.query';
+import { GetOneLT } from '../../../../apollo/bom/query';
 
 export default {
   mixins: [table],
