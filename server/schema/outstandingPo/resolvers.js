@@ -22,6 +22,13 @@ const resolvers = {
             { poZone: { [Op.in]: ['S'] } },
           ],
         };
+      } else if (zone === 3) {
+        where = {
+          [Op.and]: [
+            { poCancel: 0 },
+            { poZone: { [Op.notIn]: ['C', 'T', 'HK', 'S', 'OL', 'L'] } },
+          ],
+        };
       }
 
       const outstandingPo = await OUTSTANDINGPO.findAll({
