@@ -25,6 +25,9 @@ import {
   Pagination,
   Popover,
   Progress,
+  Radio,
+  RadioGroup,
+  RadioButton,
   Select,
   Submenu,
   Switch,
@@ -61,6 +64,9 @@ Vue.use(PageHeader);
 Vue.use(Pagination);
 Vue.use(Popover);
 Vue.use(Progress);
+Vue.use(Radio);
+Vue.use(RadioGroup);
+Vue.use(RadioButton);
 Vue.use(Select);
 Vue.use(Submenu);
 Vue.use(Switch);

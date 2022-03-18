@@ -22,7 +22,23 @@
       :close-on-press-escape="false"
       width="40%"
     >
-      <span>This is a message</span>
+      <el-form
+        ref="form"
+        :model="form"
+        :hide-required-asterisk="true"
+        label-position="top"
+      >
+        <el-form-item label="Filter By Zones">
+          <el-radio-group v-model="form.zone">
+            <el-radio
+              v-for="(v, k) in zones"
+              :key="k"
+              :label="v"
+              class="blk"
+            ></el-radio>
+          </el-radio-group>
+        </el-form-item>
+      </el-form>
       <span slot="footer" class="dialog-footer">
         <el-button
           type="text"
@@ -43,13 +59,16 @@
 </template>
 
 <script>
+import outp from '../../mixins/outstanding.po.zones';
 // import { GetAllOutstandingPo } from '../../apollo/outstandingPo/query';
 
 export default {
+  mixins: [outp],
   data() {
     return {
       showFilterDialog: false,
       loading: false,
+      form: {},
       items: {},
       errors: [],
     };
@@ -58,7 +77,13 @@ export default {
     showFilter() {
       this.showFilterDialog = true;
     },
-    handleFilter() {},
+    handleFilter() {
+      const zone = parseInt(
+        (Object.keys(this.zones).find((key) => this.zones[key] === this.form.zone)
+        ), 10,
+      ) + 1;
+      console.log(zone);
+    },
   },
   // apollo: {
   //   getAllOutstandingPo: {
