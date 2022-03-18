@@ -1,7 +1,10 @@
 <template>
   <div class="flex flex-col space-y-8">
     <div class="flex">
-      <el-button type="primary">
+      <el-button
+        type="primary"
+        @click="showFilter"
+      >
         <outline-filter-icon class="heroicons w-4 h-4" />
         Filter
       </el-button>
@@ -11,6 +14,31 @@
       v-if="errors"
       :errors="errors"
     />
+
+    <el-dialog
+      title="Filter"
+      :visible.sync="showFilterDialog"
+      :close-on-click-modal="false"
+      :close-on-press-escape="false"
+      width="40%"
+    >
+      <span>This is a message</span>
+      <span slot="footer" class="dialog-footer">
+        <el-button
+          type="text"
+          @click="showFilterDialog = false"
+        >
+          Cancel
+        </el-button>
+        <el-button
+          type="primary"
+          :loading="loading"
+          @click="handleFilter('form')"
+        >
+          Filter
+        </el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 
@@ -20,11 +48,17 @@
 export default {
   data() {
     return {
+      showFilterDialog: false,
+      loading: false,
       items: {},
       errors: [],
     };
   },
   methods: {
+    showFilter() {
+      this.showFilterDialog = true;
+    },
+    handleFilter() {},
   },
   // apollo: {
   //   getAllOutstandingPo: {
