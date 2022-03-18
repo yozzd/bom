@@ -15,6 +15,7 @@
       :errors="errors"
     />
 
+    {{ items }}
     <el-dialog
       title="Filter"
       :visible.sync="showFilterDialog"
@@ -61,7 +62,7 @@
 
 <script>
 import outp from '../../mixins/outstanding.po.zones';
-// import { GetAllOutstandingPo } from '../../apollo/outstandingPo/query';
+import { GetAllOutstandingPo } from '../../apollo/outstandingPo/query';
 
 export default {
   mixins: [outp],
@@ -86,29 +87,27 @@ export default {
     handleFilter(form) {
       this.$refs[form].validate(async (valid) => {
         if (valid) {
+          this.loading = true;
           const zone = parseInt(
             (Object.keys(this.zones).find((key) => this.zones[key] === this.form.zone)
             ), 10,
           ) + 1;
-          console.log(zone);
+
+          const { data: { getAllOutstandingPo } } = await this.$apollo.query({
+            query: GetAllOutstandingPo,
+            variables: { zone },
+            prefetch: false,
+            error({ graphQLErrors, networkError }) {
+              this.errors = graphQLErrors || networkError.result.errors;
+            },
+          });
+          this.items = getAllOutstandingPo;
+
+          this.loading = false;
+          this.showFilterDialog = false;
         }
       });
     },
   },
-  // apollo: {
-  //   getAllOutstandingPo: {
-  //     query: GetAllOutstandingPo,
-  //     prefetch: false,
-  //     result({ data, loading }) {
-  //       if (!loading) {
-  //         const { getAllOutstandingPo } = data;
-  //         this.items = getAllOutstandingPo;
-  //       }
-  //     },
-  //     error({ graphQLErrors, networkError }) {
-  //       this.errors = graphQLErrors || networkError.result.errors;
-  //     },
-  //   },
-  // },
 };
 </script>

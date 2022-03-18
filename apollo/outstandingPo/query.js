@@ -1,8 +1,8 @@
 import gql from 'graphql-tag';
 
 export const GetAllOutstandingPo = gql`
-  query getAllOutstandingPo {
-    getAllOutstandingPo {
+  query getAllOutstandingPo($zone: Int) {
+    getAllOutstandingPo(zone: $zone) {
       id
       poIssue
       poZone
