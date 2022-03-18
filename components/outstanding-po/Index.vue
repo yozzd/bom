@@ -195,6 +195,12 @@
               align="center"
               width="70"
             ></el-table-column>
+            <el-table-column
+              label="HSE"
+              prop="hse"
+              align="center"
+              width="100"
+            ></el-table-column>
             <el-table-column label="" min-width="50"></el-table-column>
           </el-table>
         </div>
