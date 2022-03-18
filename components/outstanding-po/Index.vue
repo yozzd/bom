@@ -73,10 +73,17 @@
               align="center"
               width="70"
             ></el-table-column>
-            <el-table-column label="Supplier" width="140">
+            <el-table-column label="Supplier" width="160">
               <template slot-scope="scope">
                 <p :title="scope.row.poSupplier" class="truncate">
                   {{ scope.row.poSupplier }}
+                </p>
+              </template>
+            </el-table-column>
+            <el-table-column label="Description" width="160">
+              <template slot-scope="scope">
+                <p :title="scope.row.poDescription" class="truncate">
+                  {{ scope.row.poDescription }}
                 </p>
               </template>
             </el-table-column>
