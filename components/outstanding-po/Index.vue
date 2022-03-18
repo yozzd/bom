@@ -24,6 +24,14 @@
             <outline-filter-icon class="heroicons w-4 h-4" />
             Filter
           </el-button>
+          <div class="flex-1"></div>
+          <div class="w-64">
+            <el-input
+              v-model="search"
+              placeholder="Search"
+              clearable
+            />
+          </div>
         </div>
       </div>
 
@@ -62,6 +70,13 @@
               align="center"
               width="70"
             ></el-table-column>
+            <el-table-column label="Supplier" width="140">
+              <template slot-scope="scope">
+                <p :title="scope.row.poSupplier" class="truncate">
+                  {{ scope.row.poSupplier }}
+                </p>
+              </template>
+            </el-table-column>
             <el-table-column label="" min-width="50"></el-table-column>
           </el-table>
         </div>
@@ -149,7 +164,7 @@ export default {
       },
       miniSearch: new MiniSearch({
         idField: 'id',
-        fields: ['poDescription'],
+        fields: ['poNo', 'poSupplier'],
         storeFields: [
           'id', 'poIssue', 'poZone', 'poNo', 'poSupplier', 'poDescription',
           'poKvalue', 'poValue', 'poLt', 'poLpayment', 'poBom', 'poAdmin',
