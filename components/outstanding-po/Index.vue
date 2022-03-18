@@ -205,7 +205,6 @@
               <template slot-scope="scope">
                 <el-popover
                   placement="left-end"
-                  width="200"
                   trigger="hover"
                 >
                   <template #default>
