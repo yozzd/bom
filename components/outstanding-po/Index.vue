@@ -87,6 +87,11 @@
                 </p>
               </template>
             </el-table-column>
+            <el-table-column label="PO Value" align="right" width="100">
+              <template slot-scope="scope">
+                {{ scope.row.poKvalue }} {{ scope.row.poValue | currency }}
+              </template>
+            </el-table-column>
             <el-table-column label="" min-width="50"></el-table-column>
           </el-table>
         </div>
