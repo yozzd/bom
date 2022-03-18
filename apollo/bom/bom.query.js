@@ -76,7 +76,7 @@ export const GetOneWO = gql`
       totalYetToPurchase
       totalPackingPerUnit
       totalPackingPerWO
-      headers {
+      modules {
         id
         hid
         header

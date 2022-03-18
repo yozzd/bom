@@ -177,7 +177,7 @@ const WO = sequelize.define('wo', {
   underscored: true,
 });
 
-const WOHEADER = sequelize.define('header', {
+const WOMODULE = sequelize.define('module', {
   id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
@@ -424,18 +424,18 @@ LT.hasMany(WO, {
 });
 WO.belongsTo(LT);
 
-WO.hasMany(WOHEADER, {
+WO.hasMany(WOMODULE, {
   foreignKey: 'idWo',
   targetKey: 'id',
 });
-WOHEADER.belongsTo(WO);
+WOMODULE.belongsTo(WO);
 
-WOHEADER.hasMany(WOITEM, {
+WOMODULE.hasMany(WOITEM, {
   foreignKey: 'idHeader',
   targetKey: 'id',
 });
-WOITEM.belongsTo(WOHEADER);
+WOITEM.belongsTo(WOMODULE);
 
 module.exports = {
-  LT, WO, WOHEADER, WOITEM,
+  LT, WO, WOMODULE, WOITEM,
 };

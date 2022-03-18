@@ -47,10 +47,10 @@ const typeDefs = `
     totalDeviation: Float
     totalPackingPerUnit: Float
     totalPackingPerWO: Float
-    headers: [WOHEADER]
+    modules: [WOMODULE]
   }
   
-  type WOHEADER {
+  type WOMODULE {
     id: Int
     hid: String
     header: String

@@ -155,7 +155,7 @@
         </div>
         <div class="flex-1"></div>
       </div>
-      <div v-for="h in headers" :key="h.id" class="flex flex-col">
+      <div v-for="h in modules" :key="h.id" class="flex flex-col">
         <div class="text-xs font-bold my-4">
           {{ h.hid }} {{ h.header }}
         </div>
@@ -376,7 +376,7 @@ export default {
   data() {
     return {
       wo: {},
-      headers: {},
+      modules: {},
       errors: [],
     };
   },
@@ -403,9 +403,9 @@ export default {
       prefetch: false,
       result({ data, loading }) {
         if (!loading) {
-          const { getOneWO: { headers, ...wo } } = data;
+          const { getOneWO: { modules, ...wo } } = data;
           this.wo = wo;
-          this.headers = headers;
+          this.modules = modules;
         }
       },
       error({ graphQLErrors, networkError }) {
