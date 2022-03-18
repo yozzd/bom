@@ -36,6 +36,9 @@
       </div>
 
       <div>
+        <div class="my-4 font-bold text-xl">
+          {{ zoneStr }}
+        </div>
         <div class="my-4">
           <el-table
             v-loading="$apollo.loading"
@@ -53,7 +56,7 @@
               width="90"
             ></el-table-column>
             <el-table-column
-              label="Aprovall Date"
+              label="Aproval Date"
               prop="approvalDate"
               align="center"
               width="90"
@@ -157,6 +160,7 @@ export default {
       showFilterDialog: false,
       loading: false,
       form: {},
+      zoneStr: '',
       rules: {
         zone: [
           { required: true, message: 'This field is required', trigger: 'change' },
@@ -195,6 +199,7 @@ export default {
               this.errors = graphQLErrors || networkError.result.errors;
             },
           });
+          this.zoneStr = this.form.zone;
           this.items = getAllOutstandingPo;
           this.miniSearch.removeAll();
           this.miniSearch.addAll(this.items);
