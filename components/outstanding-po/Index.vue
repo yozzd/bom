@@ -119,7 +119,7 @@
                 </p>
               </template>
             </el-table-column>
-            <el-table-column align="right" width="90">
+            <el-table-column align="center" width="90">
               <template slot="header">
                 <p title="Latest Payment" class="truncate">
                   Latest Payment
@@ -129,7 +129,7 @@
                 {{ scope.row.poLpayment }}
               </template>
             </el-table-column>
-            <el-table-column align="right" width="90">
+            <el-table-column align="center" width="90">
               <template slot="header">
                 <p title="Production (Production Required)" class="truncate">
                   Production (Production Required)
@@ -139,7 +139,7 @@
                 {{ scope.row.poBom }}
               </template>
             </el-table-column>
-            <el-table-column align="right" width="90">
+            <el-table-column align="center" width="90">
               <template slot="header">
                 <p title="Documents to Finance + PI (Complete)" class="truncate">
                   Documents to Finance + PI (Complete)
@@ -149,7 +149,7 @@
                 {{ scope.row.poAdmin }}
               </template>
             </el-table-column>
-            <el-table-column align="right" width="90">
+            <el-table-column align="center" width="90">
               <template slot="header">
                 <p title="Payment Status" class="truncate">
                   Payment Status
@@ -159,7 +159,7 @@
                 {{ scope.row.poFinance }}
               </template>
             </el-table-column>
-            <el-table-column align="right" width="90">
+            <el-table-column align="center" width="90">
               <template slot="header">
                 <p title="ETA at Labtech" class="truncate">
                   ETA at Labtech
@@ -169,7 +169,7 @@
                 {{ scope.row.poEta }}
               </template>
             </el-table-column>
-            <el-table-column align="right" width="90">
+            <el-table-column align="center" width="90">
               <template slot="header">
                 <p title="Time Arrival" class="truncate">
                   Time Arrival
@@ -179,7 +179,7 @@
                 {{ scope.row.poArrival }}
               </template>
             </el-table-column>
-            <el-table-column align="right" width="90">
+            <el-table-column align="center" width="90">
               <template slot="header">
                 <p title="Arrival Status" class="truncate">
                   Arrival Status
