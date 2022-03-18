@@ -166,6 +166,16 @@
                 </p>
               </template>
               <template slot-scope="scope">
+                {{ scope.row.poEta }}
+              </template>
+            </el-table-column>
+            <el-table-column align="right" width="90">
+              <template slot="header">
+                <p title="Time Arrival" class="truncate">
+                  Time Arrival
+                </p>
+              </template>
+              <template slot-scope="scope">
                 {{ scope.row.poArrival }}
               </template>
             </el-table-column>
