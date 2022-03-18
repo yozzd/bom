@@ -25,10 +25,11 @@
       <el-form
         ref="form"
         :model="form"
+        :rules="rules"
         :hide-required-asterisk="true"
         label-position="top"
       >
-        <el-form-item label="Filter By Zones">
+        <el-form-item label="Filter By Zones" prop="zone">
           <el-radio-group v-model="form.zone">
             <el-radio
               v-for="(v, k) in zones"
@@ -69,6 +70,11 @@ export default {
       showFilterDialog: false,
       loading: false,
       form: {},
+      rules: {
+        zone: [
+          { required: true, message: 'This field is required', trigger: 'change' },
+        ],
+      },
       items: {},
       errors: [],
     };
@@ -77,12 +83,16 @@ export default {
     showFilter() {
       this.showFilterDialog = true;
     },
-    handleFilter() {
-      const zone = parseInt(
-        (Object.keys(this.zones).find((key) => this.zones[key] === this.form.zone)
-        ), 10,
-      ) + 1;
-      console.log(zone);
+    handleFilter(form) {
+      this.$refs[form].validate(async (valid) => {
+        if (valid) {
+          const zone = parseInt(
+            (Object.keys(this.zones).find((key) => this.zones[key] === this.form.zone)
+            ), 10,
+          ) + 1;
+          console.log(zone);
+        }
+      });
     },
   },
   // apollo: {
