@@ -112,6 +112,13 @@
                 USD {{ scope.row.poBalanceUsd | currency }}
               </template>
             </el-table-column>
+            <el-table-column label="LT Project" width="80">
+              <template slot-scope="scope">
+                <p :title="scope.row.poLt" class="truncate">
+                  {{ scope.row.poLt }}
+                </p>
+              </template>
+            </el-table-column>
             <el-table-column label="" min-width="50"></el-table-column>
           </el-table>
         </div>
