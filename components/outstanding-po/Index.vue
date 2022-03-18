@@ -1,58 +1,75 @@
 <template>
   <div class="flex flex-col space-y-8">
-    <div class="flex">
-      <el-button
-        type="primary"
-        @click="showFilter"
-      >
-        <outline-filter-icon class="heroicons w-4 h-4" />
-        Filter
-      </el-button>
-    </div>
-
     <IndexErrorHandler
       v-if="errors"
       :errors="errors"
     />
 
-    <el-table
-      v-loading="$apollo.loading"
-      element-loading-text="Loading..."
-      element-loading-spinner="el-icon-loading"
-      :data="tableData"
-      size="mini"
-      border
-    >
-      <el-table-column type="index" align="center" width="50" fixed></el-table-column>
-      <el-table-column
-        label="PO Issue"
-        prop="poIssue"
-        align="center"
-        width="90"
-      ></el-table-column>
-      <el-table-column
-        label="Aprovall Date"
-        prop="approvalDate"
-        align="center"
-        width="90"
-      ></el-table-column>
-    </el-table>
-    <div>
-      <el-pagination
-        :current-page.sync="page"
-        :page-sizes="pageSizes"
-        :page-size="pageSize"
-        :total="search ? tableData.length : items.length"
-        :pager-count="pagerCount"
-        layout="slot, sizes, prev, pager, next"
-        class="flex justify-end"
-        @size-change="handleSizeChange"
-        @current-change="handleCurrentChange"
-      >
-        <template #default>
-          <span class="font-normal">Total {{ tableData.length }}/{{ items.length }}</span>
-        </template>
-      </el-pagination>
+    <div class="flex flex-col divide-y divide-gray-400 divide-dashed">
+      <el-breadcrumb separator="/" class="mb-4">
+        <el-breadcrumb-item :to="{ name: 'index' }">
+          <outline-home-icon class="heroicons w-15px h-15px" />
+        </el-breadcrumb-item>
+        <el-breadcrumb-item>
+          OUTSTANDING PO
+        </el-breadcrumb-item>
+      </el-breadcrumb>
+
+      <div>
+        <div class="flex my-4">
+          <el-button
+            type="primary"
+            @click="showFilter"
+          >
+            <outline-filter-icon class="heroicons w-4 h-4" />
+            Filter
+          </el-button>
+        </div>
+      </div>
+
+      <div>
+        <div class="my-4">
+          <el-table
+            v-loading="$apollo.loading"
+            element-loading-text="Loading..."
+            element-loading-spinner="el-icon-loading"
+            :data="tableData"
+            size="mini"
+            border
+          >
+            <el-table-column type="index" align="center" width="50" fixed></el-table-column>
+            <el-table-column
+              label="PO Issue"
+              prop="poIssue"
+              align="center"
+              width="90"
+            ></el-table-column>
+            <el-table-column
+              label="Aprovall Date"
+              prop="approvalDate"
+              align="center"
+              width="90"
+            ></el-table-column>
+          </el-table>
+        </div>
+        <div>
+          <el-pagination
+            :current-page.sync="page"
+            :page-sizes="pageSizes"
+            :page-size="pageSize"
+            :total="search ? tableData.length : items.length"
+            :pager-count="pagerCount"
+            layout="slot, sizes, prev, pager, next"
+            class="flex justify-end"
+            @size-change="handleSizeChange"
+            @current-change="handleCurrentChange"
+          >
+            <template #default>
+              <span class="font-normal">Total {{ tableData.length }}/{{ items.length }}</span>
+            </template>
+          </el-pagination>
+        </div>
+      </div>
     </div>
 
     <el-dialog
