@@ -92,6 +92,11 @@
                 {{ scope.row.poKvalue }} {{ scope.row.poValue | currency }}
               </template>
             </el-table-column>
+            <el-table-column label="PO Value (USD)" align="right" width="100">
+              <template slot-scope="scope">
+                USD {{ scope.row.poValueUsd | currency }}
+              </template>
+            </el-table-column>
             <el-table-column label="" min-width="50"></el-table-column>
           </el-table>
         </div>
