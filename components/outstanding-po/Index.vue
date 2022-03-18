@@ -50,6 +50,19 @@
               align="center"
               width="90"
             ></el-table-column>
+            <el-table-column
+              label="Zone"
+              prop="poZone"
+              align="center"
+              width="50"
+            ></el-table-column>
+            <el-table-column
+              label="PO No."
+              prop="poNo"
+              align="center"
+              width="70"
+            ></el-table-column>
+            <el-table-column label="" min-width="50"></el-table-column>
           </el-table>
         </div>
         <div>
