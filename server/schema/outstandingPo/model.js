@@ -141,6 +141,14 @@ const OUTSTANDINGPO = sequelize.define('outstandingPo', {
   poBalanceUsd: {
     type: DataTypes.DOUBLE(18, 2),
   },
+  arrivalStatus: {
+    type: DataTypes.VIRTUAL,
+    get() {
+      if (!this.poArrival || !this.poBom) return '';
+      if (this.poArrival > this.poBom) return 'LATE';
+      return 'ONTIME';
+    },
+  },
 }, {
   tableName: 'outstanding_po',
   underscored: true,

@@ -25,6 +25,7 @@ const typeDefs = `
     poValueUsd: Float
     poPaidUsd: Float
     poBalanceUsd: Float
+    arrivalStatus: String
   }
 `;
 

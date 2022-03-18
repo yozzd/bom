@@ -179,6 +179,16 @@
                 {{ scope.row.poArrival }}
               </template>
             </el-table-column>
+            <el-table-column align="right" width="90">
+              <template slot="header">
+                <p title="Arrival Status" class="truncate">
+                  Arrival Status
+                </p>
+              </template>
+              <template slot-scope="scope">
+                {{ scope.row.arrivalStatus }}
+              </template>
+            </el-table-column>
             <el-table-column label="" min-width="50"></el-table-column>
           </el-table>
         </div>
@@ -271,7 +281,7 @@ export default {
           'id', 'poIssue', 'poZone', 'poNo', 'poSupplier', 'poDescription',
           'poKvalue', 'poValue', 'poLt', 'poLpayment', 'poBom', 'poAdmin',
           'poFinance', 'poEta', 'poArrival', 'approvalDate', 'comp', 'hse',
-          'poValueUsd', 'poPaidUsd', 'poBalanceUsd',
+          'poValueUsd', 'poPaidUsd', 'poBalanceUsd', 'arrivalStatus',
         ],
       }),
     };
