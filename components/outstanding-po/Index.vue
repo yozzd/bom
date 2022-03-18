@@ -97,6 +97,11 @@
                 USD {{ scope.row.poValueUsd | currency }}
               </template>
             </el-table-column>
+            <el-table-column label="PO Paid (USD)" align="right" width="100">
+              <template slot-scope="scope">
+                USD {{ scope.row.poPaidUsd | currency }}
+              </template>
+            </el-table-column>
             <el-table-column label="" min-width="50"></el-table-column>
           </el-table>
         </div>
