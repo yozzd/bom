@@ -15,7 +15,46 @@
       :errors="errors"
     />
 
-    {{ items }}
+    <el-table
+      v-loading="$apollo.loading"
+      element-loading-text="Loading..."
+      element-loading-spinner="el-icon-loading"
+      :data="tableData"
+      size="mini"
+      border
+    >
+      <el-table-column type="index" align="center" width="50" fixed></el-table-column>
+      <el-table-column
+        label="PO Issue"
+        prop="poIssue"
+        align="center"
+        width="90"
+      ></el-table-column>
+      <el-table-column
+        label="Aprovall Date"
+        prop="approvalDate"
+        align="center"
+        width="90"
+      ></el-table-column>
+    </el-table>
+    <div>
+      <el-pagination
+        :current-page.sync="page"
+        :page-sizes="pageSizes"
+        :page-size="pageSize"
+        :total="search ? tableData.length : items.length"
+        :pager-count="pagerCount"
+        layout="slot, sizes, prev, pager, next"
+        class="flex justify-end"
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+      >
+        <template #default>
+          <span class="font-normal">Total {{ tableData.length }}/{{ items.length }}</span>
+        </template>
+      </el-pagination>
+    </div>
+
     <el-dialog
       title="Filter"
       :visible.sync="showFilterDialog"
@@ -61,11 +100,13 @@
 </template>
 
 <script>
+import MiniSearch from 'minisearch';
+import table from '../../mixins/table';
 import outp from '../../mixins/outstanding.po.zones';
 import { GetAllOutstandingPo } from '../../apollo/outstandingPo/query';
 
 export default {
-  mixins: [outp],
+  mixins: [table, outp],
   data() {
     return {
       showFilterDialog: false,
@@ -76,8 +117,16 @@ export default {
           { required: true, message: 'This field is required', trigger: 'change' },
         ],
       },
-      items: {},
-      errors: [],
+      miniSearch: new MiniSearch({
+        idField: 'id',
+        fields: ['poDescription'],
+        storeFields: [
+          'id', 'poIssue', 'poZone', 'poNo', 'poSupplier', 'poDescription',
+          'poKvalue', 'poValue', 'poLt', 'poLpayment', 'poBom', 'poAdmin',
+          'poFinance', 'poEta', 'poArrival', 'approvalDate', 'comp', 'hse',
+          'poValueUsd', 'poPaidUsd', 'poBalanceUsd',
+        ],
+      }),
     };
   },
   methods: {
@@ -102,6 +151,8 @@ export default {
             },
           });
           this.items = getAllOutstandingPo;
+          this.miniSearch.removeAll();
+          this.miniSearch.addAll(this.items);
 
           this.loading = false;
           this.showFilterDialog = false;
