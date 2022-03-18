@@ -15,6 +15,7 @@ const resolvers = {
           'poKvalue', 'poValue', 'poLt', 'poLpayment', 'poBom', 'poAdmin',
           'poFinance', 'poEta', 'poArrival', 'approvalDate', 'comp', 'hse',
           'poValueUsd', 'poPaidUsd', 'poBalanceUsd', 'arrivalStatus',
+          'poRemarks',
         ],
         where,
       });

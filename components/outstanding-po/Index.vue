@@ -201,6 +201,24 @@
               align="center"
               width="100"
             ></el-table-column>
+            <el-table-column label="Remarks" align="center" width="70">
+              <template slot-scope="scope">
+                <el-popover
+                  placement="left-end"
+                  width="200"
+                  trigger="hover"
+                >
+                  <template #default>
+                    <div class="text-xs" v-html="scope.row.poRemarks"></div>
+                  </template>
+                  <outline-chat-icon
+                    v-if="scope.row.poRemarks"
+                    slot="reference"
+                    class="heroicons w-4 h-4"
+                  />
+                </el-popover>
+              </template>
+            </el-table-column>
             <el-table-column label="" min-width="50"></el-table-column>
           </el-table>
         </div>

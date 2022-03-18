@@ -25,6 +25,7 @@ export const GetAllOutstandingPo = gql`
       poPaidUsd
       poBalanceUsd
       arrivalStatus
+      poRemarks
     }
   }
 `;

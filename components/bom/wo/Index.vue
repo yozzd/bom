@@ -340,7 +340,7 @@
                 <template #default>
                   <div class="text-xs" v-html="scope.row.bomRemarks"></div>
                 </template>
-                <outline-annotation-icon
+                <outline-chat-icon
                   v-if="scope.row.bomRemarks"
                   slot="reference"
                   class="heroicons w-4 h-4"
