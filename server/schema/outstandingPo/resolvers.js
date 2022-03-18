@@ -18,6 +18,7 @@ const resolvers = {
           'poRemarks',
         ],
         where,
+        order: [['poIssue', 'DESC']],
       });
 
       return outstandingPo;
