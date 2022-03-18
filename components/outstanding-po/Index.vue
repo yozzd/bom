@@ -119,6 +119,16 @@
                 </p>
               </template>
             </el-table-column>
+            <el-table-column align="right" width="90">
+              <template slot="header">
+                <p title="Latest Payment" class="truncate">
+                  Latest Payment
+                </p>
+              </template>
+              <template slot-scope="scope">
+                {{ scope.row.poLpayment }}
+              </template>
+            </el-table-column>
             <el-table-column label="" min-width="50"></el-table-column>
           </el-table>
         </div>
