@@ -129,6 +129,16 @@
                 {{ scope.row.poLpayment }}
               </template>
             </el-table-column>
+            <el-table-column align="right" width="90">
+              <template slot="header">
+                <p title="Production (Production Required)" class="truncate">
+                  Production (Production Required)
+                </p>
+              </template>
+              <template slot-scope="scope">
+                {{ scope.row.poBom }}
+              </template>
+            </el-table-column>
             <el-table-column label="" min-width="50"></el-table-column>
           </el-table>
         </div>
