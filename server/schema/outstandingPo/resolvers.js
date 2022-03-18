@@ -1,3 +1,4 @@
+const { Op } = require('sequelize');
 const {
   OUTSTANDINGPO,
 } = require('./model');
@@ -6,7 +7,16 @@ const { isAuthenticated } = require('../auth/service');
 const resolvers = {
   Query: {
     getAllOutstandingPo: isAuthenticated(async (_, { zone }) => {
-      console.log(zone);
+      let where = null;
+      if (zone === 1) {
+        where = {
+          [Op.and]: [
+            { poCancel: 0 },
+            { poZone: { [Op.in]: ['C', 'T', 'HK'] } },
+          ],
+        };
+      }
+
       const outstandingPo = await OUTSTANDINGPO.findAll({
         attributes: [
           'id', 'poIssue', 'poZone', 'poNo', 'poSupplier', 'poDescription',
@@ -14,9 +24,7 @@ const resolvers = {
           'poFinance', 'poEta', 'poArrival', 'approvalDate', 'comp', 'hse',
           'poValueUsd', 'poPaidUsd', 'poBalanceUsd',
         ],
-        where: {
-          poCancel: 0,
-        },
+        where,
       });
 
       return outstandingPo;
