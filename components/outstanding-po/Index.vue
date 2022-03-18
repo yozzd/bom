@@ -35,9 +35,9 @@
         </div>
       </div>
 
-      <div>
+      <div v-if="tableData.length">
         <div class="my-4 font-bold text-xl">
-          {{ zoneStr }}
+          {{ form.zone }}
         </div>
         <div class="my-4">
           <el-table
@@ -149,6 +149,16 @@
                 {{ scope.row.poAdmin }}
               </template>
             </el-table-column>
+            <el-table-column align="right" width="90">
+              <template slot="header">
+                <p title="Payment Status" class="truncate">
+                  Payment Status
+                </p>
+              </template>
+              <template slot-scope="scope">
+                {{ scope.row.poFinance }}
+              </template>
+            </el-table-column>
             <el-table-column label="" min-width="50"></el-table-column>
           </el-table>
         </div>
@@ -229,7 +239,6 @@ export default {
       showFilterDialog: false,
       loading: false,
       form: {},
-      zoneStr: '',
       rules: {
         zone: [
           { required: true, message: 'This field is required', trigger: 'change' },
@@ -268,7 +277,6 @@ export default {
               this.errors = graphQLErrors || networkError.result.errors;
             },
           });
-          this.zoneStr = this.form.zone;
           this.items = getAllOutstandingPo;
           this.miniSearch.removeAll();
           this.miniSearch.addAll(this.items);
