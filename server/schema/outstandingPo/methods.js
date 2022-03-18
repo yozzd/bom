@@ -7,6 +7,7 @@ const whereZone = (zone) => {
       [Op.and]: [
         { poCancel: 0 },
         { poZone: { [Op.in]: ['C', 'T', 'HK'] } },
+        { poArrival: { [Op.is]: null } },
       ],
     };
   } else if (zone === 2) {
