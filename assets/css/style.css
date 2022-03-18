@@ -82,7 +82,7 @@ a {
 
 .heroicons {
   @apply inline-block leading-none;
-  @apply align-baseline not-italic font-normal;
+  @apply align-sub not-italic font-normal;
   @apply normal-case;
 }
 
