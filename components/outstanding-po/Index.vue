@@ -159,6 +159,16 @@
                 {{ scope.row.poFinance }}
               </template>
             </el-table-column>
+            <el-table-column align="right" width="90">
+              <template slot="header">
+                <p title="ETA at Labtech" class="truncate">
+                  ETA at Labtech
+                </p>
+              </template>
+              <template slot-scope="scope">
+                {{ scope.row.poArrival }}
+              </template>
+            </el-table-column>
             <el-table-column label="" min-width="50"></el-table-column>
           </el-table>
         </div>
@@ -246,7 +256,7 @@ export default {
       },
       miniSearch: new MiniSearch({
         idField: 'id',
-        fields: ['poNo', 'poSupplier'],
+        fields: ['poNo', 'poSupplier', 'poDescription'],
         storeFields: [
           'id', 'poIssue', 'poZone', 'poNo', 'poSupplier', 'poDescription',
           'poKvalue', 'poValue', 'poLt', 'poLpayment', 'poBom', 'poAdmin',
