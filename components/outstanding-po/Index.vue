@@ -139,6 +139,16 @@
                 {{ scope.row.poBom }}
               </template>
             </el-table-column>
+            <el-table-column align="right" width="90">
+              <template slot="header">
+                <p title="Documents to Finance + PI (Complete)" class="truncate">
+                  Documents to Finance + PI (Complete)
+                </p>
+              </template>
+              <template slot-scope="scope">
+                {{ scope.row.poAdmin }}
+              </template>
+            </el-table-column>
             <el-table-column label="" min-width="50"></el-table-column>
           </el-table>
         </div>
