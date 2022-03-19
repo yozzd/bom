@@ -333,6 +333,7 @@
           <el-table-column label="Remarks" align="center" width="70">
             <template slot-scope="scope">
               <el-popover
+                v-if="scope.row.bomRemarks"
                 placement="left-end"
                 trigger="hover"
               >
@@ -340,7 +341,6 @@
                   <div class="text-xs" v-html="scope.row.bomRemarks"></div>
                 </template>
                 <outline-chat-icon
-                  v-if="scope.row.bomRemarks"
                   slot="reference"
                   class="heroicons w-4 h-4"
                 />

@@ -157,6 +157,7 @@
                 </p>
               </template>
               <template slot-scope="scope">
+                {{ scope.row.poFinance }}
                 <el-popover
                   v-if="scope.row.poRemarksFinance"
                   placement="left-end"
@@ -166,12 +167,10 @@
                     <div class="text-xs" v-html="scope.row.poRemarksFinance"></div>
                   </template>
                   <outline-chat-icon
-                    v-if="scope.row.poRemarksFinance"
                     slot="reference"
                     class="heroicons w-4 h-4"
                   />
                 </el-popover>
-                {{ scope.row.poFinance }}
               </template>
             </el-table-column>
             <el-table-column align="center" width="90">
@@ -184,7 +183,7 @@
                 {{ scope.row.poEta }}
               </template>
             </el-table-column>
-            <el-table-column align="center" width="90">
+            <el-table-column align="center" width="110">
               <template slot="header">
                 <p title="Time Arrival" class="truncate">
                   Time Arrival
@@ -192,6 +191,19 @@
               </template>
               <template slot-scope="scope">
                 {{ scope.row.poArrival }}
+                <el-popover
+                  v-if="scope.row.poRemarksWarehouse"
+                  placement="left-end"
+                  trigger="hover"
+                >
+                  <template #default>
+                    <div class="text-xs" v-html="scope.row.poRemarksWarehouse"></div>
+                  </template>
+                  <outline-chat-icon
+                    slot="reference"
+                    class="heroicons w-4 h-4"
+                  />
+                </el-popover>
               </template>
             </el-table-column>
             <el-table-column align="center" width="90">
@@ -219,6 +231,7 @@
             <el-table-column label="Remarks" align="center" width="70">
               <template slot-scope="scope">
                 <el-popover
+                  v-if="scope.row.poRemarks"
                   placement="left-end"
                   trigger="hover"
                 >
@@ -226,7 +239,6 @@
                     <div class="text-xs" v-html="scope.row.poRemarks"></div>
                   </template>
                   <outline-chat-icon
-                    v-if="scope.row.poRemarks"
                     slot="reference"
                     class="heroicons w-4 h-4"
                   />
@@ -326,7 +338,8 @@ export default {
           'poKvalue', 'poValue', 'poLt', 'poLpayment', 'poBom', 'poAdmin',
           'poFinance', 'poEta', 'poArrival', 'poStatus', 'approvalDate',
           'comp', 'hse', 'poValueUsd', 'poPaidUsd', 'poBalanceUsd',
-          'arrivalStatus', 'poRemarks', 'colorClass',
+          'arrivalStatus', 'poRemarks', 'poRemarksFinance', 'poRemarksWarehouse',
+          'colorClass',
         ],
       }),
     };

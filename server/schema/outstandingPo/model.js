@@ -119,6 +119,10 @@ const OUTSTANDINGPO = sequelize.define('outstandingPo', {
   },
   poRemarksWarehouse: {
     type: DataTypes.TEXT,
+    get() {
+      const arr = ['<p> </p>', '<p><br></p>'];
+      return arr.includes(this.getDataValue('poRemarksWarehouse')) ? '' : this.getDataValue('poRemarksWarehouse');
+    },
   },
   poCancel: {
     type: DataTypes.INTEGER,
