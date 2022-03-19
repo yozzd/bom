@@ -157,6 +157,7 @@ const OUTSTANDINGPO = sequelize.define('outstandingPo', {
     type: DataTypes.VIRTUAL,
     get() {
       if (!this.poFinance && this.poArrival && this.poStatus === 'Complete') return 'outpo-complete';
+      if (this.poFinance && this.poArrival && this.poStatus === 'Complete') return 'outpo-close';
       if (this.poStatus === 'Partial') return 'outpo-partial';
       if (this.poFinance && !this.poArrival) return 'outpo-paid';
       return '';

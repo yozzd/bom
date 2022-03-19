@@ -153,6 +153,10 @@ table.plain {
   background: #64b5f6;
 }
 
+.el-table .outpo-close {
+  background: #a5d6a7;
+}
+
 .el-table .outpo-partial {
   background: #f48fb1;
 }
