@@ -29,8 +29,75 @@
       </el-breadcrumb>
       <div class="flex space-x-4 items-center">
         <div class="flex flex-col space-y-4 w-full my-4">
-          <div class="font-bold">
-            {{ wo.woNo }} <span v-if="wo.stage">[STAGE-{{ wo.stage }}]</span>
+          <div class="flex">
+            <div class="flex-1 font-bold">
+              {{ wo.woNo }} <span v-if="wo.stage">[STAGE-{{ wo.stage }}]</span>
+            </div>
+            <div>
+              <el-popover
+                placement="left"
+                trigger="hover"
+              >
+                <template #default>
+                  <table class="plain">
+                    <tbody>
+                      <tr>
+                        <td class="w-6 bg-[#e1bee7]"></td>
+                        <td class="pl-2">
+                          Validated
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="bg-[#64b5f6]"></td>
+                        <td class="pl-2">
+                          Stock
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="bg-[#ffccbc]"></td>
+                        <td class="pl-2">
+                          PO Issued
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="bg-[#a5d6a7]"></td>
+                        <td class="pl-2">
+                          Coming
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="bg-[#ffa726]"></td>
+                        <td class="pl-2">
+                          Draft PO / PR
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="bg-[#b0bec5]"></td>
+                        <td class="pl-2">
+                          Hold
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="bg-[#ef5350]"></td>
+                        <td class="pl-2">
+                          Cancel
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="bg-[#ffffff]"></td>
+                        <td class="pl-2">
+                          Open
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </template>
+                <outline-information-circle-icon
+                  slot="reference"
+                  class="heroicons w-4 h-4 text-blue-600"
+                />
+              </el-popover>
+            </div>
           </div>
           <table class="plain">
             <tbody>
@@ -334,7 +401,7 @@
             <template slot-scope="scope">
               <el-popover
                 v-if="scope.row.bomRemarks"
-                placement="left-end"
+                placement="left"
                 trigger="hover"
               >
                 <template #default>
