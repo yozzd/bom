@@ -29,6 +29,7 @@ const typeDefs = `
     arrivalStatus: String
     poRemarks: String
     poRemarksBom: String
+    poRemarksAdmin: String
     poRemarksFinance: String
     poRemarksWarehouse: String
     colorClass: String

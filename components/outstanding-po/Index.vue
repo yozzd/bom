@@ -153,7 +153,7 @@
                 </el-popover>
               </template>
             </el-table-column>
-            <el-table-column align="center" width="90">
+            <el-table-column align="center" width="110">
               <template slot="header">
                 <p title="Documents to Finance + PI (Complete)" class="truncate">
                   Documents to Finance + PI (Complete)
@@ -161,6 +161,19 @@
               </template>
               <template slot-scope="scope">
                 {{ scope.row.poAdmin }}
+                <el-popover
+                  v-if="scope.row.poRemarksAdmin"
+                  placement="left-end"
+                  trigger="hover"
+                >
+                  <template #default>
+                    <div class="text-xs" v-html="scope.row.poRemarksAdmin"></div>
+                  </template>
+                  <outline-chat-icon
+                    slot="reference"
+                    class="heroicons w-4 h-4"
+                  />
+                </el-popover>
               </template>
             </el-table-column>
             <el-table-column align="center" width="110">
@@ -351,8 +364,8 @@ export default {
           'poKvalue', 'poValue', 'poLt', 'poLpayment', 'poBom', 'poAdmin',
           'poFinance', 'poEta', 'poArrival', 'poStatus', 'approvalDate',
           'comp', 'hse', 'poValueUsd', 'poPaidUsd', 'poBalanceUsd',
-          'arrivalStatus', 'poRemarks', 'poRemarksBom', 'poRemarksFinance',
-          'poRemarksWarehouse', 'colorClass',
+          'arrivalStatus', 'poRemarks', 'poRemarksBom', 'poRemarksAdmin',
+          'poRemarksFinance', 'poRemarksWarehouse', 'colorClass',
         ],
       }),
     };
