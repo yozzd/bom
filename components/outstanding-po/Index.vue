@@ -338,6 +338,7 @@ export default {
               this.errors = graphQLErrors || networkError.result.errors;
             },
           });
+          this.items = {};
           this.items = getAllOutstandingPo;
           this.miniSearch.removeAll();
           this.miniSearch.addAll(this.items);
