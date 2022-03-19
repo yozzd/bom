@@ -41,7 +41,8 @@ a {
 }
 
 .el-dropdown-menu,
-.el-popover {
+.el-popover,
+.el-select-dropdown {
   @apply shadow-none border border-gray-100;
 }
 
