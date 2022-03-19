@@ -30,6 +30,7 @@
               v-model="search"
               placeholder="Search"
               clearable
+              :disabled="!tableData.length"
             />
           </div>
         </div>
