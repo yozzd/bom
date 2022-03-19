@@ -16,7 +16,7 @@
       </el-breadcrumb>
 
       <div>
-        <div class="flex my-4">
+        <div class="flex my-4 space-x-4 items-center">
           <el-button
             type="primary"
             @click="showFilter"
@@ -25,6 +25,53 @@
             Filter
           </el-button>
           <div class="flex-1"></div>
+          <div>
+            <el-popover
+              placement="left-end"
+              trigger="hover"
+            >
+              <template #default>
+                <table class="plain">
+                  <tbody>
+                    <tr>
+                      <td class="w-6 bg-[#64b5f6]"></td>
+                      <td class="pl-2">
+                        Complete
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="bg-[#f48fb1]"></td>
+                      <td class="pl-2">
+                        Partial
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="bg-[#a5d6a7]"></td>
+                      <td class="pl-2">
+                        Complete
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="bg-[#fff176]"></td>
+                      <td class="pl-2">
+                        Paid by Finance
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="bg-[#ffffff]"></td>
+                      <td class="pl-2">
+                        Open
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </template>
+              <outline-information-circle-icon
+                slot="reference"
+                class="heroicons w-4 h-4 text-blue-600"
+              />
+            </el-popover>
+          </div>
           <div class="w-64">
             <el-input
               v-model="search"
