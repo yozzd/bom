@@ -27,6 +27,7 @@ export const GetAllOutstandingPo = gql`
       poBalanceUsd
       arrivalStatus
       poRemarks
+      poRemarksFinance
       colorClass
     }
   }

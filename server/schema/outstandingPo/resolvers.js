@@ -15,7 +15,7 @@ const resolvers = {
           'poKvalue', 'poValue', 'poLt', 'poLpayment', 'poBom', 'poAdmin',
           'poFinance', 'poEta', 'poArrival', 'poStatus', 'approvalDate',
           'comp', 'hse', 'poValueUsd', 'poPaidUsd', 'poBalanceUsd',
-          'arrivalStatus', 'poRemarks', 'colorClass',
+          'arrivalStatus', 'poRemarks', 'poRemarksFinance', 'colorClass',
         ],
         where,
         order: [['poIssue', 'DESC']],

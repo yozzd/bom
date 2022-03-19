@@ -150,13 +150,27 @@
                 {{ scope.row.poAdmin }}
               </template>
             </el-table-column>
-            <el-table-column align="center" width="90">
+            <el-table-column align="center" width="110">
               <template slot="header">
                 <p title="Payment Status" class="truncate">
                   Payment Status
                 </p>
               </template>
               <template slot-scope="scope">
+                <el-popover
+                  v-if="scope.row.poRemarksFinance"
+                  placement="left-end"
+                  trigger="hover"
+                >
+                  <template #default>
+                    <div class="text-xs" v-html="scope.row.poRemarksFinance"></div>
+                  </template>
+                  <outline-chat-icon
+                    v-if="scope.row.poRemarksFinance"
+                    slot="reference"
+                    class="heroicons w-4 h-4"
+                  />
+                </el-popover>
                 {{ scope.row.poFinance }}
               </template>
             </el-table-column>
