@@ -130,7 +130,7 @@
                 {{ scope.row.poLpayment }}
               </template>
             </el-table-column>
-            <el-table-column align="center" width="90">
+            <el-table-column align="center" width="110">
               <template slot="header">
                 <p title="Production (Production Required)" class="truncate">
                   Production (Production Required)
@@ -138,6 +138,19 @@
               </template>
               <template slot-scope="scope">
                 {{ scope.row.poBom }}
+                <el-popover
+                  v-if="scope.row.poRemarksBom"
+                  placement="left-end"
+                  trigger="hover"
+                >
+                  <template #default>
+                    <div class="text-xs" v-html="scope.row.poRemarksBom"></div>
+                  </template>
+                  <outline-chat-icon
+                    slot="reference"
+                    class="heroicons w-4 h-4"
+                  />
+                </el-popover>
               </template>
             </el-table-column>
             <el-table-column align="center" width="90">
@@ -338,8 +351,8 @@ export default {
           'poKvalue', 'poValue', 'poLt', 'poLpayment', 'poBom', 'poAdmin',
           'poFinance', 'poEta', 'poArrival', 'poStatus', 'approvalDate',
           'comp', 'hse', 'poValueUsd', 'poPaidUsd', 'poBalanceUsd',
-          'arrivalStatus', 'poRemarks', 'poRemarksFinance', 'poRemarksWarehouse',
-          'colorClass',
+          'arrivalStatus', 'poRemarks', 'poRemarksBom', 'poRemarksFinance',
+          'poRemarksWarehouse', 'colorClass',
         ],
       }),
     };

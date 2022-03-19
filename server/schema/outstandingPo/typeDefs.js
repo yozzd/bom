@@ -28,6 +28,7 @@ const typeDefs = `
     poBalanceUsd: Float
     arrivalStatus: String
     poRemarks: String
+    poRemarksBom: String
     poRemarksFinance: String
     poRemarksWarehouse: String
     colorClass: String
