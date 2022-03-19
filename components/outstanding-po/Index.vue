@@ -393,6 +393,10 @@ export default {
           });
           this.items = {};
           this.items = getAllOutstandingPo;
+
+          this.page = 1;
+          this.pageSize = 10;
+
           this.miniSearch.removeAll();
           this.miniSearch.addAll(this.items);
 
