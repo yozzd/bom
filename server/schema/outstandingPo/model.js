@@ -153,6 +153,13 @@ const OUTSTANDINGPO = sequelize.define('outstandingPo', {
       return 'ONTIME';
     },
   },
+  colorClass: {
+    type: DataTypes.VIRTUAL,
+    get() {
+      if (!this.poFinance && this.poArrival && this.poStatus === 'Complete') return 'opo-complete';
+      return '';
+    },
+  },
 }, {
   tableName: 'outstanding_po',
   underscored: true,

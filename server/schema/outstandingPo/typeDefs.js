@@ -19,6 +19,7 @@ const typeDefs = `
     poFinance: String
     poEta: String
     poArrival: String
+    poStatus: String
     approvalDate: String
     comp: String
     hse: String
@@ -27,6 +28,7 @@ const typeDefs = `
     poBalanceUsd: Float
     arrivalStatus: String
     poRemarks: String
+    colorClass: String
   }
 `;
 

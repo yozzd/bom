@@ -45,6 +45,7 @@
             element-loading-text="Loading..."
             element-loading-spinner="el-icon-loading"
             :data="tableData"
+            :row-class-name="highlighter"
             size="mini"
             border
           >
@@ -309,9 +310,9 @@ export default {
         storeFields: [
           'id', 'poIssue', 'poZone', 'poNo', 'poSupplier', 'poDescription',
           'poKvalue', 'poValue', 'poLt', 'poLpayment', 'poBom', 'poAdmin',
-          'poFinance', 'poEta', 'poArrival', 'approvalDate', 'comp', 'hse',
-          'poValueUsd', 'poPaidUsd', 'poBalanceUsd', 'arrivalStatus',
-          'poRemarks',
+          'poFinance', 'poEta', 'poArrival', 'poStatus', 'approvalDate',
+          'comp', 'hse', 'poValueUsd', 'poPaidUsd', 'poBalanceUsd',
+          'arrivalStatus', 'poRemarks', 'colorClass',
         ],
       }),
     };
@@ -345,6 +346,9 @@ export default {
           this.showFilterDialog = false;
         }
       });
+    },
+    highlighter({ row }) {
+      return row.colorClass;
     },
   },
 };

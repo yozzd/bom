@@ -18,6 +18,7 @@ export const GetAllOutstandingPo = gql`
       poFinance
       poEta
       poArrival
+      poStatus
       approvalDate
       comp
       hse
@@ -26,6 +27,7 @@ export const GetAllOutstandingPo = gql`
       poBalanceUsd
       arrivalStatus
       poRemarks
+      colorClass
     }
   }
 `;
