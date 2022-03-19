@@ -156,7 +156,8 @@ const OUTSTANDINGPO = sequelize.define('outstandingPo', {
   colorClass: {
     type: DataTypes.VIRTUAL,
     get() {
-      if (!this.poFinance && this.poArrival && this.poStatus === 'Complete') return 'opo-complete';
+      if (!this.poFinance && this.poArrival && this.poStatus === 'Complete') return 'outpo-complete';
+      if (this.poFinance && !this.poArrival) return 'outpo-paid';
       return '';
     },
   },

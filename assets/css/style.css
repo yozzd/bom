@@ -149,7 +149,11 @@ table.plain {
   @apply block mb-2 font-normal;
 }
 
-.el-table .opo-complete {
+.el-table .outpo-complete {
   background: #64b5f6;
+}
+
+.el-table .outpo-paid {
+  background: #fff176;
 }
 
