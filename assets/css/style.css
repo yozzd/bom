@@ -40,6 +40,27 @@ a {
   @apply ring-3 ring-blue-200 ring-opacity-50;
 }
 
+.el-dropdown-menu,
+.el-popover {
+  @apply shadow-none border border-gray-100;
+}
+
+.el-popper[x-placement^="top"] .popper__arrow {
+  @apply border-t-gray-200;
+}
+
+.el-popper[x-placement^="bottom"] .popper__arrow {
+  @apply border-b-gray-200;
+}
+
+.el-popper[x-placement^="left"] .popper__arrow {
+  @apply border-l-gray-200;
+}
+
+.el-popper[x-placement^="right"] .popper__arrow {
+  @apply border-r-gray-200;
+}
+
 .el-form-item {
   @apply mb-4;
 }
