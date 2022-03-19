@@ -160,6 +160,7 @@ const OUTSTANDINGPO = sequelize.define('outstandingPo', {
       if (this.poFinance && this.poArrival && this.poStatus === 'Complete') return 'outpo-close';
       if (this.poStatus === 'Partial') return 'outpo-partial';
       if (this.poFinance && !this.poArrival) return 'outpo-paid';
+      if (this.poCancel) return 'outpo-cancel';
       return '';
     },
   },

@@ -165,3 +165,7 @@ table.plain {
   background: #fff176;
 }
 
+.el-table .outpo-cancel {
+  background: #e53935;
+}
+
