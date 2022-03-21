@@ -474,7 +474,7 @@ export default {
           'poFinance', 'poEta', 'poArrival', 'poStatus', 'approvalDate',
           'comp', 'hse', 'poValueUsd', 'poPaidUsd', 'poBalanceUsd',
           'arrivalStatus', 'poRemarks', 'poRemarksBom', 'poRemarksAdmin',
-          'poRemarksFinance', 'poRemarksWarehouse', 'colorClass',
+          'poRemarksFinance', 'poRemarksWarehouse', 'poCancel', 'colorClass',
         ],
       }),
     };

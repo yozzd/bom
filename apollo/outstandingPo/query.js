@@ -30,6 +30,7 @@ export const outstandingPoFragment = gql`
     poRemarksAdmin
     poRemarksFinance
     poRemarksWarehouse
+    poCancel
     colorClass
   }
 `;

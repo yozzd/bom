@@ -172,11 +172,11 @@ const OUTSTANDINGPO = sequelize.define('outstandingPo', {
   colorClass: {
     type: DataTypes.VIRTUAL,
     get() {
+      if (this.poCancel) return 'outpo-cancel';
       if (!this.poFinance && this.poArrival && this.poStatus === 'Complete') return 'outpo-complete';
       if (this.poFinance && this.poArrival && this.poStatus === 'Complete') return 'outpo-close';
       if (this.poStatus === 'Partial') return 'outpo-partial';
       if (this.poFinance && !this.poArrival) return 'outpo-paid';
-      if (this.poCancel) return 'outpo-cancel';
       return '';
     },
   },

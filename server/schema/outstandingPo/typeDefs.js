@@ -33,6 +33,7 @@ const typeDefs = `
     poRemarksAdmin: String
     poRemarksFinance: String
     poRemarksWarehouse: String
+    poCancel: Int
     colorClass: String
   }
 `;
