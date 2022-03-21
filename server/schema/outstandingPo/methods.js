@@ -76,9 +76,16 @@ const whereStatus = (status) => {
     where = {
       [Op.and]: [
         { poCancel: 0 },
-        { poFinance: { [Op.is]: null } },
-        { poArrival: { [Op.not]: null } },
         { poStatus: { [Op.eq]: 'Partial' } },
+      ],
+    };
+  } else if (status === 2) {
+    where = {
+      [Op.and]: [
+        { poCancel: 0 },
+        { poFinance: { [Op.not]: null } },
+        { poArrival: { [Op.not]: null } },
+        { poStatus: { [Op.eq]: 'Complete' } },
       ],
     };
   }
