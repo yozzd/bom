@@ -96,6 +96,14 @@ const whereStatus = (status) => {
         { poArrival: { [Op.is]: null } },
       ],
     };
+  } else if (status === 4) {
+    where = {
+      [Op.and]: [
+        { poCancel: 0 },
+        { poFinance: { [Op.is]: null } },
+        { poArrival: { [Op.is]: null } },
+      ],
+    };
   }
 
   return where;
