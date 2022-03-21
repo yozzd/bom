@@ -104,6 +104,12 @@ const whereStatus = (status) => {
         { poArrival: { [Op.is]: null } },
       ],
     };
+  } else {
+    where = {
+      [Op.and]: [
+        { poCancel: 1 },
+      ],
+    };
   }
 
   return where;
