@@ -72,6 +72,15 @@ const whereStatus = (status) => {
         { poStatus: { [Op.eq]: 'Complete' } },
       ],
     };
+  } else if (status === 1) {
+    where = {
+      [Op.and]: [
+        { poCancel: 0 },
+        { poFinance: { [Op.is]: null } },
+        { poArrival: { [Op.not]: null } },
+        { poStatus: { [Op.eq]: 'Partial' } },
+      ],
+    };
   }
 
   return where;

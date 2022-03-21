@@ -537,7 +537,7 @@ export default {
           });
           this.items = {};
           this.items = getAllOutstandingPoByStatus;
-          this.header = this.form.category;
+          this.header = `Status: ${this.form.status}`;
 
           this.page = 1;
           this.pageSize = 10;
