@@ -67,23 +67,22 @@ const whereStatus = (status) => {
   if (status === 0) {
     where = {
       [Op.and]: [
-        { poFinance: { [Op.is]: null } },
-        { poArrival: { [Op.not]: null } },
-        { poStatus: { [Op.eq]: 'Complete' } },
+        { poCancel: 1 },
       ],
     };
   } else if (status === 1) {
     where = {
       [Op.and]: [
         { poCancel: 0 },
-        { poStatus: { [Op.eq]: 'Partial' } },
+        { poFinance: { [Op.not]: null } },
+        { poArrival: { [Op.not]: null } },
+        { poStatus: { [Op.eq]: 'Complete' } },
       ],
     };
   } else if (status === 2) {
     where = {
       [Op.and]: [
-        { poCancel: 0 },
-        { poFinance: { [Op.not]: null } },
+        { poFinance: { [Op.is]: null } },
         { poArrival: { [Op.not]: null } },
         { poStatus: { [Op.eq]: 'Complete' } },
       ],
@@ -100,14 +99,15 @@ const whereStatus = (status) => {
     where = {
       [Op.and]: [
         { poCancel: 0 },
-        { poFinance: { [Op.is]: null } },
-        { poArrival: { [Op.is]: null } },
+        { poStatus: { [Op.eq]: 'Partial' } },
       ],
     };
   } else {
     where = {
       [Op.and]: [
-        { poCancel: 1 },
+        { poCancel: 0 },
+        { poFinance: { [Op.is]: null } },
+        { poArrival: { [Op.is]: null } },
       ],
     };
   }

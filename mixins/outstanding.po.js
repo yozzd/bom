@@ -9,12 +9,12 @@ export default {
         'Supplier Local',
       ],
       status: [
-        'Complete',
-        'Partial',
-        'Close',
-        'Paid',
-        'Open / Unpaid',
         'Cancel',
+        'Close',
+        'Complete',
+        'Paid',
+        'Partial',
+        'Open / Unpaid',
       ],
     };
   },
