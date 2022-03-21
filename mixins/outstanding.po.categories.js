@@ -1,7 +1,7 @@
 export default {
   data() {
     return {
-      zones: [
+      categories: [
         'Supplier China, Taiwan, Hongkong',
         'Supplier Singapore',
         'Supplier Misc.',

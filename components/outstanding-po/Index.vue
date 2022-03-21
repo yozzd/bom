@@ -85,7 +85,7 @@
 
       <div v-if="tableData.length">
         <div class="my-4 font-bold text-xl">
-          {{ form.zone }}
+          {{ form.category }}
         </div>
         <div class="my-4">
           <el-table
@@ -356,10 +356,10 @@
         :hide-required-asterisk="true"
         label-position="top"
       >
-        <el-form-item label="Filter By Zones" prop="zone">
-          <el-radio-group v-model="form.zone">
+        <el-form-item label="Filter By Category" prop="category">
+          <el-radio-group v-model="form.category">
             <el-radio
-              v-for="(v, k) in zones"
+              v-for="(v, k) in categories"
               :key="k"
               :label="v"
               class="blk"
@@ -389,7 +389,7 @@
 <script>
 import MiniSearch from 'minisearch';
 import table from '../../mixins/table';
-import outp from '../../mixins/outstanding.po.zones';
+import outp from '../../mixins/outstanding.po.categories';
 import { GetAllOutstandingPo } from '../../apollo/outstandingPo/query';
 
 export default {
@@ -400,7 +400,7 @@ export default {
       loading: false,
       form: {},
       rules: {
-        zone: [
+        cateogry: [
           { required: true, message: 'This field is required', trigger: 'change' },
         ],
       },
@@ -426,14 +426,14 @@ export default {
       this.$refs[form].validate(async (valid) => {
         if (valid) {
           this.loading = true;
-          const zone = parseInt(
-            (Object.keys(this.zones).find((key) => this.zones[key] === this.form.zone)
+          const category = parseInt(
+            (Object.keys(this.categories).find((key) => this.categories[key] === this.form.category)
             ), 10,
           ) + 1;
 
           const { data: { getAllOutstandingPo } } = await this.$apollo.query({
             query: GetAllOutstandingPo,
-            variables: { zone },
+            variables: { category },
             prefetch: false,
             error({ graphQLErrors, networkError }) {
               this.errors = graphQLErrors || networkError.result.errors;

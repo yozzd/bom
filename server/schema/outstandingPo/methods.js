@@ -13,9 +13,9 @@ const status = {
   ],
 };
 
-const whereZone = (zone) => {
+const whereCategory = (category) => {
   let where = null;
-  if (zone === 1) {
+  if (category === 1) {
     where = {
       [Op.and]: [
         { poCancel: 0 },
@@ -23,7 +23,7 @@ const whereZone = (zone) => {
         status,
       ],
     };
-  } else if (zone === 2) {
+  } else if (category === 2) {
     where = {
       [Op.and]: [
         { poCancel: 0 },
@@ -31,7 +31,7 @@ const whereZone = (zone) => {
         status,
       ],
     };
-  } else if (zone === 3) {
+  } else if (category === 3) {
     where = {
       [Op.and]: [
         { poCancel: 0 },
@@ -39,7 +39,7 @@ const whereZone = (zone) => {
         status,
       ],
     };
-  } else if (zone === 4) {
+  } else if (category === 4) {
     where = {
       [Op.and]: [
         { poCancel: 0 },
@@ -60,4 +60,4 @@ const whereZone = (zone) => {
   return where;
 };
 
-module.exports = { whereZone };
+module.exports = { whereCategory };

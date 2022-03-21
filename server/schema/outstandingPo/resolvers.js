@@ -2,12 +2,12 @@ const {
   OUTSTANDINGPO,
 } = require('./model');
 const { isAuthenticated } = require('../auth/service');
-const { whereZone } = require('./methods');
+const { whereCategory } = require('./methods');
 
 const resolvers = {
   Query: {
-    getAllOutstandingPo: isAuthenticated(async (_, { zone }) => {
-      const where = whereZone(zone);
+    getAllOutstandingPo: isAuthenticated(async (_, { category }) => {
+      const where = whereCategory(category);
 
       const outstandingPo = await OUTSTANDINGPO.findAll({
         attributes: [
