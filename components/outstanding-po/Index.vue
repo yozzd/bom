@@ -44,15 +44,9 @@
                 <table class="plain">
                   <tbody>
                     <tr>
-                      <td class="w-6 bg-[#64b5f6]"></td>
+                      <td class="bg-[#e53935]"></td>
                       <td class="pl-2">
-                        Complete
-                      </td>
-                    </tr>
-                    <tr>
-                      <td class="bg-[#f48fb1]"></td>
-                      <td class="pl-2">
-                        Partial
+                        Cancel
                       </td>
                     </tr>
                     <tr>
@@ -62,15 +56,27 @@
                       </td>
                     </tr>
                     <tr>
+                      <td class="w-6 bg-[#64b5f6]"></td>
+                      <td class="pl-2">
+                        Complete
+                      </td>
+                    </tr>
+                    <tr>
                       <td class="bg-[#fff176]"></td>
                       <td class="pl-2">
                         Paid by Finance
                       </td>
                     </tr>
                     <tr>
+                      <td class="bg-[#f48fb1]"></td>
+                      <td class="pl-2">
+                        Partial
+                      </td>
+                    </tr>
+                    <tr>
                       <td class="bg-[#ffffff]"></td>
                       <td class="pl-2">
-                        Open
+                        Open / Unpaid
                       </td>
                     </tr>
                   </tbody>
