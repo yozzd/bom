@@ -1,6 +1,7 @@
 const typeDefs = `
   extend type Query {
     getAllOutstandingPoByCategory(category: Int): [OUTSTANDINGPO]
+    getAllOutstandingPoByStatus(status: Int): [OUTSTANDINGPO]
   }
 
   type OUTSTANDINGPO {

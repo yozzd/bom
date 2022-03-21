@@ -43,4 +43,11 @@ export const GetAllOutstandingPoByCategory = gql`
   ${outstandingPoFragment}
 `;
 
-export const fake = {};
+export const GetAllOutstandingPoByStatus = gql`
+  query getAllOutstandingPoByStatus($status: Int) {
+    getAllOutstandingPoByStatus(status: $status) {
+      ...outstandingPo
+    }
+  }
+  ${outstandingPoFragment}
+`;

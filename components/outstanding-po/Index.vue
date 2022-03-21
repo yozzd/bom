@@ -113,33 +113,37 @@
               prop="poIssue"
               align="center"
               width="90"
+              fixed
             ></el-table-column>
             <el-table-column
               label="Aproval Date"
               prop="approvalDate"
               align="center"
               width="90"
+              fixed
             ></el-table-column>
             <el-table-column
               label="Zone"
               prop="poZone"
               align="center"
               width="50"
+              fixed
             ></el-table-column>
             <el-table-column
               label="PO No."
               prop="poNo"
               align="center"
               width="70"
+              fixed
             ></el-table-column>
-            <el-table-column label="Supplier" width="160">
+            <el-table-column label="Supplier" width="160" fixed>
               <template slot-scope="scope">
                 <p :title="scope.row.poSupplier" class="truncate">
                   {{ scope.row.poSupplier }}
                 </p>
               </template>
             </el-table-column>
-            <el-table-column label="Description" width="160">
+            <el-table-column label="Description" width="160" fixed>
               <template slot-scope="scope">
                 <p :title="scope.row.poDescription" class="truncate">
                   {{ scope.row.poDescription }}
@@ -408,7 +412,7 @@
         :hide-required-asterisk="true"
         label-position="top"
       >
-        <el-form-item prop="category">
+        <el-form-item prop="status">
           <el-radio-group v-model="form.status">
             <el-radio
               v-for="(v, k) in status"
@@ -441,8 +445,8 @@
 <script>
 import MiniSearch from 'minisearch';
 import table from '../../mixins/table';
-import outp from '../../mixins/outstanding.po.categories';
-import { GetAllOutstandingPoByCategory } from '../../apollo/outstandingPo/query';
+import outp from '../../mixins/outstanding.po';
+import { GetAllOutstandingPoByCategory, GetAllOutstandingPoByStatus } from '../../apollo/outstandingPo/query';
 
 export default {
   mixins: [table, outp],
@@ -455,6 +459,9 @@ export default {
       header: '',
       rules: {
         category: [
+          { required: true, message: 'This field is required', trigger: 'change' },
+        ],
+        status: [
           { required: true, message: 'This field is required', trigger: 'change' },
         ],
       },
@@ -511,7 +518,38 @@ export default {
     showFilterByStatus() {
       this.showFilterByStatusDialog = true;
     },
-    handleFilterByStatus() {},
+    handleFilterByStatus(form) {
+      this.$refs[form].validate(async (valid) => {
+        if (valid) {
+          this.loading = true;
+          const status = parseInt(
+            (Object.keys(this.status).find((key) => this.status[key] === this.form.status)
+            ), 10,
+          );
+
+          const { data: { getAllOutstandingPoByStatus } } = await this.$apollo.query({
+            query: GetAllOutstandingPoByStatus,
+            variables: { status },
+            prefetch: false,
+            error({ graphQLErrors, networkError }) {
+              this.errors = graphQLErrors || networkError.result.errors;
+            },
+          });
+          this.items = {};
+          this.items = getAllOutstandingPoByStatus;
+          this.header = this.form.category;
+
+          this.page = 1;
+          this.pageSize = 10;
+
+          this.miniSearch.removeAll();
+          this.miniSearch.addAll(this.items);
+
+          this.loading = false;
+          this.showFilterByStatusDialog = false;
+        }
+      });
+    },
     highlighter({ row }) {
       return row.colorClass;
     },

@@ -8,6 +8,14 @@ export default {
         'Supplier On-Line',
         'Supplier Local',
       ],
+      status: [
+        'Complete',
+        'Partial',
+        'Close',
+        'Paid',
+        'Open / Unpaid',
+        'Cancel',
+      ],
     };
   },
 };

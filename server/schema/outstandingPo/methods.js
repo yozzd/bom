@@ -1,6 +1,6 @@
 const { Op } = require('sequelize');
 
-const status = {
+const cond1 = {
   [Op.or]: [
     { poStatus: { [Op.is]: null } },
     { poStatus: { [Op.ne]: 'Complete' } },
@@ -15,12 +15,13 @@ const status = {
 
 const whereCategory = (category) => {
   let where = null;
+
   if (category === 1) {
     where = {
       [Op.and]: [
         { poCancel: 0 },
         { poZone: { [Op.in]: ['C', 'T', 'HK'] } },
-        status,
+        cond1,
       ],
     };
   } else if (category === 2) {
@@ -28,7 +29,7 @@ const whereCategory = (category) => {
       [Op.and]: [
         { poCancel: 0 },
         { poZone: { [Op.in]: ['S'] } },
-        status,
+        cond1,
       ],
     };
   } else if (category === 3) {
@@ -36,7 +37,7 @@ const whereCategory = (category) => {
       [Op.and]: [
         { poCancel: 0 },
         { poZone: { [Op.notIn]: ['C', 'T', 'HK', 'S', 'OL', 'L'] } },
-        status,
+        cond1,
       ],
     };
   } else if (category === 4) {
@@ -44,7 +45,7 @@ const whereCategory = (category) => {
       [Op.and]: [
         { poCancel: 0 },
         { poZone: { [Op.in]: ['OL'] } },
-        status,
+        cond1,
       ],
     };
   } else {
@@ -52,7 +53,7 @@ const whereCategory = (category) => {
       [Op.and]: [
         { poCancel: 0 },
         { poZone: { [Op.in]: ['L'] } },
-        status,
+        cond1,
       ],
     };
   }
@@ -60,4 +61,20 @@ const whereCategory = (category) => {
   return where;
 };
 
-module.exports = { whereCategory };
+const whereStatus = (status) => {
+  let where = null;
+
+  if (status === 0) {
+    where = {
+      [Op.and]: [
+        { poFinance: { [Op.is]: null } },
+        { poArrival: { [Op.not]: null } },
+        { poStatus: { [Op.eq]: 'Complete' } },
+      ],
+    };
+  }
+
+  return where;
+};
+
+module.exports = { whereCategory, whereStatus };
