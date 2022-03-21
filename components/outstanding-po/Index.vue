@@ -48,7 +48,7 @@
                     <tr>
                       <td class="bg-[#a5d6a7]"></td>
                       <td class="pl-2">
-                        Complete
+                        Close
                       </td>
                     </tr>
                     <tr>
