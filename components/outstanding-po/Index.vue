@@ -24,9 +24,13 @@
             <outline-filter-icon class="heroicons w-4 h-4" />
             Filter By Category
           </el-button>
-          <div>
-            By Status
-          </div>
+          <el-button
+            type="primary"
+            @click="showFilterByStatus"
+          >
+            <outline-filter-icon class="heroicons w-4 h-4" />
+            Filter By Status
+          </el-button>
           <div>
             By Zones
           </div>
@@ -389,6 +393,48 @@
         </el-button>
       </span>
     </el-dialog>
+
+    <el-dialog
+      title="Filter By Status"
+      :visible.sync="showFilterByStatusDialog"
+      :close-on-click-modal="false"
+      :close-on-press-escape="false"
+      width="40%"
+    >
+      <el-form
+        ref="form"
+        :model="form"
+        :rules="rules"
+        :hide-required-asterisk="true"
+        label-position="top"
+      >
+        <el-form-item prop="category">
+          <el-radio-group v-model="form.status">
+            <el-radio
+              v-for="(v, k) in status"
+              :key="k"
+              :label="v"
+              class="blk"
+            ></el-radio>
+          </el-radio-group>
+        </el-form-item>
+      </el-form>
+      <span slot="footer" class="dialog-footer">
+        <el-button
+          type="text"
+          @click="showFilterByStatusDialog = false"
+        >
+          Cancel
+        </el-button>
+        <el-button
+          type="primary"
+          :loading="loading"
+          @click="handleFilterByStatus('form')"
+        >
+          Filter
+        </el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 
@@ -403,6 +449,7 @@ export default {
   data() {
     return {
       showFilterByCategoryDialog: false,
+      showFilterByStatusDialog: false,
       loading: false,
       form: {},
       header: '',
@@ -461,6 +508,10 @@ export default {
         }
       });
     },
+    showFilterByStatus() {
+      this.showFilterByStatusDialog = true;
+    },
+    handleFilterByStatus() {},
     highlighter({ row }) {
       return row.colorClass;
     },
