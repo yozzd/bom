@@ -16,14 +16,20 @@
       </el-breadcrumb>
 
       <div>
-        <div class="flex my-4 space-x-4 items-center">
+        <div class="flex my-4 space-x-8 items-center">
           <el-button
             type="primary"
-            @click="showFilter"
+            @click="showFilterByCategory"
           >
             <outline-filter-icon class="heroicons w-4 h-4" />
-            Filter
+            Filter By Category
           </el-button>
+          <div>
+            By Status
+          </div>
+          <div>
+            By Zones
+          </div>
           <div class="flex-1"></div>
           <div>
             <el-popover
@@ -85,7 +91,7 @@
 
       <div v-if="tableData.length">
         <div class="my-4 font-bold text-xl">
-          {{ form.category }}
+          {{ header }}
         </div>
         <div class="my-4">
           <el-table
@@ -343,8 +349,8 @@
     </div>
 
     <el-dialog
-      title="Filter"
-      :visible.sync="showFilterDialog"
+      title="Filter By Category"
+      :visible.sync="showFilterByCategoryDialog"
       :close-on-click-modal="false"
       :close-on-press-escape="false"
       width="40%"
@@ -356,7 +362,7 @@
         :hide-required-asterisk="true"
         label-position="top"
       >
-        <el-form-item label="Filter By Category" prop="category">
+        <el-form-item prop="category">
           <el-radio-group v-model="form.category">
             <el-radio
               v-for="(v, k) in categories"
@@ -370,14 +376,14 @@
       <span slot="footer" class="dialog-footer">
         <el-button
           type="text"
-          @click="showFilterDialog = false"
+          @click="showFilterByCategoryDialog = false"
         >
           Cancel
         </el-button>
         <el-button
           type="primary"
           :loading="loading"
-          @click="handleFilter('form')"
+          @click="handleFilterByCategory('form')"
         >
           Filter
         </el-button>
@@ -390,17 +396,18 @@
 import MiniSearch from 'minisearch';
 import table from '../../mixins/table';
 import outp from '../../mixins/outstanding.po.categories';
-import { GetAllOutstandingPo } from '../../apollo/outstandingPo/query';
+import { GetAllOutstandingPoByCategory } from '../../apollo/outstandingPo/query';
 
 export default {
   mixins: [table, outp],
   data() {
     return {
-      showFilterDialog: false,
+      showFilterByCategoryDialog: false,
       loading: false,
       form: {},
+      header: '',
       rules: {
-        cateogry: [
+        category: [
           { required: true, message: 'This field is required', trigger: 'change' },
         ],
       },
@@ -419,10 +426,10 @@ export default {
     };
   },
   methods: {
-    showFilter() {
-      this.showFilterDialog = true;
+    showFilterByCategory() {
+      this.showFilterByCategoryDialog = true;
     },
-    handleFilter(form) {
+    handleFilterByCategory(form) {
       this.$refs[form].validate(async (valid) => {
         if (valid) {
           this.loading = true;
@@ -431,8 +438,8 @@ export default {
             ), 10,
           ) + 1;
 
-          const { data: { getAllOutstandingPo } } = await this.$apollo.query({
-            query: GetAllOutstandingPo,
+          const { data: { getAllOutstandingPoByCategory } } = await this.$apollo.query({
+            query: GetAllOutstandingPoByCategory,
             variables: { category },
             prefetch: false,
             error({ graphQLErrors, networkError }) {
@@ -440,7 +447,8 @@ export default {
             },
           });
           this.items = {};
-          this.items = getAllOutstandingPo;
+          this.items = getAllOutstandingPoByCategory;
+          this.header = this.form.category;
 
           this.page = 1;
           this.pageSize = 10;
@@ -449,7 +457,7 @@ export default {
           this.miniSearch.addAll(this.items);
 
           this.loading = false;
-          this.showFilterDialog = false;
+          this.showFilterByCategoryDialog = false;
         }
       });
     },

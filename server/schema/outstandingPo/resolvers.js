@@ -6,7 +6,7 @@ const { whereCategory } = require('./methods');
 
 const resolvers = {
   Query: {
-    getAllOutstandingPo: isAuthenticated(async (_, { category }) => {
+    getAllOutstandingPoByCategory: isAuthenticated(async (_, { category }) => {
       const where = whereCategory(category);
 
       const outstandingPo = await OUTSTANDINGPO.findAll({
