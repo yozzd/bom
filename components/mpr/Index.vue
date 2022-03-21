@@ -1,5 +1,10 @@
 <template>
   <div class="flex flex-col space-y-8">
+    <IndexErrorHandler
+      v-if="errors.length"
+      :errors="errors"
+    />
+
     <div class="flex space-x-4 items-center">
       <div class="w-48">
         <el-select
@@ -19,11 +24,6 @@
       </div>
       <div class="flex-1"></div>
     </div>
-
-    <IndexErrorHandler
-      v-if="errors"
-      :errors="errors"
-    />
 
     {{ items }}
   </div>

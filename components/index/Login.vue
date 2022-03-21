@@ -8,7 +8,7 @@
       </div>
 
       <IndexErrorHandler
-        v-if="errors"
+        v-if="errors.length"
         :errors="errors"
       />
 

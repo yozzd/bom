@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-col space-y-8">
     <IndexErrorHandler
-      v-if="errors"
+      v-if="errors.length"
       :errors="errors"
     />
 
