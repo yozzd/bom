@@ -462,13 +462,19 @@
         label-position="top"
       >
         <el-form-item prop="zones">
-          <el-radio-group v-model="form.zones">
-            <el-radio
+          <el-radio-group
+            v-model="form.zones"
+            class="grid grid-cols-4"
+          >
+            <div
               v-for="(v, k) in zones"
               :key="k"
-              :label="v.zone"
-              class="blk"
-            ></el-radio>
+            >
+              <el-radio
+                :label="v.zone"
+                class="blk"
+              ></el-radio>
+            </div>
           </el-radio-group>
         </el-form-item>
       </el-form>

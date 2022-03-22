@@ -168,6 +168,10 @@ table.plain {
   background: #ef5350;
 }
 
+.el-radio-group {
+  @apply grid;
+}
+
 .el-radio.blk {
   @apply block mb-2 font-normal;
 }
