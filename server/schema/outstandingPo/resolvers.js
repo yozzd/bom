@@ -36,6 +36,7 @@ const resolvers = {
       const totals = await OUTSTANDINGPO.findAll({
         attributes: [
           [sequelize.literal('SUM(po_value_usd)'), 'totalPoValueUsd'],
+          [sequelize.literal('SUM(po_paid_usd)'), 'totalPoPaidUsd'],
         ],
         where,
       });

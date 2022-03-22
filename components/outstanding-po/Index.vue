@@ -101,8 +101,35 @@
       </div>
 
       <div v-if="tableData.length">
-        <div class="my-4 font-bold text-xl">
-          {{ header }}
+        <div class="flex flex-col space-y-4 my-4">
+          <div class="font-bold text-xl">
+            {{ header }}
+          </div>
+          <div class="w-1/2">
+            <table class="plain">
+              <tbody>
+                <tr>
+                  <td>
+                    Total PO Value
+                  </td>
+                  <td>:</td>
+                  <td>
+                    USD {{ totals.totalPoValueUsd | currency }}
+                  </td>
+                  <td>
+                    Total PO Paid
+                  </td>
+                  <td>:</td>
+                  <td>USD {{ totals.totalPoPaidUsd | currency }}</td>
+                  <td>
+                    Total PO Balance
+                  </td>
+                  <td>:</td>
+                  <td>USD {{ totals.totalPoBalanceUsd | currency }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
         <div class="my-4">
           <el-table
@@ -570,7 +597,7 @@ export default {
             },
           });
           this.items = {};
-          const { items, totals } = getAllOutstandingPoByCategory;
+          const { items, totals: [totals] } = getAllOutstandingPoByCategory;
           this.items = items;
           this.totals = totals;
           this.header = this.form.category;

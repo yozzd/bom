@@ -36,6 +36,8 @@ export const outstandingPoFragment = gql`
     }
     totals {
       totalPoValueUsd
+      totalPoPaidUsd
+      totalPoBalanceUsd
     }
   }
 `;

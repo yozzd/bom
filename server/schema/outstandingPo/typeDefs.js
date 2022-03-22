@@ -46,6 +46,8 @@ const typeDefs = `
 
   type total {
     totalPoValueUsd: Float
+    totalPoPaidUsd: Float
+    totalPoBalanceUsd: Float
   }
 
   type zones {

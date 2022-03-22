@@ -186,6 +186,15 @@ const OUTSTANDINGPO = sequelize.define('outstandingPo', {
   totalPoValueUsd: {
     type: DataTypes.VIRTUAL,
   },
+  totalPoPaidUsd: {
+    type: DataTypes.VIRTUAL,
+  },
+  totalPoBalanceUsd: {
+    type: DataTypes.VIRTUAL,
+    get() {
+      return this.totalPoPaidUsd - this.totalPoValueUsd;
+    },
+  },
 }, {
   tableName: 'outstanding_po',
   underscored: true,

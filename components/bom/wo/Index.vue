@@ -30,7 +30,7 @@
       <div class="flex space-x-4 items-center">
         <div class="flex flex-col space-y-4 w-full my-4">
           <div class="flex">
-            <div class="flex-1 font-bold">
+            <div class="flex-1 font-bold text-xl">
               {{ wo.woNo }} <span v-if="wo.stage">[STAGE-{{ wo.stage }}]</span>
             </div>
             <div>
