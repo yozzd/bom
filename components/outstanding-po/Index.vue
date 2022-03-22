@@ -17,23 +17,24 @@
 
       <div>
         <div class="flex my-4 space-x-8 items-center">
-          <el-button
-            type="primary"
-            @click="showFilterByCategory"
-          >
-            <outline-filter-icon class="heroicons w-4 h-4" />
-            Filter By Category
-          </el-button>
-          <el-button
-            type="primary"
-            @click="showFilterByStatus"
-          >
-            <outline-filter-icon class="heroicons w-4 h-4" />
-            Filter By Status
-          </el-button>
-          <div>
-            By Zones
-          </div>
+          <el-dropdown trigger="click" @command="handleCommand">
+            <el-button type="primary">
+              <outline-filter-icon class="heroicons w-4 h-4" />
+              Filter
+              <outline-chevron-down-icon class="heroicons heroicons-right w-4 h-4" />
+            </el-button>
+            <el-dropdown-menu slot="dropdown">
+              <el-dropdown-item command="a">
+                By Category
+              </el-dropdown-item>
+              <el-dropdown-item command="b">
+                By Status
+              </el-dropdown-item>
+              <el-dropdown-item command="c">
+                By Zone
+              </el-dropdown-item>
+            </el-dropdown-menu>
+          </el-dropdown>
           <div class="flex-1"></div>
           <div>
             <el-popover
@@ -486,6 +487,10 @@ export default {
     };
   },
   methods: {
+    handleCommand(command) {
+      if (command === 'a') this.showFilterByCategory();
+      if (command === 'b') this.showFilterByStatus();
+    },
     showFilterByCategory() {
       this.showFilterByCategoryDialog = true;
     },
