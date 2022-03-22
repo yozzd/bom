@@ -1,3 +1,4 @@
+const sequelize = require('../../config/db');
 const {
   OUTSTANDINGPO,
 } = require('./model');
@@ -6,6 +7,16 @@ const { whereCategory, whereStatus } = require('./methods');
 
 const resolvers = {
   Query: {
+    getZones: isAuthenticated(async () => {
+      const zones = await OUTSTANDINGPO.findAll({
+        attributes: [
+          [sequelize.literal('DISTINCT po_zone'), 'zone'],
+        ],
+        order: [['poZone']],
+      });
+
+      return zones;
+    }),
     getAllOutstandingPoByCategory: isAuthenticated(async (_, { category }) => {
       const where = whereCategory(category);
 

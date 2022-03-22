@@ -446,6 +446,48 @@
         </el-button>
       </span>
     </el-dialog>
+
+    <el-dialog
+      title="Filter By Zones"
+      :visible.sync="showFilterByZonesDialog"
+      :close-on-click-modal="false"
+      :close-on-press-escape="false"
+      width="40%"
+    >
+      <el-form
+        ref="form"
+        :model="form"
+        :rules="rules"
+        :hide-required-asterisk="true"
+        label-position="top"
+      >
+        <el-form-item prop="zones">
+          <el-radio-group v-model="form.zones">
+            <el-radio
+              v-for="(v, k) in zones"
+              :key="k"
+              :label="v.zone"
+              class="blk"
+            ></el-radio>
+          </el-radio-group>
+        </el-form-item>
+      </el-form>
+      <span slot="footer" class="dialog-footer">
+        <el-button
+          type="text"
+          @click="showFilterByZonesDialog = false"
+        >
+          Cancel
+        </el-button>
+        <el-button
+          type="primary"
+          :loading="loading"
+          @click="handleFilterByZones('form')"
+        >
+          Filter
+        </el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 
@@ -461,6 +503,7 @@ export default {
     return {
       showFilterByCategoryDialog: false,
       showFilterByStatusDialog: false,
+      showFilterByZonesDialog: false,
       loading: false,
       form: {},
       header: '',
@@ -490,6 +533,7 @@ export default {
     handleCommand(command) {
       if (command === 'a') this.showFilterByCategory();
       if (command === 'b') this.showFilterByStatus();
+      if (command === 'c') this.showFilterByZones();
     },
     showFilterByCategory() {
       this.showFilterByCategoryDialog = true;
@@ -561,6 +605,10 @@ export default {
         }
       });
     },
+    showFilterByZones() {
+      this.showFilterByZonesDialog = true;
+    },
+    handleFilterByZones() {},
     highlighter({ row }) {
       return row.colorClass;
     },

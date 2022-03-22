@@ -52,3 +52,11 @@ export const GetAllOutstandingPoByStatus = gql`
   }
   ${outstandingPoFragment}
 `;
+
+export const GetZones = gql`
+  query getZones {
+    getZones {
+      zone
+    }
+  }
+`;

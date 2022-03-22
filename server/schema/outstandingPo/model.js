@@ -180,6 +180,9 @@ const OUTSTANDINGPO = sequelize.define('outstandingPo', {
       return '';
     },
   },
+  zone: {
+    type: DataTypes.VIRTUAL,
+  },
 }, {
   tableName: 'outstanding_po',
   underscored: true,

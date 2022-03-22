@@ -1,5 +1,6 @@
 const typeDefs = `
   extend type Query {
+    getZones: [zones]
     getAllOutstandingPoByCategory(category: Int): [OUTSTANDINGPO]
     getAllOutstandingPoByStatus(status: Int): [OUTSTANDINGPO]
   }
@@ -35,6 +36,10 @@ const typeDefs = `
     poRemarksWarehouse: String
     poCancel: Int
     colorClass: String
+  }
+
+  type zones {
+    zone: String
   }
 `;
 
