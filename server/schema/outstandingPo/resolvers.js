@@ -3,7 +3,7 @@ const {
   OUTSTANDINGPO,
 } = require('./model');
 const { isAuthenticated } = require('../auth/service');
-const { whereCategory, whereStatus } = require('./methods');
+const { whereCategory, whereStatus, whereZones } = require('./methods');
 
 const resolvers = {
   Query: {
@@ -37,6 +37,24 @@ const resolvers = {
     }),
     getAllOutstandingPoByStatus: isAuthenticated(async (_, { status }) => {
       const where = whereStatus(status);
+
+      const outstandingPo = await OUTSTANDINGPO.findAll({
+        attributes: [
+          'id', 'poIssue', 'poZone', 'poNo', 'poSupplier', 'poDescription',
+          'poKvalue', 'poValue', 'poLt', 'poLpayment', 'poBom', 'poAdmin',
+          'poFinance', 'poEta', 'poArrival', 'poStatus', 'approvalDate',
+          'comp', 'hse', 'poValueUsd', 'poPaidUsd', 'poBalanceUsd',
+          'arrivalStatus', 'poRemarks', 'poRemarksBom', 'poRemarksAdmin',
+          'poRemarksFinance', 'poRemarksWarehouse', 'poCancel', 'colorClass',
+        ],
+        where,
+        order: [['poIssue', 'DESC']],
+      });
+
+      return outstandingPo;
+    }),
+    getAllOutstandingPoByZones: isAuthenticated(async (_, { zone }) => {
+      const where = whereZones(zone);
 
       const outstandingPo = await OUTSTANDINGPO.findAll({
         attributes: [

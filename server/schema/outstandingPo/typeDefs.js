@@ -3,6 +3,7 @@ const typeDefs = `
     getZones: [zones]
     getAllOutstandingPoByCategory(category: Int): [OUTSTANDINGPO]
     getAllOutstandingPoByStatus(status: Int): [OUTSTANDINGPO]
+    getAllOutstandingPoByZones(zone: String): [OUTSTANDINGPO]
   }
 
   type OUTSTANDINGPO {

@@ -115,4 +115,15 @@ const whereStatus = (status) => {
   return where;
 };
 
-module.exports = { whereCategory, whereStatus };
+const whereZones = (zone) => {
+  const where = {
+    [Op.and]: [
+      { poCancel: 0 },
+      { poZone: { [Op.eq]: zone } },
+    ],
+  };
+
+  return where;
+};
+
+module.exports = { whereCategory, whereStatus, whereZones };

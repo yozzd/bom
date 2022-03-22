@@ -461,9 +461,9 @@
         :hide-required-asterisk="true"
         label-position="top"
       >
-        <el-form-item prop="zones">
+        <el-form-item prop="zone">
           <el-radio-group
-            v-model="form.zones"
+            v-model="form.zone"
             class="grid grid-cols-4"
           >
             <div
@@ -501,7 +501,11 @@
 import MiniSearch from 'minisearch';
 import table from '../../mixins/table';
 import outp from '../../mixins/outstanding.po';
-import { GetAllOutstandingPoByCategory, GetAllOutstandingPoByStatus } from '../../apollo/outstandingPo/query';
+import {
+  GetAllOutstandingPoByCategory,
+  GetAllOutstandingPoByStatus,
+  GetAllOutstandingPoByZones,
+} from '../../apollo/outstandingPo/query';
 
 export default {
   mixins: [table, outp],
@@ -518,6 +522,9 @@ export default {
           { required: true, message: 'This field is required', trigger: 'change' },
         ],
         status: [
+          { required: true, message: 'This field is required', trigger: 'change' },
+        ],
+        zone: [
           { required: true, message: 'This field is required', trigger: 'change' },
         ],
       },
@@ -614,7 +621,34 @@ export default {
     showFilterByZones() {
       this.showFilterByZonesDialog = true;
     },
-    handleFilterByZones() {},
+    handleFilterByZones(form) {
+      this.$refs[form].validate(async (valid) => {
+        if (valid) {
+          this.loading = true;
+
+          const { data: { getAllOutstandingPoByZones } } = await this.$apollo.query({
+            query: GetAllOutstandingPoByZones,
+            variables: { zone: this.form.zone },
+            prefetch: false,
+            error({ graphQLErrors, networkError }) {
+              this.errors = graphQLErrors || networkError.result.errors;
+            },
+          });
+          this.items = {};
+          this.items = getAllOutstandingPoByZones;
+          this.header = `Zone: ${this.form.zone}`;
+
+          this.page = 1;
+          this.pageSize = 10;
+
+          this.miniSearch.removeAll();
+          this.miniSearch.addAll(this.items);
+
+          this.loading = false;
+          this.showFilterByZonesDialog = false;
+        }
+      });
+    },
     highlighter({ row }) {
       return row.colorClass;
     },
