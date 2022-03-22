@@ -46,7 +46,7 @@ const resolvers = {
     getAllOutstandingPoByStatus: isAuthenticated(async (_, { status }) => {
       const where = whereStatus(status);
 
-      const items= await OUTSTANDINGPO.findAll({
+      const items = await OUTSTANDINGPO.findAll({
         attributes: [
           'id', 'poIssue', 'poZone', 'poNo', 'poSupplier', 'poDescription',
           'poKvalue', 'poValue', 'poLt', 'poLpayment', 'poBom', 'poAdmin',

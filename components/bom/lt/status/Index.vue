@@ -17,16 +17,10 @@
           WO
         </el-breadcrumb-item>
       </el-breadcrumb>
+
       <div class="flex space-x-4 items-center">
-        <div class="font-bold">
+        <div class="font-bold text-xl">
           {{ lt.ltNo }} &bull; {{ lt.customer.name }}
-        </div>
-        <div class="flex-1"></div>
-        <div>
-          Total Budget: USD {{ lt.totalBudget | currency }}
-        </div>
-        <div>
-          Total Price / WO: USD {{ lt.totalPriceWO | currency }}
         </div>
         <div class="flex-1"></div>
         <div class="w-64">
@@ -36,6 +30,27 @@
             clearable
           />
         </div>
+      </div>
+
+      <div class="w-1/3">
+        <table class="plain">
+          <tbody>
+            <tr>
+              <td>
+                Total Budget
+              </td>
+              <td>:</td>
+              <td>
+                USD {{ lt.totalBudget | currency }}
+              </td>
+              <td>
+                Total Price / WO
+              </td>
+              <td>:</td>
+              <td>USD {{ lt.totalPriceWO | currency }}</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
 
       <el-table
@@ -231,7 +246,7 @@ export default {
   mixins: [table],
   data() {
     return {
-      lt: {},
+      lt: { customer: {} },
       miniSearch: new MiniSearch({
         idField: 'id',
         fields: ['woNo', 'model', 'product'],
