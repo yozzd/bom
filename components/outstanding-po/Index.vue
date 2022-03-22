@@ -634,7 +634,9 @@ export default {
             },
           });
           this.items = {};
-          this.items = getAllOutstandingPoByStatus;
+          const { items, totals: [totals] } = getAllOutstandingPoByStatus;
+          this.items = items;
+          this.totals = totals;
           this.header = `Status: ${this.form.status}`;
 
           this.page = 1;
