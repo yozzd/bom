@@ -1,37 +1,42 @@
 import gql from 'graphql-tag';
 
 export const outstandingPoFragment = gql`
-  fragment outstandingPo on OUTSTANDINGPO {
-    id
-    poIssue
-    poZone
-    poNo
-    poSupplier
-    poDescription
-    poKvalue
-    poValue
-    poLt
-    poLpayment
-    poBom
-    poAdmin
-    poFinance
-    poEta
-    poArrival
-    poStatus
-    approvalDate
-    comp
-    hse
-    poValueUsd
-    poPaidUsd
-    poBalanceUsd
-    arrivalStatus
-    poRemarks
-    poRemarksBom
-    poRemarksAdmin
-    poRemarksFinance
-    poRemarksWarehouse
-    poCancel
-    colorClass
+  fragment outstandingPo on outstandingPo {
+    items {
+      id
+      poIssue
+      poZone
+      poNo
+      poSupplier
+      poDescription
+      poKvalue
+      poValue
+      poLt
+      poLpayment
+      poBom
+      poAdmin
+      poFinance
+      poEta
+      poArrival
+      poStatus
+      approvalDate
+      comp
+      hse
+      poValueUsd
+      poPaidUsd
+      poBalanceUsd
+      arrivalStatus
+      poRemarks
+      poRemarksBom
+      poRemarksAdmin
+      poRemarksFinance
+      poRemarksWarehouse
+      poCancel
+      colorClass
+    }
+    totals {
+      totalPoValueUsd
+    }
   }
 `;
 

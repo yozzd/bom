@@ -1,12 +1,17 @@
 const typeDefs = `
   extend type Query {
     getZones: [zones]
-    getAllOutstandingPoByCategory(category: Int): [OUTSTANDINGPO]
-    getAllOutstandingPoByStatus(status: Int): [OUTSTANDINGPO]
-    getAllOutstandingPoByZones(zone: String): [OUTSTANDINGPO]
+    getAllOutstandingPoByCategory(category: Int): outstandingPo
+    getAllOutstandingPoByStatus(status: Int): outstandingPo
+    getAllOutstandingPoByZones(zone: String): outstandingPo
   }
 
-  type OUTSTANDINGPO {
+  type outstandingPo {
+    items: [item]
+    totals: [total]
+  }
+  
+  type item {
     id: Int
     poIssue: String
     poZone: String
@@ -37,6 +42,10 @@ const typeDefs = `
     poRemarksWarehouse: String
     poCancel: Int
     colorClass: String
+  }
+
+  type total {
+    totalPoValueUsd: Float
   }
 
   type zones {

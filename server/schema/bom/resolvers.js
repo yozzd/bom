@@ -93,7 +93,7 @@ const resolvers = {
         }],
       });
 
-      const woSum = await WO.findOne({
+      const woTotal = await WO.findOne({
         attributes: [
           'difference', 'totalPackingPerUnit',
           [sequelize.literal('SUM(CASE WHEN `modules->items`.packing = 0 AND `modules`.header NOT LIKE ("%deviation%") THEN `modules->items`.bom_usd_total ELSE 0 END)'), 'totalPricePerWO'],
@@ -119,7 +119,7 @@ const resolvers = {
         }],
       });
 
-      return merge(wo, woSum);
+      return merge(wo, woTotal);
     }),
   },
   Mutation: {},

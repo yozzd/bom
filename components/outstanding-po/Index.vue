@@ -517,6 +517,7 @@ export default {
       loading: false,
       form: {},
       header: '',
+      totals: {},
       rules: {
         category: [
           { required: true, message: 'This field is required', trigger: 'change' },
@@ -569,7 +570,9 @@ export default {
             },
           });
           this.items = {};
-          this.items = getAllOutstandingPoByCategory;
+          const { items, totals } = getAllOutstandingPoByCategory;
+          this.items = items;
+          this.totals = totals;
           this.header = this.form.category;
 
           this.page = 1;

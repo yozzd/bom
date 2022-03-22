@@ -183,6 +183,9 @@ const OUTSTANDINGPO = sequelize.define('outstandingPo', {
   zone: {
     type: DataTypes.VIRTUAL,
   },
+  totalPoValueUsd: {
+    type: DataTypes.VIRTUAL,
+  },
 }, {
   tableName: 'outstanding_po',
   underscored: true,
