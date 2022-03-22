@@ -5,7 +5,11 @@ export const GetAllLT = gql`
     getAllLT(status: $status) {
       id
       ltNo
-      customer
+      customer {
+        name
+        contractDeadLine
+        productionDeadLine
+      }
       wos {
         id
         woNo
@@ -20,7 +24,11 @@ export const GetOneLT = gql`
     getOneLT(id: $id, status: $status) {
       id
       ltNo
-      customer
+      customer {
+        name
+        contractDeadLine
+        productionDeadLine
+      }
       totalBudget
       totalPriceWO
       wos {

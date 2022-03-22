@@ -20,7 +20,11 @@ const LT = sequelize.define('lt', {
       const headers = { Authorization: pssAuth };
       const info = await fetch(`${pssUrl}${no}`, { headers });
       const t = await info.json();
-      return t.customer_name || 'PT. LABTECH PENTA INTERNATIONAL';
+      return {
+        name: t.customer_name || 'PT. LABTECH PENTA INTERNATIONAL',
+        contractDeadLine: t.contract_dead_line,
+        productionDeadLine: t.production_dead_line,
+      };
     },
   },
   totalBudget: {

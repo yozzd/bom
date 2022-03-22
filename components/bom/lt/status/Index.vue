@@ -19,7 +19,7 @@
       </el-breadcrumb>
       <div class="flex space-x-4 items-center">
         <div class="font-bold">
-          {{ lt.ltNo }} &bull; {{ lt.customer }}
+          {{ lt.ltNo }} &bull; {{ lt.customer.name }}
         </div>
         <div class="flex-1"></div>
         <div>

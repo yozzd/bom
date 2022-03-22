@@ -63,7 +63,7 @@
             </div>
           </template>
         </el-table-column>
-        <el-table-column prop="customer" label="Customer" width="400"></el-table-column>
+        <el-table-column prop="customer.name" label="Customer" width="400"></el-table-column>
         <el-table-column label="WO" min-width="50">
           <template slot-scope="scope">
             {{ scope.row.wos.length }}

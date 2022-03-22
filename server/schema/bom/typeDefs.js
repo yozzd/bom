@@ -8,7 +8,7 @@ const typeDefs = `
   type LT {
     id: Int
     ltNo: String
-    customer: String
+    customer: customerType
     totalBudget: Float
     totalPriceWO: Float
     wos: [WO]
@@ -88,6 +88,12 @@ const typeDefs = `
     priority: String
     bomEtaStatus: String
     colorClass: String
+  }
+
+  type customerType {
+    name: String
+    contractDeadLine: String
+    productionDeadLine: String
   }
 `;
 
