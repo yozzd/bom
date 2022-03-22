@@ -667,7 +667,9 @@ export default {
             },
           });
           this.items = {};
-          this.items = getAllOutstandingPoByZones;
+          const { items, totals: [totals] } = getAllOutstandingPoByZones;
+          this.items = items;
+          this.totals = totals;
           this.header = `Zone: ${this.form.zone}`;
 
           this.page = 1;

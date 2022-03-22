@@ -72,7 +72,7 @@ const resolvers = {
     getAllOutstandingPoByZones: isAuthenticated(async (_, { zone }) => {
       const where = whereZones(zone);
 
-      const outstandingPo = await OUTSTANDINGPO.findAll({
+      const items = await OUTSTANDINGPO.findAll({
         attributes: [
           'id', 'poIssue', 'poZone', 'poNo', 'poSupplier', 'poDescription',
           'poKvalue', 'poValue', 'poLt', 'poLpayment', 'poBom', 'poAdmin',
@@ -85,7 +85,15 @@ const resolvers = {
         order: [['poIssue', 'DESC']],
       });
 
-      return outstandingPo;
+      const totals = await OUTSTANDINGPO.findAll({
+        attributes: [
+          [sequelize.literal('SUM(po_value_usd)'), 'totalPoValueUsd'],
+          [sequelize.literal('SUM(po_paid_usd)'), 'totalPoPaidUsd'],
+        ],
+        where,
+      });
+
+      return { items, totals };
     }),
   },
   Mutation: {},
