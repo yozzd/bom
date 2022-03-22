@@ -66,14 +66,20 @@
           <template slot-scope="scope">
             <div class="flex">
               <nuxt-link
-                :to="{ name: 'bom-wo-id', params: { id: scope.row.id } }"
+                :to="{
+                  name: 'bom-wo-ltId-id', params: { ltId: $route.params.id, id: scope.row.id }
+                }"
                 :title="scope.row.woNo"
                 class="flex-1 truncate"
               >
                 {{ scope.row.woNo }}
                 <span v-if="scope.row.stage">[STAGE-{{ scope.row.stage }}]</span>
               </nuxt-link>
-              <a :href="`/bom/wo/${scope.row.id}`" title="Open in new tab" target="_blank">
+              <a
+                :href="`/bom/wo/${$route.params.id}/${scope.row.id}`"
+                title="Open in new tab"
+                target="_blank"
+              >
                 <outline-external-link-icon class="heroicons w-4 h-4" />
               </a>
             </div>
