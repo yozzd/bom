@@ -170,7 +170,7 @@
                   Materials Processed
                 </td>
                 <td>:</td>
-                <td>{{ total.totalMaterialsProcessed | currency }}</td>
+                <td>USD {{ total.totalMaterialsProcessed | currency }}</td>
                 <td>
                   1 EURO
                 </td>
@@ -192,7 +192,7 @@
                   Yet To Purchase
                 </td>
                 <td>:</td>
-                <td>{{ total.totalYetToPurchase | currency }}</td>
+                <td>USD {{ total.totalYetToPurchase | currency }}</td>
                 <td>
                   1 GBP
                 </td>
