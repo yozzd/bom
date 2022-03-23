@@ -2,6 +2,7 @@ const fetch = require('node-fetch');
 const { DataTypes } = require('sequelize');
 const sequelize = require('../../config/db');
 const { pssUrl, pssAuth } = require('../../config');
+const { OUTSTANDINGPO } = require('../outstandingPo/model');
 
 const LT = sequelize.define('lt', {
   id: {
@@ -255,7 +256,7 @@ const WOITEM = sequelize.define('item', {
   bomDateRec: {
     type: DataTypes.DATE,
     get() {
-      // Note: need to check po arrival date & add more conditions
+      if (this.outstandingPo) return this.outstandingPo.poArrival;
       if (this.getDataValue('bomDateRec') === '0000-00-00' || !this.getDataValue('bomDateRec')) return '';
       return this.getDataValue('bomDateRec');
     },
@@ -439,6 +440,14 @@ WOMODULE.hasMany(WOITEM, {
   targetKey: 'id',
 });
 WOITEM.belongsTo(WOMODULE);
+
+OUTSTANDINGPO.hasMany(WOITEM, {
+  foreignKey: 'poNo',
+});
+WOITEM.belongsTo(OUTSTANDINGPO, {
+  foreignKey: 'poNo',
+  targetKey: 'poNo',
+});
 
 module.exports = {
   LT, WO, WOMODULE, WOITEM,

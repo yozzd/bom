@@ -4,6 +4,7 @@ const {
   LT, WO, WOMODULE, WOITEM,
 } = require('./model');
 const { isAuthenticated } = require('../auth/service');
+const { OUTSTANDINGPO } = require('../outstandingPo/model');
 
 const resolvers = {
   Query: {
@@ -119,6 +120,11 @@ const resolvers = {
               idHeader: { [Op.not]: null },
             },
             required: false,
+            include: [{
+              model: OUTSTANDINGPO,
+              attributes: ['poStatus', 'poArrival', ['po_no', 'outPoNo']],
+              required: false,
+            }],
           }],
         }],
       });
