@@ -144,6 +144,23 @@ a {
   @apply press-start text-xs;
 }
 
+.el-table thead {
+  @apply text-black;
+}
+
+.el-table th.el-table__cell,
+.el-table thead.is-group th.el-table__cell {
+  @apply bg-gray-100;
+}
+
+.el-radio-group {
+  @apply grid;
+}
+
+.el-radio.blk {
+  @apply block mb-2 font-normal;
+}
+
 table.plain {
   @apply w-full text-xs;
 }
@@ -176,14 +193,6 @@ table.plain {
   background: #ef5350;
 }
 
-.el-radio-group {
-  @apply grid;
-}
-
-.el-radio.blk {
-  @apply block mb-2 font-normal;
-}
-
 .el-table .outpo-complete {
   background: #64b5f6;
 }
@@ -203,4 +212,3 @@ table.plain {
 .el-table .outpo-cancel {
   background: #e53935;
 }
-
