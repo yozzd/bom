@@ -388,6 +388,18 @@
           </el-pagination>
         </div>
       </div>
+
+      <div v-else>
+        <div class="my-4">
+          <el-alert
+            title="Please select Filter first!"
+            type="info"
+            :closable="false"
+            class="border border-gray-200"
+          >
+          </el-alert>
+        </div>
+      </div>
     </div>
 
     <el-dialog
