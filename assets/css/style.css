@@ -160,6 +160,14 @@ table.plain {
   background: #a5d6a7;
 }
 
+.el-table .issued-row {
+  background: #ffccbc;
+}
+
+.el-table .draft-row {
+  background: #ffa726;
+}
+
 .el-table .hold-row {
   background: #b0bec5;
 }

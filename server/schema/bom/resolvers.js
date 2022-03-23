@@ -122,7 +122,7 @@ const resolvers = {
             required: false,
             include: [{
               model: OUTSTANDINGPO,
-              attributes: ['poStatus', 'poArrival', ['po_no', 'outPoNo']],
+              attributes: ['poStatus', 'poArrival', 'poNo'],
               required: false,
             }],
           }],
