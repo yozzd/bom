@@ -100,7 +100,7 @@ const resolvers = {
           'issued',
         ],
         where: { id },
-        order: [[WOMODULE, 'hid']],
+        order: [['modules', 'hid']],
         include: [{
           model: WOMODULE,
           attributes: ['id', 'hid', 'header'],
