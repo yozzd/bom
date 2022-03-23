@@ -2,9 +2,14 @@ const typeDefs = `
   extend type Query {
     getAllLT(status: Int): [LT]
     getOneLT(id: Int, status: Int): LT
-    getOneWO(id: Int): WO
+    getOneWO(idLt:Int, id: Int): WODetail
   }
 
+  type WODetail {
+    lt: LT
+    wo: WO
+  }
+  
   type LT {
     id: Int
     ltNo: String

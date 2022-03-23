@@ -58,67 +58,81 @@ export const GetOneLT = gql`
 `;
 
 export const GetOneWO = gql`
-  query getOneWO($id: Int) {
-    getOneWO(id: $id) {
-      id
-      woNo
-      idLt
-      unit
-      cat
-      model
-      product
-      picName
-      rndic
-      stage
-      sgd
-      idr
-      euro
-      gbp
-      myr
-      budget
-      refer
-      status
-      totalPricePerWO
-      difference
-      totalMaterialsProcessed
-      totalYetToPurchase
-      totalPackingPerUnit
-      totalPackingPerWO
-      modules {
+  query getOneWO($idLt: Int, $id: Int) {
+    getOneWO(idLt: $idLt, id: $id) {
+      lt {
         id
-        hid
-        header
-        items {
+        ltNo
+        customer {
+          name
+          contractDeadLine
+          productionDeadLine
+        }
+        wos {
+          budget
+          totalPricePerWO
+          difference
+          totalYetToPurchase
+          totalDeviation
+          totalPackingPerUnit
+          totalPackingPerWO
+        }
+      }
+      wo {
+        id
+        woNo
+        idLt
+        unit
+        cat
+        model
+        product
+        picName
+        rndic
+        stage
+        issued
+        sgd
+        idr
+        euro
+        gbp
+        myr
+        refer
+        status
+        modules {
           id
-          idMaterial
-          bomDescription
-          bomSpecification
-          bomModel
-          bomBrand
-          bomQty
-          bomUnit
-          bomQtyRqd
-          bomQtyBalance
-          bomQtyStock
-          bomEta
-          bomQtyRec
-          bomDateRec
-          bomCurrSizeC
-          bomCurrSizeV
-          bomCurrEaC
-          bomCurrEaV
-          bomUsdEa
-          bomUsdUnit
-          bomUsdTotal
-          materialsProcessed
-          yetToPurchase
-          bomSupplier
-          bomPoDate
-          bomPoNo
-          bomRemarks
-          priority
-          bomEtaStatus
-          colorClass
+          hid
+          header
+          items {
+            id
+            idMaterial
+            bomDescription
+            bomSpecification
+            bomModel
+            bomBrand
+            bomQty
+            bomUnit
+            bomQtyRqd
+            bomQtyBalance
+            bomQtyStock
+            bomEta
+            bomQtyRec
+            bomDateRec
+            bomCurrSizeC
+            bomCurrSizeV
+            bomCurrEaC
+            bomCurrEaV
+            bomUsdEa
+            bomUsdUnit
+            bomUsdTotal
+            materialsProcessed
+            yetToPurchase
+            bomSupplier
+            bomPoDate
+            bomPoNo
+            bomRemarks
+            priority
+            bomEtaStatus
+            colorClass
+          }
         }
       }
     }

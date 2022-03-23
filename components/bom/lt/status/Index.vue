@@ -67,7 +67,7 @@
             <div class="flex">
               <nuxt-link
                 :to="{
-                  name: 'bom-wo-ltId-id', params: { ltId: $route.params.id, id: scope.row.id }
+                  name: 'bom-wo-idLt-id', params: { idLt: $route.params.id, id: scope.row.id }
                 }"
                 :title="scope.row.woNo"
                 class="flex-1 truncate"

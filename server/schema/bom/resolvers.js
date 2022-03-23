@@ -1,5 +1,4 @@
 const { Op } = require('sequelize');
-const merge = require('lodash/merge');
 const sequelize = require('../../config/db');
 const {
   LT, WO, WOMODULE, WOITEM,
@@ -61,12 +60,43 @@ const resolvers = {
 
       return lt;
     }),
-    getOneWO: isAuthenticated(async (_, { id }) => {
+    getOneWO: isAuthenticated(async (_, { idLt, id }) => {
+      const lt = await LT.findOne({
+        attributes: ['id', 'ltNo', 'customer'],
+        where: { id: idLt },
+        include: [{
+          model: WO,
+          attributes: [
+            'unit', 'budget', 'difference', 'totalPackingPerUnit',
+            [sequelize.literal('SUM(CASE WHEN `wos->modules->items`.packing = 0 AND `wos->modules`.header NOT LIKE ("%deviation%") THEN `wos->modules->items`.bom_usd_total ELSE 0 END)'), 'totalPricePerWO'],
+            [sequelize.literal('SUM(`wos->modules->items`.materials_processed)'), 'totalMaterialsProcessed'],
+            [sequelize.literal('SUM(`wos->modules->items`.yet_to_purchase)'), 'totalYetToPurchase'],
+            [sequelize.literal('SUM(CASE WHEN `wos->modules`.header LIKE ("%deviation%") THEN `wos->modules->items`.bom_usd_total ELSE 0 END)'), 'totalDeviation'],
+            [sequelize.literal('SUM(CASE WHEN `wos->modules->items`.packing THEN `wos->modules->items`.bom_usd_total ELSE 0 END)'), 'totalPackingPerWO'],
+          ],
+          where: { id },
+          include: [{
+            model: WOMODULE,
+            attributes: [],
+            include: [{
+              model: WOITEM,
+              attributes: [],
+              where: {
+                [Op.and]: [
+                  { cancel: 0 },
+                  { idHeader: { [Op.not]: null } },
+                ],
+              },
+            }],
+          }],
+        }],
+      });
+
       const wo = await WO.findOne({
         attributes: [
           'id', 'woNo', 'idLt', 'unit', 'cat', 'model', 'product', 'picName',
-          'rndic', 'stage', 'sgd', 'idr', 'euro', 'gbp', 'myr', 'budget',
-          'refer', 'status',
+          'rndic', 'stage', 'sgd', 'idr', 'euro', 'gbp', 'myr', 'refer', 'status',
+          'issued',
         ],
         where: { id },
         include: [{
@@ -93,33 +123,7 @@ const resolvers = {
         }],
       });
 
-      const woTotal = await WO.findOne({
-        attributes: [
-          'difference', 'totalPackingPerUnit',
-          [sequelize.literal('SUM(CASE WHEN `modules->items`.packing = 0 AND `modules`.header NOT LIKE ("%deviation%") THEN `modules->items`.bom_usd_total ELSE 0 END)'), 'totalPricePerWO'],
-          [sequelize.literal('SUM(`modules->items`.materials_processed)'), 'totalMaterialsProcessed'],
-          [sequelize.literal('SUM(`modules->items`.yet_to_purchase)'), 'totalYetToPurchase'],
-          [sequelize.literal('SUM(CASE WHEN `modules->items`.packing THEN `modules->items`.bom_usd_total ELSE 0 END)'), 'totalPackingPerWO'],
-        ],
-        where: { id },
-        include: [{
-          model: WOMODULE,
-          attributes: [],
-          include: [{
-            model: WOITEM,
-            attributes: [],
-            where: {
-              [Op.and]: [
-                { cancel: 0 },
-                { idHeader: { [Op.not]: null } },
-              ],
-            },
-            required: false,
-          }],
-        }],
-      });
-
-      return merge(wo, woTotal);
+      return { lt, wo };
     }),
   },
   Mutation: {},

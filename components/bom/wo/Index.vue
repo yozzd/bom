@@ -29,10 +29,14 @@
       </el-breadcrumb>
       <div class="flex space-x-4 items-center">
         <div class="flex flex-col space-y-4 w-full my-4">
-          <div class="flex">
-            <div class="flex-1 font-bold text-xl">
+          <div class="flex space-x-8 items-center">
+            <div class="font-bold text-xl">
               {{ wo.woNo }} <span v-if="wo.stage">[STAGE-{{ wo.stage }}]</span>
             </div>
+            <div class="flex-1"></div>
+            <div>Issued: {{ wo.issued }}</div>
+            <div>Production Dead Line: {{ customer.productionDeadLine }}</div>
+            <div class="flex-1"></div>
             <div>
               <el-popover
                 placement="left"
@@ -113,7 +117,7 @@
                   Budget
                 </td>
                 <td>:</td>
-                <td>USD {{ wo.budget | currency }}</td>
+                <td>USD {{ total.budget | currency }}</td>
                 <td class="w-32">
                   Refer
                 </td>
@@ -135,7 +139,7 @@
                   Expense
                 </td>
                 <td>:</td>
-                <td>USD {{ wo.totalPricePerWO | currency }}</td>
+                <td>USD {{ total.totalPricePerWO | currency }}</td>
                 <td>
                   Status
                 </td>
@@ -161,12 +165,12 @@
                   Difference
                 </td>
                 <td>:</td>
-                <td>USD {{ wo.difference | currency }}</td>
+                <td>USD {{ total.difference | currency }}</td>
                 <td>
                   Materials Processed
                 </td>
                 <td>:</td>
-                <td>{{ wo.totalMaterialsProcessed | currency }}</td>
+                <td>{{ total.totalMaterialsProcessed | currency }}</td>
                 <td>
                   1 EURO
                 </td>
@@ -188,7 +192,7 @@
                   Yet To Purchase
                 </td>
                 <td>:</td>
-                <td>{{ wo.totalYetToPurchase | currency }}</td>
+                <td>{{ total.totalYetToPurchase | currency }}</td>
                 <td>
                   1 GBP
                 </td>
@@ -205,12 +209,12 @@
                   Packing / Unit
                 </td>
                 <td>:</td>
-                <td>USD {{ wo.totalPackingPerUnit | currency }}</td>
+                <td>USD {{ total.totalPackingPerUnit | currency }}</td>
                 <td>
                   Packing / WO
                 </td>
                 <td>:</td>
-                <td>USD {{ wo.totalPackingPerWO | currency }}</td>
+                <td>USD {{ total.totalPackingPerWO | currency }}</td>
                 <td>
                   1 MYR
                 </td>
@@ -441,6 +445,8 @@ export default {
   mixins: [woStatus],
   data() {
     return {
+      customer: {},
+      total: {},
       wo: {},
       modules: {},
       errors: [],
@@ -463,13 +469,16 @@ export default {
       query: GetOneWO,
       variables() {
         return {
+          idLt: parseInt(this.$route.params.idLt, 10),
           id: parseInt(this.$route.params.id, 10),
         };
       },
       prefetch: false,
       result({ data, loading }) {
         if (!loading) {
-          const { getOneWO: { modules, ...wo } } = data;
+          const { getOneWO: { lt: { customer, wos: [wos] }, wo: { modules, ...wo } } } = data;
+          this.customer = customer;
+          this.total = wos;
           this.wo = wo;
           this.modules = modules;
         }
