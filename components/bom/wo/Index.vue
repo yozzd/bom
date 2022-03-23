@@ -211,15 +211,31 @@
                 <td>:</td>
                 <td>USD {{ total.totalPackingPerUnit | currency }}</td>
                 <td>
-                  Packing / WO
+                  Deviation
                 </td>
                 <td>:</td>
-                <td>USD {{ total.totalPackingPerWO | currency }}</td>
+                <td>USD {{ total.totalDeviation }}</td>
                 <td>
                   1 MYR
                 </td>
                 <td>:</td>
                 <td>USD {{ wo.myr | currency }}</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>
+                  Packing / WO
+                </td>
+                <td>:</td>
+                <td>USD {{ total.totalPackingPerWO | currency }}</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
               </tr>
             </tbody>
           </table>
