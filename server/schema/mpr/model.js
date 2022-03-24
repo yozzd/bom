@@ -14,6 +14,9 @@ const MPR = sequelize.define('mpr', {
   },
   no: {
     type: DataTypes.STRING,
+    get() {
+      return this.getDataValue('no') || '######'
+    },
   },
   woNo: {
     type: DataTypes.STRING,
