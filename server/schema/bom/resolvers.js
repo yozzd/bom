@@ -2,9 +2,9 @@ const { Op } = require('sequelize');
 const sequelize = require('../../config/db');
 const {
   LT, WO, WOMODULE, WOITEM,
-} = require('./model');
+  OUTSTANDINGPO,
+} = require('../relations');
 const { isAuthenticated } = require('../auth/service');
-const { OUTSTANDINGPO } = require('../outstandingPo/model');
 
 const resolvers = {
   Query: {

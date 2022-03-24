@@ -1,7 +1,7 @@
 const sequelize = require('../../config/db');
 const {
   OUTSTANDINGPO,
-} = require('./model');
+} = require('../relations');
 const { isAuthenticated } = require('../auth/service');
 const { whereCategory, whereStatus, whereZones } = require('./methods');
 
