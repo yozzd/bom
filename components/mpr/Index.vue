@@ -46,7 +46,7 @@
         <el-table-column type="index" align="center" width="50" fixed></el-table-column>
         <el-table-column prop="id" label="ID" align="center" width="50" fixed></el-table-column>
         <el-table-column prop="no" label="Number" align="center" width="60" fixed></el-table-column>
-        <el-table-column label="WO" width="180" fixed>
+        <el-table-column label="WO" width="140" fixed>
           <template slot-scope="scope">
             <div class="flex">
               <nuxt-link
@@ -79,10 +79,17 @@
             {{ scope.row.packing ? 'Yes' : 'No' }}
           </template>
         </el-table-column>
-        <el-table-column label="Model" width="140" fixed>
+        <el-table-column label="Model" width="100" fixed>
           <template slot-scope="scope">
             <p :title="scope.row.model" class="truncate">
               {{ scope.row.model }}
+            </p>
+          </template>
+        </el-table-column>
+        <el-table-column label="Product Name" width="180" fixed>
+          <template slot-scope="scope">
+            <p :title="scope.row.product" class="truncate">
+              {{ scope.row.product }}
             </p>
           </template>
         </el-table-column>
