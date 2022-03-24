@@ -79,6 +79,13 @@
             {{ scope.row.packing ? 'Yes' : 'No' }}
           </template>
         </el-table-column>
+        <el-table-column label="Model" width="140" fixed>
+          <template slot-scope="scope">
+            <p :title="scope.row.model" class="truncate">
+              {{ scope.row.model }}
+            </p>
+          </template>
+        </el-table-column>
         <el-table-column label="" min-width="50"></el-table-column>
       </el-table>
     </div>
