@@ -51,6 +51,17 @@
             {{ scope.row.woNo }}
           </template>
         </el-table-column>
+        <el-table-column
+          prop="packing"
+          label="Packing"
+          align="center"
+          width="60"
+          fixed
+        >
+          <template slot-scope="scope">
+            {{ scope.row.packing ? 'Yes' : 'No' }}
+          </template>
+        </el-table-column>
         <el-table-column label="" min-width="50"></el-table-column>
       </el-table>
     </div>

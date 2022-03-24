@@ -13,12 +13,18 @@ const resolvers = {
           'idMpr',
         ],
         where: {
-          [Op.and]: [
-            { cancel: 0 },
-            { bomQtyBalance: { [Op.lt]: 0 } },
-            { bomQtyRec: { [Op.lte]: 0 } },
-            { poNo: { [Op.is]: null } },
-            { '$outstandingPo.po_no$': { [Op.is]: null } },
+          [Op.or]: [
+            {
+              [Op.and]: [
+                { cancel: 0 },
+                { hold: 0 },
+                { bomQtyBalance: { [Op.lt]: 0 } },
+                { bomQtyRec: { [Op.lte]: 0 } },
+                { poNo: { [Op.is]: null } },
+                { '$outstandingPo.po_no$': { [Op.is]: null } },
+              ],
+            },
+            { bomQty: { [Op.eq]: 0 } },
           ],
         },
         group: ['idMpr'],
