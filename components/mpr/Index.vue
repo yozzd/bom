@@ -46,6 +46,11 @@
         <el-table-column type="index" align="center" width="50" fixed></el-table-column>
         <el-table-column prop="id" label="ID" align="center" width="50" fixed></el-table-column>
         <el-table-column prop="no" label="Number" align="center" width="60" fixed></el-table-column>
+        <el-table-column label="WO" width="180" fixed>
+          <template slot-scope="scope">
+            {{ scope.row.woNo }}
+          </template>
+        </el-table-column>
         <el-table-column label="" min-width="50"></el-table-column>
       </el-table>
     </div>
