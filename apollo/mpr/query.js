@@ -14,6 +14,8 @@ export const GetAllMPR = gql`
       dor
       idWo
       packing
+      managerApproved
+      whApproved
     }
   }
 `;

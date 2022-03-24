@@ -15,6 +15,8 @@ const typeDefs = `
     dor: String
     idWo: Int
     packing: Int
+    managerApproved: Int
+    whApproved: Int
   }
 `;
 
