@@ -350,18 +350,6 @@ const MPRITEM = sequelize.define('item', {
   underscored: true,
 });
 
-MPR.hasMany(MPRMODULE, {
-  foreignKey: 'idMpr',
-  targetKey: 'id',
-});
-MPRMODULE.belongsTo(MPR);
-
-MPRMODULE.hasMany(MPRITEM, {
-  foreignKey: 'idModule',
-  targetKey: 'id',
-});
-MPRITEM.belongsTo(MPRMODULE);
-
 module.exports = {
   MPR, MPRMODULE, MPRITEM,
 };

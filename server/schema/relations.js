@@ -1,4 +1,5 @@
 const { LT, WO, WOMODULE, WOITEM } = require('./bom/model');
+const { MPR, MPRMODULE, MPRITEM } = require('./mpr/model');
 const { OUTSTANDINGPO } = require('./outstandingPo/model');
 
 LT.hasMany(WO, {
@@ -19,6 +20,18 @@ WOMODULE.hasMany(WOITEM, {
 });
 WOITEM.belongsTo(WOMODULE);
 
+MPR.hasMany(MPRMODULE, {
+  foreignKey: 'idMpr',
+  targetKey: 'id',
+});
+MPRMODULE.belongsTo(MPR);
+
+MPRMODULE.hasMany(MPRITEM, {
+  foreignKey: 'idModule',
+  targetKey: 'id',
+});
+MPRITEM.belongsTo(MPRMODULE);
+
 OUTSTANDINGPO.hasMany(WOITEM, {
   foreignKey: 'poNo',
 });
@@ -29,5 +42,6 @@ WOITEM.belongsTo(OUTSTANDINGPO, {
 
 module.exports = {
   LT, WO, WOMODULE, WOITEM,
+  MPR, MPRMODULE, MPRITEM,
   OUTSTANDINGPO,
 };
