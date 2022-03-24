@@ -35,6 +35,7 @@ import {
   TableColumn,
   Tabs,
   TabPane,
+  Tag,
   Upload,
 } from 'element-ui';
 import lang from 'element-ui/lib/locale/lang/en';
@@ -74,6 +75,7 @@ Vue.use(Table);
 Vue.use(TableColumn);
 Vue.use(Tabs);
 Vue.use(TabPane);
+Vue.use(Tag);
 Vue.use(Upload);
 
 Vue.use(Loading.directive);

@@ -114,8 +114,13 @@ a {
   @apply ml-4px;
 }
 
+.el-tag--mini,
 .el-table--mini {
   @apply text-10px;
+}
+
+.el-tag--mini {
+  @apply leading-4;
 }
 
 .el-table.el-table--mini .el-table__cell {
