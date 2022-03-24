@@ -187,7 +187,7 @@ const MPRITEM = sequelize.define('item', {
   bomDateRec: {
     type: DataTypes.DATE,
     get() {
-      // Note: need to check po arrival date & add more conditions
+      if (this.outstandingPo) return this.outstandingPo.poArrival;
       if (this.getDataValue('bomDateRec') === '0000-00-00' || !this.getDataValue('bomDateRec')) return '';
       return this.getDataValue('bomDateRec');
     },
