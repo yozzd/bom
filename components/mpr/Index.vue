@@ -103,8 +103,12 @@
         <el-table-column prop="unit" label="Unit" align="center" width="50"></el-table-column>
         <el-table-column label="Category" align="center" width="80">
           <template slot-scope="scope">
-            <el-tag v-if="scope.row.category" type="danger" size="mini">Urgent</el-tag>
-            <el-tag v-else type="success" size="mini">Standard</el-tag>
+            <el-tag v-if="scope.row.category" type="danger" size="mini">
+              Urgent
+            </el-tag>
+            <el-tag v-else type="success" size="mini">
+              Standard
+            </el-tag>
           </template>
         </el-table-column>
         <el-table-column label="" min-width="50"></el-table-column>

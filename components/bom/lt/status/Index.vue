@@ -85,13 +85,13 @@
             </div>
           </template>
         </el-table-column>
-          <el-table-column label="Model" width="140">
-            <template slot-scope="scope">
-              <p :title="scope.row.model" class="truncate">
-                {{ scope.row.model }}
-              </p>
-            </template>
-          </el-table-column>
+        <el-table-column label="Model" width="140">
+          <template slot-scope="scope">
+            <p :title="scope.row.model" class="truncate">
+              {{ scope.row.model }}
+            </p>
+          </template>
+        </el-table-column>
         <el-table-column
           label="Product Name"
           width="160"
