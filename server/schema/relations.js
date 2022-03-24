@@ -50,6 +50,14 @@ MPRITEM.belongsTo(OUTSTANDINGPO, {
   targetKey: 'poNo',
 });
 
+WO.hasMany(MPR, {
+  foreignKey: 'woNo',
+});
+MPR.belongsTo(WO, {
+  foreignKey: 'woNo',
+  targetKey: 'woNo',
+});
+
 module.exports = {
   LT,
   WO,

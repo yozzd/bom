@@ -17,6 +17,11 @@ const typeDefs = `
     packing: Int
     managerApproved: Int
     whApproved: Int
+    wo: WO
+  }
+
+  type WO {
+    idLt: Int
   }
 `;
 

@@ -48,7 +48,24 @@
         <el-table-column prop="no" label="Number" align="center" width="60" fixed></el-table-column>
         <el-table-column label="WO" width="180" fixed>
           <template slot-scope="scope">
-            {{ scope.row.woNo }}
+            <div class="flex">
+              <nuxt-link
+                :to="{
+                  name: 'bom-wo-idLt-id', params: { idLt: scope.row.wo.idLt, id: scope.row.idWo }
+                }"
+                :title="scope.row.woNo"
+                class="flex-1 truncate"
+              >
+                {{ scope.row.woNo }}
+              </nuxt-link>
+              <a
+                :href="`/bom/wo/${scope.row.wo.idLt}/${scope.row.idWo}`"
+                title="Open in new tab"
+                target="_blank"
+              >
+                <outline-external-link-icon class="heroicons w-4 h-4" />
+              </a>
+            </div>
           </template>
         </el-table-column>
         <el-table-column

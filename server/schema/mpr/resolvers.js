@@ -1,6 +1,6 @@
 const { Op } = require('sequelize');
 const {
-  MPR, MPRITEM, OUTSTANDINGPO,
+  WO, MPR, MPRITEM, OUTSTANDINGPO,
 } = require('../relations');
 const { isAuthenticated } = require('../auth/service');
 
@@ -58,6 +58,10 @@ const resolvers = {
             { whApproved: 1 },
           ],
         },
+        include: [{
+          model: WO,
+          attributes: ['idLt'],
+        }],
       });
 
       return mpr;
