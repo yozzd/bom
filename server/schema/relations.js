@@ -1,4 +1,6 @@
-const { LT, WO, WOMODULE, WOITEM } = require('./bom/model');
+const {
+  LT, WO, WOMODULE, WOITEM,
+} = require('./bom/model');
 const { MPR, MPRMODULE, MPRITEM } = require('./mpr/model');
 const { OUTSTANDINGPO } = require('./outstandingPo/model');
 
@@ -41,7 +43,12 @@ WOITEM.belongsTo(OUTSTANDINGPO, {
 });
 
 module.exports = {
-  LT, WO, WOMODULE, WOITEM,
-  MPR, MPRMODULE, MPRITEM,
+  LT,
+  WO,
+  WOMODULE,
+  WOITEM,
+  MPR,
+  MPRMODULE,
+  MPRITEM,
   OUTSTANDINGPO,
 };

@@ -2,7 +2,6 @@ const fetch = require('node-fetch');
 const { DataTypes } = require('sequelize');
 const sequelize = require('../../config/db');
 const { pssUrl, pssAuth } = require('../../config');
-const { OUTSTANDINGPO } = require('../outstandingPo/model');
 
 const LT = sequelize.define('lt', {
   id: {

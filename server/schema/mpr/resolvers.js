@@ -1,6 +1,6 @@
 const {
   MPR,
-} = require('./model');
+} = require('../relations');
 const { isAuthenticated } = require('../auth/service');
 
 const resolvers = {
