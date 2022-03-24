@@ -51,11 +51,11 @@ MPRITEM.belongsTo(OUTSTANDINGPO, {
 });
 
 WO.hasMany(MPR, {
-  foreignKey: 'woNo',
+  foreignKey: 'idWo',
 });
 MPR.belongsTo(WO, {
-  foreignKey: 'woNo',
-  targetKey: 'woNo',
+  foreignKey: 'idWo',
+  targetKey: 'id',
 });
 
 module.exports = {

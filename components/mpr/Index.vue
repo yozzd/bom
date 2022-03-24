@@ -140,7 +140,7 @@ export default {
         storeFields: [
           'id', 'no', 'woNo', 'model', 'product', 'projectName',
           'unit', 'category', 'dor', 'idWo', 'packing',
-          'managerApproved', 'whApproved',
+          'managerApproved', 'whApproved', 'wo',
         ],
       }),
     };
