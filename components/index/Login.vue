@@ -4,7 +4,7 @@
     <div></div>
     <div class="flex flex-col space-y-8">
       <div class="border border-gray-100 rounded-lg p-8">
-        <div class="text-2xl text-center font-bold press-start text-blue-600">
+        <div class="text-2xl text-center font-bold press-start text-blue-600 mb-4">
           BOM
         </div>
 
