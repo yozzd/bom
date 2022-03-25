@@ -16,6 +16,7 @@ const typeDefs = `
     idWo: Int
     packing: Int
     managerApproved: Int
+    managerTimestamp: String
     whApproved: Int
     bomApproved: Int
     wo: WO

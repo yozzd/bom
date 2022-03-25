@@ -15,6 +15,7 @@ export const GetAllMPR = gql`
       idWo
       packing
       managerApproved
+      managerTimestamp
       whApproved
       bomApproved
       wo {

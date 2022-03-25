@@ -1,5 +1,6 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../../config/db');
+const { uDateFormat } = require('../scalar/date');
 
 const MPR = sequelize.define('mpr', {
   id: {
@@ -60,7 +61,7 @@ const MPR = sequelize.define('mpr', {
     allowNull: false,
   },
   requestorTimestamp: {
-    type: DataTypes.DATE(6),
+    type: DataTypes.DATE,
     allowNull: false,
   },
   managerApproved: {
@@ -69,8 +70,11 @@ const MPR = sequelize.define('mpr', {
     defaultValue: 0,
   },
   managerTimestamp: {
-    type: DataTypes.DATE(6),
+    type: DataTypes.DATE,
     allowNull: false,
+    get() {
+      return uDateFormat(this.getDataValue('managerTimestamp'), 'yyyy-MM-dd HH:mm');
+    }
   },
   whApproved: {
     type: DataTypes.INTEGER,
@@ -78,7 +82,7 @@ const MPR = sequelize.define('mpr', {
     defaultValue: 0,
   },
   whTimestamp: {
-    type: DataTypes.DATE(6),
+    type: DataTypes.DATE,
     allowNull: false,
   },
   bomApproved: {
@@ -87,7 +91,7 @@ const MPR = sequelize.define('mpr', {
     defaultValue: 0,
   },
   bomTimestamp: {
-    type: DataTypes.DATE(6),
+    type: DataTypes.DATE,
     allowNull: false,
   },
   counter: {
@@ -338,7 +342,7 @@ const MPRITEM = sequelize.define('item', {
     type: DataTypes.BIGINT(20),
   },
   timestamp: {
-    type: DataTypes.DATE(6),
+    type: DataTypes.DATE,
     allowNull: false,
   },
   hold: {
