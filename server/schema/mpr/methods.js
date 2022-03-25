@@ -19,6 +19,21 @@ const whereStatus = (status) => {
         { bomQty: 0 },
       ],
     };
+  } else if (status === 1) {
+    where = {
+      [Op.or]: [
+        {
+          [Op.and]: [
+            { cancel: 0 },
+            { hold: 0 },
+            { bomQtyBalance: { [Op.lt]: 0 } },
+            { bomQtyRec: { [Op.lte]: 0 } },
+            { poNo: { [Op.not]: null } },
+            { '$outstandingPo.po_no$': { [Op.not]: null } },
+          ],
+        },
+      ],
+    };
   } else if (status === 2) {
     where = { hold: 1 };
   } else if (status === 3) {
