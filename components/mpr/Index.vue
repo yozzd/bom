@@ -132,7 +132,7 @@
                   <el-tag v-if="scope.row.category" type="danger" size="mini">
                     Urgent
                   </el-tag>
-                  <el-tag v-else type="success" size="mini">
+                  <el-tag v-else type="info" size="mini">
                     Standard
                   </el-tag>
                 </template>
@@ -145,6 +145,16 @@
                 </template>
                 <template slot-scope="scope">
                   {{ scope.row.dor }}
+                </template>
+              </el-table-column>
+              <el-table-column label="Manager" align="center" width="80">
+                <template slot-scope="scope">
+                  <el-tag v-if="scope.row.managerApproved" type="success" size="mini">
+                    Approved
+                  </el-tag>
+                  <el-tag v-else type="warning" size="mini">
+                    Waiting
+                  </el-tag>
                 </template>
               </el-table-column>
               <el-table-column label="" min-width="50"></el-table-column>
