@@ -19,6 +19,8 @@ const whereStatus = (status) => {
         { bomQty: { [Op.eq]: 0 } },
       ],
     };
+  } else if (status === 2) {
+    where = { hold: 1 };
   }
 
   return where;
