@@ -17,6 +17,7 @@ const typeDefs = `
     packing: Int
     managerApproved: Int
     whApproved: Int
+    bomApproved: Int
     wo: WO
   }
 

@@ -31,7 +31,7 @@ const resolvers = {
         attributes: [
           'id', 'no', 'woNo', 'model', 'product', 'projectName',
           'unit', 'category', 'dor', 'idWo', 'packing',
-          'managerApproved', 'whApproved',
+          'managerApproved', 'whApproved', 'bomApproved',
         ],
         order: [
           ['category', 'DESC'],
