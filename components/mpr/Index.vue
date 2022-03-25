@@ -198,9 +198,9 @@
         <el-form-item prop="status">
           <el-radio-group v-model="form.status">
             <el-radio
-              v-for="(v, k) in status"
-              :key="k"
-              :label="v"
+              v-for="item in optionsMprStatus"
+              :key="item.value"
+              :label="item.label"
               class="blk"
             ></el-radio>
           </el-radio-group>
@@ -228,7 +228,7 @@
 <script>
 import MiniSearch from 'minisearch';
 import table from '../../mixins/table';
-import mprStatus from '../../mixins/mprStatus';
+import mprStatus from '../../mixins/mpr.status';
 // import { GetAllMPR } from '../../apollo/mpr/query';
 
 export default {
