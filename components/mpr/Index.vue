@@ -157,6 +157,16 @@
                   </el-tag>
                 </template>
               </el-table-column>
+              <el-table-column label="Warehouse" align="center" width="80">
+                <template slot-scope="scope">
+                  <el-tag v-if="scope.row.whApproved" type="success" size="mini">
+                    Approved
+                  </el-tag>
+                  <el-tag v-else type="warning" size="mini">
+                    Waiting
+                  </el-tag>
+                </template>
+              </el-table-column>
               <el-table-column label="" min-width="50"></el-table-column>
             </el-table>
           </div>
