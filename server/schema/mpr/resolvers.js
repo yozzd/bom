@@ -25,7 +25,7 @@ const resolvers = {
         raw: true,
       });
 
-      const ids = items.reduce((prev, curr) => [...prev, curr.idMpr], []);
+      const ids = await Promise.all(items.reduce((prev, curr) => [...prev, curr.idMpr], []));
 
       const mpr = await MPR.findAll({
         attributes: [
