@@ -16,11 +16,31 @@ const whereStatus = (status) => {
             { '$outstandingPo.po_no$': { [Op.is]: null } },
           ],
         },
-        { bomQty: { [Op.eq]: 0 } },
+        { bomQty: 0 },
       ],
     };
   } else if (status === 2) {
     where = { hold: 1 };
+  } else if (status === 3) {
+    where = {
+      [Op.or]: [
+        {
+          [Op.and]: [
+            { bomQty: { [Op.gt]: 0 } },
+            { bomQtyStock: { [Op.gt]: 0 } },
+            { bomQtyBalance: { [Op.gte]: 0 } },
+          ],
+        },
+        {
+          [Op.and]: [
+            { bomQtyRec: { [Op.gt]: 0 } },
+            { bomQtyBalance: { [Op.gte]: 0 } },
+            { bomPoNo: { [Op.not]: null } },
+          ],
+        },
+        { cancel: 1 },
+      ],
+    };
   }
 
   return where;
