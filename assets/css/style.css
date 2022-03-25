@@ -43,7 +43,7 @@ a {
 .el-dropdown-menu,
 .el-popover,
 .el-select-dropdown {
-  @apply shadow-none border border-gray-100;
+  @apply shadow-none border border-gray-200;
 }
 
 .el-popper[x-placement^="top"] .popper__arrow {

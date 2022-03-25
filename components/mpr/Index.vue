@@ -261,7 +261,7 @@
                     </template>
                     <outline-chat-icon
                       slot="reference"
-                      class="heroicons w-4 h-4"
+                      class="heroicons text-gray-400 w-4 h-4"
                     />
                   </el-popover>
                 </template>
