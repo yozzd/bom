@@ -149,7 +149,7 @@
               </el-table-column>
               <el-table-column label="Manager" align="center" width="100">
                 <template slot-scope="scope">
-                  <div v-if="scope.row.managerApproved">
+                  <div v-if="scope.row.managerApproved" class="flex space-x-1">
                     <el-tag type="success" size="mini">
                       Approved
                     </el-tag>
@@ -175,7 +175,7 @@
               </el-table-column>
               <el-table-column label="Warehouse" align="center" width="100">
                 <template slot-scope="scope">
-                  <div v-if="scope.row.whApproved">
+                  <div v-if="scope.row.whApproved" class="flex space-x-1">
                     <el-tag type="success" size="mini">
                       Approved
                     </el-tag>
@@ -201,7 +201,7 @@
               </el-table-column>
               <el-table-column label="MRP" align="center" width="100">
                 <template slot-scope="scope">
-                  <div v-if="scope.row.bomApproved">
+                  <div v-if="scope.row.bomApproved" class="flex space-x-1">
                     <el-tag type="success" size="mini">
                       Approved
                     </el-tag>
@@ -228,7 +228,7 @@
               <el-table-column label="Requestor" width="180">
                 <template slot-scope="scope">
                   <div class="flex">
-                    <div :title="scope.row.requestorName" class="w-2/3 truncate">
+                    <div :title="scope.row.requestorName" class="flex-1 truncate">
                       {{ scope.row.requestorName }}
                     </div>
                     <el-popover
