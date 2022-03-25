@@ -32,7 +32,7 @@ const resolvers = {
           'id', 'no', 'woNo', 'model', 'product', 'projectName',
           'unit', 'category', 'dor', 'idWo', 'packing',
           'managerApproved', 'managerTimestamp', 'whApproved',
-          'bomApproved',
+          'whTimestamp', 'bomApproved', 'bomTimestamp',
         ],
         order: [
           ['category', 'DESC'],

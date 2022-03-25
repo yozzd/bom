@@ -173,11 +173,27 @@
                   </el-tag>
                 </template>
               </el-table-column>
-              <el-table-column label="Warehouse" align="center" width="80">
+              <el-table-column label="Warehouse" align="center" width="100">
                 <template slot-scope="scope">
-                  <el-tag v-if="scope.row.whApproved" type="success" size="mini">
-                    Approved
-                  </el-tag>
+                  <div v-if="scope.row.whApproved">
+                    <el-tag type="success" size="mini">
+                      Approved
+                    </el-tag>
+                    <el-popover
+                      placement="left"
+                      trigger="hover"
+                    >
+                      <template #default>
+                        <div class="text-xs">
+                          {{ scope.row.whTimestamp }}
+                        </div>
+                      </template>
+                      <outline-clock-icon
+                        slot="reference"
+                        class="heroicons text-gray-400 w-4 h-4"
+                      />
+                    </el-popover>
+                  </div>
                   <el-tag v-else type="warning" size="mini">
                     Waiting
                   </el-tag>

@@ -17,7 +17,9 @@ export const GetAllMPR = gql`
       managerApproved
       managerTimestamp
       whApproved
+      whTimestamp
       bomApproved
+      bomTimestamp
       wo {
         idLt
       }

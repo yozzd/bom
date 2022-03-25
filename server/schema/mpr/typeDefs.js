@@ -18,7 +18,9 @@ const typeDefs = `
     managerApproved: Int
     managerTimestamp: String
     whApproved: Int
+    whTimestamp: String
     bomApproved: Int
+    bomTimestamp: String
     wo: WO
   }
 
