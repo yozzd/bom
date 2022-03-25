@@ -22,6 +22,7 @@ export const GetAllMPR = gql`
       whTimestamp
       bomApproved
       bomTimestamp
+      remark
       wo {
         idLt
       }

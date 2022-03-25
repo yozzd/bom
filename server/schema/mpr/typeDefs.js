@@ -23,6 +23,7 @@ const typeDefs = `
     whTimestamp: String
     bomApproved: Int
     bomTimestamp: String
+    remark: String
     wo: WO
   }
 

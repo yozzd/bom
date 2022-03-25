@@ -113,6 +113,10 @@ const MPR = sequelize.define('mpr', {
   },
   remark: {
     type: DataTypes.TEXT,
+    get() {
+      const arr = ['<p> </p>', '<p><br></p>'];
+      return arr.includes(this.getDataValue('remark')) ? '' : this.getDataValue('remark');
+    },
   },
   cancel: {
     type: DataTypes.INTEGER,

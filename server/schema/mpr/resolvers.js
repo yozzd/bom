@@ -33,7 +33,7 @@ const resolvers = {
           'unit', 'category', 'dor', 'idWo', 'packing',
           'requestorName', 'requestorTimestamp', 'managerApproved',
           'managerTimestamp', 'whApproved', 'whTimestamp', 'bomApproved',
-          'bomTimestamp',
+          'bomTimestamp', 'remark',
         ],
         order: [
           ['category', 'DESC'],

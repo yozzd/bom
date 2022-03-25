@@ -249,6 +249,23 @@
                   </div>
                 </template>
               </el-table-column>
+              <el-table-column label="Remarks" align="center" width="70">
+                <template slot-scope="scope">
+                  <el-popover
+                    v-if="scope.row.remark"
+                    placement="left"
+                    trigger="hover"
+                  >
+                    <template #default>
+                      <div class="text-xs" v-html="scope.row.remark"></div>
+                    </template>
+                    <outline-chat-icon
+                      slot="reference"
+                      class="heroicons w-4 h-4"
+                    />
+                  </el-popover>
+                </template>
+              </el-table-column>
               <el-table-column label="" min-width="50"></el-table-column>
             </el-table>
           </div>
@@ -350,11 +367,14 @@ export default {
       },
       miniSearch: new MiniSearch({
         idField: 'id',
-        fields: ['woNo', 'model', 'product'],
+        fields: ['id', 'no', 'woNo', 'model', 'product'],
         storeFields: [
           'id', 'no', 'woNo', 'model', 'product', 'projectName',
           'unit', 'category', 'dor', 'idWo', 'packing',
-          'managerApproved', 'whApproved', 'wo',
+          'requestorName', 'requestorTimestamp', 'managerApproved',
+          'managerTimestamp', 'whApproved', 'whTimestamp', 'bomApproved',
+          'bomTimestamp', 'remark',
+          'wo',
         ],
       }),
     };
