@@ -96,6 +96,9 @@ const MPR = sequelize.define('mpr', {
   bomTimestamp: {
     type: DataTypes.DATE,
     allowNull: false,
+    get() {
+      return uDateFormat(this.getDataValue('bomTimestamp'), 'yyyy-MM-dd HH:mm:ss');
+    }
   },
   counter: {
     type: DataTypes.INTEGER,

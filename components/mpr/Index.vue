@@ -199,11 +199,27 @@
                   </el-tag>
                 </template>
               </el-table-column>
-              <el-table-column label="MRP" align="center" width="80">
+              <el-table-column label="MRP" align="center" width="100">
                 <template slot-scope="scope">
-                  <el-tag v-if="scope.row.bomApproved" type="success" size="mini">
-                    Approved
-                  </el-tag>
+                  <div v-if="scope.row.bomApproved">
+                    <el-tag type="success" size="mini">
+                      Approved
+                    </el-tag>
+                    <el-popover
+                      placement="left"
+                      trigger="hover"
+                    >
+                      <template #default>
+                        <div class="text-xs">
+                          {{ scope.row.bomTimestamp }}
+                        </div>
+                      </template>
+                      <outline-clock-icon
+                        slot="reference"
+                        class="heroicons text-gray-400 w-4 h-4"
+                      />
+                    </el-popover>
+                  </div>
                   <el-tag v-else type="warning" size="mini">
                     Waiting
                   </el-tag>
