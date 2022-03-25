@@ -63,6 +63,9 @@ const MPR = sequelize.define('mpr', {
   requestorTimestamp: {
     type: DataTypes.DATE,
     allowNull: false,
+    get() {
+      return uDateFormat(this.getDataValue('requestorTimestamp'), 'yyyy-MM-dd HH:mm:ss');
+    },
   },
   managerApproved: {
     type: DataTypes.INTEGER,
@@ -74,7 +77,7 @@ const MPR = sequelize.define('mpr', {
     allowNull: false,
     get() {
       return uDateFormat(this.getDataValue('managerTimestamp'), 'yyyy-MM-dd HH:mm:ss');
-    }
+    },
   },
   whApproved: {
     type: DataTypes.INTEGER,
@@ -86,7 +89,7 @@ const MPR = sequelize.define('mpr', {
     allowNull: false,
     get() {
       return uDateFormat(this.getDataValue('whTimestamp'), 'yyyy-MM-dd HH:mm:ss');
-    }
+    },
   },
   bomApproved: {
     type: DataTypes.INTEGER,
@@ -98,7 +101,7 @@ const MPR = sequelize.define('mpr', {
     allowNull: false,
     get() {
       return uDateFormat(this.getDataValue('bomTimestamp'), 'yyyy-MM-dd HH:mm:ss');
-    }
+    },
   },
   counter: {
     type: DataTypes.INTEGER,

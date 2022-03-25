@@ -225,6 +225,30 @@
                   </el-tag>
                 </template>
               </el-table-column>
+              <el-table-column label="Requestor" width="180">
+                <template slot-scope="scope">
+                  <div class="flex">
+                    <div :title="scope.row.requestorName" class="w-2/3 truncate">
+                      {{ scope.row.requestorName }}
+                    </div>
+                    <el-popover
+                      placement="left"
+                      trigger="hover"
+                      class="inline-block"
+                    >
+                      <template #default>
+                        <div class="text-xs">
+                          {{ scope.row.requestorTimestamp }}
+                        </div>
+                      </template>
+                      <outline-clock-icon
+                        slot="reference"
+                        class="heroicons text-gray-400 w-4 h-4"
+                      />
+                    </el-popover>
+                  </div>
+                </template>
+              </el-table-column>
               <el-table-column label="" min-width="50"></el-table-column>
             </el-table>
           </div>

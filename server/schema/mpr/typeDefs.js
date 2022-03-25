@@ -15,6 +15,8 @@ const typeDefs = `
     dor: String
     idWo: Int
     packing: Int
+    requestorName: String
+    requestorTimestamp: String
     managerApproved: Int
     managerTimestamp: String
     whApproved: Int
