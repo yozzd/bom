@@ -137,6 +137,16 @@
                   </el-tag>
                 </template>
               </el-table-column>
+              <el-table-column align="center" width="110">
+                <template slot="header">
+                  <p title="Date Of Requirement" class="truncate">
+                    Date Of Requirement
+                  </p>
+                </template>
+                <template slot-scope="scope">
+                  {{ scope.row.dor }}
+                </template>
+              </el-table-column>
               <el-table-column label="" min-width="50"></el-table-column>
             </el-table>
           </div>
