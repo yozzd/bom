@@ -3,30 +3,18 @@ const {
   WO, MPR, MPRITEM, OUTSTANDINGPO,
 } = require('../relations');
 const { isAuthenticated } = require('../auth/service');
+const { whereStatus } = require('./methods');
 
 const resolvers = {
   Query: {
     getAllMPR: isAuthenticated(async (_, { status }) => {
-      console.log(status);
+      const where = whereStatus(status);
+
       const items = await MPRITEM.findAll({
         attributes: [
           'idMpr',
         ],
-        where: {
-          [Op.or]: [
-            {
-              [Op.and]: [
-                { cancel: 0 },
-                { hold: 0 },
-                { bomQtyBalance: { [Op.lt]: 0 } },
-                { bomQtyRec: { [Op.lte]: 0 } },
-                { poNo: { [Op.is]: null } },
-                { '$outstandingPo.po_no$': { [Op.is]: null } },
-              ],
-            },
-            { bomQty: { [Op.eq]: 0 } },
-          ],
-        },
+        where,
         group: ['idMpr'],
         required: false,
         include: [{
