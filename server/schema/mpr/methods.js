@@ -38,9 +38,10 @@ const whereStatus = (status) => {
             { bomPoNo: { [Op.not]: null } },
           ],
         },
-        { cancel: 1 },
       ],
     };
+  } else {
+    where = { cancel: 1 };
   }
 
   return where;
