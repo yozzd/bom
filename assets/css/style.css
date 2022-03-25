@@ -217,3 +217,8 @@ table.plain {
 .el-table .outpo-cancel {
   background: #e53935;
 }
+
+.el-breadcrumb__inner.is-link,
+.el-breadcrumb__inner a {
+  @apply text-blue-600;
+}
