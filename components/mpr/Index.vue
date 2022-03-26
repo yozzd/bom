@@ -249,17 +249,17 @@
                   </div>
                 </template>
               </el-table-column>
-              <el-table-column label="Attachment" width="180">
+              <el-table-column label="Attachment" width="140">
                 <template slot-scope="scope">
                   <div
                     v-if="scope.row.attachmentCheck"
                     :title="scope.row.attachment"
                     class="truncate"
                   >
-                    {{ scope.row.attachment }}
-                  </div>
-                  <div>
-                    No Attachment
+                    <a
+                      :href="`attachment/${scope.row.id}/${scope.row.attachment}`"
+                      target="_blank"
+                    >{{ scope.row.attachment }}</a>
                   </div>
                 </template>
               </el-table-column>
