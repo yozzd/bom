@@ -22,6 +22,8 @@ export const GetAllMPR = gql`
       whTimestamp
       bomApproved
       bomTimestamp
+      attachment
+      attachmentCheck
       remark
       wo {
         idLt

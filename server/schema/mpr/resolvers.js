@@ -1,3 +1,4 @@
+const fs = require('fs');
 const { Op } = require('sequelize');
 const {
   WO, MPR, MPRITEM, OUTSTANDINGPO,
@@ -6,6 +7,16 @@ const { isAuthenticated } = require('../auth/service');
 const { whereStatus } = require('./methods');
 
 const resolvers = {
+  MPR: {
+    attachmentCheck: async ({ id, attachment }) => {
+      try {
+        await fs.existsSync(`static/attachment/${id}/${attachment}`);
+        return true;
+      } catch (err) {
+        return false;
+      }
+    },
+  },
   Query: {
     getAllMPR: isAuthenticated(async (_, { status }) => {
       const where = whereStatus(status);
@@ -33,7 +44,7 @@ const resolvers = {
           'unit', 'category', 'dor', 'idWo', 'packing',
           'requestorName', 'requestorTimestamp', 'managerApproved',
           'managerTimestamp', 'whApproved', 'whTimestamp', 'bomApproved',
-          'bomTimestamp', 'remark',
+          'bomTimestamp', 'attachment', 'remark',
         ],
         order: [
           ['category', 'DESC'],

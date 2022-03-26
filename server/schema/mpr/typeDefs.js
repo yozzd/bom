@@ -23,6 +23,8 @@ const typeDefs = `
     whTimestamp: String
     bomApproved: Int
     bomTimestamp: String
+    attachment: String
+    attachmentCheck: Boolean
     remark: String
     wo: WO
   }
