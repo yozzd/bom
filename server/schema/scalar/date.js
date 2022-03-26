@@ -1,6 +1,8 @@
 const { GraphQLScalarType } = require('graphql');
 const { format } = require('date-fns');
 
+const isValidDate = (d) => d instanceof Date && !Number.isNaN(Number(d));
+
 const uDateFormat = (d, f) => format(new Date(d.toISOString().slice(0, -1)), f);
 
 const DateFormat = new GraphQLScalarType({
@@ -14,5 +16,5 @@ const DateFormat = new GraphQLScalarType({
 });
 
 module.exports = {
-  DateFormat, uDateFormat,
+  DateFormat, isValidDate, uDateFormat,
 };

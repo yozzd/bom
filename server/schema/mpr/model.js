@@ -1,6 +1,6 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../../config/db');
-const { uDateFormat } = require('../scalar/date');
+const { isValidDate, uDateFormat } = require('../scalar/date');
 
 const MPR = sequelize.define('mpr', {
   id: {
@@ -64,7 +64,8 @@ const MPR = sequelize.define('mpr', {
     type: DataTypes.DATE,
     allowNull: false,
     get() {
-      return uDateFormat(this.getDataValue('requestorTimestamp'), 'yyyy-MM-dd HH:mm:ss');
+      if (isValidDate(this.getDataValue('requestorTimestamp'))) return uDateFormat(this.getDataValue('requestorTimestamp'), 'yyyy-MM-dd HH:mm:ss');
+      return '';
     },
   },
   managerApproved: {
@@ -76,7 +77,8 @@ const MPR = sequelize.define('mpr', {
     type: DataTypes.DATE,
     allowNull: false,
     get() {
-      return uDateFormat(this.getDataValue('managerTimestamp'), 'yyyy-MM-dd HH:mm:ss');
+      if (isValidDate(this.getDataValue('managerTimestamp'))) return uDateFormat(this.getDataValue('managerTimestamp'), 'yyyy-MM-dd HH:mm:ss');
+      return '';
     },
   },
   whApproved: {
@@ -88,7 +90,8 @@ const MPR = sequelize.define('mpr', {
     type: DataTypes.DATE,
     allowNull: false,
     get() {
-      return uDateFormat(this.getDataValue('whTimestamp'), 'yyyy-MM-dd HH:mm:ss');
+      if (isValidDate(this.getDataValue('whTimestamp'))) return uDateFormat(this.getDataValue('whTimestamp'), 'yyyy-MM-dd HH:mm:ss');
+      return '';
     },
   },
   bomApproved: {
@@ -100,7 +103,8 @@ const MPR = sequelize.define('mpr', {
     type: DataTypes.DATE,
     allowNull: false,
     get() {
-      return uDateFormat(this.getDataValue('bomTimestamp'), 'yyyy-MM-dd HH:mm:ss');
+      if (isValidDate(this.getDataValue('bomTimestamp'))) return uDateFormat(this.getDataValue('bomTimestamp'), 'yyyy-MM-dd HH:mm:ss');
+      return '';
     },
   },
   counter: {

@@ -1,10 +1,9 @@
 const fs = require('fs');
-const { Op } = require('sequelize');
 const {
   WO, MPR, MPRITEM, OUTSTANDINGPO,
 } = require('../relations');
 const { isAuthenticated } = require('../auth/service');
-const { whereStatus } = require('./methods');
+const { whereStatus, whereUser } = require('./methods');
 
 const resolvers = {
   MPR: {
@@ -18,7 +17,7 @@ const resolvers = {
     },
   },
   Query: {
-    getAllMPR: isAuthenticated(async (_, { status }) => {
+    getAllMPR: isAuthenticated(async (_, { status }, ctx) => {
       const where = whereStatus(status);
 
       const items = await MPRITEM.findAll({
@@ -36,8 +35,7 @@ const resolvers = {
         raw: true,
       });
 
-      const ids = await Promise.all(items.reduce((prev, curr) => [...prev, curr.idMpr], []));
-
+      const whereU = await whereUser(ctx, items);
       const mpr = await MPR.findAll({
         attributes: [
           'id', 'no', 'woNo', 'model', 'product', 'projectName',
@@ -50,15 +48,7 @@ const resolvers = {
           ['category', 'DESC'],
           ['dor', 'ASC'],
         ],
-        where: {
-          [Op.and]: [
-            { id: { [Op.in]: ids } },
-            { cancel: 0 },
-            { hold: 0 },
-            { managerApproved: 1 },
-            { whApproved: 1 },
-          ],
-        },
+        where: whereU,
         include: [{
           model: WO,
           attributes: ['idLt'],

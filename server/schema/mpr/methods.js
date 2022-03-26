@@ -62,4 +62,32 @@ const whereStatus = (status) => {
   return where;
 };
 
-module.exports = { whereStatus };
+const whereUser = async ({ req: { user: { group, section } } }, items) => {
+  const ids = await Promise.all(items.reduce((prev, curr) => [...prev, curr.idMpr], []));
+  let where = null;
+
+  if ((group === 11 && section === 211) || (group === 11 && section === 212)) {
+    where = {
+      [Op.and]: [
+        { id: { [Op.in]: ids } },
+        { cancel: 0 },
+        { hold: 0 },
+        { managerApproved: 1 },
+        { whApproved: 1 },
+      ],
+    };
+  } else if (group === 11 && section === 213) {
+    where = {
+      [Op.and]: [
+        { id: { [Op.in]: ids } },
+        { cancel: 0 },
+        { hold: 0 },
+        { managerApproved: 1 },
+        { whApproved: 0 },
+      ],
+    };
+  }
+  return where;
+};
+
+module.exports = { whereStatus, whereUser };
