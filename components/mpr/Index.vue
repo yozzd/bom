@@ -249,6 +249,20 @@
                   </div>
                 </template>
               </el-table-column>
+              <el-table-column label="Attachment" width="180">
+                <template slot-scope="scope">
+                  <div
+                    v-if="scope.row.attachmentCheck"
+                    :title="scope.row.attachment"
+                    class="truncate"
+                  >
+                    {{ scope.row.attachment }}
+                  </div>
+                  <div>
+                    No Attachment
+                  </div>
+                </template>
+              </el-table-column>
               <el-table-column label="Remarks" align="center" width="70">
                 <template slot-scope="scope">
                   <el-popover
