@@ -3,38 +3,36 @@
     <div></div>
     <div></div>
     <div class="flex flex-col space-y-8">
-      <div class="border border-gray-100 rounded-lg p-8">
-        <div class="text-2xl text-center font-bold press-start text-blue-600 mb-4">
-          BOM
-        </div>
-
-        <IndexErrorHandler
-          v-if="errors.length"
-          :errors="errors"
-        />
-
-        <el-form
-          ref="form"
-          :model="form"
-          :rules="rules"
-          :hide-required-asterisk="true"
-          label-position="top"
-          class="w-full"
-          @submit.native.prevent="submitForm('form')"
-        >
-          <el-form-item label="Username" prop="username">
-            <el-input v-model="form.username"></el-input>
-          </el-form-item>
-          <el-form-item label="Password" prop="password">
-            <el-input v-model="form.password" show-password></el-input>
-          </el-form-item>
-          <div class="mt-12">
-            <el-button type="primary" native-type="submit" :loading="loading" class="w-full">
-              Login
-            </el-button>
-          </div>
-        </el-form>
+      <div class="text-2xl text-center font-bold press-start text-blue-600">
+        BOM
       </div>
+
+      <IndexErrorHandler
+        v-if="errors.length"
+        :errors="errors"
+      />
+
+      <el-form
+        ref="form"
+        :model="form"
+        :rules="rules"
+        :hide-required-asterisk="true"
+        label-position="top"
+        class="w-full"
+        @submit.native.prevent="submitForm('form')"
+      >
+        <el-form-item label="Username" prop="username">
+          <el-input v-model="form.username"></el-input>
+        </el-form-item>
+        <el-form-item label="Password" prop="password">
+          <el-input v-model="form.password" show-password></el-input>
+        </el-form-item>
+        <div class="mt-12">
+          <el-button type="primary" native-type="submit" :loading="loading" class="w-full">
+            Login
+          </el-button>
+        </div>
+      </el-form>
 
       <div class="flex">
         <div class="flex-1">
