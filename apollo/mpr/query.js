@@ -32,4 +32,20 @@ export const GetAllMPR = gql`
   }
 `;
 
-export const fake = {};
+export const GetOneMPR = gql`
+  query getOneMPR($id: Int) {
+    getOneMPR(id: $id) {
+      id
+      no
+      woNo
+      model
+      product
+      projectName
+      unit
+      category
+      dor
+      idWo
+      packing
+    }
+  }
+`;

@@ -102,11 +102,33 @@
 </template>
 
 <script>
+import { GetOneMPR } from '../../apollo/mpr/query';
+
 export default {
   data() {
     return {
       errors: [],
     };
+  },
+  apollo: {
+    getOneMPR: {
+      query: GetOneMPR,
+      variables() {
+        return {
+          id: parseInt(this.$route.params.id, 10),
+        };
+      },
+      prefetch: false,
+      result({ data, loading }) {
+        if (!loading) {
+          const { getOneMPR } = data;
+          console.log(getOneMPR);
+        }
+      },
+      error({ graphQLErrors, networkError }) {
+        this.errors = graphQLErrors || networkError.result.errors;
+      },
+    },
   },
 };
 </script>

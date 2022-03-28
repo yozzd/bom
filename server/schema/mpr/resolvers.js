@@ -21,9 +21,7 @@ const resolvers = {
       const where = whereStatus(status);
 
       const items = await MPRITEM.findAll({
-        attributes: [
-          'idMpr',
-        ],
+        attributes: ['idMpr'],
         where,
         group: ['idMpr'],
         required: false,
@@ -53,6 +51,17 @@ const resolvers = {
           model: WO,
           attributes: ['idLt'],
         }],
+      });
+
+      return mpr;
+    }),
+    getOneMPR: isAuthenticated(async (_, { id }) => {
+      const mpr = await MPR.findOne({
+        attributes: [
+          'id', 'no', 'woNo', 'model', 'product', 'projectName',
+          'unit', 'category', 'dor', 'idWo', 'packing',
+        ],
+        where: { id },
       });
 
       return mpr;
