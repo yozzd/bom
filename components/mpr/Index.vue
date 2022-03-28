@@ -402,11 +402,10 @@ export default {
         fields: ['id', 'no', 'woNo', 'model', 'product'],
         storeFields: [
           'id', 'no', 'woNo', 'model', 'product', 'projectName',
-          'unit', 'category', 'dor', 'idWo', 'packing',
+          'unit', 'category', 'dor', 'idWo', 'packing', 'requestorSection',
           'requestorName', 'requestorTimestamp', 'managerApproved',
           'managerTimestamp', 'whApproved', 'whTimestamp', 'bomApproved',
-          'bomTimestamp', 'remark',
-          'wo',
+          'bomTimestamp', 'attachment', 'remark', 'wo',
         ],
       }),
     };
