@@ -69,6 +69,9 @@ const whereUser = async ({
     },
   },
 }, items, status) => {
+  console.log({
+    group, department, section, isManager, status,
+  });
   const ids = await Promise.all(items.reduce((prev, curr) => [...prev, curr.idMpr], []));
   let where = null;
 
@@ -126,6 +129,16 @@ const whereUser = async ({
         ],
       };
     }
+  } else if (group !== 11 && !isManager && status === 0) {
+    where = {
+      [Op.and]: [
+        { id: { [Op.in]: ids } },
+        { cancel: 0 },
+        { hold: 0 },
+        { no: { [Op.is]: null } },
+        { requestorSection: section },
+      ],
+    };
   } else {
     where = {
       [Op.and]: [
