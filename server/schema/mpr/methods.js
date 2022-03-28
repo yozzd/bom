@@ -62,9 +62,18 @@ const whereStatus = (status) => {
   return where;
 };
 
-const whereUser = async ({ req: { user: { group, section } } }, items, status) => {
+const whereUser = async ({
+  req: {
+    user: {
+      group, department, section, isManager,
+    },
+  },
+}, items, status) => {
   const ids = await Promise.all(items.reduce((prev, curr) => [...prev, curr.idMpr], []));
   let where = null;
+
+  let inSection = [];
+  if (department === 140) inSection = [142, 561];
 
   if ((group === 11 && section === 211) || (group === 11 && section === 212)) {
     where = {
@@ -86,6 +95,27 @@ const whereUser = async ({ req: { user: { group, section } } }, items, status) =
         { whApproved: 0 },
       ],
     };
+  } else if (isManager) {
+    if (status === 0) {
+      where = {
+        [Op.and]: [
+          { id: { [Op.in]: ids } },
+          { cancel: 0 },
+          { hold: 0 },
+          { managerApproved: 0 },
+          { requestorSection: { [Op.in]: inSection } },
+        ],
+      };
+    } else {
+      where = {
+        [Op.and]: [
+          { id: { [Op.in]: ids } },
+          { cancel: 0 },
+          { hold: 0 },
+          { requestorSection: { [Op.in]: inSection } },
+        ],
+      };
+    }
   } else {
     where = {
       [Op.and]: [
@@ -97,7 +127,7 @@ const whereUser = async ({ req: { user: { group, section } } }, items, status) =
       ],
     };
   }
-  
+
   return where;
 };
 

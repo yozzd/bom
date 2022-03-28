@@ -39,7 +39,7 @@ const resolvers = {
       const mpr = await MPR.findAll({
         attributes: [
           'id', 'no', 'woNo', 'model', 'product', 'projectName',
-          'unit', 'category', 'dor', 'idWo', 'packing',
+          'unit', 'category', 'dor', 'idWo', 'packing', 'requestorSection',
           'requestorName', 'requestorTimestamp', 'managerApproved',
           'managerTimestamp', 'whApproved', 'whTimestamp', 'bomApproved',
           'bomTimestamp', 'attachment', 'remark',
