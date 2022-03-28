@@ -64,12 +64,30 @@
                 fixed
               ></el-table-column>
               <el-table-column
-                prop="no"
                 label="Number"
                 align="center"
-                width="60"
+                width="100"
                 fixed
-              ></el-table-column>
+              >
+                <template slot-scope="scope">
+                  <div class="flex">
+                    <nuxt-link
+                      :to="{ name: 'mpr-id', params: { id: scope.row.id } }"
+                      :title="scope.row.woNo"
+                      class="flex-1 truncate"
+                    >
+                      {{ scope.row.no }}
+                    </nuxt-link>
+                    <a
+                      :href="`/mpr/${scope.row.id}`"
+                      title="Open in new tab"
+                      target="_blank"
+                    >
+                      <outline-external-link-icon class="heroicons w-4 h-4" />
+                    </a>
+                  </div>
+                </template>
+              </el-table-column>
               <el-table-column label="WO" width="140" fixed>
                 <template slot-scope="scope">
                   <div class="flex">
