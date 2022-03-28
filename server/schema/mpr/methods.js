@@ -74,6 +74,7 @@ const whereUser = async ({
 
   let inSection = [];
   if (department === 140) inSection = [142, 561];
+  if (department === 150) inSection = [151, 152, 153, 154];
 
   if ((group === 11 && section === 211) || (group === 11 && section === 212)) {
     where = {
