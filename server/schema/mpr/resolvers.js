@@ -35,7 +35,7 @@ const resolvers = {
         raw: true,
       });
 
-      const whereU = await whereUser(ctx, items);
+      const whereU = await whereUser(ctx, items, status);
       const mpr = await MPR.findAll({
         attributes: [
           'id', 'no', 'woNo', 'model', 'product', 'projectName',

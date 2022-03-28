@@ -62,7 +62,7 @@ const whereStatus = (status) => {
   return where;
 };
 
-const whereUser = async ({ req: { user: { group, section } } }, items) => {
+const whereUser = async ({ req: { user: { group, section } } }, items, status) => {
   const ids = await Promise.all(items.reduce((prev, curr) => [...prev, curr.idMpr], []));
   let where = null;
 
@@ -76,7 +76,7 @@ const whereUser = async ({ req: { user: { group, section } } }, items) => {
         { whApproved: 1 },
       ],
     };
-  } else if (group === 11 && section === 213) {
+  } else if (group === 11 && section === 213 && status === 0) {
     where = {
       [Op.and]: [
         { id: { [Op.in]: ids } },
@@ -86,7 +86,18 @@ const whereUser = async ({ req: { user: { group, section } } }, items) => {
         { whApproved: 0 },
       ],
     };
+  } else {
+    where = {
+      [Op.and]: [
+        { id: { [Op.in]: ids } },
+        { cancel: 0 },
+        { hold: 0 },
+        { requestorId: group },
+        { requestorSection: section },
+      ],
+    };
   }
+  
   return where;
 };
 
