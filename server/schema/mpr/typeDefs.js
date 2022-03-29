@@ -28,10 +28,23 @@ const typeDefs = `
     attachmentCheck: Boolean
     remark: String
     wo: WO
+    modules: [MODULE]
   }
 
   type WO {
     idLt: Int
+  }
+
+  type MODULE {
+    id: Int
+    moduleChar: String
+    moduleName: String
+    items: [ITEM]
+  }
+
+  type ITEM {
+    id: Int
+    bomDescription: String
   }
 `;
 

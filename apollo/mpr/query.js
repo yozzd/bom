@@ -46,6 +46,15 @@ export const GetOneMPR = gql`
       dor
       idWo
       packing
+      modules {
+        id
+        moduleChar
+        moduleName
+        items {
+          id
+          bomDescription
+        }
+      }
     }
   }
 `;

@@ -1,6 +1,6 @@
 const fs = require('fs');
 const {
-  WO, MPR, MPRITEM, OUTSTANDINGPO,
+  WO, MPR, MPRMODULE, MPRITEM, OUTSTANDINGPO,
 } = require('../relations');
 const { isAuthenticated } = require('../auth/service');
 const { whereStatus, whereUser } = require('./methods');
@@ -62,6 +62,14 @@ const resolvers = {
           'unit', 'category', 'dor', 'idWo', 'packing',
         ],
         where: { id },
+        include: [{
+          model: MPRMODULE,
+          attributes: ['id', 'moduleChar', 'moduleName'],
+          include: [{
+            model: MPRITEM,
+            attributes: ['id', 'bomDescription'],
+          }],
+        }],
       });
 
       return mpr;
