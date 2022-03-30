@@ -145,6 +145,11 @@ export default {
       modules: [],
     };
   },
+  methods: {
+    highlighter({ row }) {
+      return row.colorClass;
+    },
+  },
   apollo: {
     getOneMPR: {
       query: GetOneMPR,

@@ -19,6 +19,7 @@ const resolvers = {
       const module = await MPRMODULE.findAll({
         attributes: ['id', 'moduleChar', 'moduleName'],
         where: { idMpr: id },
+        required: false,
       });
 
       if (module.length) return module;
@@ -30,17 +31,36 @@ const resolvers = {
   MODULE: {
     items: async ({ id, idMpr }) => {
       let item = [];
-      const attributes = ['id', 'idMaterial', 'bomDescription'];
+      const attributes = [
+        'id', 'idMaterial', 'bomDescription', 'bomSpecification',
+        'bomModel', 'bomBrand', 'bomQty', 'bomUnit', 'bomQtyRqd',
+        'bomQtyBalance', 'bomQtyStock', 'bomEta', 'bomQtyRec',
+        'bomDateRec', 'bomCurrSizeC', 'bomCurrSizeV', 'bomCurrEaC',
+        'bomCurrEaV', 'bomUsdEa', 'bomUsdUnit', 'bomUsdTotal',
+        'materialsProcessed', 'yetToPurchase', 'bomSupplier',
+        'bomPoDate', 'bomPoNo', 'bomRemarks', 'priority', 'bomEtaStatus',
+        'validasi', 'hold', 'cancel', 'colorClass',
+      ];
+
+      const include = [{
+        model: OUTSTANDINGPO,
+        attributes: ['poStatus', 'poArrival', 'poNo'],
+        required: false,
+      }];
 
       if (id) {
         item = await MPRITEM.findAll({
           attributes,
           where: { idModule: id },
+          required: false,
+          include,
         });
       } else {
         item = await MPRITEM.findAll({
           attributes,
           where: { idMpr },
+          required: false,
+          include,
         });
       }
 

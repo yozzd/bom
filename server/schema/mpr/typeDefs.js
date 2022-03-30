@@ -47,6 +47,33 @@ const typeDefs = `
     id: Int
     idMaterial: Int
     bomDescription: String
+    bomSpecification: String
+    bomModel: String
+    bomBrand: String
+    bomQty: Float
+    bomUnit: String
+    bomQtyRqd: Float
+    bomQtyBalance: Float
+    bomQtyStock: Float
+    bomEta: String
+    bomQtyRec: Float
+    bomDateRec: String
+    bomCurrSizeC: String
+    bomCurrSizeV: Float
+    bomCurrEaC: String
+    bomCurrEaV: Float
+    bomUsdEa: Float
+    bomUsdUnit: Float
+    bomUsdTotal: Float
+    materialsProcessed: Float
+    yetToPurchase: Float
+    bomSupplier: String
+    bomPoDate: String
+    bomPoNo: String
+    bomRemarks: String
+    priority: String
+    bomEtaStatus: String
+    colorClass: String
   }
 `;
 
