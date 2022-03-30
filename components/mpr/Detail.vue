@@ -247,6 +247,25 @@
               {{ scope.row.bomQtyStock | currency }}
             </template>
           </el-table-column>
+          <el-table-column
+            label="ETA"
+            prop="bomEta"
+            align="center"
+            width="90"
+          ></el-table-column>
+          <el-table-column label="W/H Received" align="center">
+            <el-table-column label="Qty" align="center" width="60">
+              <template slot-scope="scope">
+                {{ scope.row.bomQtyRec | currency }}
+              </template>
+            </el-table-column>
+            <el-table-column
+              label="Date"
+              prop="bomDateRec"
+              align="center"
+              width="90"
+            ></el-table-column>
+          </el-table-column>
         </el-table>
       </div>
     </div>
