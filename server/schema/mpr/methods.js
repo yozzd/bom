@@ -69,9 +69,6 @@ const whereUser = async ({
     },
   },
 }, items, status) => {
-  console.log({
-    group, department, section, isManager, status,
-  });
   const ids = await Promise.all(items.reduce((prev, curr) => [...prev, curr.idMpr], []));
   let where = null;
 

@@ -39,6 +39,7 @@ const typeDefs = `
     id: Int
     moduleChar: String
     moduleName: String
+    idMpr: Int
     items: [ITEM]
   }
 

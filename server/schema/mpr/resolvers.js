@@ -15,6 +15,37 @@ const resolvers = {
         return false;
       }
     },
+    modules: async ({ id }) => {
+      const module = await MPRMODULE.findAll({
+        attributes: ['id', 'moduleChar', 'moduleName'],
+        where: { idMpr: id },
+      });
+
+      if (module.length) return module;
+      return [{
+        id: 0, moduleChar: '', moduleName: '', idMpr: id,
+      }];
+    },
+  },
+  MODULE: {
+    items: async ({ id, idMpr }) => {
+      let item = [];
+      const attributes = ['id', 'bomDescription'];
+
+      if (id) {
+        item = await MPRITEM.findAll({
+          attributes,
+          where: { idModule: id },
+        });
+      } else {
+        item = await MPRITEM.findAll({
+          attributes,
+          where: { idMpr },
+        });
+      }
+
+      return item;
+    },
   },
   Query: {
     getAllMPR: isAuthenticated(async (_, { status }, ctx) => {
@@ -62,14 +93,6 @@ const resolvers = {
           'unit', 'category', 'dor', 'idWo', 'packing',
         ],
         where: { id },
-        include: [{
-          model: MPRMODULE,
-          attributes: ['id', 'moduleChar', 'moduleName'],
-          include: [{
-            model: MPRITEM,
-            attributes: ['id', 'bomDescription'],
-          }],
-        }],
       });
 
       return mpr;
