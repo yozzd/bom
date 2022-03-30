@@ -59,7 +59,9 @@
                 <template slot-scope="scope">
                   <div class="flex">
                     <nuxt-link
-                      :to="{ name: 'bom-lt-id-status', params: { id: scope.row.id, status } }"
+                      :to="{
+                        name: 'bom-lt-id-status', params: { id: scope.row.id, status: statusValue }
+                      }"
                       :title="scope.row.ltNo"
                       class="flex-1 truncate"
                     >
@@ -67,7 +69,7 @@
                       <span v-if="scope.row.stage">[STAGE-{{ scope.row.stage }}]</span>
                     </nuxt-link>
                     <a
-                      :href="`/bom/lt/${scope.row.id}/${status}`"
+                      :href="`/bom/lt/${scope.row.id}/${statusValue}`"
                       title="Open in new tab"
                       target="_blank"
                     >
@@ -173,6 +175,7 @@ export default {
     return {
       showFilterByStatusDialog: false,
       loading: false,
+      statusValue: 0,
       form: {},
       header: '',
       rules: {
@@ -202,6 +205,7 @@ export default {
             (Object.keys(this.status).find((key) => this.status[key] === this.form.status)
             ), 10,
           );
+          this.statusValue = status;
 
           const { data: { getAllLT } } = await this.$apollo.query({
             query: GetAllLT,
