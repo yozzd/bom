@@ -288,6 +288,36 @@
               </template>
             </el-table-column>
           </el-table-column>
+          <el-table-column align="right" width="100">
+            <template slot="header">
+              <p title="Total Price (USD)" class="truncate">
+                Total Price (USD)
+              </p>
+            </template>
+            <template slot-scope="scope">
+              {{ scope.row.bomUsdTotal | currency }}
+            </template>
+          </el-table-column>
+          <el-table-column align="right" width="100">
+            <template slot="header">
+              <p title="Materials Processed (USD)" class="truncate">
+                Materials Processed (USD)
+              </p>
+            </template>
+            <template slot-scope="scope">
+              {{ scope.row.materialsProcessed | currency }}
+            </template>
+          </el-table-column>
+          <el-table-column align="right" width="100">
+            <template slot="header">
+              <p title="Yet To Purchase (USD)" class="truncate">
+                Yet To Purchase (USD)
+              </p>
+            </template>
+            <template slot-scope="scope">
+              {{ scope.row.yetToPurchase | currency }}
+            </template>
+          </el-table-column>
         </el-table>
       </div>
     </div>
