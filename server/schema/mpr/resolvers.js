@@ -110,7 +110,7 @@ const resolvers = {
       const mpr = await MPR.findOne({
         attributes: [
           'id', 'no', 'woNo', 'model', 'product', 'projectName',
-          'unit', 'category', 'dor', 'idWo', 'packing',
+          'unit', 'category', 'dor', 'idWo', 'packing', 'requestorName',
         ],
         where: { id },
       });

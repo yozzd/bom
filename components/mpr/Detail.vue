@@ -26,7 +26,7 @@
         <div class="flex flex-col space-y-4 w-full my-4">
           <div class="flex space-x-8 items-center">
             <div class="font-bold text-xl">
-              Info
+              MPR No. : {{ mpr.no }}
             </div>
             <div class="flex-1"></div>
             <div>
@@ -95,6 +95,29 @@
               </el-popover>
             </div>
           </div>
+          <table class="plain">
+            <tbody>
+              <tr>
+                <td class="w-32">
+                  WO
+                </td>
+                <td>:</td>
+                <td class="w-80">
+                  {{ mpr.woNo }}
+                </td>
+                <td class="w-32">
+                  Project Name
+                </td>
+                <td>:</td>
+                <td>{{ mpr.projectName }}</td>
+                <td class="w-32">
+                  Requestor
+                </td>
+                <td>:</td>
+                <td>{{ mpr.requestorName }}</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
       <div v-for="h in modules" :key="h.id" class="flex flex-col">
