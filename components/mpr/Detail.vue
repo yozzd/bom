@@ -130,7 +130,11 @@
                   Product Name
                 </td>
                 <td>:</td>
-                <td>{{ mpr.product }}</td>
+                <td>
+                  <p :title="mpr.product" class="w-72 truncate">
+                    {{ mpr.product }}
+                  </p>
+                </td>
                 <td class="w-32">
                   Product Qty
                 </td>
@@ -150,11 +154,11 @@
                     Standard
                   </el-tag>
                 </td>
-                <td class="w-32">
+                <td>
                 </td>
                 <td></td>
                 <td></td>
-                <td class="w-32">
+                <td>
                 </td>
                 <td></td>
                 <td></td>
