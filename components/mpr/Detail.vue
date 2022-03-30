@@ -318,6 +318,26 @@
               {{ scope.row.yetToPurchase | currency }}
             </template>
           </el-table-column>
+          <el-table-column label="Supplier" width="140">
+            <template slot-scope="scope">
+              <p :title="scope.row.bomSupplier" class="truncate">
+                {{ scope.row.bomSupplier }}
+              </p>
+            </template>
+          </el-table-column>
+          <el-table-column label="PO / PR" align="center">
+            <el-table-column
+              label="Date"
+              prop="bomPoDate"
+              align="center"
+              width="90"
+            ></el-table-column>
+            <el-table-column label="No" align="center" width="80">
+              <template slot-scope="scope">
+                {{ scope.row.bomPoNo }}
+              </template>
+            </el-table-column>
+          </el-table-column>
         </el-table>
       </div>
     </div>
