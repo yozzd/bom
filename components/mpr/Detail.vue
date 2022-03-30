@@ -266,6 +266,28 @@
               width="90"
             ></el-table-column>
           </el-table-column>
+          <el-table-column label="Price" align="center">
+            <el-table-column label="CURR / Size" align="right" width="100">
+              <template slot-scope="scope">
+                {{ scope.row.bomCurrSizeC }} {{ scope.row.bomCurrSizeV | currency }}
+              </template>
+            </el-table-column>
+            <el-table-column label="CURR / Ea" align="right" width="100">
+              <template slot-scope="scope">
+                {{ scope.row.bomCurrEaC }} {{ scope.row.bomCurrEaV | currency }}
+              </template>
+            </el-table-column>
+            <el-table-column label="USD / Ea" align="right" width="100">
+              <template slot-scope="scope">
+                {{ scope.row.bomUsdEa | currency }}
+              </template>
+            </el-table-column>
+            <el-table-column label="USD / Unit" align="right" width="100">
+              <template slot-scope="scope">
+                {{ scope.row.bomUsdUnit | currency }}
+              </template>
+            </el-table-column>
+          </el-table-column>
         </el-table>
       </div>
     </div>
