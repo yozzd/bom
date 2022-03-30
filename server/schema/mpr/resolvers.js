@@ -28,7 +28,7 @@ const resolvers = {
       }];
     },
   },
-  MODULE: {
+  MPRMODULE: {
     items: async ({ id, idMpr }) => {
       let item = [];
       const attributes = [

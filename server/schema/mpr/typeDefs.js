@@ -28,51 +28,25 @@ const typeDefs = `
     attachmentCheck: Boolean
     remark: String
     wo: WO
-    modules: [MODULE]
+    modules: [MPRMODULE]
   }
 
   type WO {
     idLt: Int
   }
 
-  type MODULE {
+  type MPRMODULE {
     id: Int
     moduleChar: String
     moduleName: String
     idMpr: Int
-    items: [ITEM]
+    items: [MPRITEM]
   }
 
-  type ITEM {
+  type MPRITEM {
     id: Int
     idMaterial: Int
     bomDescription: String
-    bomSpecification: String
-    bomModel: String
-    bomBrand: String
-    bomQty: Float
-    bomUnit: String
-    bomQtyRqd: Float
-    bomQtyBalance: Float
-    bomQtyStock: Float
-    bomEta: String
-    bomQtyRec: Float
-    bomDateRec: String
-    bomCurrSizeC: String
-    bomCurrSizeV: Float
-    bomCurrEaC: String
-    bomCurrEaV: Float
-    bomUsdEa: Float
-    bomUsdUnit: Float
-    bomUsdTotal: Float
-    materialsProcessed: Float
-    yetToPurchase: Float
-    bomSupplier: String
-    bomPoDate: String
-    bomPoNo: String
-    bomRemarks: String
-    priority: String
-    bomEtaStatus: String
     colorClass: String
   }
 `;

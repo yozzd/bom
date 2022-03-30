@@ -52,6 +52,7 @@ MPRITEM.belongsTo(OUTSTANDINGPO, {
 
 WO.hasMany(MPR, {
   foreignKey: 'idWo',
+  targetKey: 'id',
 });
 MPR.belongsTo(WO, {
   foreignKey: 'idWo',
