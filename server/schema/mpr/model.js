@@ -272,8 +272,8 @@ const MPRITEM = sequelize.define('item', {
   bomEtaStatus: {
     type: DataTypes.STRING,
     get() {
-      // Note: need to check po arrival date & add more conditions
-      if (this.bomQty > 0 && this.bomQtyStock > 0 && this.bomQtyBalance >= 0) return 'ONTIME';
+      if ((this.bomQty > 0 && this.bomQtyStock > 0 && this.bomQtyBalance >= 0) || (this.bomDateRec && this.bomDateRec <= this.bomEta)) return 'ONTIME';
+      if (this.bomEta === '0000-00-00' || !this.bomEta) return 'LATE';
       return '';
     },
   },
@@ -368,6 +368,21 @@ const MPRITEM = sequelize.define('item', {
   },
   priority: {
     type: DataTypes.STRING,
+  },
+  colorClass: {
+    type: DataTypes.VIRTUAL,
+    get() {
+      const outPoNo = this.outstandingPo ? this.outstandingPo.poNo : '';
+
+      if (this.validasi) return 'validated-row';
+      if (this.bomQty > 0 && this.bomQtyStock > 0 && this.bomQtyBalance >= 0) return 'stock-row';
+      if (this.bomQtyRec > 0 && this.bomPoNo) return 'coming-row';
+      if (outPoNo && this.bomQtyRec <= 0 && this.bomPoNo && this.poStatus !== 'Complete' && !this.bomDateRec) return 'issued-row';
+      if (!outPoNo && this.bomQtyRec <= 0) return 'draft-row';
+      if (this.hold) return 'hold-row';
+      if (this.cancel) return 'cancel-row';
+      return '';
+    },
   },
 }, {
   tableName: 'mpr_item',
