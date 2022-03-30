@@ -194,6 +194,20 @@
               </p>
             </template>
           </el-table-column>
+          <el-table-column label="Model" width="140">
+            <template slot-scope="scope">
+              <p :title="scope.row.bomModel" class="truncate">
+                {{ scope.row.bomModel }}
+              </p>
+            </template>
+          </el-table-column>
+          <el-table-column label="Brand" width="140">
+            <template slot-scope="scope">
+              <p :title="scope.row.bomBrand" class="truncate">
+                {{ scope.row.bomBrand }}
+              </p>
+            </template>
+          </el-table-column>
         </el-table>
       </div>
     </div>
