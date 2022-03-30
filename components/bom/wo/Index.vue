@@ -144,8 +144,7 @@
                   Status
                 </td>
                 <td>:</td>
-                <!--<td>{{ arrWoStatus[0][wo.status] }}</td>-->
-                <td></td>
+                <td>{{ status[wo.status] }}</td>
                 <td>
                   1 USD
                 </td>
@@ -469,13 +468,6 @@ export default {
       errors: [],
     };
   },
-  // computed: {
-  //   arrWoStatus() {
-  //     return this.optionsWoStatus.map((v) => ({
-  //       [v.value]: v.label,
-  //     }));
-  //   },
-  // },
   methods: {
     highlighter({ row }) {
       return row.colorClass;
