@@ -194,6 +194,13 @@
               </p>
             </template>
           </el-table-column>
+          <el-table-column label="Specification" width="140" fixed>
+            <template slot-scope="scope">
+              <p :title="scope.row.bomSpecification" class="truncate">
+                {{ scope.row.bomSpecification }}
+              </p>
+            </template>
+          </el-table-column>
           <el-table-column label="Model" width="140">
             <template slot-scope="scope">
               <p :title="scope.row.bomModel" class="truncate">
