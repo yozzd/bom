@@ -29,22 +29,6 @@
               </el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
-          <!--<div class="w-48">
-            <el-select
-              v-model="status"
-              placeholder="Select"
-              class="el-select__primary"
-              @change="handleChange"
-            >
-              <el-option
-                v-for="item in optionsWoStatus"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value"
-              >
-              </el-option>
-            </el-select>
-          </div>-->
           <div class="flex-1"></div>
           <div class="w-64">
             <el-input
@@ -243,27 +227,5 @@ export default {
       });
     },
   },
-  // apollo: {
-  //   getAllLT: {
-  //     query: GetAllLT,
-  //     variables() {
-  //       return {
-  //         status: this.status,
-  //       };
-  //     },
-  //     prefetch: false,
-  //     result({ data, loading }) {
-  //       if (!loading) {
-  //         const { getAllLT } = data;
-  //         this.items = getAllLT;
-  //         this.miniSearch.removeAll();
-  //         this.miniSearch.addAll(this.items);
-  //       }
-  //     },
-  //     error({ graphQLErrors, networkError }) {
-  //       this.errors = graphQLErrors || networkError.result.errors;
-  //     },
-  //   },
-  // },
 };
 </script>
