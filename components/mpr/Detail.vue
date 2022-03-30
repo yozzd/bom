@@ -355,6 +355,19 @@
               </el-popover>
             </template>
           </el-table-column>
+          <el-table-column
+            label="Priority"
+            prop="priority"
+            align="center"
+            width="60"
+          ></el-table-column>
+          <el-table-column
+            label="ETA Status"
+            prop="bomEtaStatus"
+            align="center"
+            width="100"
+          ></el-table-column>
+          <el-table-column label="" min-width="50"></el-table-column>
         </el-table>
       </div>
     </div>
