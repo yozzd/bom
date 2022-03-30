@@ -215,6 +215,16 @@
               </p>
             </template>
           </el-table-column>
+          <el-table-column label="Qty / Unit" width="70">
+            <template slot-scope="scope">
+              {{ scope.row.bomQty }} {{ scope.row.bomUnit }}
+            </template>
+          </el-table-column>
+          <el-table-column label="Qty Rqd" align="center" width="60">
+            <template slot-scope="scope">
+              {{ scope.row.bomQtyRqd | currency }}
+            </template>
+          </el-table-column>
         </el-table>
       </div>
     </div>
