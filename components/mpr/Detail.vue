@@ -29,6 +29,8 @@
               MPR No. : {{ mpr.no }}
             </div>
             <div class="flex-1"></div>
+            <div>Date Of Requirement: {{ mpr.dor }}</div>
+            <div class="flex-1"></div>
             <div>
               <el-popover
                 placement="left"
