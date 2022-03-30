@@ -116,6 +116,47 @@
                 <td>:</td>
                 <td>{{ mpr.requestorName }}</td>
               </tr>
+              <tr>
+                <td class="w-32">
+                  Model
+                </td>
+                <td>:</td>
+                <td class="w-80">
+                  {{ mpr.model }}
+                </td>
+                <td class="w-32">
+                  Product Name
+                </td>
+                <td>:</td>
+                <td>{{ mpr.product }}</td>
+                <td class="w-32">
+                  Product Qty
+                </td>
+                <td>:</td>
+                <td>{{ mpr.unit }}</td>
+              </tr>
+              <tr>
+                <td class="w-32">
+                  Category
+                </td>
+                <td>:</td>
+                <td class="w-80">
+                  <el-tag v-if="mpr.category" type="danger" size="mini">
+                    Urgent
+                  </el-tag>
+                  <el-tag v-else type="info" size="mini">
+                    Standard
+                  </el-tag>
+                </td>
+                <td class="w-32">
+                </td>
+                <td></td>
+                <td></td>
+                <td class="w-32">
+                </td>
+                <td></td>
+                <td></td>
+              </tr>
             </tbody>
           </table>
         </div>
