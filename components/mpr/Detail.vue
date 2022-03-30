@@ -97,6 +97,11 @@
           </div>
         </div>
       </div>
+      <div v-for="h in modules" :key="h.id" class="flex flex-col">
+        <div v-if="h.id" class="text-xs font-bold my-4">
+          {{ h.moduleChar }} {{ h.moduleName }}
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -108,6 +113,8 @@ export default {
   data() {
     return {
       errors: [],
+      mpr: {},
+      modules: [],
     };
   },
   apollo: {
@@ -121,8 +128,9 @@ export default {
       prefetch: false,
       result({ data, loading }) {
         if (!loading) {
-          const { getOneMPR } = data;
-          console.log(getOneMPR);
+          const { getOneMPR: { modules, ...mpr } } = data;
+          this.mpr = mpr;
+          this.modules = modules;
         }
       },
       error({ graphQLErrors, networkError }) {
