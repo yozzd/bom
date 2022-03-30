@@ -30,7 +30,7 @@ const resolvers = {
   MODULE: {
     items: async ({ id, idMpr }) => {
       let item = [];
-      const attributes = ['id', 'bomDescription'];
+      const attributes = ['id', 'idMaterial', 'bomDescription'];
 
       if (id) {
         item = await MPRITEM.findAll({

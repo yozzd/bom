@@ -52,6 +52,7 @@ export const GetOneMPR = gql`
         moduleName
         items {
           id
+          idMaterial
           bomDescription
         }
       }

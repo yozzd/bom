@@ -45,6 +45,7 @@ const typeDefs = `
 
   type ITEM {
     id: Int
+    idMaterial: Int
     bomDescription: String
   }
 `;

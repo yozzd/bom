@@ -101,6 +101,34 @@
         <div v-if="h.id" class="text-xs font-bold my-4">
           {{ h.moduleChar }} {{ h.moduleName }}
         </div>
+        <el-table
+          v-if="h.items.length"
+          :data="h.items"
+          size="mini"
+          border
+          class="mb-4"
+          :row-class-name="highlighter"
+        >
+          <el-table-column
+            type="index"
+            label="No"
+            align="center"
+            width="40"
+            fixed
+          ></el-table-column>
+          <el-table-column label="CD" align="center" width="60" fixed>
+            <template slot-scope="scope">
+              {{ scope.row.idMaterial }}
+            </template>
+          </el-table-column>
+          <el-table-column label="Description" width="140" fixed>
+            <template slot-scope="scope">
+              <p :title="scope.row.bomDescription" class="truncate">
+                {{ scope.row.bomDescription }}
+              </p>
+            </template>
+          </el-table-column>
+        </el-table>
       </div>
     </div>
   </div>
