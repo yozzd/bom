@@ -225,6 +225,28 @@
               {{ scope.row.bomQtyRqd | currency }}
             </template>
           </el-table-column>
+          <el-table-column align="center" width="60">
+            <template slot="header">
+              <p title="Qty Balance" class="truncate">
+                Qty Balance
+              </p>
+            </template>
+            <template slot-scope="scope">
+              <span
+                :class="[{ 'text-red-600': scope.row.bomQtyBalance < 0 }]"
+              >{{ scope.row.bomQtyBalance }}</span>
+            </template>
+          </el-table-column>
+          <el-table-column align="center" width="60">
+            <template slot="header">
+              <p title="Qty Stock @W/H" class="truncate">
+                Qty Stock @W/H
+              </p>
+            </template>
+            <template slot-scope="scope">
+              {{ scope.row.bomQtyStock | currency }}
+            </template>
+          </el-table-column>
         </el-table>
       </div>
     </div>
