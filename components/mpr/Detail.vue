@@ -338,6 +338,23 @@
               </template>
             </el-table-column>
           </el-table-column>
+          <el-table-column label="Remarks" align="center" width="70">
+            <template slot-scope="scope">
+              <el-popover
+                v-if="scope.row.bomRemarks"
+                placement="left"
+                trigger="hover"
+              >
+                <template #default>
+                  <div class="text-xs" v-html="scope.row.bomRemarks"></div>
+                </template>
+                <outline-chat-icon
+                  slot="reference"
+                  class="heroicons w-4 h-4"
+                />
+              </el-popover>
+            </template>
+          </el-table-column>
         </el-table>
       </div>
     </div>
