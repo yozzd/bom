@@ -144,7 +144,8 @@
                   Status
                 </td>
                 <td>:</td>
-                <td>{{ arrWoStatus[0][wo.status] }}</td>
+                <!--<td>{{ arrWoStatus[0][wo.status] }}</td>-->
+                <td></td>
                 <td>
                   1 USD
                 </td>
@@ -455,10 +456,10 @@
 
 <script>
 import { GetOneWO } from '../../../apollo/bom/query';
-import woStatus from '../../../mixins/woStatus';
+import bom from '../../../mixins/bom';
 
 export default {
-  mixins: [woStatus],
+  mixins: [bom],
   data() {
     return {
       customer: {},
@@ -468,13 +469,13 @@ export default {
       errors: [],
     };
   },
-  computed: {
-    arrWoStatus() {
-      return this.optionsWoStatus.map((v) => ({
-        [v.value]: v.label,
-      }));
-    },
-  },
+  // computed: {
+  //   arrWoStatus() {
+  //     return this.optionsWoStatus.map((v) => ({
+  //       [v.value]: v.label,
+  //     }));
+  //   },
+  // },
   methods: {
     highlighter({ row }) {
       return row.colorClass;

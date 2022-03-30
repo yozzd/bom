@@ -17,7 +17,19 @@
 
       <div>
         <div class="flex my-4 space-x-8 items-center">
-          <div class="w-48">
+          <el-dropdown trigger="click" @command="handleCommand">
+            <el-button type="primary">
+              <outline-filter-icon class="heroicons w-4 h-4" />
+              Filter
+              <outline-chevron-down-icon class="heroicons heroicons-right w-4 h-4" />
+            </el-button>
+            <el-dropdown-menu slot="dropdown">
+              <el-dropdown-item command="a">
+                By Status
+              </el-dropdown-item>
+            </el-dropdown-menu>
+          </el-dropdown>
+          <!--<div class="w-48">
             <el-select
               v-model="status"
               placeholder="Select"
@@ -32,7 +44,7 @@
               >
               </el-option>
             </el-select>
-          </div>
+          </div>-->
           <div class="flex-1"></div>
           <div class="w-64">
             <el-input
@@ -107,21 +119,83 @@
           </div>
         </div>
       </div>
+
+      <div v-else>
+        <div class="my-4">
+          <el-alert
+            title="Please select Filter first!"
+            type="info"
+            :closable="false"
+            class="border border-gray-200"
+          >
+          </el-alert>
+        </div>
+      </div>
     </div>
+
+    <el-dialog
+      title="Filter By Status"
+      :visible.sync="showFilterByStatusDialog"
+      :close-on-click-modal="false"
+      :close-on-press-escape="false"
+      width="40%"
+    >
+      <el-form
+        ref="form"
+        :model="form"
+        :rules="rules"
+        :hide-required-asterisk="true"
+        label-position="top"
+      >
+        <el-form-item prop="status">
+          <el-radio-group v-model="form.status">
+            <el-radio
+              v-for="(v, k) in status"
+              :key="k"
+              :label="v"
+              class="blk"
+            ></el-radio>
+          </el-radio-group>
+        </el-form-item>
+      </el-form>
+      <span slot="footer" class="dialog-footer">
+        <el-button
+          type="text"
+          @click="showFilterByStatusDialog = false"
+        >
+          Cancel
+        </el-button>
+        <el-button
+          type="primary"
+          :loading="loading"
+          @click="handleFilterByStatus('form')"
+        >
+          Filter
+        </el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 
 <script>
 import MiniSearch from 'minisearch';
 import table from '../../mixins/table';
-import woStatus from '../../mixins/woStatus';
+import bom from '../../mixins/bom';
 import { GetAllLT } from '../../apollo/bom/query';
 
 export default {
-  mixins: [table, woStatus],
+  mixins: [table, bom],
   data() {
     return {
-      status: 0,
+      showFilterByStatusDialog: false,
+      loading: false,
+      form: {},
+      header: '',
+      rules: {
+        status: [
+          { required: true, message: 'This field is required', trigger: 'change' },
+        ],
+      },
       miniSearch: new MiniSearch({
         idField: 'id',
         fields: ['ltNo', 'customer'],
@@ -130,31 +204,66 @@ export default {
     };
   },
   methods: {
-    handleChange(v) {
-      this.status = v;
+    handleCommand(command) {
+      if (command === 'a') this.showFilterByStatus();
     },
-  },
-  apollo: {
-    getAllLT: {
-      query: GetAllLT,
-      variables() {
-        return {
-          status: this.status,
-        };
-      },
-      prefetch: false,
-      result({ data, loading }) {
-        if (!loading) {
-          const { getAllLT } = data;
+    showFilterByStatus() {
+      this.showFilterByStatusDialog = true;
+    },
+    handleFilterByStatus(form) {
+      this.$refs[form].validate(async (valid) => {
+        if (valid) {
+          this.loading = true;
+          const status = parseInt(
+            (Object.keys(this.status).find((key) => this.status[key] === this.form.status)
+            ), 10,
+          );
+
+          const { data: { getAllLT } } = await this.$apollo.query({
+            query: GetAllLT,
+            variables: { status },
+            prefetch: false,
+            error({ graphQLErrors, networkError }) {
+              this.errors = graphQLErrors || networkError.result.errors;
+            },
+          });
+          this.items = {};
           this.items = getAllLT;
+          this.header = `Status: ${this.form.status}`;
+
+          this.page = 1;
+          this.pageSize = 10;
+
           this.miniSearch.removeAll();
           this.miniSearch.addAll(this.items);
+
+          this.loading = false;
+          this.showFilterByStatusDialog = false;
         }
-      },
-      error({ graphQLErrors, networkError }) {
-        this.errors = graphQLErrors || networkError.result.errors;
-      },
+      });
     },
   },
+  // apollo: {
+  //   getAllLT: {
+  //     query: GetAllLT,
+  //     variables() {
+  //       return {
+  //         status: this.status,
+  //       };
+  //     },
+  //     prefetch: false,
+  //     result({ data, loading }) {
+  //       if (!loading) {
+  //         const { getAllLT } = data;
+  //         this.items = getAllLT;
+  //         this.miniSearch.removeAll();
+  //         this.miniSearch.addAll(this.items);
+  //       }
+  //     },
+  //     error({ graphQLErrors, networkError }) {
+  //       this.errors = graphQLErrors || networkError.result.errors;
+  //     },
+  //   },
+  // },
 };
 </script>
