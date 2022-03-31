@@ -59,6 +59,12 @@ MPR.belongsTo(WO, {
   targetKey: 'id',
 });
 
+MPR.hasMany(MPRITEM, {
+  foreignKey: 'idMpr',
+  targetKey: 'id',
+});
+MPRITEM.belongsTo(MPR);
+
 module.exports = {
   LT,
   WO,

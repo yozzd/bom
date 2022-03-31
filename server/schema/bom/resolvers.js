@@ -1,8 +1,7 @@
 const { Op } = require('sequelize');
 const sequelize = require('../../config/db');
 const {
-  LT, WO, WOMODULE, WOITEM,
-  OUTSTANDINGPO,
+  LT, WO, WOMODULE, WOITEM, OUTSTANDINGPO,
 } = require('../relations');
 const { isAuthenticated } = require('../auth/service');
 
@@ -27,7 +26,7 @@ const resolvers = {
         group: ['wos.id'],
         where: { id },
         order: [
-          [sequelize.literal('LENGTH(wo_no), wo_no')],
+          [sequelize.literal('LENGTH(wos.wo_no), wos.wo_no')],
         ],
         include: [{
           model: WO,
