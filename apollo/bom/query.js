@@ -22,36 +22,59 @@ export const GetAllLT = gql`
 export const GetOneLT = gql`
   query getOneLT($id: Int, $status: Int) {
     getOneLT(id: $id, status: $status) {
-      id
-      ltNo
-      customer {
-        name
-        contractDeadLine
-        productionDeadLine
-      }
-      totalBudget
-      totalPriceWO
-      wos {
+      lt {
         id
-        woNo
-        model
-        product
-        issued
-        unit
-        budget
-        stage
-        totalIncoming
-        totalValidation
-        totalItems
-        percentIncoming
-        percentValidation
-        totalPricePerUnit
-        totalPricePerWO
-        difference
-        totalYetToPurchase
-        totalDeviation
-        totalPackingPerUnit
-        totalPackingPerWO
+        ltNo
+        customer {
+          name
+          contractDeadLine
+          productionDeadLine
+        }
+        totalBudget
+        totalPriceWO
+        wos {
+          id
+          woNo
+          model
+          product
+          issued
+          unit
+          budget
+          stage
+          totalIncoming
+          totalValidation
+          totalItems
+          percentIncoming
+          percentValidation
+          totalPricePerUnit
+          totalPricePerWO
+          difference
+          totalYetToPurchase
+          totalDeviation
+          totalPackingPerUnit
+          totalPackingPerWO
+        }
+      }
+      ltMpr {
+        id
+        ltNo
+        totalBudget
+        totalPriceWO
+        wos {
+          id
+          woNo
+          unit
+          totalIncoming
+          totalValidation
+          totalItems
+          percentIncoming
+          percentValidation
+          totalPricePerUnit
+          totalPricePerWO
+          totalYetToPurchase
+          totalPackingPerUnit
+          totalPackingPerWO
+        }
       }
     }
   }

@@ -1,8 +1,13 @@
 const typeDefs = `
   extend type Query {
     getAllLT(status: Int): [LT]
-    getOneLT(id: Int, status: Int): LT
+    getOneLT(id: Int, status: Int): LTGroup
     getOneWO(idLt:Int, id: Int): WODetail
+  }
+
+  type LTGroup {
+    lt: LT
+    ltMpr: LTMPR
   }
 
   type WODetail {
@@ -99,6 +104,33 @@ const typeDefs = `
     name: String
     contractDeadLine: String
     productionDeadLine: String
+  }
+  
+  type LTMPR {
+    id: Int
+    ltNo: String
+    customer: customerType
+    totalBudget: Float
+    totalPriceWO: Float
+    wos: [WOMPR]
+  }
+  
+  type WOMPR {
+    id: Int
+    woNo: String
+    unit: Int
+    totalIncoming: Int
+    totalValidation: Int
+    totalItems: Int
+    percentIncoming: Float
+    percentValidation: Float
+    totalPricePerUnit: Float
+    totalPricePerWO: Float
+    totalMaterialsProcessed: Float
+    totalYetToPurchase: Float
+    totalPackingPerUnit: Float
+    totalPackingPerWO: Float
+    mprs: [MPR]
   }
 `;
 

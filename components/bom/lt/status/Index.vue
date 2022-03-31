@@ -282,13 +282,34 @@ export default {
         };
       },
       prefetch: false,
-      result({ data, loading }) {
+      async result({ data, loading }) {
         if (!loading) {
           const {
-            getOneLT: { wos, ...lt },
+            getOneLT: { lt: { wos, ...lt }, ltMpr: { wos: wosMpr, ...ltMpr } },
           } = data;
-          this.lt = lt;
-          this.items = wos;
+
+          const mergeLt = { ...lt };
+          mergeLt.totalPriceWO += ltMpr.totalPriceWO;
+
+          const mergeWos = await Promise.all(wos.map((v, i) => {
+            const item = { ...v };
+            item.totalIncoming += wosMpr[i].totalIncoming;
+            item.totalItems += wosMpr[i].totalItems;
+            item.totalValidation += wosMpr[i].totalValidation;
+            item.totalPricePerUnit += wosMpr[i].totalPricePerUnit;
+            item.totalPricePerWO += wosMpr[i].totalPricePerWO;
+            item.totalPackingPerUnit += wosMpr[i].totalPackingPerUnit;
+            item.totalPackingPerWO += wosMpr[i].totalPackingPerWO;
+            item.totalYetToPurchase += wosMpr[i].totalYetToPurchase;
+            item.difference -= wosMpr[i].totalPricePerWO;
+            item.percentIncoming = (item.totalIncoming / item.totalItems) * 100;
+            item.percentValidation = (item.totalValidation / item.totalItems) * 100;
+            return item;
+          }));
+
+          this.lt = mergeLt;
+          this.items = mergeWos;
+
           this.miniSearch.removeAll();
           this.miniSearch.addAll(this.items);
         }

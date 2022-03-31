@@ -1,7 +1,7 @@
 const { Op } = require('sequelize');
 const sequelize = require('../../config/db');
 const {
-  LT, WO, WOMODULE, WOITEM, OUTSTANDINGPO,
+  LT, WO, WOMODULE, WOITEM, MPR, MPRITEM, OUTSTANDINGPO,
 } = require('../relations');
 const { isAuthenticated } = require('../auth/service');
 
@@ -58,7 +58,42 @@ const resolvers = {
         }],
       });
 
-      return lt;
+      const ltMpr = await LT.findOne({
+        attributes: ['id', 'ltNo', 'totalBudget', 'totalPriceWO'],
+        group: ['wos.id'],
+        where: { id },
+        order: [
+          [sequelize.literal('LENGTH(wos.wo_no), wos.wo_no')],
+        ],
+        include: [{
+          model: WO,
+          attributes: [
+            'id', 'woNo', 'unit',
+            [sequelize.literal('COUNT(CASE WHEN `wos->mprs->items`.bom_qty_balance >= 0 AND `wos->mprs->items`.packing = 0 THEN 1 ELSE NULL END)'), 'totalIncoming'],
+            [sequelize.literal('COUNT(CASE WHEN `wos->mprs->items`.validasi AND `wos->mprs->items`.packing = 0 THEN 1 ELSE NULL END)'), 'totalValidation'],
+            [sequelize.literal('COUNT(CASE WHEN `wos->mprs->items`.packing = 0 THEN 1 ELSE NULL END)'), 'totalItems'],
+            [sequelize.literal('SUM(CASE WHEN `wos->mprs->items`.packing = 0 THEN `wos->mprs->items`.bom_usd_total ELSE 0 END)'), 'totalPricePerWO'],
+            [sequelize.literal('SUM(`wos->mprs->items`.yet_to_purchase)'), 'totalYetToPurchase'],
+            [sequelize.literal('SUM(CASE WHEN `wos->mprs->items`.packing THEN `wos->mprs->items`.bom_usd_total ELSE 0 END)'), 'totalPackingPerWO'],
+          ],
+          where: { status },
+          include: [{
+            model: MPR,
+            attributes: [],
+            include: [{
+              model: MPRITEM,
+              attributes: [],
+              where: {
+                [Op.and]: [
+                  { cancel: 0 },
+                ],
+              },
+            }],
+          }],
+        }],
+      });
+
+      return { lt, ltMpr };
     }),
     getOneWO: isAuthenticated(async (_, { idLt, id }) => {
       const lt = await LT.findOne({

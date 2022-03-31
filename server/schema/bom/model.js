@@ -134,13 +134,19 @@ const WO = sequelize.define('wo', {
   percentIncoming: {
     type: DataTypes.VIRTUAL,
     get() {
-      return (this.totalIncoming / this.totalItems) * 100;
+      if (this.totalIncoming && this.totalItems) {
+        return (this.totalIncoming / this.totalItems) * 100;
+      }
+      return 0;
     },
   },
   percentValidation: {
     type: DataTypes.VIRTUAL,
     get() {
-      return (this.totalValidation / this.totalItems) * 100;
+      if (this.totalValidation && this.totalItems) {
+        return (this.totalValidation / this.totalItems) * 100;
+      }
+      return 0;
     },
   },
   totalPricePerWO: {
