@@ -106,7 +106,7 @@
         <el-table-column
           label="Incoming"
           align="center"
-          width="80"
+          width="90"
         >
           <template slot-scope="scope">
             {{ scope.row.totalIncoming }} / {{ scope.row.totalItems }}
@@ -128,7 +128,7 @@
         <el-table-column
           label="Validation"
           align="center"
-          width="70"
+          width="90"
         >
           <template slot-scope="scope">
             {{ scope.row.totalValidation }} / {{ scope.row.totalItems }}
