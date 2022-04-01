@@ -451,7 +451,7 @@
       </div>
       <div v-for="mpr in mprs" :key="mpr.id">
         <div class="flex flex-col my-4">
-          <div class="flex font-bold  mb-4">
+          <div class="flex font-bold text-xs  mb-4">
             <div class="flex flex-1">
               <div>MPR No. :</div>
               <div class="flex ml-2">
@@ -477,7 +477,7 @@
             <div>Approved By MRP: {{ mpr.bomTimestamp }}</div>
           </div>
           <div v-for="module in mpr.modules" :key="module.id">
-            <div v-if="module.id" class="font-bold text-xs my-4">
+            <div class="font-bold text-xs my-4">
               {{ module.moduleChar }} {{ module.moduleName }}
             </div>
             <el-table
