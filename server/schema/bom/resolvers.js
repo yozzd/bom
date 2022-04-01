@@ -5,6 +5,17 @@ const {
 } = require('../relations');
 const { isAuthenticated } = require('../auth/service');
 
+const itemAttributes = [
+  'id', 'idMaterial', 'bomDescription', 'bomSpecification',
+  'bomModel', 'bomBrand', 'bomQty', 'bomUnit', 'bomQtyRqd',
+  'bomQtyBalance', 'bomQtyStock', 'bomEta', 'bomQtyRec',
+  'bomDateRec', 'bomCurrSizeC', 'bomCurrSizeV', 'bomCurrEaC',
+  'bomCurrEaV', 'bomUsdEa', 'bomUsdUnit', 'bomUsdTotal',
+  'materialsProcessed', 'yetToPurchase', 'bomSupplier',
+  'bomPoDate', 'bomPoNo', 'bomRemarks', 'priority', 'bomEtaStatus',
+  'validasi', 'hold', 'cancel', 'colorClass',
+];
+
 const resolvers = {
   Query: {
     getAllLT: isAuthenticated(async (_, { status }) => {
@@ -156,16 +167,7 @@ const resolvers = {
           attributes: ['id', 'hid', 'header'],
           include: [{
             model: WOITEM,
-            attributes: [
-              'id', 'idMaterial', 'bomDescription', 'bomSpecification',
-              'bomModel', 'bomBrand', 'bomQty', 'bomUnit', 'bomQtyRqd',
-              'bomQtyBalance', 'bomQtyStock', 'bomEta', 'bomQtyRec',
-              'bomDateRec', 'bomCurrSizeC', 'bomCurrSizeV', 'bomCurrEaC',
-              'bomCurrEaV', 'bomUsdEa', 'bomUsdUnit', 'bomUsdTotal',
-              'materialsProcessed', 'yetToPurchase', 'bomSupplier',
-              'bomPoDate', 'bomPoNo', 'bomRemarks', 'priority', 'bomEtaStatus',
-              'validasi', 'hold', 'cancel', 'colorClass',
-            ],
+            attributes: itemAttributes,
             where: {
               idHeader: { [Op.not]: null },
             },
