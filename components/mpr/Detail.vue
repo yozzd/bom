@@ -168,7 +168,7 @@
         </div>
       </div>
       <div v-for="h in modules" :key="h.id" class="flex flex-col">
-        <div v-if="h.id" class="text-xs font-bold my-4">
+        <div class="text-xs font-bold my-4">
           {{ h.moduleChar }} {{ h.moduleName }}
         </div>
         <el-table
