@@ -229,7 +229,7 @@
         </el-table-column>
         <el-table-column
           align="center"
-          width="70"
+          width="90"
         >
           <template slot="header">
             <p title="% Validation" class="truncate">
@@ -237,7 +237,38 @@
             </p>
           </template>
           <template slot-scope="scope">
-            {{ scope.row.percentValidation | currency }}%
+            <div class="flex items-center">
+              <div class="flex-1">
+                {{ scope.row.percentValidation | currency }}%
+              </div>
+              <div>
+                <el-popover
+                  trigger="hover"
+                  placement="right"
+                >
+                  <template #default>
+                    <table class="plain">
+                      <tbody>
+                        <tr>
+                          <td>BOM</td>
+                          <td>:</td>
+                          <td>{{ scope.row.bomPercentValidation | currency }}%</td>
+                        </tr>
+                        <tr>
+                          <td>MPR</td>
+                          <td>:</td>
+                          <td>{{ scope.row.mprPercentValidation | currency }}%</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </template>
+                  <outline-information-circle-icon
+                    slot="reference"
+                    class="heroicons w-4 h-4 text-blue-600"
+                  />
+                </el-popover>
+              </div>
+            </div>
           </template>
         </el-table-column>
         <el-table-column prop="unit" label="Unit" align="center" width="50"></el-table-column>
@@ -393,6 +424,8 @@ export default {
             item.mprPercentIncoming = wosMpr[i].percentIncoming;
             item.bomValidation = item.totalValidation;
             item.mprValidation = wosMpr[i].totalValidation;
+            item.bomPercentValidation = item.percentValidation;
+            item.mprPercentValidation = wosMpr[i].percentValidation;
             item.totalIncoming += wosMpr[i].totalIncoming;
             item.totalItems += wosMpr[i].totalItems;
             item.totalValidation += wosMpr[i].totalValidation;
