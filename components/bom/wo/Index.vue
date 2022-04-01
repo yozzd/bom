@@ -485,11 +485,12 @@ export default {
       prefetch: false,
       result({ data, loading }) {
         if (!loading) {
-          const { getOneWO: { lt: { customer, wos: [wos] }, wo: { modules, ...wo } } } = data;
+          const { getOneWO: { lt: { customer, wos: [wos] }, wo: { modules, ...wo } }, mpr } = data;
           this.customer = customer;
           this.total = wos;
           this.wo = wo;
           this.modules = modules;
+          console.log(mpr);
         }
       },
       error({ graphQLErrors, networkError }) {

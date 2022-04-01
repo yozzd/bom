@@ -1,7 +1,7 @@
 const { Op } = require('sequelize');
 const sequelize = require('../../config/db');
 const {
-  LT, WO, WOMODULE, WOITEM, MPR, MPRITEM, OUTSTANDINGPO,
+  LT, WO, WOMODULE, WOITEM, MPR, MPRMODULE, MPRITEM, OUTSTANDINGPO,
 } = require('../relations');
 const { isAuthenticated } = require('../auth/service');
 
@@ -17,6 +17,49 @@ const itemAttributes = [
 ];
 
 const resolvers = {
+  MPR: {
+    modules: async ({ id }) => {
+      const module = await MPRMODULE.findAll({
+        attributes: ['id', 'moduleChar', 'moduleName'],
+        where: { idMpr: id },
+        required: false,
+      });
+
+      if (module.length) return module;
+      return [{
+        id: 0, moduleChar: '', moduleName: '', idMpr: id,
+      }];
+    },
+  },
+  MPRMODULE: {
+    items: async ({ id, idMpr }) => {
+      let item = [];
+
+      const include = [{
+        model: OUTSTANDINGPO,
+        attributes: ['poStatus', 'poArrival', 'poNo'],
+        required: false,
+      }];
+
+      if (id) {
+        item = await MPRITEM.findAll({
+          attributes: itemAttributes,
+          where: { idModule: id },
+          required: false,
+          include,
+        });
+      } else {
+        item = await MPRITEM.findAll({
+          attributes: itemAttributes,
+          where: { idMpr },
+          required: false,
+          include,
+        });
+      }
+
+      return item;
+    },
+  },
   Query: {
     getAllLT: isAuthenticated(async (_, { status }) => {
       const lt = await LT.findAll({
@@ -181,7 +224,17 @@ const resolvers = {
         }],
       });
 
-      return { lt, wo };
+      const mpr = await WO.findOne({
+        attributes: ['id', 'woNo'],
+        where: { id },
+        include: [{
+          model: MPR,
+          attributes: ['id', 'no'],
+          required: false,
+        }],
+      });
+
+      return { lt, wo, mpr };
     }),
   },
   Mutation: {},

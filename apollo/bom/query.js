@@ -159,6 +159,51 @@ export const GetOneWO = gql`
           }
         }
       }
+      mpr {
+        id
+        woNo
+        mprs {
+          id
+          no
+          modules {
+            id
+            moduleChar
+            moduleName
+            items {
+              id
+              idMaterial
+              bomDescription
+              bomSpecification
+              bomModel
+              bomBrand
+              bomQty
+              bomUnit
+              bomQtyRqd
+              bomQtyBalance
+              bomQtyStock
+              bomEta
+              bomQtyRec
+              bomDateRec
+              bomCurrSizeC
+              bomCurrSizeV
+              bomCurrEaC
+              bomCurrEaV
+              bomUsdEa
+              bomUsdUnit
+              bomUsdTotal
+              materialsProcessed
+              yetToPurchase
+              bomSupplier
+              bomPoDate
+              bomPoNo
+              bomRemarks
+              priority
+              bomEtaStatus
+              colorClass
+            }
+          }
+        }
+      }
     }
   }
 `;
