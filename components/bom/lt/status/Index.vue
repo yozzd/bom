@@ -159,10 +159,41 @@
         <el-table-column
           label="Validation"
           align="center"
-          width="90"
+          width="110"
         >
           <template slot-scope="scope">
-            {{ scope.row.totalValidation }} / {{ scope.row.totalItems }}
+            <div class="flex items-center">
+              <div class="flex-1">
+                {{ scope.row.totalValidation }} / {{ scope.row.totalItems }}
+              </div>
+              <div>
+                <el-popover
+                  trigger="hover"
+                  placement="right"
+                >
+                  <template #default>
+                    <table class="plain">
+                      <tbody>
+                        <tr>
+                          <td>BOM</td>
+                          <td>:</td>
+                          <td>{{ scope.row.bomValidation }}</td>
+                        </tr>
+                        <tr>
+                          <td>MPR</td>
+                          <td>:</td>
+                          <td>{{ scope.row.mprValidation }}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </template>
+                  <outline-information-circle-icon
+                    slot="reference"
+                    class="heroicons w-4 h-4 text-blue-600"
+                  />
+                </el-popover>
+              </div>
+            </div>
           </template>
         </el-table-column>
         <el-table-column
@@ -327,6 +358,8 @@ export default {
             const item = { ...v };
             item.bomIncoming = item.totalIncoming;
             item.mprIncoming = wosMpr[i].totalIncoming;
+            item.bomValidation = item.totalValidation;
+            item.mprValidation = wosMpr[i].totalValidation;
             item.totalIncoming += wosMpr[i].totalIncoming;
             item.totalItems += wosMpr[i].totalItems;
             item.totalValidation += wosMpr[i].totalValidation;
