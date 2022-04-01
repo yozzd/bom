@@ -96,6 +96,7 @@ export const GetOneWO = gql`
           budget
           totalPricePerWO
           difference
+          totalMaterialsProcessed
           totalYetToPurchase
           totalDeviation
           totalPackingPerUnit
@@ -157,6 +158,19 @@ export const GetOneWO = gql`
             bomEtaStatus
             colorClass
           }
+        }
+      }
+      ltMpr {
+        id
+        ltNo
+        wos {
+          unit
+          totalPricePerUnit
+          totalPricePerWO
+          totalMaterialsProcessed
+          totalYetToPurchase
+          totalPackingPerUnit
+          totalPackingPerWO
         }
       }
       mpr {

@@ -224,6 +224,47 @@ const resolvers = {
         }],
       });
 
+      const ltMpr = await LT.findOne({
+        attributes: ['id', 'ltNo'],
+        where: { id: idLt },
+        required: false,
+        include: [{
+          model: WO,
+          attributes: [
+            'unit', 'totalPackingPerUnit',
+            [sequelize.literal('SUM(CASE WHEN `wos->mprs->items`.packing = 0 THEN `wos->mprs->items`.bom_usd_total ELSE 0 END)'), 'totalPricePerWO'],
+            [sequelize.literal('SUM(`wos->mprs->items`.materials_processed)'), 'totalMaterialsProcessed'],
+            [sequelize.literal('SUM(`wos->mprs->items`.yet_to_purchase)'), 'totalYetToPurchase'],
+            [sequelize.literal('SUM(CASE WHEN `wos->mprs->items`.packing THEN `wos->mprs->items`.bom_usd_total ELSE 0 END)'), 'totalPackingPerWO'],
+          ],
+          where: { id },
+          required: false,
+          include: [{
+            model: MPR,
+            attributes: [],
+            where: {
+              [Op.and]: [
+                { cancel: 0 },
+                { whApproved: 1 },
+                { managerApproved: 1 },
+                { bomApproved: 1 },
+              ],
+            },
+            required: false,
+            include: [{
+              model: MPRITEM,
+              attributes: [],
+              where: {
+                [Op.and]: [
+                  { cancel: 0 },
+                ],
+              },
+              required: false,
+            }],
+          }],
+        }],
+      });
+
       const mpr = await WO.findOne({
         attributes: ['id', 'woNo'],
         where: { id },
@@ -236,7 +277,9 @@ const resolvers = {
         }],
       });
 
-      return { lt, wo, mpr };
+      return {
+        lt, wo, ltMpr, mpr,
+      };
     }),
   },
   Mutation: {},
