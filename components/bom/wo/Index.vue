@@ -27,6 +27,7 @@
           ITEMS
         </el-breadcrumb-item>
       </el-breadcrumb>
+
       <div class="flex space-x-4 items-center">
         <div class="flex flex-col space-y-4 w-full my-4">
           <div class="flex space-x-8 items-center">
@@ -358,12 +359,12 @@
             </el-table-column>
             <el-table-column label="USD / Ea" align="right" width="100">
               <template slot-scope="scope">
-                {{ scope.row.bomUsdEa | currency }}
+                USD {{ scope.row.bomUsdEa | currency }}
               </template>
             </el-table-column>
             <el-table-column label="USD / Unit" align="right" width="100">
               <template slot-scope="scope">
-                {{ scope.row.bomUsdUnit | currency }}
+                USD {{ scope.row.bomUsdUnit | currency }}
               </template>
             </el-table-column>
           </el-table-column>
@@ -374,7 +375,7 @@
               </p>
             </template>
             <template slot-scope="scope">
-              {{ scope.row.bomUsdTotal | currency }}
+              USD {{ scope.row.bomUsdTotal | currency }}
             </template>
           </el-table-column>
           <el-table-column align="right" width="100">
@@ -384,7 +385,7 @@
               </p>
             </template>
             <template slot-scope="scope">
-              {{ scope.row.materialsProcessed | currency }}
+              USD {{ scope.row.materialsProcessed | currency }}
             </template>
           </el-table-column>
           <el-table-column align="right" width="100">
@@ -394,7 +395,7 @@
               </p>
             </template>
             <template slot-scope="scope">
-              {{ scope.row.yetToPurchase | currency }}
+              USD {{ scope.row.yetToPurchase | currency }}
             </template>
           </el-table-column>
           <el-table-column label="Supplier" width="140">
@@ -592,12 +593,12 @@
                 </el-table-column>
                 <el-table-column label="USD / Ea" align="right" width="100">
                   <template slot-scope="scope">
-                    {{ scope.row.bomUsdEa | currency }}
+                    USD {{ scope.row.bomUsdEa | currency }}
                   </template>
                 </el-table-column>
                 <el-table-column label="USD / Unit" align="right" width="100">
                   <template slot-scope="scope">
-                    {{ scope.row.bomUsdUnit | currency }}
+                    USD {{ scope.row.bomUsdUnit | currency }}
                   </template>
                 </el-table-column>
               </el-table-column>
@@ -608,7 +609,7 @@
                   </p>
                 </template>
                 <template slot-scope="scope">
-                  {{ scope.row.bomUsdTotal | currency }}
+                  USD {{ scope.row.bomUsdTotal | currency }}
                 </template>
               </el-table-column>
               <el-table-column align="right" width="100">
@@ -618,7 +619,7 @@
                   </p>
                 </template>
                 <template slot-scope="scope">
-                  {{ scope.row.materialsProcessed | currency }}
+                  USD {{ scope.row.materialsProcessed | currency }}
                 </template>
                 <el-table-column align="right" width="100">
                   <template slot="header">
@@ -627,7 +628,7 @@
                     </p>
                   </template>
                   <template slot-scope="scope">
-                    {{ scope.row.yetToPurchase | currency }}
+                    USD {{ scope.row.yetToPurchase | currency }}
                   </template>
                 </el-table-column>
                 <el-table-column label="Supplier" width="140">
