@@ -455,7 +455,7 @@
           <el-tab-pane label="MPR">
             <div v-for="mpr in mprs" :key="mpr.id">
               <div class="flex flex-col my-4">
-                <div class="flex font-bold text-xs  mb-4">
+                <div class="flex font-bold text-xs">
                   <div class="flex flex-1">
                     <div>MPR No. :</div>
                     <div class="flex ml-2">
