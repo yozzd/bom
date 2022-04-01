@@ -182,6 +182,9 @@ const WO = sequelize.define('wo', {
       return this.totalPackingPerWO / this.unit;
     },
   },
+  totalMpr: {
+    type: DataTypes.VIRTUAL,
+  },
 }, {
   tableName: 'bom_wo',
   underscored: true,

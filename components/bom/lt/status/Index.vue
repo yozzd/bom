@@ -148,6 +148,7 @@
           </template>
         </el-table-column>
         <el-table-column prop="unit" label="Unit" align="center" width="50"></el-table-column>
+        <el-table-column prop="totalMpr" label="MPR" align="center" width="50"></el-table-column>
         <el-table-column
           label="Budget (USD)"
           align="right"
@@ -301,6 +302,7 @@ export default {
             item.totalPackingPerUnit += wosMpr[i].totalPackingPerUnit;
             item.totalPackingPerWO += wosMpr[i].totalPackingPerWO;
             item.totalYetToPurchase += wosMpr[i].totalYetToPurchase;
+            item.totalMpr = wosMpr[i].totalMpr;
             item.difference -= wosMpr[i].totalPricePerWO;
             item.percentIncoming = (item.totalIncoming / item.totalItems) * 100;
             item.percentValidation = (item.totalValidation / item.totalItems) * 100;

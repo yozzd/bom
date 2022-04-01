@@ -130,6 +130,7 @@ const typeDefs = `
     totalYetToPurchase: Float
     totalPackingPerUnit: Float
     totalPackingPerWO: Float
+    totalMpr: Int
     mprs: [MPR]
   }
 `;

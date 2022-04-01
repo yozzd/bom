@@ -74,6 +74,7 @@ export const GetOneLT = gql`
           totalYetToPurchase
           totalPackingPerUnit
           totalPackingPerWO
+          totalMpr
         }
       }
     }

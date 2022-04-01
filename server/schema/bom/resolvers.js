@@ -28,6 +28,7 @@ const resolvers = {
         order: [
           [sequelize.literal('LENGTH(wos.wo_no), wos.wo_no')],
         ],
+        required: false,
         include: [{
           model: WO,
           attributes: [
@@ -41,6 +42,7 @@ const resolvers = {
             [sequelize.literal('SUM(CASE WHEN `wos->modules->items`.packing THEN `wos->modules->items`.bom_usd_total ELSE 0 END)'), 'totalPackingPerWO'],
           ],
           where: { status },
+          required: false,
           include: [{
             model: WOMODULE,
             attributes: [],
@@ -53,6 +55,7 @@ const resolvers = {
                   { idHeader: { [Op.not]: null } },
                 ],
               },
+              required: false,
             }],
           }],
         }],
@@ -65,6 +68,7 @@ const resolvers = {
         order: [
           [sequelize.literal('LENGTH(wos.wo_no), wos.wo_no')],
         ],
+        required: false,
         include: [{
           model: WO,
           attributes: [
@@ -75,11 +79,22 @@ const resolvers = {
             [sequelize.literal('SUM(CASE WHEN `wos->mprs->items`.packing = 0 THEN `wos->mprs->items`.bom_usd_total ELSE 0 END)'), 'totalPricePerWO'],
             [sequelize.literal('SUM(`wos->mprs->items`.yet_to_purchase)'), 'totalYetToPurchase'],
             [sequelize.literal('SUM(CASE WHEN `wos->mprs->items`.packing THEN `wos->mprs->items`.bom_usd_total ELSE 0 END)'), 'totalPackingPerWO'],
+            [sequelize.literal('COUNT(DISTINCT `wos->mprs`.id)'), 'totalMpr'],
           ],
           where: { status },
+          required: false,
           include: [{
             model: MPR,
             attributes: [],
+            where: {
+              [Op.and]: [
+                { cancel: 0 },
+                { whApproved: 1 },
+                { managerApproved: 1 },
+                { bomApproved: 1 },
+              ],
+            },
+            required: false,
             include: [{
               model: MPRITEM,
               attributes: [],
@@ -88,6 +103,7 @@ const resolvers = {
                   { cancel: 0 },
                 ],
               },
+              required: false,
             }],
           }],
         }],
