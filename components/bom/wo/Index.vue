@@ -449,11 +449,15 @@
           <el-table-column label="" min-width="50"></el-table-column>
         </el-table>
       </div>
-      <div v-for="mpr in mprs" :key="mpr.id" class="flex flex-col">
-        <div>
-          <div>{{ mpr.no }}</div>
+      <div v-for="mpr in mprs" :key="mpr.id">
+        <div class="flex flex-col my-4">
+          <div class="mb-4">
+            {{ mpr.no }}
+          </div>
           <div v-for="module in mpr.modules" :key="module.id">
-            <div>{{ module.moduleChar }} {{ module.moduleName }}</div>
+            <div v-if="module.id" class="font-bold text-xs mb-4">
+              {{ module.moduleChar }} {{ module.moduleName }}
+            </div>
             <el-table
               v-if="module.items.length"
               :data="module.items"
