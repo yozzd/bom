@@ -73,7 +73,6 @@
                   <div class="flex">
                     <nuxt-link
                       :to="{ name: 'mpr-id', params: { id: scope.row.id } }"
-                      :title="scope.row.woNo"
                       class="flex-1 truncate"
                     >
                       {{ scope.row.no }}

@@ -452,8 +452,24 @@
       <div v-for="mpr in mprs" :key="mpr.id">
         <div class="flex flex-col my-4">
           <div class="flex font-bold  mb-4">
-            <div class="flex-1">
-              MPR {{ mpr.no }}
+            <div class="flex flex-1">
+              <div>MPR No. :</div>
+              <div class="flex ml-2">
+                <nuxt-link
+                  :to="{ name: 'mpr-id', params: { id: mpr.id } }"
+                  class="flex-1 truncate"
+                >
+                  {{ mpr.no }}
+                </nuxt-link>
+                <a
+                  :href="`/mpr/${mpr.id}`"
+                  title="Open in new tab"
+                  target="_blank"
+                  class="ml-2"
+                >
+                  <outline-external-link-icon class="heroicons w-4 h-4" />
+                </a>
+              </div>
             </div>
             <div class="flex-1">
               Requestor: {{ mpr.requestorName }}
@@ -461,7 +477,7 @@
             <div>Approved By MRP: {{ mpr.bomTimestamp }}</div>
           </div>
           <div v-for="module in mpr.modules" :key="module.id">
-            <div v-if="module.id" class="font-bold text-xs mb-4">
+            <div v-if="module.id" class="font-bold text-xs my-4">
               {{ module.moduleChar }} {{ module.moduleName }}
             </div>
             <el-table
