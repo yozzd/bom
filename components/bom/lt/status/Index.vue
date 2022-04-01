@@ -106,10 +106,41 @@
         <el-table-column
           label="Incoming"
           align="center"
-          width="90"
+          width="110"
         >
           <template slot-scope="scope">
-            {{ scope.row.totalIncoming }} / {{ scope.row.totalItems }}
+            <div class="flex items-center">
+              <div class="flex-1">
+                {{ scope.row.totalIncoming }} / {{ scope.row.totalItems }}
+              </div>
+              <div>
+                <el-popover
+                  trigger="hover"
+                  placement="right"
+                >
+                  <template #default>
+                    <table class="plain">
+                      <tbody>
+                        <tr>
+                          <td>BOM</td>
+                          <td>:</td>
+                          <td>{{ scope.row.bomIncoming }}</td>
+                        </tr>
+                        <tr>
+                          <td>MPR</td>
+                          <td>:</td>
+                          <td>{{ scope.row.mprIncoming }}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </template>
+                  <outline-information-circle-icon
+                    slot="reference"
+                    class="heroicons w-4 h-4 text-blue-600"
+                  />
+                </el-popover>
+              </div>
+            </div>
           </template>
         </el-table-column>
         <el-table-column
@@ -294,6 +325,8 @@ export default {
 
           const mergeWos = await Promise.all(wos.map((v, i) => {
             const item = { ...v };
+            item.bomIncoming = item.totalIncoming;
+            item.mprIncoming = wosMpr[i].totalIncoming;
             item.totalIncoming += wosMpr[i].totalIncoming;
             item.totalItems += wosMpr[i].totalItems;
             item.totalValidation += wosMpr[i].totalValidation;
