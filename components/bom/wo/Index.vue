@@ -451,8 +451,14 @@
       </div>
       <div v-for="mpr in mprs" :key="mpr.id">
         <div class="flex flex-col my-4">
-          <div class="mb-4">
-            {{ mpr.no }}
+          <div class="flex font-bold  mb-4">
+            <div class="flex-1">
+              MPR {{ mpr.no }}
+            </div>
+            <div class="flex-1">
+              Requestor: {{ mpr.requestorName }}
+            </div>
+            <div>Approved By MRP: {{ mpr.bomTimestamp }}</div>
           </div>
           <div v-for="module in mpr.modules" :key="module.id">
             <div v-if="module.id" class="font-bold text-xs mb-4">

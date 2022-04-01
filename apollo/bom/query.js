@@ -165,6 +165,8 @@ export const GetOneWO = gql`
         mprs {
           id
           no
+          requestorName
+          bomTimestamp
           modules {
             id
             moduleChar

@@ -229,7 +229,9 @@ const resolvers = {
         where: { id },
         include: [{
           model: MPR,
-          attributes: ['id', 'no'],
+          attributes: [
+            'id', 'no', 'requestorName', 'bomTimestamp',
+          ],
           required: false,
         }],
       });
