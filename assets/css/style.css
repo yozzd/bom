@@ -222,3 +222,7 @@ table.plain {
 .el-breadcrumb__inner a {
   @apply text-blue-600;
 }
+
+.el-tabs--border-card {
+  @apply shadow-none;
+}
