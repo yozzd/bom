@@ -186,12 +186,7 @@ const resolvers = {
             include: [{
               model: WOITEM,
               attributes: [],
-              where: {
-                [Op.and]: [
-                  { cancel: 0 },
-                  { idHeader: { [Op.not]: null } },
-                ],
-              },
+              where: { cancel: 0 },
             }],
           }],
         }],
@@ -211,9 +206,7 @@ const resolvers = {
           include: [{
             model: WOITEM,
             attributes: itemAttributes,
-            where: {
-              idHeader: { [Op.not]: null },
-            },
+            where: { cancel: 0 },
             required: false,
             include: [{
               model: OUTSTANDINGPO,
@@ -254,11 +247,7 @@ const resolvers = {
             include: [{
               model: MPRITEM,
               attributes: [],
-              where: {
-                [Op.and]: [
-                  { cancel: 0 },
-                ],
-              },
+              where: { cancel: 0 },
               required: false,
             }],
           }],
