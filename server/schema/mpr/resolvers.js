@@ -1,4 +1,5 @@
 const fs = require('fs');
+const { Op } = require('sequelize');
 const {
   WO, MPR, MPRMODULE, MPRITEM, OUTSTANDINGPO,
 } = require('../relations');
@@ -51,14 +52,24 @@ const resolvers = {
       if (id) {
         item = await MPRITEM.findAll({
           attributes,
-          where: { idModule: id },
+          where: {
+            [Op.and]: [
+              { idModule: id },
+              { idHeader: { [Op.is]: null } },
+            ],
+          },
           required: false,
           include,
         });
       } else {
         item = await MPRITEM.findAll({
           attributes,
-          where: { idMpr },
+          where: {
+            [Op.and]: [
+              { idMpr },
+              { idHeader: { [Op.is]: null } },
+            ],
+          },
           required: false,
           include,
         });
