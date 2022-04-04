@@ -4,6 +4,7 @@ const {
   LT, WO, WOMODULE, WOITEM, MPR, MPRMODULE, MPRITEM, OUTSTANDINGPO,
 } = require('../relations');
 const { isAuthenticated } = require('../auth/service');
+const { wherePic } = require('./method');
 
 const itemAttributes = [
   'id', 'idMaterial', 'bomDescription', 'bomSpecification',
@@ -18,14 +19,15 @@ const itemAttributes = [
 
 const resolvers = {
   Query: {
-    getAllLT: isAuthenticated(async (_, { status }) => {
+    getAllLT: isAuthenticated(async (_, { status }, ctx) => {
+      const where = wherePic(status, ctx);
       const lt = await LT.findAll({
         attributes: ['id', 'ltNo', 'customer'],
         order: [['id', 'DESC']],
         include: [{
           model: WO,
           attributes: ['id', 'woNo', 'status'],
-          where: { status },
+          where,
         }],
       });
 

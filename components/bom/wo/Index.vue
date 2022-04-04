@@ -453,44 +453,51 @@
             </div>
           </el-tab-pane>
           <el-tab-pane label="MPR">
-            <div v-for="mpr in mprs" :key="mpr.id">
-              <div class="flex flex-col my-4">
-                <div class="flex font-bold text-xs">
-                  <div class="flex flex-1">
-                    <div>MPR No. :</div>
-                    <div class="flex ml-2">
-                      <nuxt-link
-                        :to="{ name: 'mpr-id', params: { id: mpr.id } }"
-                        class="flex-1 truncate"
-                      >
-                        {{ mpr.no }}
-                      </nuxt-link>
-                      <a
-                        :href="`/mpr/${mpr.id}`"
-                        title="Open in new tab"
-                        target="_blank"
-                        class="ml-2"
-                      >
-                        <outline-external-link-icon class="heroicons w-4 h-4" />
-                      </a>
-                    </div>
+            <div
+              v-for="mpr in mprs"
+              :key="mpr.id"
+              class="flex flex-col divide-y divide-gray-400 divide-dashed"
+            >
+              <div
+                v-if="mpr.modules.length || mpr.items.length"
+                class="flex font-bold text-xs my-4"
+              >
+                <div class="flex flex-1">
+                  <div>MPR No. :</div>
+                  <div class="flex ml-2">
+                    <nuxt-link
+                      :to="{ name: 'mpr-id', params: { id: mpr.id } }"
+                      class="flex-1 truncate"
+                    >
+                      {{ mpr.no }}
+                    </nuxt-link>
+                    <a
+                      :href="`/mpr/${mpr.id}`"
+                      title="Open in new tab"
+                      target="_blank"
+                      class="ml-2"
+                    >
+                      <outline-external-link-icon class="heroicons w-4 h-4" />
+                    </a>
                   </div>
-                  <div class="flex-1">
-                    Requestor: {{ mpr.requestorName }}
-                  </div>
-                  <div>Approved By MRP: {{ mpr.bomTimestamp }}</div>
                 </div>
-                <div v-if="mpr.modules.length">
-                  <div v-for="module in mpr.modules" :key="module.id">
+                <div class="flex-1">
+                  Requestor: {{ mpr.requestorName }}
+                </div>
+                <div>Approved By MRP: {{ mpr.bomTimestamp }}</div>
+              </div>
+              <div v-if="mpr.modules.length">
+                <div v-for="module in mpr.modules" :key="module.id">
+                  <div v-if="module.items.length">
                     <div class="font-bold text-xs my-4">
                       {{ module.moduleChar }} {{ module.moduleName }}
                     </div>
                     <mpr-data-table :data="module.items" />
                   </div>
                 </div>
-                <div v-if="mpr.items.length">
-                  <mpr-data-table :data="mpr.items" class="my-4" />
-                </div>
+              </div>
+              <div v-if="mpr.items.length">
+                <mpr-data-table :data="mpr.items" class="my-4" />
               </div>
             </div>
           </el-tab-pane>
