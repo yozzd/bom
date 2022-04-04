@@ -29,6 +29,7 @@ const typeDefs = `
     remark: String
     wo: WO
     modules: [MPRMODULE]
+    items: [MPRITEM]
   }
 
   type WO {
