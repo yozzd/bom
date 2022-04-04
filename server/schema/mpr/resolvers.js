@@ -27,68 +27,7 @@ const resolvers = {
         return false;
       }
     },
-    // modules: async ({ id }) => {
-    //   const module = await MPRMODULE.findAll({
-    //     attributes: ['id', 'moduleChar', 'moduleName'],
-    //     where: { idMpr: id },
-    //     required: false,
-    //   });
-
-    //   if (module.length) return module;
-    //   return [{
-    //     id: 0, moduleChar: '', moduleName: '', idMpr: id,
-    //   }];
-    // },
   },
-  // MPRMODULE: {
-  //   items: async ({ id, idMpr }) => {
-  //     let item = [];
-  //     const attributes = [
-  //       'id', 'idMaterial', 'bomDescription', 'bomSpecification',
-  //       'bomModel', 'bomBrand', 'bomQty', 'bomUnit', 'bomQtyRqd',
-  //       'bomQtyBalance', 'bomQtyStock', 'bomEta', 'bomQtyRec',
-  //       'bomDateRec', 'bomCurrSizeC', 'bomCurrSizeV', 'bomCurrEaC',
-  //       'bomCurrEaV', 'bomUsdEa', 'bomUsdUnit', 'bomUsdTotal',
-  //       'materialsProcessed', 'yetToPurchase', 'bomSupplier',
-  //       'bomPoDate', 'bomPoNo', 'bomRemarks', 'priority', 'bomEtaStatus',
-  //       'validasi', 'hold', 'cancel', 'colorClass',
-  //     ];
-
-  //     const include = [{
-  //       model: OUTSTANDINGPO,
-  //       attributes: ['poStatus', 'poArrival', 'poNo'],
-  //       required: false,
-  //     }];
-
-  //     if (id) {
-  //       item = await MPRITEM.findAll({
-  //         attributes,
-  //         where: {
-  //           [Op.and]: [
-  //             { idModule: id },
-  //             { idHeader: { [Op.is]: null } },
-  //           ],
-  //         },
-  //         required: false,
-  //         include,
-  //       });
-  //     } else {
-  //       item = await MPRITEM.findAll({
-  //         attributes,
-  //         where: {
-  //           [Op.and]: [
-  //             { idMpr },
-  //             { idHeader: { [Op.is]: null } },
-  //           ],
-  //         },
-  //         required: false,
-  //         include,
-  //       });
-  //     }
-
-  //     return item;
-  //   },
-  // },
   Query: {
     getAllMPR: isAuthenticated(async (_, { status }, ctx) => {
       const where = whereStatus(status);
@@ -152,7 +91,7 @@ const resolvers = {
           where: {
             [Op.and]: [
               { cancel: 0 },
-              { idModule: { [Op.is]: null } },
+              { idModule: { [Op.or]: [{ [Op.is]: null }, { [Op.eq]: 0 }] } },
             ],
           },
           required: false,
