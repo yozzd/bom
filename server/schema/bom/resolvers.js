@@ -220,6 +220,33 @@ const resolvers = {
             'id', 'no', 'requestorName', 'bomTimestamp',
           ],
           required: false,
+          include: [{
+            model: MPRMODULE,
+            attributes: ['id', 'moduleChar', 'moduleName'],
+            required: false,
+            include: [{
+              model: MPRITEM,
+              attributes: itemAttributes,
+              where: {
+                [Op.and]: [
+                  { cancel: 0 },
+                  { idHeader: { [Op.is]: null } },
+                ],
+              },
+              required: false,
+            }],
+          }, {
+            model: MPRITEM,
+            attributes: itemAttributes,
+            where: {
+              [Op.and]: [
+                { cancel: 0 },
+                { idModule: { [Op.or]: [{ [Op.is]: null }, { [Op.eq]: 0 }] } },
+                { idHeader: { [Op.is]: null } },
+              ],
+            },
+            required: false,
+          }],
         }],
       });
 
