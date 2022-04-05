@@ -190,6 +190,10 @@ const resolvers = {
               model: OUTSTANDINGPO,
               attributes: ['poStatus', 'poArrival', 'poNo'],
               required: false,
+            }, {
+              model: MPR,
+              attributes: ['id', 'no'],
+              required: false,
             }],
           }],
         }],

@@ -201,9 +201,6 @@
       ></el-table-column>
       <el-table-column label="Note" align="center" width="70">
         <template slot-scope="scope">
-          <!--<div v-if="scope.row.isMpr && scope.row.module">
-            moved to "{{ scope.row.module.hid }} {{ scope.row.module.header }}"
-          </div>-->
           <el-popover
             v-if="scope.row.isMpr && scope.row.module"
             placement="left"
@@ -214,6 +211,29 @@
                 moved to module "<span class="font-bold">
                   {{ scope.row.module.hid }} {{ scope.row.module.header }}
                 </span>"
+              </div>
+            </template>
+            <outline-chat-icon
+              slot="reference"
+              class="heroicons w-4 h-4"
+            />
+          </el-popover>
+          <el-popover
+            v-if="scope.row.isMpr && scope.row.mpr"
+            placement="left"
+            trigger="hover"
+          >
+            <template #default>
+              <div class="text-xs">
+                from mpr no. :
+                <a
+                  :href="`/mpr/${scope.row.mpr.id}`"
+                  title="Open in new tab"
+                  target="_blank"
+                  class="font-bold ml-2"
+                >
+                  {{ scope.row.mpr.no }}
+                </a>
               </div>
             </template>
             <outline-chat-icon

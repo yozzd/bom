@@ -101,6 +101,7 @@ const typeDefs = `
     bomEtaStatus: String
     isMpr: Int
     colorClass: String
+    mpr: MPR
   }
 
   type customerType {

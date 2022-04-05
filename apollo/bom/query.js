@@ -158,6 +158,10 @@ export const GetOneWO = gql`
             bomEtaStatus
             isMpr
             colorClass
+            mpr {
+              id
+              no
+            }
           }
         }
       }

@@ -63,7 +63,10 @@ MPR.hasMany(MPRITEM, {
   foreignKey: 'idMpr',
   targetKey: 'id',
 });
-MPRITEM.belongsTo(MPR);
+MPRITEM.belongsTo(MPR, {
+  foreignKey: 'idMpr',
+  targetKey: 'id',
+});
 
 WOMODULE.hasMany(MPRITEM, {
   foreignKey: 'idHeader',
