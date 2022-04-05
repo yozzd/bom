@@ -175,6 +175,32 @@ const resolvers = {
         }],
       });
 
+      const woMpr = await WO.findOne({
+        attributes: ['id', 'woNo'],
+        where: { id },
+        order: [['modules', 'hid']],
+        include: [{
+          model: WOMODULE,
+          attributes: ['id', 'hid', 'header'],
+          include: [{
+            model: MPRITEM,
+            attributes: itemAttributes,
+            required: false,
+            include: [{
+              model: OUTSTANDINGPO,
+              attributes: ['poStatus', 'poArrival', 'poNo'],
+              required: false,
+            }],
+          }],
+        }],
+      });
+
+      const merge = await Promise.all(wo.modules.map((v, i) => {
+        v.items.push(...woMpr.modules[i].items);
+        return v;
+      }));
+      wo.modules = merge;
+
       const ltMpr = await LT.findOne({
         attributes: ['id', 'ltNo'],
         where: { id: idLt },
