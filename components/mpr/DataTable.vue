@@ -139,66 +139,91 @@
         <template slot-scope="scope">
           USD {{ scope.row.materialsProcessed | currency }}
         </template>
-        <el-table-column align="right" width="100">
-          <template slot="header">
-            <p title="Yet To Purchase (USD)" class="truncate">
-              Yet To Purchase (USD)
-            </p>
-          </template>
+      </el-table-column>
+      <el-table-column align="right" width="100">
+        <template slot="header">
+          <p title="Yet To Purchase (USD)" class="truncate">
+            Yet To Purchase (USD)
+          </p>
+        </template>
+        <template slot-scope="scope">
+          USD {{ scope.row.yetToPurchase | currency }}
+        </template>
+      </el-table-column>
+      <el-table-column label="Supplier" width="140">
+        <template slot-scope="scope">
+          <p :title="scope.row.bomSupplier" class="truncate">
+            {{ scope.row.bomSupplier }}
+          </p>
+        </template>
+      </el-table-column>
+      <el-table-column label="PO / PR" align="center">
+        <el-table-column
+          label="Date"
+          prop="bomPoDate"
+          align="center"
+          width="90"
+        ></el-table-column>
+        <el-table-column label="No" align="center" width="80">
           <template slot-scope="scope">
-            USD {{ scope.row.yetToPurchase | currency }}
+            {{ scope.row.bomPoNo }}
           </template>
         </el-table-column>
-        <el-table-column label="Supplier" width="140">
-          <template slot-scope="scope">
-            <p :title="scope.row.bomSupplier" class="truncate">
-              {{ scope.row.bomSupplier }}
-            </p>
-          </template>
-        </el-table-column>
-        <el-table-column label="PO / PR" align="center">
-          <el-table-column
-            label="Date"
-            prop="bomPoDate"
-            align="center"
-            width="90"
-          ></el-table-column>
-          <el-table-column label="No" align="center" width="80">
-            <template slot-scope="scope">
-              {{ scope.row.bomPoNo }}
+      </el-table-column>
+      <el-table-column label="Remarks" align="center" width="70">
+        <template slot-scope="scope">
+          <el-popover
+            v-if="scope.row.bomRemarks"
+            placement="left"
+            trigger="hover"
+          >
+            <template #default>
+              <div class="text-xs" v-html="scope.row.bomRemarks"></div>
             </template>
-          </el-table-column>
-        </el-table-column>
-        <el-table-column label="Remarks" align="center" width="70">
-          <template slot-scope="scope">
-            <el-popover
-              v-if="scope.row.bomRemarks"
-              placement="left"
-              trigger="hover"
-            >
-              <template #default>
-                <div class="text-xs" v-html="scope.row.bomRemarks"></div>
-              </template>
-              <outline-chat-icon
-                slot="reference"
-                class="heroicons w-4 h-4"
-              />
-            </el-popover>
-          </template>
-        </el-table-column>
-        <el-table-column
-          label="Priority"
-          prop="priority"
-          align="center"
-          width="60"
-        ></el-table-column>
-        <el-table-column
-          label="ETA Status"
-          prop="bomEtaStatus"
-          align="center"
-          width="100"
-        ></el-table-column>
-        <el-table-column label="" min-width="50"></el-table-column>
+            <outline-chat-icon
+              slot="reference"
+              class="heroicons w-4 h-4"
+            />
+          </el-popover>
+        </template>
+      </el-table-column>
+      <el-table-column
+        label="Priority"
+        prop="priority"
+        align="center"
+        width="60"
+      ></el-table-column>
+      <el-table-column
+        label="ETA Status"
+        prop="bomEtaStatus"
+        align="center"
+        width="100"
+      ></el-table-column>
+      <el-table-column label="Note" align="center" width="70">
+        <template slot-scope="scope">
+          <!--<div v-if="scope.row.isMpr && scope.row.module">
+            moved to "{{ scope.row.module.hid }} {{ scope.row.module.header }}"
+          </div>-->
+          <el-popover
+            v-if="scope.row.isMpr && scope.row.module"
+            placement="left"
+            trigger="hover"
+          >
+            <template #default>
+              <div class="text-xs">
+                moved to module "<span class="font-bold">
+                  {{ scope.row.module.hid }} {{ scope.row.module.header }}
+                </span>"
+              </div>
+            </template>
+            <outline-chat-icon
+              slot="reference"
+              class="heroicons w-4 h-4"
+            />
+          </el-popover>
+        </template>
+      </el-table-column>
+      <el-table-column label="" min-width="50"></el-table-column>
       </el-table-column>
     </el-table>
   </div>
