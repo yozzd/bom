@@ -74,6 +74,7 @@ const typeDefs = `
     bomRemarks: String
     priority: String
     bomEtaStatus: String
+    isMpr: Int
     colorClass: String
     module: WOMODULE
   }

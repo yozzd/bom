@@ -81,6 +81,7 @@ export const GetOneMPR = gql`
           bomRemarks
           priority
           bomEtaStatus
+          isMpr
           colorClass
           module {
             id
@@ -119,6 +120,7 @@ export const GetOneMPR = gql`
         bomRemarks
         priority
         bomEtaStatus
+        isMpr
         colorClass
         module {
           id
