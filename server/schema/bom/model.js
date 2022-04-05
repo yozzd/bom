@@ -419,9 +419,9 @@ const WOITEM = sequelize.define('item', {
     get() {
       const outPoNo = this.outstandingPo ? this.outstandingPo.poNo : '';
 
-      if (this.validasi) return 'validated-row';
+      if (this.validasi && this.cancel === 0) return 'validated-row';
       if (this.bomQty > 0 && this.bomQtyStock > 0 && this.bomQtyBalance >= 0) return 'stock-row';
-      if (this.bomQtyRec > 0 && this.bomPoNo) return 'coming-row';
+      if (this.bomQtyRec > 0 && this.bomPoNo && this.cancel === 0) return 'coming-row';
       if (outPoNo && this.bomQtyRec <= 0 && this.bomPoNo && this.poStatus !== 'Complete' && !this.bomDateRec) return 'issued-row';
       if (!outPoNo && this.bomQtyRec <= 0 && this.cancel === 0) return 'draft-row';
       if (this.hold) return 'hold-row';

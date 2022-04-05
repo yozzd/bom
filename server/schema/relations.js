@@ -65,6 +65,14 @@ MPR.hasMany(MPRITEM, {
 });
 MPRITEM.belongsTo(MPR);
 
+WOMODULE.hasMany(MPRITEM, {
+  foreignKey: 'idHeader',
+});
+MPRITEM.belongsTo(WOMODULE, {
+  foreignKey: 'idHeader',
+  targetKey: 'id',
+});
+
 module.exports = {
   LT,
   WO,

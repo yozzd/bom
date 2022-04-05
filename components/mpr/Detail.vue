@@ -168,7 +168,11 @@
         </div>
       </div>
       <div v-if="modules.length">
-        <div v-for="h in modules" :key="h.id" class="flex flex-col">
+        <div
+          v-for="h in modules"
+          :key="h.id"
+          class="flex flex-col divide-y divide-gray-400 divide-dashed"
+        >
           <div class="text-xs font-bold my-4">
             {{ h.moduleChar }} {{ h.moduleName }}
           </div>

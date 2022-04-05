@@ -1,7 +1,7 @@
 const fs = require('fs');
 const { Op } = require('sequelize');
 const {
-  WO, MPR, MPRMODULE, MPRITEM, OUTSTANDINGPO,
+  WO, WOMODULE, MPR, MPRMODULE, MPRITEM, OUTSTANDINGPO,
 } = require('../relations');
 const { isAuthenticated } = require('../auth/service');
 const { whereStatus, whereUser } = require('./methods');
@@ -72,8 +72,12 @@ const resolvers = {
           include: [{
             model: MPRITEM,
             attributes: itemAttributes,
-            where: { cancel: 0 },
             required: false,
+            include: [{
+              model: WOMODULE,
+              attributes: ['id', 'hid', 'header'],
+              required: false,
+            }],
           }],
         }, {
           model: MPRITEM,
@@ -85,6 +89,11 @@ const resolvers = {
             ],
           },
           required: false,
+          include: [{
+            model: WOMODULE,
+            attributes: ['id', 'hid', 'header'],
+            required: false,
+          }],
         }],
       });
 

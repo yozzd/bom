@@ -75,6 +75,7 @@ const typeDefs = `
     priority: String
     bomEtaStatus: String
     colorClass: String
+    module: WOMODULE
   }
 `;
 

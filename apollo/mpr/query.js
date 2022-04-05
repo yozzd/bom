@@ -82,6 +82,11 @@ export const GetOneMPR = gql`
           priority
           bomEtaStatus
           colorClass
+          module {
+            id
+            hid
+            header
+          }
         }
       }
       items {
@@ -115,6 +120,11 @@ export const GetOneMPR = gql`
         priority
         bomEtaStatus
         colorClass
+        module {
+          id
+          hid
+          header
+        }
       }
     }
   }
