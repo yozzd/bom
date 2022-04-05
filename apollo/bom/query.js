@@ -156,6 +156,7 @@ export const GetOneWO = gql`
             bomRemarks
             priority
             bomEtaStatus
+            isMpr
             colorClass
           }
         }
@@ -215,6 +216,7 @@ export const GetOneWO = gql`
               bomRemarks
               priority
               bomEtaStatus
+              isMpr
               colorClass
             }
           }
@@ -248,6 +250,7 @@ export const GetOneWO = gql`
             bomRemarks
             priority
             bomEtaStatus
+            isMpr
             colorClass
           }
         }
