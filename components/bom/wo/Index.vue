@@ -459,8 +459,7 @@
               class="flex flex-col divide-y divide-gray-400 divide-dashed"
             >
               <div
-                v-if="mpr.modules.length || mpr.items.length"
-                class="flex font-bold text-xs my-4"
+                class="flex font-bold text-xs mb-4"
               >
                 <div class="flex flex-1">
                   <div>MPR No. :</div>
@@ -486,19 +485,13 @@
                 </div>
                 <div>Approved By MRP: {{ mpr.bomTimestamp }}</div>
               </div>
-              <div v-if="mpr.modules.length">
-                <div v-for="module in mpr.modules" :key="module.id">
-                  <div v-if="module.items.length">
-                    <div class="font-bold text-xs my-4">
-                      {{ module.moduleChar }} {{ module.moduleName }}
-                    </div>
-                    <mpr-data-table :data="module.items" />
-                  </div>
+              <div v-for="module in mpr.modules" :key="module.id">
+                <div class="font-bold text-xs my-4">
+                  {{ module.moduleChar }} {{ module.moduleName }}
                 </div>
+                <mpr-data-table :data="module.items" />
               </div>
-              <div v-if="mpr.items.length">
-                <mpr-data-table :data="mpr.items" class="my-4" />
-              </div>
+              <mpr-data-table v-if="mpr.items.length" :data="mpr.items" />
             </div>
           </el-tab-pane>
         </el-tabs>
@@ -560,7 +553,11 @@ export default {
 
           this.wo = wo;
           this.modules = modules;
-          this.mprs = mprs;
+
+          this.mprs = mprs.filter((v) => {
+            const { modules: m, items } = v;
+            return (m.filter((n) => n.items.length).length) || items.length;
+          });
         }
       },
       error({ graphQLErrors, networkError }) {
