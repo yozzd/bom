@@ -5,17 +5,7 @@ const {
 } = require('../relations');
 const { isAuthenticated } = require('../auth/service');
 const { whereStatus, whereUser } = require('./methods');
-
-const itemAttributes = [
-  'id', 'idMaterial', 'bomDescription', 'bomSpecification',
-  'bomModel', 'bomBrand', 'bomQty', 'bomUnit', 'bomQtyRqd',
-  'bomQtyBalance', 'bomQtyStock', 'bomEta', 'bomQtyRec',
-  'bomDateRec', 'bomCurrSizeC', 'bomCurrSizeV', 'bomCurrEaC',
-  'bomCurrEaV', 'bomUsdEa', 'bomUsdUnit', 'bomUsdTotal',
-  'materialsProcessed', 'yetToPurchase', 'bomSupplier',
-  'bomPoDate', 'bomPoNo', 'bomRemarks', 'priority', 'bomEtaStatus',
-  'validasi', 'hold', 'cancel', 'colorClass',
-];
+const { itemAttributes } = require('../bom/resolvers');
 
 const resolvers = {
   MPR: {
