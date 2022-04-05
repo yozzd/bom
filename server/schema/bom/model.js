@@ -3,6 +3,8 @@ const { DataTypes } = require('sequelize');
 const sequelize = require('../../config/db');
 const { pssUrl, pssAuth } = require('../../config');
 
+const remarkBlacklist = ['<p> </p>', '<p><br></p>', '<p><strong><em><br></em></strong></p>'];
+
 const LT = sequelize.define('lt', {
   id: {
     type: DataTypes.INTEGER,
@@ -318,8 +320,7 @@ const WOITEM = sequelize.define('item', {
   bomRemarks: {
     type: DataTypes.TEXT,
     get() {
-      const arr = ['<p> </p>', '<p><br></p>'];
-      return arr.includes(this.getDataValue('bomRemarks')) ? '' : this.getDataValue('bomRemarks');
+      return remarkBlacklist.includes(this.getDataValue('bomRemarks')) ? '' : this.getDataValue('bomRemarks');
     },
   },
   bomEtaStatus: {
@@ -435,5 +436,5 @@ const WOITEM = sequelize.define('item', {
 });
 
 module.exports = {
-  LT, WO, WOMODULE, WOITEM,
+  LT, WO, WOMODULE, WOITEM, remarkBlacklist,
 };

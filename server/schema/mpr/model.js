@@ -1,6 +1,7 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../../config/db');
 const { isValidDate, uDateFormat } = require('../scalar/date');
+const { remarkBlacklist } = require('../bom/model');
 
 const MPR = sequelize.define('mpr', {
   id: {
@@ -265,8 +266,7 @@ const MPRITEM = sequelize.define('item', {
   bomRemarks: {
     type: DataTypes.TEXT,
     get() {
-      const arr = ['<p> </p>', '<p><br></p>'];
-      return arr.includes(this.getDataValue('bomRemarks')) ? '' : this.getDataValue('bomRemarks');
+      return remarkBlacklist.includes(this.getDataValue('bomRemarks')) ? '' : this.getDataValue('bomRemarks');
     },
   },
   bomEtaStatus: {

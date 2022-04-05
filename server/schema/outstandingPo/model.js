@@ -1,5 +1,6 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../../config/db');
+const { remarkBlacklist } = require('../bom/model');
 
 const OUTSTANDINGPO = sequelize.define('outstandingPo', {
   id: {
@@ -100,36 +101,31 @@ const OUTSTANDINGPO = sequelize.define('outstandingPo', {
   poRemarks: {
     type: DataTypes.TEXT,
     get() {
-      const arr = ['<p> </p>', '<p><br></p>'];
-      return arr.includes(this.getDataValue('poRemarks')) ? '' : this.getDataValue('poRemarks');
+      return remarkBlacklist.includes(this.getDataValue('poRemarks')) ? '' : this.getDataValue('poRemarks');
     },
   },
   poRemarksBom: {
     type: DataTypes.TEXT,
     get() {
-      const arr = ['<p> </p>', '<p><br></p>'];
-      return arr.includes(this.getDataValue('poRemarksBom')) ? '' : this.getDataValue('poRemarksBom');
+      return remarkBlacklist.includes(this.getDataValue('poRemarksBom')) ? '' : this.getDataValue('poRemarksBom');
     },
   },
   poRemarksAdmin: {
     type: DataTypes.TEXT,
     get() {
-      const arr = ['<p> </p>', '<p><br></p>'];
-      return arr.includes(this.getDataValue('poRemarksAdmin')) ? '' : this.getDataValue('poRemarksAdmin');
+      return remarkBlacklist.includes(this.getDataValue('poRemarksAdmin')) ? '' : this.getDataValue('poRemarksAdmin');
     },
   },
   poRemarksFinance: {
     type: DataTypes.TEXT,
     get() {
-      const arr = ['<p> </p>', '<p><br></p>'];
-      return arr.includes(this.getDataValue('poRemarksFinance')) ? '' : this.getDataValue('poRemarksFinance');
+      return remarkBlacklist.includes(this.getDataValue('poRemarksFinance')) ? '' : this.getDataValue('poRemarksFinance');
     },
   },
   poRemarksWarehouse: {
     type: DataTypes.TEXT,
     get() {
-      const arr = ['<p> </p>', '<p><br></p>'];
-      return arr.includes(this.getDataValue('poRemarksWarehouse')) ? '' : this.getDataValue('poRemarksWarehouse');
+      return remarkBlacklist.includes(this.getDataValue('poRemarksWarehouse')) ? '' : this.getDataValue('poRemarksWarehouse');
     },
   },
   poCancel: {
