@@ -244,7 +244,7 @@
                   </template>
                   <outline-chat-icon
                     slot="reference"
-                    class="heroicons text-gray-400 w-4 h-4"
+                    class="heroicons w-4 h-4"
                   />
                 </el-popover>
               </template>
@@ -267,7 +267,7 @@
                   </template>
                   <outline-chat-icon
                     slot="reference"
-                    class="heroicons text-gray-400 w-4 h-4"
+                    class="heroicons w-4 h-4"
                   />
                 </el-popover>
               </template>
@@ -290,7 +290,7 @@
                   </template>
                   <outline-chat-icon
                     slot="reference"
-                    class="heroicons text-gray-400 w-4 h-4"
+                    class="heroicons w-4 h-4"
                   />
                 </el-popover>
               </template>
@@ -323,7 +323,7 @@
                   </template>
                   <outline-chat-icon
                     slot="reference"
-                    class="heroicons text-gray-400 w-4 h-4"
+                    class="heroicons w-4 h-4"
                   />
                 </el-popover>
               </template>
@@ -362,7 +362,7 @@
                   </template>
                   <outline-chat-icon
                     slot="reference"
-                    class="heroicons text-gray-400 w-4 h-4"
+                    class="heroicons w-4 h-4"
                   />
                 </el-popover>
               </template>
