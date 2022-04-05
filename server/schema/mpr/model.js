@@ -282,24 +282,45 @@ const MPRITEM = sequelize.define('item', {
   },
   whRemarks: {
     type: DataTypes.TEXT,
+    get() {
+      return remarkBlacklist.includes(this.getDataValue('whRemarks')) ? '' : this.getDataValue('whRemarks');
+    },
   },
   prRemarks: {
     type: DataTypes.TEXT,
+    get() {
+      return remarkBlacklist.includes(this.getDataValue('prRemarks')) ? '' : this.getDataValue('prRemarks');
+    },
   },
   rndRemarks: {
     type: DataTypes.TEXT,
+    get() {
+      return remarkBlacklist.includes(this.getDataValue('rndRemarks')) ? '' : this.getDataValue('rndRemarks');
+    },
   },
   hvacRemarks: {
     type: DataTypes.TEXT,
+    get() {
+      return remarkBlacklist.includes(this.getDataValue('hvacRemarks')) ? '' : this.getDataValue('hvacRemarks');
+    },
   },
   mechanicalRemarks: {
     type: DataTypes.TEXT,
+    get() {
+      return remarkBlacklist.includes(this.getDataValue('mechanicalRemarks')) ? '' : this.getDataValue('mechanicalRemarks');
+    },
   },
   electronicRemarks: {
     type: DataTypes.TEXT,
+    get() {
+      return remarkBlacklist.includes(this.getDataValue('electronicRemarks')) ? '' : this.getDataValue('electronicRemarks');
+    },
   },
   fabricationRemarks: {
     type: DataTypes.TEXT,
+    get() {
+      return remarkBlacklist.includes(this.getDataValue('fabricationRemarks')) ? '' : this.getDataValue('fabricationRemarks');
+    },
   },
   sr: {
     type: DataTypes.INTEGER,
@@ -332,6 +353,9 @@ const MPRITEM = sequelize.define('item', {
   },
   poRemarks: {
     type: DataTypes.TEXT,
+    get() {
+      return remarkBlacklist.includes(this.getDataValue('poRemarks')) ? '' : this.getDataValue('poRemarks');
+    },
   },
   materialsProcessed: {
     type: DataTypes.DOUBLE(18, 2),
