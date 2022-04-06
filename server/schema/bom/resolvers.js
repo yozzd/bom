@@ -4,7 +4,7 @@ const {
   LT, WO, WOMODULE, WOITEM, MPR, MPRMODULE, MPRITEM, OUTSTANDINGPO,
 } = require('../relations');
 const { isAuthenticated } = require('../auth/service');
-const { wherePic } = require('./method');
+const { wherePic, getCurrency } = require('./method');
 
 const itemAttributes = [
   'id', 'idMaterial', 'bomDescription', 'bomSpecification',
@@ -294,7 +294,10 @@ const resolvers = {
           required: false,
           include: [{
             model: WO,
-            attributes: ['id', 'idLt', 'unit'],
+            attributes: [
+              'id', 'idLt', 'unit', 'euro', 'gbp', 'myr',
+              'idr', 'sgd',
+            ],
             required: false,
           }],
         });
@@ -304,17 +307,35 @@ const resolvers = {
     }),
   },
   Mutation: {
-    updateITEM: isAuthenticated(async (_, { input: { unit, ...obj } }) => {
+    updateITEM: isAuthenticated(async (_, { input }) => {
+      const {
+        unit, euro, gbp, myr, idr, sgd, ...obj
+      } = input;
+      const currObj = {
+        euro, gbp, myr, idr, sgd,
+      };
+      const value = getCurrency(obj.bomCurrEaC, obj.bomCurrEaV, currObj);
+
       let save = null;
 
       if (!obj.isMpr) {
         const item = await WOITEM.findOne({
-          attributes: Object.keys(obj),
+          attributes: [
+            ...Object.keys(obj), 'bomUsdEa', 'bomUsdUnit', 'bomUsdTotal',
+            'materialsProcessed',
+          ],
           where: { id: obj.id },
         });
         Object.assign(item, obj);
-        item.bomQtyBalance = obj.bomQtyStock - (unit * obj.bomQty) - obj.bomQtyRec;
+        const qtyBalance = obj.bomQtyStock - (unit * obj.bomQty) - obj.bomQtyRec;
+        const usdTotal = unit * value * obj.bomQty;
+
+        item.bomQtyBalance = qtyBalance;
         item.bomQtyRqd = unit * obj.bomQty;
+        item.bomUsdEa = value;
+        item.bomUsdUnit = value * obj.bomQty;
+        item.bomUsdTotal = usdTotal;
+        item.materialsProcessed = qtyBalance === 0 ? usdTotal : 0;
         save = await item.save();
       }
 

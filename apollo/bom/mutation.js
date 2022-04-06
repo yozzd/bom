@@ -12,6 +12,13 @@ export const UpdateITEM = gql`
       bomQty
       bomUnit
       bomQtyStock
+      bomEta
+      bomQtyRec
+      bomDateRec
+      bomCurrSizeC
+      bomCurrSizeV
+      bomCurrEaC
+      bomCurrEaV
     }
   }
 `;

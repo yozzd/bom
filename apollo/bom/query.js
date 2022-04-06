@@ -286,6 +286,11 @@ export const GetOneITEM = gql`
         id
         idLt
         unit
+        sgd
+        idr
+        euro
+        gbp
+        myr
       }
     }
   }

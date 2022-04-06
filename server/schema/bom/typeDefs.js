@@ -163,6 +163,11 @@ const typeDefs = `
     bomCurrEaV: Float
     isMpr: Int
     unit: Int
+    sgd: Float
+    idr: Float
+    euro: Float
+    gbp: Float
+    myr: Float
   }
 `;
 

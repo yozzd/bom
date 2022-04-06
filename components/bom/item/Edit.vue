@@ -240,6 +240,11 @@ export default {
                   bomCurrEaV: parseFloat(this.form.bomCurrEaV),
                   isMpr: parseInt(this.$route.params.isMpr, 10),
                   unit: parseInt(this.wo.unit, 10),
+                  euro: parseFloat(this.wo.euro),
+                  gbp: parseFloat(this.wo.gbp),
+                  myr: parseFloat(this.wo.myr),
+                  idr: parseFloat(this.wo.idr),
+                  sgd: parseFloat(this.wo.sgd),
                 },
               },
             });

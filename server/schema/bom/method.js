@@ -67,4 +67,17 @@ const wherePic = (status, ctx) => {
   return where;
 };
 
-module.exports = { wherePic };
+const getCurrency = (curr, val, currObj) => {
+  const {
+    euro, gbp, myr, idr, sgd,
+  } = currObj;
+
+  if (curr === 'SGD') return val / sgd;
+  if (curr === 'RP') return val / idr;
+  if (curr === 'EURO') return val / euro;
+  if (curr === 'GBP') return val / gbp;
+  if (curr === 'MYR') return val / myr;
+  return val;
+};
+
+module.exports = { wherePic, getCurrency };
