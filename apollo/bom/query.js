@@ -270,6 +270,10 @@ export const GetOneITEM = gql`
       idMaterial
       bomDescription
       bomSpecification
+      wo {
+        id
+        idLt
+      }
     }
   }
 `;

@@ -288,6 +288,12 @@ const resolvers = {
             'id', 'idMaterial', 'bomDescription', 'bomSpecification',
           ],
           where: { id },
+          required: false,
+          include: [{
+            model: WO,
+            attributes: ['id', 'idLt'],
+            required: false,
+          }],
         });
       }
 

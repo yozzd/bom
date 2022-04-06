@@ -76,6 +76,14 @@ MPRITEM.belongsTo(WOMODULE, {
   targetKey: 'id',
 });
 
+WO.hasMany(WOITEM, {
+  foreignKey: 'idWo',
+});
+WOITEM.belongsTo(WO, {
+  foreignKey: 'idWo',
+  targetKey: 'id',
+});
+
 module.exports = {
   LT,
   WO,

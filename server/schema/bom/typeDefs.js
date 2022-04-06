@@ -103,6 +103,7 @@ const typeDefs = `
     isMpr: Int
     colorClass: String
     mpr: MPR
+    wo: WO
   }
 
   type customerType {
