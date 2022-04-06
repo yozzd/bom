@@ -287,6 +287,7 @@ const resolvers = {
           attributes: [
             'id', 'idMaterial', 'bomDescription', 'bomSpecification',
             'bomModel', 'bomBrand', 'bomQty', 'bomUnit', 'bomQtyStock',
+            'bomEta', 'bomQtyRec', 'bomDateRec',
           ],
           where: { id },
           required: false,
@@ -303,6 +304,7 @@ const resolvers = {
   },
   Mutation: {
     updateITEM: isAuthenticated(async (_, { input }) => {
+      console.log(input);
       let save = null;
 
       if (!input.isMpr) {

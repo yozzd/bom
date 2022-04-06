@@ -37,6 +37,11 @@ a {
   @apply rounded-md;
 }
 
+.el-date-editor.el-input,
+.el-date-editor.el-input__inner {
+  @apply w-full;
+}
+
 .el-input__inner:focus,
 .el-textarea__inner:focus {
   @apply ring-3 ring-blue-200 ring-opacity-50;

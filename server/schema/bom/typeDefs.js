@@ -154,6 +154,9 @@ const typeDefs = `
     bomQty: Float
     bomUnit: String
     bomQtyStock: Float
+    bomEta: String
+    bomQtyRec: Float
+    bomDateRec: String
     isMpr: Int
   }
 `;

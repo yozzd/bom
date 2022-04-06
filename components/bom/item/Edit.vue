@@ -85,6 +85,33 @@
           >
             {{ form.bomQty * wo.unit }}
           </el-form-item>
+          <el-form-item
+            label="ETA"
+            prop="bomEta"
+            class="col-span-2"
+          >
+            <el-date-picker
+              v-model="form.bomEta"
+              type="date"
+              value-format="yyyy-MM-dd"
+            ></el-date-picker>
+          </el-form-item>
+          <el-form-item
+            label="W/H Qty Received"
+            prop="bomQtyRec"
+          >
+            <el-input v-model="form.bomQtyRec"></el-input>
+          </el-form-item>
+          <el-form-item
+            label="W/H Date Received"
+            prop="bomDateRec"
+          >
+            <el-date-picker
+              v-model="form.bomDateRec"
+              type="date"
+              value-format="yyyy-MM-dd"
+            ></el-date-picker>
+          </el-form-item>
         </div>
         <div class="flex justify-end space-x-8 mt-8">
           <el-button type="text" @click="handleCancel">
@@ -115,6 +142,9 @@ export default {
         bomQty: '',
         bomUnit: '',
         bomQtyStock: '',
+        bomEta: '',
+        bomQtyRec: '',
+        bomDateRec: '',
       },
       wo: {
         id: 1,
@@ -149,6 +179,9 @@ export default {
                   bomQty: parseFloat(this.form.bomQty),
                   bomUnit: this.form.bomUnit,
                   bomQtyStock: parseFloat(this.form.bomQtyStock),
+                  bomEta: this.form.bomEta,
+                  bomQtyRec: parseFloat(this.form.bomQtyRec),
+                  bomDateRec: this.form.bomDateRec,
                   isMpr: parseInt(this.$route.params.isMpr, 10),
                 },
               },
@@ -186,6 +219,7 @@ export default {
           const { getOneITEM: { wo, ...form } } = data;
           this.form = form;
           this.wo = wo;
+          console.log(form);
         }
       },
       error({ graphQLErrors, networkError }) {

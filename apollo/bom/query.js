@@ -275,6 +275,9 @@ export const GetOneITEM = gql`
       bomQty
       bomUnit
       bomQtyStock
+      bomEta
+      bomQtyRec
+      bomDateRec
       wo {
         id
         idLt
