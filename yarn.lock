@@ -4860,10 +4860,10 @@ concat-stream@^1.5.0:
     readable-stream "^2.2.2"
     typedarray "^0.0.6"
 
-concurrently@^7.0.0:
-  version "7.0.0"
-  resolved "https://registry.yarnpkg.com/concurrently/-/concurrently-7.0.0.tgz#78d31b441cec338dab03316c221a2f9a67c529b0"
-  integrity sha512-WKM7PUsI8wyXpF80H+zjHP32fsgsHNQfPLw/e70Z5dYkV7hF+rf8q3D+ScWJIEr57CpkO3OWBko6hwhQLPR8Pw==
+concurrently@^7.1.0:
+  version "7.1.0"
+  resolved "https://registry.yarnpkg.com/concurrently/-/concurrently-7.1.0.tgz#477b49b8cfc630bb491f9b02e9ed7fb7bff02942"
+  integrity sha512-Bz0tMlYKZRUDqJlNiF/OImojMB9ruKUz6GCfmhFnSapXgPe+3xzY4byqoKG9tUZ7L2PGEUjfLPOLfIX3labnmw==
   dependencies:
     chalk "^4.1.0"
     date-fns "^2.16.1"
@@ -6520,10 +6520,10 @@ fastify-websocket@^4.0.0:
     fastify-plugin "^3.0.0"
     ws "^8.0.0"
 
-fastify@^3.27.4:
-  version "3.27.4"
-  resolved "https://registry.yarnpkg.com/fastify/-/fastify-3.27.4.tgz#67ffd61b5bea74768a7de28dbef5b6bc58f9e953"
-  integrity sha512-SOfnHBxG9zxCSIvt6aHoR/cao8QBddWmGP/mb5KQKRc+KI1kB7b79M2hCDOTSyHdLAF2OX+oI6X3weeLc+MqKg==
+fastify@^3.28.0:
+  version "3.28.0"
+  resolved "https://registry.yarnpkg.com/fastify/-/fastify-3.28.0.tgz#14d939a2f176b82af1094de7abcb0b2d83bcff8f"
+  integrity sha512-LAQtGllpkRe8L6Tpf3zdbvXzXFOrgaWV3Tbvp3xMv9ngcr9zht9U2/mo5zq9qp9kplSiBJ0w43aVAMqv6PBMbw==
   dependencies:
     "@fastify/ajv-compiler" "^1.0.0"
     abstract-logging "^2.0.0"
@@ -11793,10 +11793,10 @@ sequelize-pool@^7.1.0:
   resolved "https://registry.yarnpkg.com/sequelize-pool/-/sequelize-pool-7.1.0.tgz#210b391af4002762f823188fd6ecfc7413020768"
   integrity sha512-G9c0qlIWQSK29pR/5U2JF5dDQeqqHRragoyahj/Nx4KOOQ3CPPfzxnfqFPCSB7x5UgjOgnZ61nSxz+fjDpRlJg==
 
-sequelize@^6.17.0:
-  version "6.17.0"
-  resolved "https://registry.yarnpkg.com/sequelize/-/sequelize-6.17.0.tgz#78a21f39b8a7548c65c0cc2055e8231137c679a3"
-  integrity sha512-AZus+0YZDq91Zg0hzDaO5atTzHgJruI23V8nBlAhkLuI81Z53nSRdAe/4R1A6vGOZ/RfCLP9idF4tfQnoAsM5A==
+sequelize@^6.18.0:
+  version "6.18.0"
+  resolved "https://registry.yarnpkg.com/sequelize/-/sequelize-6.18.0.tgz#0e99e0c07ee144eb456374a56e2bd501634c3d16"
+  integrity sha512-x8TW8ovqG8ljZq0Uow1mtMq44hSKPefWEC590R9IWgF2dajEHvKJJpXo1FiRPfj6spOHWOnmOs1Xbb1JPG3Ifg==
   dependencies:
     "@types/debug" "^4.1.7"
     "@types/validator" "^13.7.1"
