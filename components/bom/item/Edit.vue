@@ -1,15 +1,19 @@
 <template>
   <div class="grid grid-cols-3">
     <div class="flex flex-col space-y-4 col-start-2">
-      <div>
+      <div class="flex items-center">
         <nuxt-link
           :to="{
             name: 'bom-wo-idLt-id', params: { idLt: wo.idLt, id: wo.id }
           }"
+          class="flex-1"
         >
           <outline-arrow-left-icon class="heroicons w-4 h-4" />
           Back
         </nuxt-link>
+        <div class="text-xl">
+          Edit Item
+        </div>
       </div>
       <el-form
         ref="form"
