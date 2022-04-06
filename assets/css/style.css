@@ -27,7 +27,8 @@ a {
 .el-button,
 .el-dialog,
 .el-input__inner,
-.el-popover {
+.el-popover,
+.el-textarea__inner {
   @apply rounded-lg;
 }
 
