@@ -262,3 +262,14 @@ export const GetOneWO = gql`
     }
   }
 `;
+
+export const GetOneITEM = gql`
+  query getOneITEM($id: Int, $isMpr: Int) {
+    getOneITEM(id: $id, isMpr: $isMpr) {
+      id
+      idMaterial
+      bomDescription
+      bomSpecification
+    }
+  }
+`;

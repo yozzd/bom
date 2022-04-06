@@ -3,6 +3,7 @@ const typeDefs = `
     getAllLT(status: Int): [LT]
     getOneLT(id: Int, status: Int): LTGroup
     getOneWO(idLt:Int, id: Int): WODetail
+    getOneITEM(id: Int, isMpr: Int): WOITEM
   }
 
   type LTGroup {

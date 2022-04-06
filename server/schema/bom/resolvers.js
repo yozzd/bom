@@ -279,6 +279,20 @@ const resolvers = {
         lt, wo, ltMpr, mpr,
       };
     }),
+    getOneITEM: isAuthenticated(async (_, { id, isMpr }) => {
+      let item = {};
+
+      if (!isMpr) {
+        item = WOITEM.findOne({
+          attributes: [
+            'id', 'idMaterial', 'bomDescription', 'bomSpecification',
+          ],
+          where: { id },
+        });
+      }
+
+      return item;
+    }),
   },
   Mutation: {},
 };
