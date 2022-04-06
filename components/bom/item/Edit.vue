@@ -157,7 +157,11 @@
           <el-button type="text" @click="handleCancel">
             Cancel
           </el-button>
-          <el-button type="primary" @click="handleUpdate('form')">
+          <el-button
+            type="primary"
+            :loading="loading"
+            @click="handleUpdate('form')"
+          >
             Update
           </el-button>
         </div>
@@ -175,6 +179,7 @@ export default {
   mixins: [currency],
   data() {
     return {
+      loading: false,
       form: {
         idMaterial: '',
         bomDescription: '',
@@ -212,6 +217,7 @@ export default {
       this.$refs[form].validate(async (valid) => {
         if (valid) {
           try {
+            this.loading = true;
             await this.$apollo.mutate({
               mutation: UpdateITEM,
               variables: {
@@ -241,7 +247,10 @@ export default {
             this.$message({
               type: 'success',
               message: 'Data has been updated successfully',
-              onClose: setTimeout(() => this.handleCancel(), 3000),
+              onClose: setTimeout(() => {
+                this.handleCancel();
+                this.loading = false;
+              }, 3000),
             });
 
             return true;
