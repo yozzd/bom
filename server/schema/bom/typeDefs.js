@@ -158,6 +158,7 @@ const typeDefs = `
     bomQtyRec: Float
     bomDateRec: String
     isMpr: Int
+    unit: Int
   }
 `;
 

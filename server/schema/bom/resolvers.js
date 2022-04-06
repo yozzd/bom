@@ -303,16 +303,17 @@ const resolvers = {
     }),
   },
   Mutation: {
-    updateITEM: isAuthenticated(async (_, { input }) => {
-      console.log(input);
+    updateITEM: isAuthenticated(async (_, { input: { unit, ...obj } }) => {
       let save = null;
 
-      if (!input.isMpr) {
+      if (!obj.isMpr) {
         const item = await WOITEM.findOne({
-          attributes: Object.keys(input),
-          where: { id: input.id },
+          attributes: Object.keys(obj),
+          where: { id: obj.id },
         });
-        Object.assign(item, input);
+        Object.assign(item, obj);
+        item.bomQtyBalance = obj.bomQtyStock - (unit * obj.bomQty) - obj.bomQtyRec;
+        item.bomQtyRqd = unit * obj.bomQty;
         save = await item.save();
       }
 

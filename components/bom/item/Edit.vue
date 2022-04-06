@@ -183,6 +183,7 @@ export default {
                   bomQtyRec: parseFloat(this.form.bomQtyRec),
                   bomDateRec: this.form.bomDateRec,
                   isMpr: parseInt(this.$route.params.isMpr, 10),
+                  unit: parseInt(this.wo.unit, 10),
                 },
               },
             });
@@ -219,7 +220,6 @@ export default {
           const { getOneITEM: { wo, ...form } } = data;
           this.form = form;
           this.wo = wo;
-          console.log(form);
         }
       },
       error({ graphQLErrors, networkError }) {
