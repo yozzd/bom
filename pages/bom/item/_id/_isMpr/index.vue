@@ -4,7 +4,7 @@
 
 <script>
 export default {
-  layout: 'layout2',
+  layout: 'layout3',
   middleware: ['auth'],
 };
 </script>
