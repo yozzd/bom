@@ -15,6 +15,12 @@
           Edit Item
         </div>
       </div>
+
+      <IndexErrorHandler
+        v-if="errors.length"
+        :errors="errors"
+      />
+
       <el-form
         ref="form"
         :model="form"
@@ -105,6 +111,7 @@ export default {
       rules: {
         bomDescription: [{ required: true, message: 'This field is required' }],
       },
+      errors: [],
     };
   },
   apollo: {
