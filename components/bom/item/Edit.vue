@@ -86,6 +86,14 @@
             {{ form.bomQty * wo.unit }}
           </el-form-item>
         </div>
+        <div class="flex justify-end space-x-8 mt-8">
+          <el-button type="text" @click="handleCancel">
+            Cancel
+          </el-button>
+          <el-button type="primary" @click="handleUpdate('form')">
+            Update
+          </el-button>
+        </div>
       </el-form>
     </div>
   </div>
@@ -113,6 +121,10 @@ export default {
       },
       errors: [],
     };
+  },
+  methods: {
+    handleCancel() {},
+    handleUpdate() {},
   },
   apollo: {
     getOneITEM: {
