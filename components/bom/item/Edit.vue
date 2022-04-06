@@ -44,6 +44,18 @@
           >
             <el-input v-model="form.bomSpecification" type="textarea"></el-input>
           </el-form-item>
+          <el-form-item
+            label="Brand"
+            prop="bomBrand"
+          >
+            <el-input v-model="form.bomBrand"></el-input>
+          </el-form-item>
+          <el-form-item
+            label="Model"
+            prop="bomModel"
+          >
+            <el-input v-model="form.bomModel"></el-input>
+          </el-form-item>
         </div>
       </el-form>
     </div>
@@ -60,6 +72,8 @@ export default {
         idMaterial: '',
         bomDescription: '',
         bomSpecification: '',
+        bomBrand: '',
+        bomModel: '',
       },
       wo: {},
       rules: {
