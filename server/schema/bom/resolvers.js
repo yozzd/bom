@@ -286,13 +286,13 @@ const resolvers = {
         item = WOITEM.findOne({
           attributes: [
             'id', 'idMaterial', 'bomDescription', 'bomSpecification',
-            'bomModel', 'bomBrand', 'bomQty', 'bomUnit',
+            'bomModel', 'bomBrand', 'bomQty', 'bomUnit', 'bomQtyStock'
           ],
           where: { id },
           required: false,
           include: [{
             model: WO,
-            attributes: ['id', 'idLt'],
+            attributes: ['id', 'idLt', 'unit'],
             required: false,
           }],
         });

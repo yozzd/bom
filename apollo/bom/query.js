@@ -274,9 +274,11 @@ export const GetOneITEM = gql`
       bomBrand
       bomQty
       bomUnit
+      bomQtyStock
       wo {
         id
         idLt
+        unit
       }
     }
   }
