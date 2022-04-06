@@ -272,6 +272,8 @@ export const GetOneITEM = gql`
       bomSpecification
       bomModel
       bomBrand
+      bomQty
+      bomUnit
       wo {
         id
         idLt

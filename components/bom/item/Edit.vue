@@ -56,6 +56,18 @@
           >
             <el-input v-model="form.bomModel"></el-input>
           </el-form-item>
+          <el-form-item
+            label="Qty"
+            prop="bomQty"
+          >
+            <el-input v-model="form.bomQty"></el-input>
+          </el-form-item>
+          <el-form-item
+            label="Unit"
+            prop="bomUnit"
+          >
+            <el-input v-model="form.bomUnit"></el-input>
+          </el-form-item>
         </div>
       </el-form>
     </div>
@@ -74,6 +86,8 @@ export default {
         bomSpecification: '',
         bomBrand: '',
         bomModel: '',
+        bomQty: '',
+        bomUnit: '',
       },
       wo: {},
       rules: {

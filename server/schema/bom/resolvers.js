@@ -286,7 +286,7 @@ const resolvers = {
         item = WOITEM.findOne({
           attributes: [
             'id', 'idMaterial', 'bomDescription', 'bomSpecification',
-            'bomModel', 'bomBrand',
+            'bomModel', 'bomBrand', 'bomQty', 'bomUnit',
           ],
           where: { id },
           required: false,
