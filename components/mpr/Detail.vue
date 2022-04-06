@@ -176,11 +176,11 @@
           <div class="text-xs font-bold my-4">
             {{ h.moduleChar }} {{ h.moduleName }}
           </div>
-          <mpr-data-table :data="h.items" />
+          <index-data-table :data="h.items" />
         </div>
       </div>
       <div v-if="items.length">
-        <mpr-data-table :data="items" class="my-4" />
+        <index-data-table :data="items" class="my-4" />
       </div>
     </div>
   </div>

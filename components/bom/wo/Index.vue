@@ -252,7 +252,7 @@
               <div class="text-xs font-bold mb-4">
                 {{ h.hid }} {{ h.header }}
               </div>
-              <mpr-data-table v-if="h.items.length" :data="h.items" />
+              <index-data-table v-if="h.items.length" :data="h.items" />
             </div>
           </el-tab-pane>
           <el-tab-pane label="MPR">
@@ -292,9 +292,9 @@
                 <div class="font-bold text-xs my-4">
                   {{ module.moduleChar }} {{ module.moduleName }}
                 </div>
-                <mpr-data-table :data="module.items" />
+                <index-data-table :data="module.items" />
               </div>
-              <mpr-data-table v-if="mpr.items.length" :data="mpr.items" />
+              <index-data-table v-if="mpr.items.length" :data="mpr.items" />
             </div>
           </el-tab-pane>
         </el-tabs>
