@@ -1,8 +1,6 @@
 <template>
   <div class="min-h-screen grid grid-cols-5 items-center">
-    <div></div>
-    <div></div>
-    <div class="flex flex-col space-y-8">
+    <div class="flex flex-col space-y-8 col-start-3">
       <div class="text-2xl text-center font-bold press-start text-blue-600">
         BOM
       </div>
@@ -43,8 +41,6 @@
         </div>
       </div>
     </div>
-    <div></div>
-    <div></div>
   </div>
 </template>
 
