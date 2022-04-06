@@ -21,9 +21,21 @@
       </el-table-column>
       <el-table-column label="Description" width="140" fixed>
         <template slot-scope="scope">
-          <p :title="scope.row.bomDescription" class="truncate">
-            {{ scope.row.bomDescription }}
-          </p>
+          <div class="flex">
+            <nuxt-link
+              v-if="$auth.$state.user.section === 211 || $auth.$state.user.section === 212"
+              :to="{
+                name: 'bom-item-id-isMpr', params: { id: scope.row.id, isMpr: scope.row.isMpr }
+              }"
+              :title="scope.row.bomDescription"
+              class="flex-1 truncate"
+            >
+              {{ scope.row.bomDescription }}
+            </nuxt-link>
+            <div v-else :title="scope.row.bomDescription" class="flex-1 truncate">
+              {{ scope.row.bomDescription }}
+            </div>
+          </div>
         </template>
       </el-table-column>
       <el-table-column label="Specification" width="140" fixed>
