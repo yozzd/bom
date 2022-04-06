@@ -278,6 +278,10 @@ export const GetOneITEM = gql`
       bomEta
       bomQtyRec
       bomDateRec
+      bomCurrSizeC
+      bomCurrSizeV
+      bomCurrEaC
+      bomCurrEaV
       wo {
         id
         idLt

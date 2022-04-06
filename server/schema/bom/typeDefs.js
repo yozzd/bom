@@ -157,6 +157,10 @@ const typeDefs = `
     bomEta: String
     bomQtyRec: Float
     bomDateRec: String
+    bomCurrSizeC: String
+    bomCurrSizeV: Float
+    bomCurrEaC: String
+    bomCurrEaV: Float
     isMpr: Int
     unit: Int
   }

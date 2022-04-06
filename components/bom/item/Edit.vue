@@ -112,6 +112,46 @@
               value-format="yyyy-MM-dd"
             ></el-date-picker>
           </el-form-item>
+          <el-form-item
+            label="PO curr/size"
+            prop="bomCurrSizeC"
+          >
+            <el-select v-model="form.bomCurrSizeC" filterable>
+              <el-option
+                v-for="item in currency"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value"
+              >
+              </el-option>
+            </el-select>
+          </el-form-item>
+          <el-form-item
+            label="Value"
+            prop="bomCurrSizeV"
+          >
+            <el-input v-model="form.bomCurrSizeV"></el-input>
+          </el-form-item>
+          <el-form-item
+            label="PO curr/ea"
+            prop="bomCurrEaC"
+          >
+            <el-select v-model="form.bomCurrEaC" filterable>
+              <el-option
+                v-for="item in currency"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value"
+              >
+              </el-option>
+            </el-select>
+          </el-form-item>
+          <el-form-item
+            label="Value"
+            prop="bomCurrEaV"
+          >
+            <el-input v-model="form.bomCurrEaV"></el-input>
+          </el-form-item>
         </div>
         <div class="flex justify-end space-x-8 mt-8">
           <el-button type="text" @click="handleCancel">
@@ -127,10 +167,12 @@
 </template>
 
 <script>
+import currency from '../../../mixins/currency';
 import { GetOneITEM } from '../../../apollo/bom/query';
 import { UpdateITEM } from '../../../apollo/bom/mutation';
 
 export default {
+  mixins: [currency],
   data() {
     return {
       form: {
@@ -145,6 +187,10 @@ export default {
         bomEta: '',
         bomQtyRec: '',
         bomDateRec: '',
+        bomCurrSizeC: '',
+        bomCurrSizeV: '',
+        bomCurrEaC: '',
+        bomCurrEaV: '',
       },
       wo: {
         id: 1,
@@ -182,6 +228,10 @@ export default {
                   bomEta: this.form.bomEta,
                   bomQtyRec: parseFloat(this.form.bomQtyRec),
                   bomDateRec: this.form.bomDateRec,
+                  bomCurrSizeC: this.form.bomCurrSizeC,
+                  bomCurrSizeV: parseFloat(this.form.bomCurrSizeV),
+                  bomCurrEaC: this.form.bomCurrEaC,
+                  bomCurrEaV: parseFloat(this.form.bomCurrEaV),
                   isMpr: parseInt(this.$route.params.isMpr, 10),
                   unit: parseInt(this.wo.unit, 10),
                 },
