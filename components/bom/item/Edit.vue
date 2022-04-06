@@ -1,6 +1,6 @@
 <template>
   <div class="grid grid-cols-3">
-    <div class="flex flex-col space-y-4 col-start-2">
+    <div class="flex flex-col space-y-4 col-start-2 mb-20">
       <div class="flex items-center">
         <nuxt-link
           :to="{
@@ -123,7 +123,10 @@ export default {
     };
   },
   methods: {
-    handleCancel() {},
+    handleCancel() {
+      this.errors = [];
+      this.$router.push({ name: 'bom-wo-idLt-id', params: { idLt: this.wo.idLt, id: this.wo.id } });
+    },
     handleUpdate() {},
   },
   apollo: {
