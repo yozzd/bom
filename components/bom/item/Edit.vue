@@ -116,7 +116,11 @@ export default {
         bomUnit: '',
         bomQtyStock: '',
       },
-      wo: { id: 1 },
+      wo: {
+        id: 1,
+        idLt: 1,
+        unit: 1,
+      },
       rules: {
         bomDescription: [{ required: true, message: 'This field is required' }],
       },

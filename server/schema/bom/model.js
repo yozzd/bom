@@ -457,6 +457,7 @@ const WOITEM = sequelize.define('item', {
 }, {
   tableName: 'bom_data',
   underscored: true,
+  timestamps: false,
 });
 
 module.exports = {

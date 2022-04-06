@@ -283,7 +283,7 @@ const resolvers = {
       let item = {};
 
       if (!isMpr) {
-        item = WOITEM.findOne({
+        item = await WOITEM.findOne({
           attributes: [
             'id', 'idMaterial', 'bomDescription', 'bomSpecification',
             'bomModel', 'bomBrand', 'bomQty', 'bomUnit', 'bomQtyStock',
@@ -303,7 +303,18 @@ const resolvers = {
   },
   Mutation: {
     updateITEM: isAuthenticated(async (_, { input }) => {
-      console.log(input);
+      let save = null;
+
+      if (!input.isMpr) {
+        const item = await WOITEM.findOne({
+          attributes: Object.keys(input),
+          where: { id: input.id },
+        });
+        Object.assign(item, input);
+        save = await item.save();
+      }
+
+      return save;
     }),
   },
 };
