@@ -116,7 +116,7 @@ export default {
         bomUnit: '',
         bomQtyStock: '',
       },
-      wo: {},
+      wo: { id: 1 },
       rules: {
         bomDescription: [{ required: true, message: 'This field is required' }],
       },
@@ -153,10 +153,9 @@ export default {
             this.$message({
               type: 'success',
               message: 'Data has been updated successfully',
-              duration: 5000,
+              onClose: setTimeout(() => this.handleCancel(), 3000),
             });
 
-            this.handleCancel();
             return true;
           } catch ({ graphQLErrors, networkError }) {
             this.errors = graphQLErrors || networkError.result.errors;
