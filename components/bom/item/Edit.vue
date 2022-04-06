@@ -101,6 +101,7 @@
 
 <script>
 import { GetOneITEM } from '../../../apollo/bom/query';
+import { UpdateITEM } from '../../../apollo/bom/mutation';
 
 export default {
   data() {
@@ -127,7 +128,45 @@ export default {
       this.errors = [];
       this.$router.push({ name: 'bom-wo-idLt-id', params: { idLt: this.wo.idLt, id: this.wo.id } });
     },
-    handleUpdate() {},
+    handleUpdate(form) {
+      this.$refs[form].validate(async (valid) => {
+        if (valid) {
+          try {
+            await this.$apollo.mutate({
+              mutation: UpdateITEM,
+              variables: {
+                input: {
+                  id: parseInt(this.form.id, 10),
+                  idMaterial: parseInt(this.form.idMaterial, 10),
+                  bomDescription: this.form.bomDescription,
+                  bomSpecification: this.form.bomSpecification,
+                  bomModel: this.form.bomModel,
+                  bomBrand: this.form.bomBrand,
+                  bomQty: parseFloat(this.form.bomQty),
+                  bomUnit: this.form.bomUnit,
+                  bomQtyStock: parseFloat(this.form.bomQtyStock),
+                  isMpr: parseInt(this.$route.params.isMpr, 10),
+                },
+              },
+            });
+
+            this.$message({
+              type: 'success',
+              message: 'Data has been updated successfully',
+              duration: 5000,
+            });
+
+            this.handleCancel();
+            return true;
+          } catch ({ graphQLErrors, networkError }) {
+            this.errors = graphQLErrors || networkError.result.errors;
+            return false;
+          }
+        } else {
+          return false;
+        }
+      });
+    },
   },
   apollo: {
     getOneITEM: {
@@ -145,6 +184,9 @@ export default {
           this.form = form;
           this.wo = wo;
         }
+      },
+      error({ graphQLErrors, networkError }) {
+        this.errors = graphQLErrors || networkError.result.errors;
       },
     },
   },

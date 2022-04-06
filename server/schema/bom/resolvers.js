@@ -301,7 +301,11 @@ const resolvers = {
       return item;
     }),
   },
-  Mutation: {},
+  Mutation: {
+    updateITEM: isAuthenticated(async (_, { input }) => {
+      console.log(input);
+    }),
+  },
 };
 
 module.exports = { resolvers, itemAttributes };

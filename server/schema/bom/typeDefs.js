@@ -6,6 +6,10 @@ const typeDefs = `
     getOneITEM(id: Int, isMpr: Int): WOITEM
   }
 
+  extend type Mutation {
+    updateITEM(input: UpdateItemInput): WOITEM
+  }
+
   type LTGroup {
     lt: LT
     ltMpr: LTMPR
@@ -138,6 +142,19 @@ const typeDefs = `
     totalPackingPerWO: Float
     totalMpr: Int
     mprs: [MPR]
+  }
+
+  input UpdateItemInput {
+    id: Int
+    idMaterial: Int
+    bomDescription: String
+    bomSpecification: String
+    bomModel: String
+    bomBrand: String
+    bomQty: Float
+    bomUnit: String
+    bomQtyStock: Float
+    isMpr: Int
   }
 `;
 
