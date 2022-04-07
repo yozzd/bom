@@ -29,6 +29,7 @@ a {
 .el-dropdown-menu,
 .el-input__inner,
 .el-message,
+.el-picker-panel,
 .el-popover,
 .el-select-dropdown,
 .el-textarea__inner {
@@ -51,6 +52,7 @@ a {
 }
 
 .el-dropdown-menu,
+.el-picker-panel,
 .el-popover,
 .el-select-dropdown {
   @apply shadow-none border border-gray-200;
