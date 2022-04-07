@@ -285,6 +285,7 @@ export const GetOneITEM = gql`
       bomSupplier
       bomPoDate
       bomPoNo
+      bomRemarks
       wo {
         id
         idLt

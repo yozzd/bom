@@ -22,6 +22,7 @@ export const UpdateITEM = gql`
       bomSupplier
       bomPoDate
       bomPoNo
+      bomRemarks
     }
   }
 `;

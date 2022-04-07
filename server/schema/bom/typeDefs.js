@@ -164,6 +164,7 @@ const typeDefs = `
     bomSupplier: String
     bomPoDate: String
     bomPoNo: String
+    bomRemarks: String
     isMpr: Int
     unit: Int
     sgd: Float

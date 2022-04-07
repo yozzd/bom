@@ -194,6 +194,13 @@
               value-format="yyyy-MM-dd"
             ></el-date-picker>
           </el-form-item>
+          <el-form-item
+            label="Remarks"
+            prop="bomRemarks"
+            class="col-span-2"
+          >
+            <el-input v-model="form.bomRemarks" type="textarea"></el-input>
+          </el-form-item>
         </div>
         <div class="flex justify-end space-x-8 mt-8">
           <el-button type="text" @click="handleCancel">
@@ -243,6 +250,7 @@ export default {
         bomSupplier: '',
         bomPoDate: '',
         bomPoNo: '',
+        bomRemarks: '',
       },
       wo: {
         id: 1,
@@ -289,6 +297,7 @@ export default {
                   bomSupplier: this.form.bomSupplier,
                   bomPoDate: this.form.bomPoDate,
                   bomPoNo: this.form.bomPoNo,
+                  bomRemarks: this.form.bomRemarks,
                   isMpr: parseInt(this.$route.params.isMpr, 10),
                   unit: parseInt(this.wo.unit, 10),
                   euro: parseFloat(this.wo.euro),
