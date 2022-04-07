@@ -1,5 +1,10 @@
 <template>
-  <div class="grid grid-cols-3">
+  <div
+    v-loading.fullscreen.lock="$apollo.loading"
+    class="grid grid-cols-3"
+    element-loading-text="Loading..."
+    element-loading-spinner="el-icon-loading"
+  >
     <div class="flex flex-col space-y-4 col-start-2 mb-20">
       <div class="flex items-center">
         <nuxt-link
