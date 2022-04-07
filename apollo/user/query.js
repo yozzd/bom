@@ -1,6 +1,6 @@
 import gql from 'graphql-tag';
 
-const Me = gql`
+export default gql`
   query me {
     me {
       name
@@ -11,5 +11,3 @@ const Me = gql`
     }
   }
 `;
-
-export default Me;
