@@ -1,12 +1,14 @@
 const { typeDefs: Auth } = require('./auth/typeDefs');
 const { typeDefs: Bom } = require('./bom/typeDefs');
 const { typeDefs: Mpr } = require('./mpr/typeDefs');
+const { typeDefs: Supplier } = require('./supplier/typeDefs');
 const { typeDefs: OutstandingPo } = require('./outstandingPo/typeDefs');
 const { typeDefs: User } = require('./user/typeDefs');
 
 const { resolvers: authResolvers } = require('./auth/resolvers');
 const { resolvers: bomResolvers } = require('./bom/resolvers');
 const { resolvers: mprResolvers } = require('./mpr/resolvers');
+const { resolvers: supplierResolvers } = require('./supplier/resolvers');
 const { resolvers: outstandingPoResolvers } = require('./outstandingPo/resolvers');
 const { resolvers: userResolvers } = require('./user/resolvers');
 
@@ -21,6 +23,9 @@ const Query = `
 `;
 
 module.exports = {
-  typeDefs: [Query, Auth, Bom, Mpr, OutstandingPo, User],
-  resolvers: [authResolvers, bomResolvers, mprResolvers, outstandingPoResolvers, userResolvers],
+  typeDefs: [Query, Auth, Bom, Mpr, Supplier, OutstandingPo, User],
+  resolvers: [
+    authResolvers, bomResolvers, mprResolvers, supplierResolvers,
+    outstandingPoResolvers, userResolvers,
+  ],
 };

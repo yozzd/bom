@@ -155,6 +155,7 @@
           <el-form-item
             label="Supplier"
             prop="bomSupplier"
+            class="col-span-2"
           >
             <el-select v-model="form.bomSupplier" filterable>
               <el-option

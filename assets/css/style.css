@@ -38,7 +38,8 @@ a {
 }
 
 .el-date-editor.el-input,
-.el-date-editor.el-input__inner {
+.el-date-editor.el-input__inner,
+.el-select {
   @apply w-full;
 }
 
