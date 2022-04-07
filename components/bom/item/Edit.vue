@@ -152,6 +152,20 @@
           >
             <el-input v-model="form.bomCurrEaV"></el-input>
           </el-form-item>
+          <el-form-item
+            label="Supplier"
+            prop="bomSupplier"
+          >
+            <el-select v-model="form.bomSupplier" filterable>
+              <el-option
+                v-for="item in supplier"
+                :key="item.suplierID"
+                :label="item.suplierNM"
+                :value="item.suplierNM"
+              >
+              </el-option>
+            </el-select>
+          </el-form-item>
         </div>
         <div class="flex justify-end space-x-8 mt-8">
           <el-button type="text" @click="handleCancel">
@@ -172,11 +186,12 @@
 
 <script>
 import currency from '../../../mixins/currency';
+import supplier from '../../../mixins/supplier';
 import { GetOneITEM } from '../../../apollo/bom/query';
 import { UpdateITEM } from '../../../apollo/bom/mutation';
 
 export default {
-  mixins: [currency],
+  mixins: [currency, supplier],
   data() {
     return {
       loading: false,
