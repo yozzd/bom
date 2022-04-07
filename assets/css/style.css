@@ -26,9 +26,11 @@ a {
 .el-alert,
 .el-button,
 .el-dialog,
+.el-dropdown-menu,
 .el-input__inner,
 .el-message,
 .el-popover,
+.el-select-dropdown,
 .el-textarea__inner {
   @apply rounded-lg;
 }
