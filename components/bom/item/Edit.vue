@@ -162,7 +162,12 @@
             prop="bomSupplier"
             class="col-span-2"
           >
-            <el-select v-model="form.bomSupplier" filterable>
+            <el-select
+              v-model="form.bomSupplier"
+              remote
+              :remote-method="remoteMethod"
+              filterable
+            >
               <el-option
                 v-for="item in supplier"
                 :key="item.suplierID"
@@ -192,12 +197,12 @@
 
 <script>
 import currency from '../../../mixins/currency';
-import supplier from '../../../mixins/supplier';
 import { GetOneITEM } from '../../../apollo/bom/query';
 import { UpdateITEM } from '../../../apollo/bom/mutation';
+import GetAllSupplier from '../../../apollo/supplier/query';
 
 export default {
-  mixins: [currency, supplier],
+  mixins: [currency],
   data() {
     return {
       loading: false,
@@ -227,6 +232,7 @@ export default {
       rules: {
         bomDescription: [{ required: true, message: 'This field is required' }],
       },
+      supplier: [],
       errors: [],
     };
   },
@@ -278,7 +284,7 @@ export default {
               onClose: setTimeout(() => {
                 this.handleCancel();
                 this.loading = false;
-              }, 3000),
+              }, 1000),
             });
 
             return true;
@@ -290,6 +296,17 @@ export default {
           return false;
         }
       });
+    },
+    async remoteMethod(key) {
+      const { data: { getAllSupplier } } = await this.$apollo.query({
+        query: GetAllSupplier,
+        variables: { key },
+        prefetch: false,
+        error({ graphQLErrors, networkError }) {
+          this.errors = graphQLErrors || networkError.result.errors;
+        },
+      });
+      this.supplier = getAllSupplier;
     },
   },
   apollo: {
