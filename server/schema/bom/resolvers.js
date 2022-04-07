@@ -317,28 +317,36 @@ const resolvers = {
       };
       const value = getCurrency(obj.bomCurrEaC, obj.bomCurrEaV, currObj);
 
-      let save = null;
+      let item = {};
 
       if (!obj.isMpr) {
-        const item = await WOITEM.findOne({
+        item = await WOITEM.findOne({
           attributes: [
             ...Object.keys(obj), 'bomUsdEa', 'bomUsdUnit', 'bomUsdTotal',
-            'materialsProcessed',
+            'materialsProcessed', 'poZone', 'poNo',
           ],
           where: { id: obj.id },
         });
-        Object.assign(item, obj);
-        const qtyBalance = obj.bomQtyStock - (unit * obj.bomQty) - obj.bomQtyRec;
-        const usdTotal = unit * value * obj.bomQty;
-
-        item.bomQtyBalance = qtyBalance;
-        item.bomQtyRqd = unit * obj.bomQty;
-        item.bomUsdEa = value;
-        item.bomUsdUnit = value * obj.bomQty;
-        item.bomUsdTotal = usdTotal;
-        item.materialsProcessed = qtyBalance === 0 ? usdTotal : 0;
-        save = await item.save();
       }
+
+      Object.assign(item, obj);
+      const qtyBalance = obj.bomQtyStock - (unit * obj.bomQty) - obj.bomQtyRec;
+      const usdTotal = unit * value * obj.bomQty;
+
+      item.bomQtyBalance = qtyBalance;
+      item.bomQtyRqd = unit * obj.bomQty;
+      item.bomUsdEa = value;
+      item.bomUsdUnit = value * obj.bomQty;
+      item.bomUsdTotal = usdTotal;
+      item.materialsProcessed = qtyBalance === 0 ? usdTotal : 0;
+
+      if (obj.bomPoNo) {
+        const [zone, no] = obj.bomPoNo.split('.');
+        item.poZone = zone;
+        item.poNo = no;
+      }
+
+      const save = await item.save();
 
       return save;
     }),
