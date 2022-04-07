@@ -178,6 +178,23 @@
               </el-option>
             </el-select>
           </el-form-item>
+          <el-form-item
+            label="PO/PR No"
+            prop="bomPoNo"
+          >
+            <el-input v-model="form.bomPoNo"></el-input>
+          </el-form-item>
+          <el-form-item
+            label="PO/PR Date"
+            prop="bomPoDate"
+          >
+            <el-date-picker
+              v-model="form.bomPoDate"
+              type="date"
+              format="yyyy-MM-dd"
+              value-format="yyyy-MM-dd"
+            ></el-date-picker>
+          </el-form-item>
         </div>
         <div class="flex justify-end space-x-8 mt-8">
           <el-button type="text" @click="handleCancel">
@@ -225,6 +242,8 @@ export default {
         bomCurrEaC: '',
         bomCurrEaV: '',
         bomSupplier: '',
+        bomPoDate: '',
+        bomPoNo: '',
       },
       wo: {
         id: 1,
@@ -269,6 +288,8 @@ export default {
                   bomCurrEaC: this.form.bomCurrEaC,
                   bomCurrEaV: parseFloat(this.form.bomCurrEaV),
                   bomSupplier: this.form.bomSupplier,
+                  bomPoDate: this.form.bomPoDate,
+                  bomPoNo: this.form.bomPoNo,
                   isMpr: parseInt(this.$route.params.isMpr, 10),
                   unit: parseInt(this.wo.unit, 10),
                   euro: parseFloat(this.wo.euro),
@@ -280,14 +301,14 @@ export default {
               },
             });
 
-            this.$message({
-              type: 'success',
-              message: 'Data has been updated successfully',
-              onClose: setTimeout(() => {
-                this.handleCancel();
-                this.loading = false;
-              }, 1000),
-            });
+            // this.$message({
+            //   type: 'success',
+            //   message: 'Data has been updated successfully',
+            //   onClose: setTimeout(() => {
+            //     this.handleCancel();
+            //     this.loading = false;
+            //   }, 1000),
+            // });
 
             return true;
           } catch ({ graphQLErrors, networkError }) {

@@ -289,6 +289,7 @@ const resolvers = {
             'bomModel', 'bomBrand', 'bomQty', 'bomUnit', 'bomQtyStock',
             'bomEta', 'bomQtyRec', 'bomDateRec', 'bomCurrSizeC',
             'bomCurrSizeV', 'bomCurrEaC', 'bomCurrEaV', 'bomSupplier',
+            'bomPoDate', 'bomPoNo',
           ],
           where: { id },
           required: false,

@@ -20,6 +20,8 @@ export const UpdateITEM = gql`
       bomCurrEaC
       bomCurrEaV
       bomSupplier
+      bomPoDate
+      bomPoNo
     }
   }
 `;

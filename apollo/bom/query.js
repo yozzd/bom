@@ -283,6 +283,8 @@ export const GetOneITEM = gql`
       bomCurrEaC
       bomCurrEaV
       bomSupplier
+      bomPoDate
+      bomPoNo
       wo {
         id
         idLt
