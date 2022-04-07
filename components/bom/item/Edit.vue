@@ -191,7 +191,6 @@
             <el-date-picker
               v-model="form.bomPoDate"
               type="date"
-              format="yyyy-MM-dd"
               value-format="yyyy-MM-dd"
             ></el-date-picker>
           </el-form-item>
@@ -301,14 +300,14 @@ export default {
               },
             });
 
-            // this.$message({
-            //   type: 'success',
-            //   message: 'Data has been updated successfully',
-            //   onClose: setTimeout(() => {
-            //     this.handleCancel();
-            //     this.loading = false;
-            //   }, 1000),
-            // });
+            this.$message({
+              type: 'success',
+              message: 'Data has been updated successfully',
+              onClose: setTimeout(() => {
+                this.handleCancel();
+                this.loading = false;
+              }, 1000),
+            });
 
             return true;
           } catch ({ graphQLErrors, networkError }) {

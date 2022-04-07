@@ -1,4 +1,5 @@
 const fetch = require('node-fetch');
+const { format } = require('date-fns');
 const { DataTypes } = require('sequelize');
 const sequelize = require('../../config/db');
 const { pssUrl, pssAuth } = require('../../config');
@@ -121,7 +122,7 @@ const WO = sequelize.define('wo', {
     type: DataTypes.DATE,
     get() {
       if (this.getDataValue('issued') === '0000-00-00' || !this.getDataValue('issued')) return '';
-      return this.getDataValue('issued');
+      return format(new Date(this.getDataValue('issued')), 'yyyy-MM-dd');
     },
   },
   totalIncoming: {
@@ -257,7 +258,7 @@ const WOITEM = sequelize.define('item', {
     type: DataTypes.DATE,
     get() {
       if (this.getDataValue('bomEta') === '0000-00-00' || !this.getDataValue('bomEta')) return '';
-      return this.getDataValue('bomEta');
+      return format(new Date(this.getDataValue('bomEta')), 'yyyy-MM-dd');
     },
   },
   bomQtyRec: {
@@ -268,7 +269,7 @@ const WOITEM = sequelize.define('item', {
     get() {
       if (this.outstandingPo) return this.outstandingPo.poArrival;
       if (this.getDataValue('bomDateRec') === '0000-00-00' || !this.getDataValue('bomDateRec')) return '';
-      return this.getDataValue('bomDateRec');
+      return format(new Date(this.getDataValue('bomDateRec')), 'yyyy-MM-dd');
     },
   },
   bomCurrSizeC: {
@@ -305,7 +306,7 @@ const WOITEM = sequelize.define('item', {
     type: DataTypes.DATE,
     get() {
       if (this.getDataValue('bomPoDate') === '0000-00-00' || !this.getDataValue('bomPoDate')) return '';
-      return this.getDataValue('bomPoDate');
+      return format(new Date(this.getDataValue('bomPoDate')), 'yyyy-MM-dd');
     },
   },
   bomPoNo: {

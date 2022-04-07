@@ -1,3 +1,4 @@
+const { format } = require('date-fns');
 const { DataTypes } = require('sequelize');
 const sequelize = require('../../config/db');
 const { isValidDate, uDateFormat } = require('../scalar/date');
@@ -43,7 +44,7 @@ const MPR = sequelize.define('mpr', {
     type: DataTypes.DATE,
     get() {
       if (this.getDataValue('dor') === '0000-00-00' || !this.getDataValue('dor')) return '';
-      return this.getDataValue('dor');
+      return format(new Date(this.getDataValue('dor')), 'yyyy-MM-dd');
     },
   },
   idWo: {
@@ -203,7 +204,7 @@ const MPRITEM = sequelize.define('item', {
     type: DataTypes.DATE,
     get() {
       if (this.getDataValue('bomEta') === '0000-00-00' || !this.getDataValue('bomEta')) return '';
-      return this.getDataValue('bomEta');
+      return format(new Date(this.getDataValue('bomEta')), 'yyyy-MM-dd');
     },
   },
   bomQtyRec: {
@@ -214,7 +215,7 @@ const MPRITEM = sequelize.define('item', {
     get() {
       if (this.outstandingPo) return this.outstandingPo.poArrival;
       if (this.getDataValue('bomDateRec') === '0000-00-00' || !this.getDataValue('bomDateRec')) return '';
-      return this.getDataValue('bomDateRec');
+      return format(new Date(this.getDataValue('bomDateRec')), 'yyyy-MM-dd');
     },
   },
   bomCurrSizeC: {
@@ -251,7 +252,7 @@ const MPRITEM = sequelize.define('item', {
     type: DataTypes.DATE,
     get() {
       if (this.getDataValue('bomPoDate') === '0000-00-00' || !this.getDataValue('bomPoDate')) return '';
-      return this.getDataValue('bomPoDate');
+      return format(new Date(this.getDataValue('bomPoDate')), 'yyyy-MM-dd');
     },
   },
   bomPoNo: {

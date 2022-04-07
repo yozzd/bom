@@ -1,3 +1,4 @@
+const { format } = require('date-fns');
 const { DataTypes } = require('sequelize');
 const sequelize = require('../../config/db');
 const { remarkBlacklist } = require('../bom/model');
@@ -14,7 +15,7 @@ const OUTSTANDINGPO = sequelize.define('outstandingPo', {
     allowNull: false,
     get() {
       if (this.getDataValue('poIssue') === '0000-00-00' || !this.getDataValue('poIssue')) return '';
-      return this.getDataValue('poIssue');
+      return format(new Date(this.getDataValue('poIssue')), 'yyyy-MM-dd');
     },
   },
   poZone: {
@@ -54,28 +55,28 @@ const OUTSTANDINGPO = sequelize.define('outstandingPo', {
     type: DataTypes.DATE,
     get() {
       if (this.getDataValue('poLpayment') === '0000-00-00' || !this.getDataValue('poLpayment')) return '';
-      return this.getDataValue('poLpayment');
+      return format(new Date(this.getDataValue('poLpayment')), 'yyyy-MM-dd');
     },
   },
   poBom: {
     type: DataTypes.DATE,
     get() {
       if (this.getDataValue('poBom') === '0000-00-00' || !this.getDataValue('poBom')) return '';
-      return this.getDataValue('poBom');
+      return format(new Date(this.getDataValue('poBom')), 'yyyy-MM-dd');
     },
   },
   poAdmin: {
     type: DataTypes.DATE,
     get() {
       if (this.getDataValue('poAdmin') === '0000-00-00' || !this.getDataValue('poAdmin')) return '';
-      return this.getDataValue('poAdmin');
+      return format(new Date(this.getDataValue('poAdmin')), 'yyyy-MM-dd');
     },
   },
   poFinance: {
     type: DataTypes.DATE,
     get() {
       if (this.getDataValue('poFinance') === '0000-00-00' || !this.getDataValue('poFinance')) return '';
-      return this.getDataValue('poFinance');
+      return format(new Date(this.getDataValue('poFinance')), 'yyyy-MM-dd');
     },
   },
   poShipment: {
@@ -85,14 +86,14 @@ const OUTSTANDINGPO = sequelize.define('outstandingPo', {
     type: DataTypes.DATE,
     get() {
       if (this.getDataValue('poEta') === '0000-00-00' || !this.getDataValue('poEta')) return '';
-      return this.getDataValue('poEta');
+      return format(new Date(this.getDataValue('poEta')), 'yyyy-MM-dd');
     },
   },
   poArrival: {
     type: DataTypes.DATE,
     get() {
       if (this.getDataValue('poArrival') === '0000-00-00' || !this.getDataValue('poArrival')) return '';
-      return this.getDataValue('poArrival');
+      return format(new Date(this.getDataValue('poArrival')), 'yyyy-MM-dd');
     },
   },
   poStatus: {
@@ -139,7 +140,7 @@ const OUTSTANDINGPO = sequelize.define('outstandingPo', {
     type: DataTypes.DATE,
     get() {
       if (this.getDataValue('approvalDate') === '0000-00-00' || !this.getDataValue('approvalDate')) return '';
-      return this.getDataValue('approvalDate');
+      return format(new Date(this.getDataValue('approvalDate')), 'yyyy-MM-dd');
     },
   },
   comp: {
