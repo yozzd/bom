@@ -282,6 +282,7 @@ export const GetOneITEM = gql`
       bomCurrSizeV
       bomCurrEaC
       bomCurrEaV
+      bomSupplier
       wo {
         id
         idLt

@@ -196,6 +196,7 @@ export default {
         bomCurrSizeV: '',
         bomCurrEaC: '',
         bomCurrEaV: '',
+        bomSupplier: '',
       },
       wo: {
         id: 1,
@@ -238,6 +239,7 @@ export default {
                   bomCurrSizeV: parseFloat(this.form.bomCurrSizeV),
                   bomCurrEaC: this.form.bomCurrEaC,
                   bomCurrEaV: parseFloat(this.form.bomCurrEaV),
+                  bomSupplier: this.form.bomSupplier,
                   isMpr: parseInt(this.$route.params.isMpr, 10),
                   unit: parseInt(this.wo.unit, 10),
                   euro: parseFloat(this.wo.euro),

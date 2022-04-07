@@ -19,6 +19,7 @@ export const UpdateITEM = gql`
       bomCurrSizeV
       bomCurrEaC
       bomCurrEaV
+      bomSupplier
     }
   }
 `;

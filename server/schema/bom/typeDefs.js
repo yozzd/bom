@@ -161,6 +161,7 @@ const typeDefs = `
     bomCurrSizeV: Float
     bomCurrEaC: String
     bomCurrEaV: Float
+    bomSupplier: String
     isMpr: Int
     unit: Int
     sgd: Float

@@ -288,7 +288,7 @@ const resolvers = {
             'id', 'idMaterial', 'bomDescription', 'bomSpecification',
             'bomModel', 'bomBrand', 'bomQty', 'bomUnit', 'bomQtyStock',
             'bomEta', 'bomQtyRec', 'bomDateRec', 'bomCurrSizeC',
-            'bomCurrSizeV', 'bomCurrEaC', 'bomCurrEaV',
+            'bomCurrSizeV', 'bomCurrEaC', 'bomCurrEaV', 'bomSupplier',
           ],
           where: { id },
           required: false,
