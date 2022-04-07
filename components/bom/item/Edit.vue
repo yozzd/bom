@@ -166,6 +166,7 @@
               v-model="form.bomSupplier"
               remote
               :remote-method="remoteMethod"
+              :loading="supplierLoading"
               filterable
             >
               <el-option
@@ -206,6 +207,7 @@ export default {
   data() {
     return {
       loading: false,
+      supplierLoading: false,
       form: {
         idMaterial: '',
         bomDescription: '',
@@ -298,15 +300,21 @@ export default {
       });
     },
     async remoteMethod(key) {
-      const { data: { getAllSupplier } } = await this.$apollo.query({
-        query: GetAllSupplier,
-        variables: { key },
-        prefetch: false,
-        error({ graphQLErrors, networkError }) {
-          this.errors = graphQLErrors || networkError.result.errors;
-        },
-      });
-      this.supplier = getAllSupplier;
+      if (key) {
+        this.supplierLoading = true;
+        const { data: { getAllSupplier } } = await this.$apollo.query({
+          query: GetAllSupplier,
+          variables: { key },
+          prefetch: false,
+          error({ graphQLErrors, networkError }) {
+            this.errors = graphQLErrors || networkError.result.errors;
+          },
+        });
+        this.supplier = getAllSupplier;
+        this.supplierLoading = false;
+      } else {
+        this.supplier = [];
+      }
     },
   },
   apollo: {
