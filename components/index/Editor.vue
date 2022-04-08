@@ -106,6 +106,15 @@
           <v-icon name="ri-list-unordered" />
         </client-only>
       </el-button>
+      <el-button
+        title="Ordered List"
+        :class="{ 'editor__menu-item': true, active: editor.isActive('orderedList') }"
+        @click="editor.chain().focus().toggleOrderedList().run()"
+      >
+        <client-only>
+          <v-icon name="ri-list-ordered" />
+        </client-only>
+      </el-button>
     </div>
 
     <div class="editor__content">
