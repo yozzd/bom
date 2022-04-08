@@ -97,6 +97,15 @@
           <v-icon name="ri-paragraph" />
         </client-only>
       </el-button>
+      <el-button
+        title="Bullet List"
+        :class="{ 'editor__menu-item': true, active: editor.isActive('bulletList') }"
+        @click="editor.chain().focus().toggleBulletList().run()"
+      >
+        <client-only>
+          <v-icon name="ri-list-unordered" />
+        </client-only>
+      </el-button>
     </div>
 
     <div class="editor__content">
