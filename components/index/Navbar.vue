@@ -2,7 +2,9 @@
   <div class="navbar">
     <div class="flex items-center">
       <nuxt-link :to="{ name: 'index' }" exact>
-        <outline-home-icon class="heroicons w-4 h-4" />
+        <client-only>
+          <v-icon name="ri-home-4-line" class="remixicons w-4 h-4" />
+        </client-only>
       </nuxt-link>
       <nuxt-link :to="{ name: 'bom' }">
         BOM
@@ -21,7 +23,9 @@
         :underline="false"
       >
         {{ $auth.$state.user.fullname }}
-        <outline-chevron-down-icon class="heroicons heroicons-right w-4 h-4" />
+        <client-only>
+          <v-icon name="ri-arrow-down-s-line" class="remixicons w-4 h-4" />
+        </client-only>
       </el-link>
       <el-dropdown-menu slot="dropdown">
         <el-dropdown-item command="logout">
