@@ -115,6 +115,18 @@
           <v-icon name="ri-list-ordered" />
         </client-only>
       </el-button>
+
+      <div class="divider"></div>
+
+      <el-button
+        title="Clear Format"
+        :class="{ 'editor__menu-item': true }"
+        @click="editor.chain().focus().clearNodes().unsetAllMarks().run()"
+      >
+        <client-only>
+          <v-icon name="ri-format-clear" />
+        </client-only>
+      </el-button>
     </div>
 
     <div class="editor__content">
