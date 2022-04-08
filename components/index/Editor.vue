@@ -28,11 +28,27 @@
         </client-only>
       </el-button>
       <el-button
+        :class="{ 'editor__menu-item': true, active: editor.isActive({ textAlign: 'center' }) }"
+        @click="editor.chain().focus().setTextAlign('center').run()"
+      >
+        <client-only>
+          <v-icon name="ri-align-center" />
+        </client-only>
+      </el-button>
+      <el-button
         :class="{ 'editor__menu-item': true, active: editor.isActive({ textAlign: 'right' }) }"
         @click="editor.chain().focus().setTextAlign('right').run()"
       >
         <client-only>
           <v-icon name="ri-align-right" />
+        </client-only>
+      </el-button>
+      <el-button
+        :class="{ 'editor__menu-item': true, active: editor.isActive({ textAlign: 'justify' }) }"
+        @click="editor.chain().focus().setTextAlign('justify').run()"
+      >
+        <client-only>
+          <v-icon name="ri-align-justify" />
         </client-only>
       </el-button>
     </div>
