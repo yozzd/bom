@@ -37,7 +37,18 @@
           <v-icon name="ri-strikethrough" />
         </client-only>
       </el-button>
+      <el-button
+        title="Highlight"
+        :class="{ 'editor__menu-item': true, active: editor.isActive('highlight') }"
+        @click="editor.chain().focus().toggleHighlight().run()"
+      >
+        <client-only>
+          <v-icon name="ri-mark-pen-line" />
+        </client-only>
+      </el-button>
+
       <div class="divider"></div>
+
       <el-button
         title="Align Left"
         :class="{ 'editor__menu-item': true, active: editor.isActive({ textAlign: 'left' }) }"
@@ -87,6 +98,7 @@ import { Editor, EditorContent } from '@tiptap/vue-2';
 import StarterKit from '@tiptap/starter-kit';
 import TextAlign from '@tiptap/extension-text-align';
 import Underline from '@tiptap/extension-underline';
+import Highlight from '@tiptap/extension-highlight';
 
 export default {
   components: {
@@ -122,6 +134,7 @@ export default {
     this.editor = new Editor({
       content: this.value,
       extensions: [
+        Highlight,
         StarterKit,
         TextAlign.configure({
           types: ['heading', 'paragraph'],

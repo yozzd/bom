@@ -8,6 +8,7 @@ import {
   RiAlignRight,
   RiBold,
   RiItalic,
+  RiMarkPenLine,
   RiStrikethrough,
   RiUnderline,
 } from 'oh-vue-icons/icons';
@@ -19,6 +20,7 @@ addIcons(
   RiAlignRight,
   RiBold,
   RiItalic,
+  RiMarkPenLine,
   RiStrikethrough,
   RiUnderline,
 );
