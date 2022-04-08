@@ -171,7 +171,7 @@ export default {
 
 .editor__menu-item {
   @apply w-7 h-7 cursor-pointer bg-transparent;
-  @apply border-0 p-1 rounded;
+  @apply border-0 p-1 -mr-1 rounded;
 }
 
 .editor__menu-item.active,
@@ -182,6 +182,6 @@ export default {
   @apply outline-none;
 }
 .divider {
-  @apply mx-3 w-0.5 h-5 bg-gray-200;
+  @apply ml-3 mr-2 w-0.5 h-5 bg-gray-200;
 }
 </style>
