@@ -85,6 +85,18 @@
           <v-icon name="ri-align-justify" />
         </client-only>
       </el-button>
+
+      <div class="divider"></div>
+
+      <el-button
+        title="Paragraph"
+        :class="{ 'editor__menu-item': true, active: editor.isActive('paragraph') }"
+        @click="editor.chain().focus().setParagraph().run()"
+      >
+        <client-only>
+          <v-icon name="ri-paragraph" />
+        </client-only>
+      </el-button>
     </div>
 
     <div class="editor__content">
