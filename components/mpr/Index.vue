@@ -7,8 +7,10 @@
 
     <div class="flex flex-col divide-y divide-gray-400 divide-dashed">
       <el-breadcrumb separator="/" class="mb-4">
-        <el-breadcrumb-item :to="{ name: 'index' }">
-          <outline-home-icon class="heroicons w-15px h-15px" />
+        <el-breadcrumb-item :to="{ name: 'index' }" title="Home">
+          <client-only>
+            <v-icon name="ri-home-4-line" class="remixicons w-15px h-15px" />
+          </client-only>
         </el-breadcrumb-item>
         <el-breadcrumb-item>
           MPR
@@ -19,9 +21,13 @@
         <div class="flex my-4 space-x-8 items-center">
           <el-dropdown trigger="click" @command="handleCommand">
             <el-button type="primary">
-              <outline-filter-icon class="heroicons w-4 h-4" />
+              <client-only>
+                <v-icon name="ri-filter-line" class="remixicons w-4 h-4" />
+              </client-only>
               Filter
-              <outline-chevron-down-icon class="heroicons heroicons-right w-4 h-4" />
+              <client-only>
+                <v-icon name="ri-arrow-down-s-line" class="remixicons w-4 h-4" />
+              </client-only>
             </el-button>
             <el-dropdown-menu slot="dropdown">
               <el-dropdown-item command="a">
@@ -82,7 +88,9 @@
                       title="Open in new tab"
                       target="_blank"
                     >
-                      <outline-external-link-icon class="heroicons w-4 h-4" />
+                      <client-only>
+                        <v-icon name="ri-external-link-line" class="remixicons w-4 h-4" />
+                      </client-only>
                     </a>
                   </div>
                 </template>
@@ -106,7 +114,9 @@
                       title="Open in new tab"
                       target="_blank"
                     >
-                      <outline-external-link-icon class="heroicons w-4 h-4" />
+                      <client-only>
+                        <v-icon name="ri-external-link-line" class="remixicons w-4 h-4" />
+                      </client-only>
                     </a>
                   </div>
                 </template>
@@ -179,10 +189,9 @@
                           {{ scope.row.managerTimestamp }}
                         </div>
                       </template>
-                      <outline-clock-icon
-                        slot="reference"
-                        class="heroicons text-gray-400 w-4 h-4"
-                      />
+                      <client-only slot="reference">
+                        <v-icon name="ri-time-line" class="remixicons w-4 h-4" />
+                      </client-only>
                     </el-popover>
                   </div>
                   <el-tag v-else type="warning" size="mini">
@@ -205,10 +214,9 @@
                           {{ scope.row.whTimestamp }}
                         </div>
                       </template>
-                      <outline-clock-icon
-                        slot="reference"
-                        class="heroicons text-gray-400 w-4 h-4"
-                      />
+                      <client-only slot="reference">
+                        <v-icon name="ri-time-line" class="remixicons w-4 h-4" />
+                      </client-only>
                     </el-popover>
                   </div>
                   <el-tag v-else type="warning" size="mini">
@@ -231,10 +239,9 @@
                           {{ scope.row.bomTimestamp }}
                         </div>
                       </template>
-                      <outline-clock-icon
-                        slot="reference"
-                        class="heroicons text-gray-400 w-4 h-4"
-                      />
+                      <client-only slot="reference">
+                        <v-icon name="ri-time-line" class="remixicons w-4 h-4" />
+                      </client-only>
                     </el-popover>
                   </div>
                   <el-tag v-else type="warning" size="mini">
@@ -258,10 +265,9 @@
                           {{ scope.row.requestorTimestamp }}
                         </div>
                       </template>
-                      <outline-clock-icon
-                        slot="reference"
-                        class="heroicons text-gray-400 w-4 h-4"
-                      />
+                      <client-only slot="reference">
+                        <v-icon name="ri-time-line" class="remixicons w-4 h-4" />
+                      </client-only>
                     </el-popover>
                   </div>
                 </template>
@@ -290,10 +296,9 @@
                     <template #default>
                       <div class="text-xs" v-html="scope.row.remark"></div>
                     </template>
-                    <outline-chat-icon
-                      slot="reference"
-                      class="heroicons text-gray-400 w-4 h-4"
-                    />
+                    <client-only slot="reference">
+                      <v-icon name="ri-message-2-line" class="remixicons w-4 h-4" />
+                    </client-only>
                   </el-popover>
                 </template>
               </el-table-column>

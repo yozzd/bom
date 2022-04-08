@@ -13,7 +13,9 @@
           }"
           class="flex-1"
         >
-          <outline-arrow-left-icon class="heroicons w-4 h-4" />
+          <client-only>
+            <v-icon name="ri-arrow-left-line" class="remixicons w-4 h-4" />
+          </client-only>
           Back
         </nuxt-link>
         <div class="text-xl">

@@ -126,6 +126,12 @@ a {
   @apply ml-4px;
 }
 
+.remixicons {
+  @apply inline-block leading-none;
+  @apply not-italic font-normal;
+  @apply normal-case;
+}
+
 .el-tag--mini,
 .el-table--mini {
   @apply text-10px;
