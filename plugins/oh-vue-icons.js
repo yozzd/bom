@@ -1,8 +1,11 @@
 import Vue from 'vue';
 
 import { OhVueIcon, addIcons } from 'oh-vue-icons';
-import { RiBold } from 'oh-vue-icons/icons';
+import {
+  RiBold,
+  RiItalic,
+} from 'oh-vue-icons/icons';
 
-addIcons(RiBold);
+addIcons(RiBold, RiItalic);
 
 Vue.component('VIcon', OhVueIcon);

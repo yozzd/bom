@@ -14,7 +14,9 @@
         :class="{ 'editor__menu-item': true, active: editor.isActive('italic') }"
         @click="editor.chain().focus().toggleItalic().run()"
       >
-        I
+        <client-only>
+          <v-icon name="ri-italic" />
+        </client-only>
       </el-button>
     </div>
 
