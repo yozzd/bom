@@ -18,6 +18,23 @@
           <v-icon name="ri-italic" />
         </client-only>
       </el-button>
+      <div class="divider"></div>
+      <el-button
+        :class="{ 'editor__menu-item': true, active: editor.isActive({ textAlign: 'left' }) }"
+        @click="editor.chain().focus().setTextAlign('left').run()"
+      >
+        <client-only>
+          <v-icon name="ri-align-left" />
+        </client-only>
+      </el-button>
+      <el-button
+        :class="{ 'editor__menu-item': true, active: editor.isActive({ textAlign: 'right' }) }"
+        @click="editor.chain().focus().setTextAlign('right').run()"
+      >
+        <client-only>
+          <v-icon name="ri-align-right" />
+        </client-only>
+      </el-button>
     </div>
 
     <div class="editor__content">
@@ -29,6 +46,7 @@
 <script>
 import { Editor, EditorContent } from '@tiptap/vue-2';
 import StarterKit from '@tiptap/starter-kit';
+import TextAlign from '@tiptap/extension-text-align';
 
 export default {
   components: {
@@ -65,6 +83,9 @@ export default {
       content: this.value,
       extensions: [
         StarterKit,
+        TextAlign.configure({
+          types: ['heading', 'paragraph'],
+        }),
       ],
       onUpdate: () => {
         this.$emit('input', this.editor.getHTML());
@@ -84,7 +105,7 @@ export default {
   @apply bg-white rounded-lg;
 }
 .editor__header {
-  @apply flex flex-wrap space-x-1 p-2;
+  @apply flex flex-wrap p-2;
   @apply items-center border-b border-gray-200;
 }
 
@@ -127,5 +148,11 @@ export default {
 }
 .editor__content :focus-visible {
   outline: none;
+}
+.divider {
+  width: 2px;
+  height: 1.25rem;
+  background-color: #0000001a;
+  @apply mx-2;
 }
 </style>
