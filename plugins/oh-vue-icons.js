@@ -8,6 +8,8 @@ import {
   RiAlignRight,
   RiBold,
   RiItalic,
+  RiStrikethrough,
+  RiUnderline,
 } from 'oh-vue-icons/icons';
 
 addIcons(
@@ -17,6 +19,8 @@ addIcons(
   RiAlignRight,
   RiBold,
   RiItalic,
+  RiStrikethrough,
+  RiUnderline,
 );
 
 Vue.component('VIcon', OhVueIcon);

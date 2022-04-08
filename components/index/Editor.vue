@@ -18,6 +18,22 @@
           <v-icon name="ri-italic" />
         </client-only>
       </el-button>
+      <el-button
+        :class="{ 'editor__menu-item': true, active: editor.isActive('underline') }"
+        @click="editor.chain().focus().toggleUnderline().run()"
+      >
+        <client-only>
+          <v-icon name="ri-underline" />
+        </client-only>
+      </el-button>
+      <el-button
+        :class="{ 'editor__menu-item': true, active: editor.isActive('strike') }"
+        @click="editor.chain().focus().toggleStrike().run()"
+      >
+        <client-only>
+          <v-icon name="ri-strikethrough" />
+        </client-only>
+      </el-button>
       <div class="divider"></div>
       <el-button
         :class="{ 'editor__menu-item': true, active: editor.isActive({ textAlign: 'left' }) }"
@@ -63,6 +79,7 @@
 import { Editor, EditorContent } from '@tiptap/vue-2';
 import StarterKit from '@tiptap/starter-kit';
 import TextAlign from '@tiptap/extension-text-align';
+import Underline from '@tiptap/extension-underline';
 
 export default {
   components: {
@@ -102,6 +119,7 @@ export default {
         TextAlign.configure({
           types: ['heading', 'paragraph'],
         }),
+        Underline,
       ],
       onUpdate: () => {
         this.$emit('input', this.editor.getHTML());
