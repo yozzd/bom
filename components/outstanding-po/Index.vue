@@ -7,8 +7,10 @@
 
     <div class="flex flex-col divide-y divide-gray-400 divide-dashed">
       <el-breadcrumb separator="/" class="mb-4">
-        <el-breadcrumb-item :to="{ name: 'index' }">
-          <outline-home-icon class="heroicons w-15px h-15px" />
+        <el-breadcrumb-item :to="{ name: 'index' }" title="Home">
+          <client-only>
+            <v-icon name="ri-home-4-line" class="remixicons w-15px h-15px" />
+          </client-only>
         </el-breadcrumb-item>
         <el-breadcrumb-item>
           OUTSTANDING PO
@@ -19,9 +21,13 @@
         <div class="flex my-4 space-x-8 items-center">
           <el-dropdown trigger="click" @command="handleCommand">
             <el-button type="primary">
-              <outline-filter-icon class="heroicons w-4 h-4" />
+              <client-only>
+                <v-icon name="ri-filter-line" class="remixicons w-4 h-4" />
+              </client-only>
               Filter
-              <outline-chevron-down-icon class="heroicons heroicons-right w-4 h-4" />
+              <client-only>
+                <v-icon name="ri-arrow-down-s-line" class="remixicons w-4 h-4" />
+              </client-only>
             </el-button>
             <el-dropdown-menu slot="dropdown">
               <el-dropdown-item command="a">
@@ -83,10 +89,14 @@
                   </tbody>
                 </table>
               </template>
-              <outline-information-circle-icon
-                slot="reference"
-                class="heroicons w-4 h-4 text-blue-600"
-              />
+              <div slot="reference">
+                <client-only>
+                  <v-icon
+                    name="ri-information-line"
+                    class="remixicons w-4 h-4 text-blue-600"
+                  />
+                </client-only>
+              </div>
             </el-popover>
           </div>
           <div class="w-64">
@@ -242,10 +252,9 @@
                   <template #default>
                     <div class="text-xs" v-html="scope.row.poRemarksBom"></div>
                   </template>
-                  <outline-chat-icon
-                    slot="reference"
-                    class="heroicons w-4 h-4"
-                  />
+                  <client-only slot="reference">
+                    <v-icon name="ri-message-2-line" class="remixicons w-4 h-4" />
+                  </client-only>
                 </el-popover>
               </template>
             </el-table-column>
@@ -265,10 +274,9 @@
                   <template #default>
                     <div class="text-xs" v-html="scope.row.poRemarksAdmin"></div>
                   </template>
-                  <outline-chat-icon
-                    slot="reference"
-                    class="heroicons w-4 h-4"
-                  />
+                  <client-only slot="reference">
+                    <v-icon name="ri-message-2-line" class="remixicons w-4 h-4" />
+                  </client-only>
                 </el-popover>
               </template>
             </el-table-column>
@@ -288,10 +296,9 @@
                   <template #default>
                     <div class="text-xs" v-html="scope.row.poRemarksFinance"></div>
                   </template>
-                  <outline-chat-icon
-                    slot="reference"
-                    class="heroicons w-4 h-4"
-                  />
+                  <client-only slot="reference">
+                    <v-icon name="ri-message-2-line" class="remixicons w-4 h-4" />
+                  </client-only>
                 </el-popover>
               </template>
             </el-table-column>
@@ -321,10 +328,9 @@
                   <template #default>
                     <div class="text-xs" v-html="scope.row.poRemarksWarehouse"></div>
                   </template>
-                  <outline-chat-icon
-                    slot="reference"
-                    class="heroicons w-4 h-4"
-                  />
+                  <client-only slot="reference">
+                    <v-icon name="ri-message-2-line" class="remixicons w-4 h-4" />
+                  </client-only>
                 </el-popover>
               </template>
             </el-table-column>
@@ -360,10 +366,9 @@
                   <template #default>
                     <div class="text-xs" v-html="scope.row.poRemarks"></div>
                   </template>
-                  <outline-chat-icon
-                    slot="reference"
-                    class="heroicons w-4 h-4"
-                  />
+                  <client-only slot="reference">
+                    <v-icon name="ri-message-2-line" class="remixicons w-4 h-4" />
+                  </client-only>
                 </el-popover>
               </template>
             </el-table-column>
