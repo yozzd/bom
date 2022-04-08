@@ -2,7 +2,7 @@
   <div class="editor">
     <div v-if="editor" class="editor__header">
       <el-button
-        type="primary"
+        title="Button"
         :class="{ 'editor__menu-item': true, active: editor.isActive('bold') }"
         @click="editor.chain().focus().toggleBold().run()"
       >
@@ -11,6 +11,7 @@
         </client-only>
       </el-button>
       <el-button
+        title="Italic"
         :class="{ 'editor__menu-item': true, active: editor.isActive('italic') }"
         @click="editor.chain().focus().toggleItalic().run()"
       >
@@ -19,6 +20,7 @@
         </client-only>
       </el-button>
       <el-button
+        title="Underline"
         :class="{ 'editor__menu-item': true, active: editor.isActive('underline') }"
         @click="editor.chain().focus().toggleUnderline().run()"
       >
@@ -27,6 +29,7 @@
         </client-only>
       </el-button>
       <el-button
+        title="Strikethrough"
         :class="{ 'editor__menu-item': true, active: editor.isActive('strike') }"
         @click="editor.chain().focus().toggleStrike().run()"
       >
@@ -36,6 +39,7 @@
       </el-button>
       <div class="divider"></div>
       <el-button
+        title="Align Left"
         :class="{ 'editor__menu-item': true, active: editor.isActive({ textAlign: 'left' }) }"
         @click="editor.chain().focus().setTextAlign('left').run()"
       >
@@ -44,6 +48,7 @@
         </client-only>
       </el-button>
       <el-button
+        title="Align Center"
         :class="{ 'editor__menu-item': true, active: editor.isActive({ textAlign: 'center' }) }"
         @click="editor.chain().focus().setTextAlign('center').run()"
       >
@@ -52,6 +57,7 @@
         </client-only>
       </el-button>
       <el-button
+        title="Align Right"
         :class="{ 'editor__menu-item': true, active: editor.isActive({ textAlign: 'right' }) }"
         @click="editor.chain().focus().setTextAlign('right').run()"
       >
@@ -60,6 +66,7 @@
         </client-only>
       </el-button>
       <el-button
+        title="Align Justify"
         :class="{ 'editor__menu-item': true, active: editor.isActive({ textAlign: 'justify' }) }"
         @click="editor.chain().focus().setTextAlign('justify').run()"
       >
