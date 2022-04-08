@@ -6,7 +6,9 @@
         :class="{ 'editor__menu-item': true, active: editor.isActive('bold') }"
         @click="editor.chain().focus().toggleBold().run()"
       >
-        B
+        <client-only>
+          <v-icon name="ri-bold" />
+        </client-only>
       </el-button>
       <el-button
         :class="{ 'editor__menu-item': true, active: editor.isActive('italic') }"

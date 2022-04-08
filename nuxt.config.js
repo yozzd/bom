@@ -25,6 +25,7 @@ export default {
   plugins: [
     '@/plugins/auth',
     '@/plugins/element-ui',
+    { src: '@/plugins/oh-vue-icons', mode: 'client' },
   ],
 
   components: true,
@@ -33,6 +34,7 @@ export default {
     '@nuxtjs/eslint-module',
     'nuxt-windicss',
     '@nuxt-hero-icons/outline/nuxt',
+    '@nuxtjs/composition-api/module',
   ],
 
   modules: [
@@ -75,6 +77,9 @@ export default {
   ],
 
   build: {
-    transpile: [/^element-ui/],
+    transpile: [
+      /^element-ui/,
+      'oh-vue-icons',
+    ],
   },
 };
