@@ -7,8 +7,10 @@
 
     <div class="flex flex-col divide-y divide-gray-400 divide-dashed">
       <el-breadcrumb separator="/" class="mb-4">
-        <el-breadcrumb-item :to="{ name: 'index' }">
-          <outline-home-icon class="heroicons w-15px h-15px" />
+        <el-breadcrumb-item :to="{ name: 'index' }" title="Home">
+          <client-only>
+            <v-icon name="ri-home-4-line" class="remixicons w-15px h-15px" />
+          </client-only>
         </el-breadcrumb-item>
         <el-breadcrumb-item>
           BOM
@@ -19,9 +21,13 @@
         <div class="flex my-4 space-x-8 items-center">
           <el-dropdown trigger="click" @command="handleCommand">
             <el-button type="primary">
-              <outline-filter-icon class="heroicons w-4 h-4" />
+              <client-only>
+                <v-icon name="ri-filter-line" class="remixicons w-4 h-4" />
+              </client-only>
               Filter
-              <outline-chevron-down-icon class="heroicons heroicons-right w-4 h-4" />
+              <client-only>
+                <v-icon name="ri-arrow-down-s-line" class="remixicons w-4 h-4" />
+              </client-only>
             </el-button>
             <el-dropdown-menu slot="dropdown">
               <el-dropdown-item command="a">
@@ -73,7 +79,9 @@
                       title="Open in new tab"
                       target="_blank"
                     >
-                      <outline-external-link-icon class="heroicons w-4 h-4" />
+                      <client-only>
+                        <v-icon name="ri-external-link-line" class="remixicons w-4 h-4" />
+                      </client-only>
                     </a>
                   </div>
                 </template>
