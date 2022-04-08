@@ -192,10 +192,9 @@
             <template #default>
               <div class="text-xs" v-html="scope.row.bomRemarks"></div>
             </template>
-            <outline-chat-icon
-              slot="reference"
-              class="heroicons w-4 h-4"
-            />
+            <client-only slot="reference">
+              <v-icon name="ri-message-2-line" class="remixicons w-4 h-4" />
+            </client-only>
           </el-popover>
         </template>
       </el-table-column>
@@ -225,10 +224,9 @@
                 </span>"
               </div>
             </template>
-            <outline-chat-icon
-              slot="reference"
-              class="heroicons w-4 h-4"
-            />
+            <client-only slot="reference">
+              <v-icon name="ri-message-2-line" class="remixicons w-4 h-4" />
+            </client-only>
           </el-popover>
           <el-popover
             v-if="scope.row.isMpr && scope.row.mpr"
@@ -248,10 +246,9 @@
                 </a>
               </div>
             </template>
-            <outline-chat-icon
-              slot="reference"
-              class="heroicons w-4 h-4"
-            />
+            <client-only slot="reference">
+              <v-icon name="ri-message-2-line" class="remixicons w-4 h-4" />
+            </client-only>
           </el-popover>
         </template>
       </el-table-column>
