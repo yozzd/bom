@@ -33,7 +33,6 @@ export default {
   buildModules: [
     '@nuxtjs/eslint-module',
     'nuxt-windicss',
-    '@nuxt-hero-icons/outline/nuxt',
     '@nuxtjs/composition-api/module',
   ],
 

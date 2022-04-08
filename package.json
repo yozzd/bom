@@ -13,7 +13,6 @@
   },
   "dependencies": {
     "@graphql-tools/schema": "^8.3.6",
-    "@nuxt-hero-icons/outline": "^1.0.1",
     "@nuxtjs/apollo": "^4.0.1-rc.5",
     "@nuxtjs/dotenv": "^1.4.1",
     "@nuxtjs/style-resources": "^1.2.1",
