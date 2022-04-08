@@ -199,7 +199,10 @@
             prop="bomRemarks"
             class="col-span-2"
           >
-            <el-input v-model="form.bomRemarks" type="textarea"></el-input>
+            <!--<el-input v-model="form.bomRemarks" type="textarea"></el-input>-->
+            <client-only>
+              <IndexEditor v-model="form.bomRemarks" />
+            </client-only>
           </el-form-item>
         </div>
         <div class="flex justify-end space-x-8 mt-8">
