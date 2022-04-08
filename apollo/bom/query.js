@@ -165,19 +165,6 @@ export const GetOneWO = gql`
           }
         }
       }
-      ltMpr {
-        id
-        ltNo
-        wos {
-          unit
-          totalPricePerUnit
-          totalPricePerWO
-          totalMaterialsProcessed
-          totalYetToPurchase
-          totalPackingPerUnit
-          totalPackingPerWO
-        }
-      }
       mpr {
         id
         woNo

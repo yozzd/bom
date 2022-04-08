@@ -348,20 +348,11 @@ export default {
             getOneWO: {
               lt: { customer, wos: [wos] },
               wo: { modules, ...wo },
-              ltMpr: { wos: [wosMpr] },
               mpr: { mprs },
             },
           } = data;
           this.customer = customer;
-
-          wos.totalPricePerWO += wosMpr.totalPricePerWO;
-          wos.totalMaterialsProcessed += wosMpr.totalMaterialsProcessed;
-          wos.totalYetToPurchase += wosMpr.totalYetToPurchase;
-          wos.totalPackingPerWO += wosMpr.totalPackingPerWO;
-          wos.totalPackingPerUnit += wosMpr.totalPackingPerUnit;
-          wos.difference -= wosMpr.totalPricePerWO;
           this.total = wos;
-
           this.wo = wo;
           this.modules = modules;
 

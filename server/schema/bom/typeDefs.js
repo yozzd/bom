@@ -18,7 +18,6 @@ const typeDefs = `
   type WODetail {
     lt: LT
     wo: WO
-    ltMpr: LTMPR
     mpr: WOMPR
   }
   

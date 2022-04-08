@@ -213,9 +213,9 @@ const resolvers = {
           model: WO,
           attributes: [
             'unit', 'totalPackingPerUnit',
-            [sequelize.literal('SUM(CASE WHEN `wos->mprs->items`.packing = 0 THEN `wos->mprs->items`.bom_usd_total ELSE 0 END)'), 'totalPricePerWO'],
-            [sequelize.literal('SUM(`wos->mprs->items`.materials_processed)'), 'totalMaterialsProcessed'],
-            [sequelize.literal('SUM(`wos->mprs->items`.yet_to_purchase)'), 'totalYetToPurchase'],
+            [sequelize.literal('IFNULL(SUM(CASE WHEN `wos->mprs->items`.packing = 0 THEN `wos->mprs->items`.bom_usd_total ELSE 0 END), 0)'), 'totalPricePerWO'],
+            [sequelize.literal('IFNULL(SUM(`wos->mprs->items`.materials_processed), 0)'), 'totalMaterialsProcessed'],
+            [sequelize.literal('IFNULL(SUM(`wos->mprs->items`.yet_to_purchase), 0)'), 'totalYetToPurchase'],
             [sequelize.literal('SUM(CASE WHEN `wos->mprs->items`.packing THEN `wos->mprs->items`.bom_usd_total ELSE 0 END)'), 'totalPackingPerWO'],
           ],
           where: { id },
@@ -241,6 +241,13 @@ const resolvers = {
           }],
         }],
       });
+
+      lt.wos[0].totalPricePerWO += ltMpr.wos[0].totalPricePerWO;
+      lt.wos[0].totalMaterialsProcessed += ltMpr.wos[0].totalMaterialsProcessed;
+      lt.wos[0].totalYetToPurchase += ltMpr.wos[0].totalYetToPurchase;
+      lt.wos[0].totalPackingPerWO += ltMpr.wos[0].totalPackingPerWO;
+      lt.wos[0].totalPackingPerUnit += ltMpr.wos[0].totalPackingPerUnit;
+      lt.wos[0].difference -= ltMpr.wos[0].totalPricePerWO;
 
       const mpr = await WO.findOne({
         attributes: ['id', 'woNo'],
