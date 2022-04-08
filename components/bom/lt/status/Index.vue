@@ -7,8 +7,10 @@
 
     <div class="flex flex-col divide-y divide-gray-400 divide-dashed">
       <el-breadcrumb separator="/" class="mb-4">
-        <el-breadcrumb-item :to="{ name: 'index' }">
-          <outline-home-icon class="heroicons w-15px h-15px" />
+        <el-breadcrumb-item :to="{ name: 'index' }" title="Home">
+          <client-only>
+            <v-icon name="ri-home-4-line" class="remixicons w-15px h-15px" />
+          </client-only>
         </el-breadcrumb-item>
         <el-breadcrumb-item :to="{ name: 'bom'}">
           LT
@@ -82,7 +84,9 @@
                   title="Open in new tab"
                   target="_blank"
                 >
-                  <outline-external-link-icon class="heroicons w-4 h-4" />
+                  <client-only>
+                    <v-icon name="ri-external-link-line" class="remixicons w-4 h-4" />
+                  </client-only>
                 </a>
               </div>
             </template>
@@ -136,10 +140,14 @@
                         </tbody>
                       </table>
                     </template>
-                    <outline-information-circle-icon
-                      slot="reference"
-                      class="heroicons w-4 h-4 text-blue-600"
-                    />
+                    <div slot="reference">
+                      <client-only>
+                        <v-icon
+                          name="ri-information-line"
+                          class="remixicons w-4 h-4 text-blue-600"
+                        />
+                      </client-only>
+                    </div>
                   </el-popover>
                 </div>
               </div>
@@ -180,10 +188,14 @@
                         </tbody>
                       </table>
                     </template>
-                    <outline-information-circle-icon
-                      slot="reference"
-                      class="heroicons w-4 h-4 text-blue-600"
-                    />
+                    <div slot="reference">
+                      <client-only>
+                        <v-icon
+                          name="ri-information-line"
+                          class="remixicons w-4 h-4 text-blue-600"
+                        />
+                      </client-only>
+                    </div>
                   </el-popover>
                 </div>
               </div>
@@ -220,10 +232,14 @@
                         </tbody>
                       </table>
                     </template>
-                    <outline-information-circle-icon
-                      slot="reference"
-                      class="heroicons w-4 h-4 text-blue-600"
-                    />
+                    <div slot="reference">
+                      <client-only>
+                        <v-icon
+                          name="ri-information-line"
+                          class="remixicons w-4 h-4 text-blue-600"
+                        />
+                      </client-only>
+                    </div>
                   </el-popover>
                 </div>
               </div>
@@ -264,10 +280,14 @@
                         </tbody>
                       </table>
                     </template>
-                    <outline-information-circle-icon
-                      slot="reference"
-                      class="heroicons w-4 h-4 text-blue-600"
-                    />
+                    <div slot="reference">
+                      <client-only>
+                        <v-icon
+                          name="ri-information-line"
+                          class="remixicons w-4 h-4 text-blue-600"
+                        />
+                      </client-only>
+                    </div>
                   </el-popover>
                 </div>
               </div>
