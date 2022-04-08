@@ -146,7 +146,7 @@ export default {
   @apply bg-white rounded-lg;
 }
 .editor__header {
-  @apply flex flex-wrap p-2;
+  @apply flex flex-wrap p-2 bg-gray-100 rounded-t-lg;
   @apply items-center border-b border-gray-200;
 }
 
@@ -170,30 +170,18 @@ export default {
 }
 
 .editor__menu-item {
-  width: 1.75rem;
-  height: 1.75rem;
-  color: #0d0d0d;
-  border: none;
-  background-color: transparent;
-  border-radius: 0.4rem;
-  padding: 0.25rem;
-  margin-right: 0.25rem;
-  font-weight: bold;
-  cursor: pointer;
+  @apply w-7 h-7 cursor-pointer bg-transparent;
+  @apply border-0 p-1 rounded;
 }
 
 .editor__menu-item.active,
 .editor__menu-item:hover {
-  color: #fff;
-  background-color: #0d0d0d;
+  @apply bg-gray-200;
 }
 .editor__content :focus-visible {
-  outline: none;
+  @apply outline-none;
 }
 .divider {
-  width: 2px;
-  height: 1.25rem;
-  background-color: #0000001a;
-  @apply mx-2;
+  @apply mx-3 w-0.5 h-5 bg-gray-200;
 }
 </style>
