@@ -50,7 +50,7 @@
                   Total Price / WO
                 </td>
                 <td>:</td>
-                <td>USD {{ lt.totalPriceWO | currency }}</td>
+                <td>USD {{ lt.totalPrice | currency }}</td>
               </tr>
             </tbody>
           </table>
@@ -431,39 +431,11 @@ export default {
       async result({ data, loading }) {
         if (!loading) {
           const {
-            getOneLT: { lt: { wos, ...lt }, ltMpr: { wos: wosMpr, ...ltMpr } },
+            getOneLT: { wos, ...lt },
           } = data;
 
-          const mergeLt = { ...lt };
-          mergeLt.totalPriceWO += ltMpr.totalPriceWO;
-
-          const mergeWos = await Promise.all(wos.map((v, i) => {
-            const item = { ...v };
-            item.bomIncoming = item.totalIncoming;
-            item.mprIncoming = wosMpr[i].totalIncoming;
-            item.bomPercentIncoming = item.percentIncoming;
-            item.mprPercentIncoming = wosMpr[i].percentIncoming;
-            item.bomValidation = item.totalValidation;
-            item.mprValidation = wosMpr[i].totalValidation;
-            item.bomPercentValidation = item.percentValidation;
-            item.mprPercentValidation = wosMpr[i].percentValidation;
-            item.totalIncoming += wosMpr[i].totalIncoming;
-            item.totalItems += wosMpr[i].totalItems;
-            item.totalValidation += wosMpr[i].totalValidation;
-            item.totalPricePerUnit += wosMpr[i].totalPricePerUnit;
-            item.totalPricePerWO += wosMpr[i].totalPricePerWO;
-            item.totalPackingPerUnit += wosMpr[i].totalPackingPerUnit;
-            item.totalPackingPerWO += wosMpr[i].totalPackingPerWO;
-            item.totalYetToPurchase += wosMpr[i].totalYetToPurchase;
-            item.totalMpr = wosMpr[i].totalMpr;
-            item.difference -= wosMpr[i].totalPricePerWO;
-            item.percentIncoming = (item.totalIncoming / item.totalItems) * 100;
-            item.percentValidation = (item.totalValidation / item.totalItems) * 100;
-            return item;
-          }));
-
-          this.lt = mergeLt;
-          this.items = mergeWos;
+          this.lt = lt;
+          this.items = wos;
 
           this.miniSearch.removeAll();
           this.miniSearch.addAll(this.items);

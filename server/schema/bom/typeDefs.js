@@ -1,18 +1,13 @@
 const typeDefs = `
   extend type Query {
     getAllLT(status: Int): [LT]
-    getOneLT(id: Int, status: Int): LTGroup
+    getOneLT(id: Int, status: Int): LT
     getOneWO(idLt:Int, id: Int): WODetail
     getOneITEM(id: Int, isMpr: Int): WOITEM
   }
 
   extend type Mutation {
     updateITEM(input: UpdateItemInput): WOITEM
-  }
-
-  type LTGroup {
-    lt: LT
-    ltMpr: LTMPR
   }
 
   type WODetail {
@@ -27,6 +22,7 @@ const typeDefs = `
     customer: customerType
     totalBudget: Float
     totalPriceWO: Float
+    totalPrice: Float
     wos: [WO]
   }
   
@@ -64,6 +60,15 @@ const typeDefs = `
     totalPackingPerUnit: Float
     totalPackingPerWO: Float
     modules: [WOMODULE]
+    bomIncoming: Float
+    mprIncoming: Float
+    bomPercentIncoming: Float
+    mprPercentIncoming: Float
+    bomValidation: Float
+    mprValidation: Float
+    bomPercentValidation: Float
+    mprPercentValidation: Float
+    totalMpr: Int
   }
   
   type WOMODULE {
@@ -113,15 +118,6 @@ const typeDefs = `
     name: String
     contractDeadLine: String
     productionDeadLine: String
-  }
-  
-  type LTMPR {
-    id: Int
-    ltNo: String
-    customer: customerType
-    totalBudget: Float
-    totalPriceWO: Float
-    wos: [WOMPR]
   }
   
   type WOMPR {

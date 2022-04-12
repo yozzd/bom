@@ -122,7 +122,37 @@ const resolvers = {
         }],
       });
 
-      return { lt, ltMpr };
+      const total = await Promise.all(lt.wos.map((v, i) => {
+        const item = v;
+        item.bomIncoming = item.totalIncoming;
+        item.mprIncoming = ltMpr.wos[i].totalIncoming;
+        item.bomPercentIncoming = item.percentIncoming;
+        item.mprPercentIncoming = ltMpr.wos[i].percentIncoming;
+        item.bomValidation = item.totalValidation;
+        item.mprValidation = ltMpr.wos[i].totalValidation;
+        item.bomPercentValidation = item.percentValidation;
+        item.mprPercentValidation = ltMpr.wos[i].percentValidation;
+
+        item.totalIncoming += ltMpr.wos[i].totalIncoming;
+        item.totalItems += ltMpr.wos[i].totalItems;
+        item.totalValidation += ltMpr.wos[i].totalValidation;
+        item.totalMpr = ltMpr.wos[i].totalMpr;
+        item.totalPricePerUnit += ltMpr.wos[i].totalPricePerUnit;
+        item.totalPricePerWO += ltMpr.wos[i].totalPricePerWO;
+        item.difference -= ltMpr.wos[i].totalPricePerWO;
+        item.totalYetToPurchase += ltMpr.wos[i].totalYetToPurchase;
+        item.totalPackingPerUnit += ltMpr.wos[i].totalPackingPerUnit;
+        item.totalPackingPerWO += ltMpr.wos[i].totalPackingPerWO;
+
+        item.percentIncoming = (item.totalIncoming / item.totalItems) * 100;
+        item.percentValidation = (item.totalValidation / item.totalItems) * 100;
+
+        return item;
+      }));
+      lt.wos = total;
+      lt.totalPrice = lt.totalPriceWO + ltMpr.totalPriceWO;
+
+      return lt;
     }),
     getOneWO: isAuthenticated(async (_, { idLt, id }) => {
       const lt = await LT.findOne({
@@ -283,7 +313,7 @@ const resolvers = {
       });
 
       return {
-        lt, wo, ltMpr, mpr,
+        lt, wo, mpr,
       };
     }),
     getOneITEM: isAuthenticated(async (_, { id, isMpr }) => {

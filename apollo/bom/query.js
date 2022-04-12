@@ -22,60 +22,45 @@ export const GetAllLT = gql`
 export const GetOneLT = gql`
   query getOneLT($id: Int, $status: Int) {
     getOneLT(id: $id, status: $status) {
-      lt {
-        id
-        ltNo
-        customer {
-          name
-          contractDeadLine
-          productionDeadLine
-        }
-        totalBudget
-        totalPriceWO
-        wos {
-          id
-          woNo
-          model
-          product
-          issued
-          unit
-          budget
-          stage
-          totalIncoming
-          totalValidation
-          totalItems
-          percentIncoming
-          percentValidation
-          totalPricePerUnit
-          totalPricePerWO
-          difference
-          totalYetToPurchase
-          totalDeviation
-          totalPackingPerUnit
-          totalPackingPerWO
-        }
+      id
+      ltNo
+      customer {
+        name
+        contractDeadLine
+        productionDeadLine
       }
-      ltMpr {
+      totalBudget
+      totalPrice
+      wos {
         id
-        ltNo
-        totalBudget
-        totalPriceWO
-        wos {
-          id
-          woNo
-          unit
-          totalIncoming
-          totalValidation
-          totalItems
-          percentIncoming
-          percentValidation
-          totalPricePerUnit
-          totalPricePerWO
-          totalYetToPurchase
-          totalPackingPerUnit
-          totalPackingPerWO
-          totalMpr
-        }
+        woNo
+        model
+        product
+        issued
+        unit
+        budget
+        stage
+        totalIncoming
+        totalValidation
+        totalItems
+        percentIncoming
+        percentValidation
+        totalPricePerUnit
+        totalPricePerWO
+        difference
+        totalYetToPurchase
+        totalDeviation
+        totalPackingPerUnit
+        totalPackingPerWO
+        bomIncoming
+        mprIncoming
+        bomPercentIncoming
+        mprPercentIncoming
+        bomValidation
+        mprValidation
+        bomPercentValidation
+        mprPercentValidation
+        totalMpr
       }
     }
   }
