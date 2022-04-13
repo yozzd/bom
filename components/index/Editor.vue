@@ -206,8 +206,12 @@ export default {
 }
 
 .editor__content {
-  @apply flex-auto h-48 p-2;
+  @apply flex-auto h-48 px-3;
   @apply overflow-x-hidden overflow-y-auto;
+}
+
+.editor__content p {
+  @apply -mb-4;
 }
 
 .editor__footer {
