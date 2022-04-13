@@ -160,6 +160,7 @@ const typeDefs = `
     bomPoDate: String
     bomPoNo: String
     bomRemarks: String
+    priority: String
     isMpr: Int
     unit: Int
     sgd: Float

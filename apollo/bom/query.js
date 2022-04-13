@@ -258,6 +258,7 @@ export const GetOneITEM = gql`
       bomPoDate
       bomPoNo
       bomRemarks
+      priority
       wo {
         id
         idLt

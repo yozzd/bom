@@ -201,10 +201,26 @@
             prop="bomRemarks"
             class="col-span-2"
           >
-            <!--<el-input v-model="form.bomRemarks" type="textarea"></el-input>-->
             <client-only>
               <IndexEditor v-model="form.bomRemarks" />
             </client-only>
+          </el-form-item>
+          <el-form-item
+            label="Priority"
+            prop="priority"
+          >
+            <el-select
+              v-model="form.priority"
+              filterable
+            >
+              <el-option
+                v-for="item in priorities"
+                :key="item.label"
+                :label="item.label"
+                :value="item.value"
+              >
+              </el-option>
+            </el-select>
           </el-form-item>
         </div>
         <div class="flex justify-end space-x-8 mt-8">
@@ -256,6 +272,7 @@ export default {
         bomPoDate: '',
         bomPoNo: '',
         bomRemarks: '',
+        priority: '',
       },
       wo: {
         id: 1,
@@ -266,6 +283,11 @@ export default {
         bomDescription: [{ required: true, message: 'This field is required' }],
       },
       supplier: [],
+      priorities: [
+        { label: 'A', value: 'A' },
+        { label: 'B', value: 'B' },
+        { label: 'C', value: 'C' },
+      ],
       errors: [],
     };
   },
@@ -303,6 +325,7 @@ export default {
                   bomPoDate: this.form.bomPoDate,
                   bomPoNo: this.form.bomPoNo,
                   bomRemarks: this.form.bomRemarks,
+                  priority: this.form.priority,
                   isMpr: parseInt(this.$route.params.isMpr, 10),
                   unit: parseInt(this.wo.unit, 10),
                   euro: parseFloat(this.wo.euro),
