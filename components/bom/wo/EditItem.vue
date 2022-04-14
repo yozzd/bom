@@ -241,6 +241,10 @@ export default {
       type: Object,
       default: () => ({}),
     },
+    unit: {
+      type: Number,
+      default: 0,
+    },
   },
   data() {
     return {
@@ -298,6 +302,8 @@ export default {
         if (valid) {
           try {
             this.loading = true;
+            const unit = this.form.isMpr ? this.unit : this.wo.unit;
+
             await this.$apollo.mutate({
               mutation: UpdateItem,
               variables: {
@@ -324,7 +330,7 @@ export default {
                   bomRemarks: this.form.bomRemarks,
                   priority: this.form.priority,
                   isMpr: parseInt(this.form.isMpr, 10),
-                  unit: parseInt(this.wo.unit, 10),
+                  unit: parseInt(unit, 10),
                   euro: parseFloat(this.wo.euro),
                   gbp: parseFloat(this.wo.gbp),
                   myr: parseFloat(this.wo.myr),

@@ -256,6 +256,7 @@
     <BomWoEditItem
       :data="dataEditItem"
       :wo="wo"
+      :unit="unit"
       :show="showEditItemDialog"
       @close="closeEditItemDialog"
     />
@@ -272,6 +273,10 @@ export default {
     wo: {
       type: Object,
       default: () => ({}),
+    },
+    unit: {
+      type: Number,
+      default: 0,
     },
   },
   data() {

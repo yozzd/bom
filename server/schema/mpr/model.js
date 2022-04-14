@@ -412,6 +412,7 @@ const MPRITEM = sequelize.define('item', {
 }, {
   tableName: 'mpr_item',
   underscored: true,
+  timestamps: false,
 });
 
 module.exports = {

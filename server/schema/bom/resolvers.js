@@ -288,7 +288,7 @@ const resolvers = {
         include: [{
           model: MPR,
           attributes: [
-            'id', 'no', 'requestorName', 'bomTimestamp',
+            'id', 'no', 'unit', 'requestorName', 'bomTimestamp',
           ],
           required: false,
           include: [{
@@ -332,12 +332,19 @@ const resolvers = {
 
       let item = {};
 
-      if (!obj.isMpr) {
+      const attributes = [
+        ...Object.keys(obj), 'bomUsdEa', 'bomUsdUnit', 'bomUsdTotal',
+        'materialsProcessed', 'poZone', 'poNo',
+      ];
+
+      if (obj.isMpr) {
+        item = await MPRITEM.findOne({
+          attributes,
+          where: { id: obj.id },
+        });
+      } else {
         item = await WOITEM.findOne({
-          attributes: [
-            ...Object.keys(obj), 'bomUsdEa', 'bomUsdUnit', 'bomUsdTotal',
-            'materialsProcessed', 'poZone', 'poNo',
-          ],
+          attributes,
           where: { id: obj.id },
         });
       }
