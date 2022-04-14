@@ -46,6 +46,7 @@ const typeDefs = `
     refer: String
     status: Int
     totalIncoming: Int
+    totalIncomingItems: Int
     totalValidation: Int
     totalItems: Int
     percentIncoming: Float

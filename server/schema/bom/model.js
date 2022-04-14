@@ -131,6 +131,9 @@ const WO = sequelize.define('wo', {
   totalIncoming: {
     type: DataTypes.VIRTUAL,
   },
+  totalIncomingItems: {
+    type: DataTypes.VIRTUAL,
+  },
   totalValidation: {
     type: DataTypes.VIRTUAL,
   },
@@ -141,7 +144,7 @@ const WO = sequelize.define('wo', {
     type: DataTypes.VIRTUAL,
     get() {
       if (this.totalIncoming && this.totalItems) {
-        return (this.totalIncoming / this.totalItems) * 100;
+        return (this.totalIncoming / this.totalIncomingItems) * 100;
       }
       return 0;
     },

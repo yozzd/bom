@@ -117,7 +117,7 @@
             <template slot-scope="scope">
               <div class="flex items-center">
                 <div class="flex-1">
-                  {{ scope.row.totalIncoming }} / {{ scope.row.totalItems }}
+                  {{ scope.row.totalIncoming }} / {{ scope.row.totalIncomingItems }}
                 </div>
                 <div>
                   <el-popover

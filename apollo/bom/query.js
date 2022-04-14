@@ -41,6 +41,7 @@ export const GetOneLT = gql`
         budget
         stage
         totalIncoming
+        totalIncomingItems
         totalValidation
         totalItems
         percentIncoming
