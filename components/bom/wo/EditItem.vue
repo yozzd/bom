@@ -206,7 +206,9 @@
         </div>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="handleCancel">Cancel</el-button>
+        <el-button @click="handleCancel">
+          Cancel
+        </el-button>
         <el-button
           type="primary"
           :loading="loading"

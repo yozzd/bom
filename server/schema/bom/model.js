@@ -4,7 +4,10 @@ const { DataTypes } = require('sequelize');
 const sequelize = require('../../config/db');
 const { pssUrl, pssAuth } = require('../../config');
 
-const remarkBlacklist = ['<p> </p>', '<p><br></p>', '<p><strong><em><br></em></strong></p>'];
+const remarkBlacklist = [
+  '<p></p>', '<p> </p>', '<p><br></p>',
+  '<p><strong><em><br></em></strong></p>',
+];
 
 const LT = sequelize.define('lt', {
   id: {
