@@ -316,36 +316,9 @@ const resolvers = {
         lt, wo, mpr,
       };
     }),
-    getOneITEM: isAuthenticated(async (_, { id, isMpr }) => {
-      let item = {};
-
-      if (!isMpr) {
-        item = await WOITEM.findOne({
-          attributes: [
-            'id', 'idMaterial', 'bomDescription', 'bomSpecification',
-            'bomModel', 'bomBrand', 'bomQty', 'bomUnit', 'bomQtyStock',
-            'bomEta', 'bomQtyRec', 'bomDateRec', 'bomCurrSizeC',
-            'bomCurrSizeV', 'bomCurrEaC', 'bomCurrEaV', 'bomSupplier',
-            'bomPoDate', 'bomPoNo', 'bomRemarks', 'priority',
-          ],
-          where: { id },
-          required: false,
-          include: [{
-            model: WO,
-            attributes: [
-              'id', 'idLt', 'unit', 'euro', 'gbp', 'myr',
-              'idr', 'sgd',
-            ],
-            required: false,
-          }],
-        });
-      }
-
-      return item;
-    }),
   },
   Mutation: {
-    updateITEM: isAuthenticated(async (_, { input }) => {
+    updateItem: isAuthenticated(async (_, { input }) => {
       const {
         unit, euro, gbp, myr, idr, sgd, ...obj
       } = input;

@@ -258,7 +258,7 @@
               <div class="text-xs font-bold mb-4">
                 {{ h.hid }} {{ h.header }}
               </div>
-              <index-data-table v-if="h.items.length" :data="h.items" />
+              <index-data-table v-if="h.items.length" :data="h.items" :wo="wo" />
             </div>
           </el-tab-pane>
           <el-tab-pane label="MPR">

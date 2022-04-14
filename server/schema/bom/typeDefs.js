@@ -3,11 +3,10 @@ const typeDefs = `
     getAllLT(status: Int): [LT]
     getOneLT(id: Int, status: Int): LT
     getOneWO(idLt:Int, id: Int): WODetail
-    getOneITEM(id: Int, isMpr: Int): WOITEM
   }
 
   extend type Mutation {
-    updateITEM(input: UpdateItemInput): WOITEM
+    updateItem(input: UpdateItemInput): WOITEM
   }
 
   type WODetail {

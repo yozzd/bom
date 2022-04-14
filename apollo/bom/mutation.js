@@ -1,8 +1,8 @@
 import gql from 'graphql-tag';
 
-export const UpdateITEM = gql`
-  mutation updateITEM($input: UpdateItemInput) {
-    updateITEM(input: $input) {
+export const UpdateItem = gql`
+  mutation updateItem($input: UpdateItemInput) {
+    updateItem(input: $input) {
       id
       idMaterial
       bomDescription

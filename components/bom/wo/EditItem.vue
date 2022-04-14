@@ -1,41 +1,22 @@
 <template>
-  <div
-    v-loading.fullscreen.lock="$apollo.loading"
-    class="grid grid-cols-3"
-    element-loading-text="Loading..."
-    element-loading-spinner="el-icon-loading"
-  >
-    <div class="flex flex-col space-y-4 col-start-2 mb-20">
-      <div class="flex items-center">
-        <nuxt-link
-          :to="{
-            name: 'bom-wo-idLt-id', params: { idLt: wo.idLt, id: wo.id }
-          }"
-          class="flex-1"
-        >
-          <client-only>
-            <v-icon name="ri-arrow-left-line" class="remixicons w-4 h-4" />
-          </client-only>
-          Back
-        </nuxt-link>
-        <div class="text-xl">
-          Edit Item
-        </div>
-      </div>
-
-      <IndexErrorHandler
-        v-if="errors.length"
-        :errors="errors"
-      />
-
+  <div>
+    <el-dialog
+      title="Edit Item"
+      :visible.sync="visible"
+      :close-on-click-modal="false"
+      :close-on-press-escape="false"
+      :before-close="handleCancel"
+      width="50%"
+    >
       <el-form
         ref="form"
         :model="form"
         :rules="rules"
         :hide-required-asterisk="true"
         label-position="top"
+        class="grid grid-cols-5"
       >
-        <div class="grid grid-cols-2 gap-x-4">
+        <div class="col-span-3 col-start-2 grid grid-cols-2 gap-x-4">
           <el-form-item
             label="Material CD"
             prop="idMaterial"
@@ -223,33 +204,45 @@
             </el-select>
           </el-form-item>
         </div>
-        <div class="flex justify-end space-x-8 mt-8">
-          <el-button type="text" @click="handleCancel">
-            Cancel
-          </el-button>
-          <el-button
-            type="primary"
-            :loading="loading"
-            @click="handleUpdate('form')"
-          >
-            Update
-          </el-button>
-        </div>
       </el-form>
-    </div>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="handleCancel">Cancel</el-button>
+        <el-button
+          type="primary"
+          :loading="loading"
+          @click="handleUpdate('form')"
+        >
+          Update
+        </el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 
 <script>
 import currency from '../../../mixins/currency';
-import { GetOneITEM } from '../../../apollo/bom/query';
-import { UpdateITEM } from '../../../apollo/bom/mutation';
+import { UpdateItem } from '../../../apollo/bom/mutation';
 import GetAllSupplier from '../../../apollo/supplier/query';
 
 export default {
   mixins: [currency],
+  props: {
+    show: {
+      type: Boolean,
+      default: false,
+    },
+    data: {
+      type: Object,
+      required: true,
+    },
+    wo: {
+      type: Object,
+      default: () => ({}),
+    },
+  },
   data() {
     return {
+      visible: false,
       loading: false,
       supplierLoading: false,
       form: {
@@ -274,11 +267,6 @@ export default {
         bomRemarks: '',
         priority: '',
       },
-      wo: {
-        id: 1,
-        idLt: 1,
-        unit: 1,
-      },
       rules: {
         bomDescription: [{ required: true, message: 'This field is required' }],
       },
@@ -291,10 +279,17 @@ export default {
       errors: [],
     };
   },
+  watch: {
+    show(value) {
+      this.visible = value;
+    },
+    data(value) {
+      this.form = value;
+    },
+  },
   methods: {
     handleCancel() {
-      this.errors = [];
-      this.$router.push({ name: 'bom-wo-idLt-id', params: { idLt: this.wo.idLt, id: this.wo.id } });
+      this.$emit('close', false);
     },
     handleUpdate(form) {
       this.$refs[form].validate(async (valid) => {
@@ -302,7 +297,7 @@ export default {
           try {
             this.loading = true;
             await this.$apollo.mutate({
-              mutation: UpdateITEM,
+              mutation: UpdateItem,
               variables: {
                 input: {
                   id: parseInt(this.form.id, 10),
@@ -326,7 +321,7 @@ export default {
                   bomPoNo: this.form.bomPoNo,
                   bomRemarks: this.form.bomRemarks,
                   priority: this.form.priority,
-                  isMpr: parseInt(this.$route.params.isMpr, 10),
+                  isMpr: parseInt(this.form.isMpr, 10),
                   unit: parseInt(this.wo.unit, 10),
                   euro: parseFloat(this.wo.euro),
                   gbp: parseFloat(this.wo.gbp),
@@ -372,28 +367,6 @@ export default {
       } else {
         this.supplier = [];
       }
-    },
-  },
-  apollo: {
-    getOneITEM: {
-      query: GetOneITEM,
-      variables() {
-        return {
-          id: parseInt(this.$route.params.id, 10),
-          isMpr: parseInt(this.$route.params.isMpr, 10),
-        };
-      },
-      prefetch: false,
-      result({ data, loading }) {
-        if (!loading) {
-          const { getOneITEM: { wo, ...form } } = data;
-          this.form = form;
-          this.wo = wo;
-        }
-      },
-      error({ graphQLErrors, networkError }) {
-        this.errors = graphQLErrors || networkError.result.errors;
-      },
     },
   },
 };

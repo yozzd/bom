@@ -22,16 +22,14 @@
       <el-table-column label="Description" width="140" fixed>
         <template slot-scope="scope">
           <div class="flex">
-            <nuxt-link
+            <a
               v-if="$auth.$state.user.section === 211 || $auth.$state.user.section === 212"
-              :to="{
-                name: 'bom-item-id-isMpr', params: { id: scope.row.id, isMpr: scope.row.isMpr }
-              }"
               :title="scope.row.bomDescription"
               class="flex-1 truncate"
+              @click="showEditItem(scope.row)"
             >
               {{ scope.row.bomDescription }}
-            </nuxt-link>
+            </a>
             <div v-else :title="scope.row.bomDescription" class="flex-1 truncate">
               {{ scope.row.bomDescription }}
             </div>
@@ -253,10 +251,17 @@
         </template>
       </el-table-column>
       <el-table-column label="" min-width="50"></el-table-column>
-      </el-table-column>
     </el-table>
+
+    <BomWoEditItem
+      :data="dataEditItem"
+      :wo="wo"
+      :show="showEditItemDialog"
+      @close="closeEditItemDialog"
+    />
   </div>
 </template>
+
 <script>
 export default {
   props: {
@@ -264,10 +269,27 @@ export default {
       type: Array,
       required: true,
     },
+    wo: {
+      type: Object,
+      default: () => ({}),
+    },
+  },
+  data() {
+    return {
+      dataEditItem: {},
+      showEditItemDialog: false,
+    };
   },
   methods: {
     highlighter({ row }) {
       return row.colorClass;
+    },
+    showEditItem(row) {
+      this.dataEditItem = row;
+      this.showEditItemDialog = true;
+    },
+    closeEditItemDialog(value) {
+      this.showEditItemDialog = value;
     },
   },
 };
