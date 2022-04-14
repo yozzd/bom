@@ -7,7 +7,7 @@
         @click="editor.chain().focus().toggleBold().run()"
       >
         <client-only>
-          <v-icon name="ri-bold" />
+          <v-icon name="ri-bold" class="w-4 h-4" />
         </client-only>
       </el-button>
       <el-button
@@ -16,7 +16,7 @@
         @click="editor.chain().focus().toggleItalic().run()"
       >
         <client-only>
-          <v-icon name="ri-italic" />
+          <v-icon name="ri-italic" class="w-4 h-4" />
         </client-only>
       </el-button>
       <el-button
@@ -25,7 +25,7 @@
         @click="editor.chain().focus().toggleUnderline().run()"
       >
         <client-only>
-          <v-icon name="ri-underline" />
+          <v-icon name="ri-underline" class="w-4 h-4" />
         </client-only>
       </el-button>
       <el-button
@@ -34,7 +34,7 @@
         @click="editor.chain().focus().toggleStrike().run()"
       >
         <client-only>
-          <v-icon name="ri-strikethrough" />
+          <v-icon name="ri-strikethrough" class="w-4 h-4" />
         </client-only>
       </el-button>
       <el-button
@@ -43,7 +43,7 @@
         @click="editor.chain().focus().toggleHighlight().run()"
       >
         <client-only>
-          <v-icon name="ri-mark-pen-line" />
+          <v-icon name="ri-mark-pen-line" class="w-4 h-4" />
         </client-only>
       </el-button>
 
@@ -55,7 +55,7 @@
         @click="editor.chain().focus().setTextAlign('left').run()"
       >
         <client-only>
-          <v-icon name="ri-align-left" />
+          <v-icon name="ri-align-left" class="w-4 h-4" />
         </client-only>
       </el-button>
       <el-button
@@ -64,7 +64,7 @@
         @click="editor.chain().focus().setTextAlign('center').run()"
       >
         <client-only>
-          <v-icon name="ri-align-center" />
+          <v-icon name="ri-align-center" class="w-4 h-4" />
         </client-only>
       </el-button>
       <el-button
@@ -73,7 +73,7 @@
         @click="editor.chain().focus().setTextAlign('right').run()"
       >
         <client-only>
-          <v-icon name="ri-align-right" />
+          <v-icon name="ri-align-right" class="w-4 h-4" />
         </client-only>
       </el-button>
       <el-button
@@ -82,7 +82,7 @@
         @click="editor.chain().focus().setTextAlign('justify').run()"
       >
         <client-only>
-          <v-icon name="ri-align-justify" />
+          <v-icon name="ri-align-justify" class="w-4 h-4" />
         </client-only>
       </el-button>
 
@@ -94,7 +94,7 @@
         @click="editor.chain().focus().setParagraph().run()"
       >
         <client-only>
-          <v-icon name="ri-paragraph" />
+          <v-icon name="ri-paragraph" class="w-4 h-4" />
         </client-only>
       </el-button>
       <el-button
@@ -103,7 +103,7 @@
         @click="editor.chain().focus().toggleBulletList().run()"
       >
         <client-only>
-          <v-icon name="ri-list-unordered" />
+          <v-icon name="ri-list-unordered" class="w-4 h-4" />
         </client-only>
       </el-button>
       <el-button
@@ -112,7 +112,7 @@
         @click="editor.chain().focus().toggleOrderedList().run()"
       >
         <client-only>
-          <v-icon name="ri-list-ordered" />
+          <v-icon name="ri-list-ordered" class="w-4 h-4" />
         </client-only>
       </el-button>
 
@@ -124,7 +124,7 @@
         @click="editor.chain().focus().clearNodes().unsetAllMarks().run()"
       >
         <client-only>
-          <v-icon name="ri-format-clear" />
+          <v-icon name="ri-format-clear" class="w-4 h-4" />
         </client-only>
       </el-button>
     </div>
@@ -229,7 +229,7 @@ export default {
 }
 
 .editor__menu-item {
-  @apply w-7 h-7 cursor-pointer bg-transparent;
+  @apply w-6 h-6 cursor-pointer bg-transparent;
   @apply border-0 p-1 -mr-1 rounded;
 }
 
