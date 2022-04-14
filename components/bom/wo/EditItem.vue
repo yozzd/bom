@@ -205,7 +205,7 @@
           </el-form-item>
         </div>
       </el-form>
-      <span slot="footer" class="dialog-footer">
+      <div slot="footer" class="dialog-footer">
         <el-button @click="handleCancel">Cancel</el-button>
         <el-button
           type="primary"
@@ -214,7 +214,7 @@
         >
           Update
         </el-button>
-      </span>
+      </div>
     </el-dialog>
   </div>
 </template>
