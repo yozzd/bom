@@ -14,7 +14,7 @@ const itemAttributes = [
   'bomCurrEaV', 'bomUsdEa', 'bomUsdUnit', 'bomUsdTotal',
   'materialsProcessed', 'yetToPurchase', 'bomSupplier',
   'bomPoDate', 'bomPoNo', 'bomRemarks', 'priority', 'bomEtaStatus',
-  'sr', 'isMpr', 'validasi', 'hold', 'cancel', 'colorClass',
+  'sr', 'isMpr', 'validasi', 'packing', 'hold', 'cancel', 'colorClass',
 ];
 
 const resolvers = {

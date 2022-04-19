@@ -76,6 +76,7 @@ const typeDefs = `
     bomEtaStatus: String
     sr: Int
     isMpr: Int
+    packing: Int
     colorClass: String
     module: WOMODULE
   }

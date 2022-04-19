@@ -144,6 +144,7 @@ export const GetOneWO = gql`
             bomEtaStatus
             sr
             isMpr
+            packing
             colorClass
             mpr {
               id
@@ -197,6 +198,7 @@ export const GetOneWO = gql`
               bomEtaStatus
               sr
               isMpr
+              packing
               colorClass
             }
           }
@@ -232,6 +234,7 @@ export const GetOneWO = gql`
             bomEtaStatus
             sr
             isMpr
+            packing
             colorClass
           }
         }

@@ -34,6 +34,7 @@ export const UpdateItem = gql`
       bomEtaStatus
       sr
       isMpr
+      packing
       colorClass
     }
   }

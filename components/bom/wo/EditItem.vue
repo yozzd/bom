@@ -231,6 +231,16 @@
               Special Request
             </el-checkbox>
           </el-form-item>
+          <el-form-item
+            prop="packing"
+          >
+            <el-checkbox
+              v-model="form.packing"
+              :true-label="1"
+            >
+              Packing
+            </el-checkbox>
+          </el-form-item>
         </div>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -301,6 +311,7 @@ export default {
         bomRemarks: '',
         priority: '',
         sr: 0,
+        packing: 0,
       },
       rules: {
         bomDescription: [{ required: true, message: 'This field is required' }],
@@ -359,6 +370,7 @@ export default {
                   bomRemarks: this.form.bomRemarks,
                   priority: this.form.priority,
                   sr: parseInt(this.form.sr, 10),
+                  packing: parseInt(this.form.packing, 10),
                   isMpr: parseInt(this.form.isMpr, 10),
                   unit: parseInt(unit, 10),
                   euro: parseFloat(this.wo.euro),

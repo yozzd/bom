@@ -110,6 +110,7 @@ const typeDefs = `
     bomEtaStatus: String
     sr: Int,
     isMpr: Int
+    packing: Int
     colorClass: String
     mpr: MPR
     wo: WO
@@ -164,6 +165,7 @@ const typeDefs = `
     priority: String
     sr: Int
     isMpr: Int
+    packing: Int
     unit: Int
     sgd: Float
     idr: Float
