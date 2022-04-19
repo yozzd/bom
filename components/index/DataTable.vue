@@ -19,42 +19,50 @@
           {{ scope.row.idMaterial }}
         </template>
       </el-table-column>
-      <el-table-column label="Description" width="140" fixed>
+      <el-table-column
+        label="Description"
+        width="140"
+        :show-overflow-tooltip="true"
+        fixed
+      >
         <template slot-scope="scope">
-          <div class="flex">
-            <a
-              v-if="$auth.$state.user.section === 211 || $auth.$state.user.section === 212"
-              :title="scope.row.bomDescription"
-              class="flex-1 truncate"
-              @click="showEditItem(scope.row)"
-            >
-              {{ scope.row.bomDescription }}
-            </a>
-            <div v-else :title="scope.row.bomDescription" class="flex-1 truncate">
-              {{ scope.row.bomDescription }}
-            </div>
+          <a
+            v-if="$auth.$state.user.section === 211 || $auth.$state.user.section === 212"
+            @click="showEditItem(scope.row)"
+          >
+            {{ scope.row.bomDescription }}
+          </a>
+          <div v-else>
+            {{ scope.row.bomDescription }}
           </div>
         </template>
       </el-table-column>
-      <el-table-column label="Specification" width="140" fixed>
+      <el-table-column
+        label="Specification"
+        width="140"
+        :show-overflow-tooltip="true"
+        fixed
+      >
         <template slot-scope="scope">
-          <p :title="scope.row.bomSpecification" class="truncate">
-            {{ scope.row.bomSpecification }}
-          </p>
+          {{ scope.row.bomSpecification }}
         </template>
       </el-table-column>
-      <el-table-column label="Model" width="140">
+      <el-table-column
+        label="Model"
+        width="140"
+        :show-overflow-tooltip="true"
+      >
         <template slot-scope="scope">
-          <p :title="scope.row.bomModel" class="truncate">
-            {{ scope.row.bomModel }}
-          </p>
+          {{ scope.row.bomModel }}
         </template>
       </el-table-column>
-      <el-table-column label="Brand" width="140">
+      <el-table-column
+        label="Brand"
+        width="140"
+        :show-overflow-tooltip="true"
+      >
         <template slot-scope="scope">
-          <p :title="scope.row.bomBrand" class="truncate">
-            {{ scope.row.bomBrand }}
-          </p>
+          {{ scope.row.bomBrand }}
         </template>
       </el-table-column>
       <el-table-column label="Qty / Unit" width="80">
@@ -160,11 +168,13 @@
           USD {{ scope.row.yetToPurchase | currency }}
         </template>
       </el-table-column>
-      <el-table-column label="Supplier" width="140">
+      <el-table-column
+        label="Supplier"
+        width="140"
+        :show-overflow-tooltip="true"
+      >
         <template slot-scope="scope">
-          <p :title="scope.row.bomSupplier" class="truncate">
-            {{ scope.row.bomSupplier }}
-          </p>
+          {{ scope.row.bomSupplier }}
         </template>
       </el-table-column>
       <el-table-column label="PO / PR" align="center">
