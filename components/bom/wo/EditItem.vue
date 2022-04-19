@@ -221,6 +221,16 @@
           >
             <el-input v-model="form.bomEtaStatus" :disabled="true"></el-input>
           </el-form-item>
+          <el-form-item
+            prop="sr"
+          >
+            <el-checkbox
+              v-model="form.sr"
+              :true-label="1"
+            >
+              Special Request
+            </el-checkbox>
+          </el-form-item>
         </div>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -290,6 +300,7 @@ export default {
         bomPoNo: '',
         bomRemarks: '',
         priority: '',
+        sr: 0,
       },
       rules: {
         bomDescription: [{ required: true, message: 'This field is required' }],
@@ -347,6 +358,7 @@ export default {
                   bomPoNo: this.form.bomPoNo,
                   bomRemarks: this.form.bomRemarks,
                   priority: this.form.priority,
+                  sr: parseInt(this.form.sr, 10),
                   isMpr: parseInt(this.form.isMpr, 10),
                   unit: parseInt(unit, 10),
                   euro: parseFloat(this.wo.euro),

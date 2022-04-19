@@ -369,6 +369,7 @@ const resolvers = {
       }
 
       const save = await item.save();
+      console.log(save);
 
       return save;
     }),

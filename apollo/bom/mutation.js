@@ -32,6 +32,7 @@ export const UpdateItem = gql`
       bomRemarks
       priority
       bomEtaStatus
+      sr
       isMpr
       colorClass
     }
