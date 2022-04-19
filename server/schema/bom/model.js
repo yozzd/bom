@@ -455,7 +455,7 @@ const WOITEM = sequelize.define('item', {
       if (this.bomQty > 0 && this.bomQtyStock > 0 && this.bomQtyBalance >= 0) return 'stock-row';
       if (this.bomQtyRec > 0 && this.bomPoNo && this.cancel === 0) return 'coming-row';
       if (outPoNo && this.bomQtyRec <= 0 && this.bomPoNo && this.poStatus !== 'Complete' && !this.bomDateRec) return 'issued-row';
-      if (!outPoNo && this.bomQtyRec <= 0 && this.cancel === 0) return 'draft-row';
+      if (!outPoNo && this.bomQtyRec <= 0 && !this.cancel) return 'draft-row';
       if (this.hold) return 'hold-row';
       if (this.cancel) return 'cancel-row';
       return '';
