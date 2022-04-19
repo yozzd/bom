@@ -122,7 +122,7 @@
                 <div>
                   <el-popover
                     trigger="hover"
-                    placement="right"
+                    placement="top"
                   >
                     <template #default>
                       <table class="plain">
@@ -170,7 +170,7 @@
                 <div>
                   <el-popover
                     trigger="hover"
-                    placement="right"
+                    placement="top"
                   >
                     <template #default>
                       <table class="plain">
@@ -214,7 +214,7 @@
                 <div>
                   <el-popover
                     trigger="hover"
-                    placement="right"
+                    placement="top"
                   >
                     <template #default>
                       <table class="plain">
@@ -262,7 +262,7 @@
                 <div>
                   <el-popover
                     trigger="hover"
-                    placement="right"
+                    placement="top"
                   >
                     <template #default>
                       <table class="plain">
