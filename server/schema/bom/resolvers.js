@@ -322,7 +322,7 @@ const resolvers = {
   },
   Mutation: {
     updateItem: isAuthenticated(async (_, { input }) => {
-      const {
+      let {
         unit, euro, gbp, myr, idr, sgd, ...obj
       } = input;
       const currObj = {
@@ -351,7 +351,8 @@ const resolvers = {
       }
 
       Object.assign(item, obj);
-      const qtyBalance = obj.bomQtyStock - (unit * obj.bomQty) - obj.bomQtyRec;
+      if (obj.sr) unit = 1;
+      const qtyBalance = obj.bomQtyStock - ((unit * obj.bomQty) - obj.bomQtyRec);
       const usdTotal = unit * value * obj.bomQty;
 
       item.bomQtyBalance = qtyBalance;
@@ -369,7 +370,6 @@ const resolvers = {
       }
 
       const save = await item.save();
-      console.log(save);
 
       return save;
     }),
