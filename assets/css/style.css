@@ -250,3 +250,7 @@ table.plain {
 .el-input.is-disabled .el-input__inner {
   @apply text-gray-400;
 }
+
+.el-table__body tr.hover-row > td.el-table__cell {
+  @apply bg-transparent;  
+}
