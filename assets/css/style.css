@@ -246,3 +246,7 @@ table.plain {
 .el-dialog__footer {
   @apply py-3 border-t border-gray-100;
 }
+
+.el-input.is-disabled .el-input__inner {
+  @apply text-gray-400;
+}
