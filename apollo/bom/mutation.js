@@ -11,6 +11,8 @@ export const UpdateItem = gql`
       bomBrand
       bomQty
       bomUnit
+      bomQtyRqd
+      bomQtyBalance
       bomQtyStock
       bomEta
       bomQtyRec
@@ -19,10 +21,19 @@ export const UpdateItem = gql`
       bomCurrSizeV
       bomCurrEaC
       bomCurrEaV
+      bomUsdEa
+      bomUsdUnit
+      bomUsdTotal
+      materialsProcessed
+      yetToPurchase
       bomSupplier
       bomPoDate
       bomPoNo
       bomRemarks
+      priority
+      bomEtaStatus
+      isMpr
+      colorClass
     }
   }
 `;

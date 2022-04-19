@@ -178,6 +178,18 @@
             ></el-date-picker>
           </el-form-item>
           <el-form-item
+            label="Materials Processed (USD)"
+            prop="materialsProcessed"
+          >
+            <el-input v-model="form.materialsProcessed" :disabled="true"></el-input>
+          </el-form-item>
+          <el-form-item
+            label="Yet to Purchase (USD)"
+            prop="yetToPurchase"
+          >
+            <el-input v-model="form.yetToPurchase" :disabled="true"></el-input>
+          </el-form-item>
+          <el-form-item
             label="Remarks"
             prop="bomRemarks"
             class="col-span-2"

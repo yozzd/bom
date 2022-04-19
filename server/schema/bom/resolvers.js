@@ -359,6 +359,7 @@ const resolvers = {
       item.bomUsdUnit = value * obj.bomQty;
       item.bomUsdTotal = usdTotal;
       item.materialsProcessed = qtyBalance === 0 ? usdTotal : 0;
+      item.yetToPurchase = qtyBalance < 0 ? usdTotal : 0;
 
       if (obj.bomPoNo) {
         const [zone, no] = obj.bomPoNo.split('.');
