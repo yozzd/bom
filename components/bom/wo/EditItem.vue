@@ -241,6 +241,26 @@
               Packing
             </el-checkbox>
           </el-form-item>
+          <el-form-item
+            prop="hold"
+          >
+            <el-checkbox
+              v-model="form.hold"
+              :true-label="1"
+            >
+              Hold
+            </el-checkbox>
+          </el-form-item>
+          <el-form-item
+            prop="cancel"
+          >
+            <el-checkbox
+              v-model="form.cancel"
+              :true-label="1"
+            >
+              Cancel
+            </el-checkbox>
+          </el-form-item>
         </div>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -312,6 +332,8 @@ export default {
         priority: '',
         sr: 0,
         packing: 0,
+        hold: 0,
+        cancel: 0,
       },
       rules: {
         bomDescription: [{ required: true, message: 'This field is required' }],
@@ -371,6 +393,8 @@ export default {
                   priority: this.form.priority,
                   sr: parseInt(this.form.sr, 10),
                   packing: parseInt(this.form.packing, 10),
+                  hold: parseInt(this.form.hold, 10),
+                  cancel: parseInt(this.form.cancel, 10),
                   isMpr: parseInt(this.form.isMpr, 10),
                   unit: parseInt(unit, 10),
                   euro: parseFloat(this.wo.euro),

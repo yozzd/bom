@@ -145,6 +145,8 @@ export const GetOneWO = gql`
             sr
             isMpr
             packing
+            hold
+            cancel
             colorClass
             mpr {
               id
@@ -199,6 +201,8 @@ export const GetOneWO = gql`
               sr
               isMpr
               packing
+              hold
+              cancel
               colorClass
             }
           }
@@ -235,6 +239,8 @@ export const GetOneWO = gql`
             sr
             isMpr
             packing
+            hold
+            cancel
             colorClass
           }
         }

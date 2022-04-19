@@ -111,6 +111,8 @@ const typeDefs = `
     sr: Int,
     isMpr: Int
     packing: Int
+    hold: Int
+    cancel: Int
     colorClass: String
     mpr: MPR
     wo: WO
@@ -166,6 +168,8 @@ const typeDefs = `
     sr: Int
     isMpr: Int
     packing: Int
+    hold: Int
+    cancel: Int
     unit: Int
     sgd: Float
     idr: Float

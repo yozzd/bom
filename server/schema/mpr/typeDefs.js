@@ -77,6 +77,8 @@ const typeDefs = `
     sr: Int
     isMpr: Int
     packing: Int
+    hold: Int
+    cancel: Int
     colorClass: String
     module: WOMODULE
   }

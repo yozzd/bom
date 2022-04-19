@@ -35,6 +35,8 @@ export const UpdateItem = gql`
       sr
       isMpr
       packing
+      hold
+      cancel
       colorClass
     }
   }
