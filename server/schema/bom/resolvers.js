@@ -335,7 +335,7 @@ const resolvers = {
       const attributes = [
         ...Object.keys(obj), 'bomQtyRqd', 'bomQtyBalance', 'bomUsdEa',
         'bomUsdUnit', 'bomUsdTotal', 'materialsProcessed', 'yetToPurchase',
-        'bomEtaStatus', 'poZone', 'poNo', 'colorClass',
+        'bomEtaStatus', 'validasi', 'poZone', 'poNo', 'colorClass',
       ];
 
       if (obj.isMpr) {
