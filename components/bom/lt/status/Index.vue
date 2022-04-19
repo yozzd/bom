@@ -101,11 +101,10 @@
           <el-table-column
             label="Product Name"
             width="160"
+            :show-overflow-tooltip="true"
           >
             <template slot-scope="scope">
-              <p :title="scope.row.product" class="truncate">
-                {{ scope.row.product }}
-              </p>
+              {{ scope.row.product }}
             </template>
           </el-table-column>
           <el-table-column prop="issued" label="Issued" align="center" width="90"></el-table-column>
