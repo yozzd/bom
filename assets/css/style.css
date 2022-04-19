@@ -32,7 +32,8 @@ a {
 .el-picker-panel,
 .el-popover,
 .el-select-dropdown,
-.el-textarea__inner {
+.el-textarea__inner,
+.el-tooltip__popper {
   @apply rounded-lg;
 }
 
