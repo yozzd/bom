@@ -215,6 +215,12 @@
               </el-option>
             </el-select>
           </el-form-item>
+          <el-form-item
+            label="ETA Status"
+            prop="bomEtaStatus"
+          >
+            <el-input v-model="form.bomEtaStatus" :disabled="true"></el-input>
+          </el-form-item>
         </div>
       </el-form>
       <div slot="footer" class="dialog-footer">
