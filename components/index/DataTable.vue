@@ -57,7 +57,7 @@
           </p>
         </template>
       </el-table-column>
-      <el-table-column label="Qty / Unit" width="70">
+      <el-table-column label="Qty / Unit" width="80">
         <template slot-scope="scope">
           {{ scope.row.bomQty }} {{ scope.row.bomUnit }}
         </template>
