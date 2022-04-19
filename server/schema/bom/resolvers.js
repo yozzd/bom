@@ -322,9 +322,11 @@ const resolvers = {
   },
   Mutation: {
     updateItem: isAuthenticated(async (_, { input }) => {
-      let {
-        unit, euro, gbp, myr, idr, sgd, ...obj
+      const {
+        euro, gbp, myr, idr, sgd, ...obj
       } = input;
+      let { unit } = obj;
+      delete obj.unit;
       const currObj = {
         euro, gbp, myr, idr, sgd,
       };
