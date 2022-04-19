@@ -194,7 +194,7 @@
         <template slot-scope="scope">
           <el-popover
             v-if="scope.row.bomRemarks"
-            placement="left"
+            placement="top"
             trigger="hover"
           >
             <template #default>
@@ -222,7 +222,7 @@
         <template slot-scope="scope">
           <el-popover
             v-if="scope.row.isMpr && scope.row.module"
-            placement="left"
+            placement="top"
             trigger="hover"
           >
             <template #default>
@@ -238,7 +238,7 @@
           </el-popover>
           <el-popover
             v-if="scope.row.isMpr && scope.row.mpr"
-            placement="left"
+            placement="top"
             trigger="hover"
           >
             <template #default>
