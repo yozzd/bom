@@ -14,7 +14,8 @@ const itemAttributes = [
   'bomCurrEaV', 'bomUsdEa', 'bomUsdUnit', 'bomUsdTotal',
   'materialsProcessed', 'yetToPurchase', 'bomSupplier',
   'bomPoDate', 'bomPoNo', 'bomRemarks', 'priority', 'bomEtaStatus',
-  'sr', 'isMpr', 'validasi', 'packing', 'hold', 'cancel', 'colorClass',
+  'sr', 'isMpr', 'validasi', 'packing', 'hold', 'cancel',
+  'idHeader', 'colorClass',
 ];
 
 const resolvers = {
@@ -318,6 +319,14 @@ const resolvers = {
       return {
         lt, wo, mpr,
       };
+    }),
+    getWoModules: isAuthenticated(async (_, { idWo }) => {
+      const modules = await WOMODULE.findAll({
+        attributes: ['id', 'hid', 'header'],
+        where: { idWo },
+      });
+
+      return modules;
     }),
   },
   Mutation: {

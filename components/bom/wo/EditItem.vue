@@ -261,6 +261,23 @@
               Cancel
             </el-checkbox>
           </el-form-item>
+          <el-form-item
+            label="Module"
+            class="col-span-2"
+          >
+            <el-select
+              v-model="form.idHeader"
+            >
+              <el-option
+                v-for="item in modules"
+                :key="item.id"
+                :label="`${item.hid} ${item.header}`"
+                :value="item.id"
+              >
+                <span>{{ item.hid }} {{ item.header }}</span>
+              </el-option>
+            </el-select>
+          </el-form-item>
         </div>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -281,6 +298,7 @@
 
 <script>
 import currency from '../../../mixins/currency';
+import { GetWoModules } from '../../../apollo/bom/query';
 import { UpdateItem } from '../../../apollo/bom/mutation';
 import GetAllSupplier from '../../../apollo/supplier/query';
 
@@ -308,7 +326,9 @@ export default {
     return {
       visible: false,
       loading: false,
+      supplier: [],
       supplierLoading: false,
+      modules: [],
       form: {
         idMaterial: '',
         bomDescription: '',
@@ -334,11 +354,11 @@ export default {
         packing: 0,
         hold: 0,
         cancel: 0,
+        idHeader: 0,
       },
       rules: {
         bomDescription: [{ required: true, message: 'This field is required' }],
       },
-      supplier: [],
       priorities: [
         { label: 'A', value: 'A' },
         { label: 'B', value: 'B' },
@@ -395,6 +415,7 @@ export default {
                   packing: parseInt(this.form.packing, 10),
                   hold: parseInt(this.form.hold, 10),
                   cancel: parseInt(this.form.cancel, 10),
+                  idHeader: parseInt(this.form.idHeader, 10),
                   isMpr: parseInt(this.form.isMpr, 10),
                   unit: parseInt(unit, 10),
                   euro: parseFloat(this.wo.euro),
@@ -441,6 +462,26 @@ export default {
       } else {
         this.supplier = [];
       }
+    },
+  },
+  apollo: {
+    getWoModules: {
+      query: GetWoModules,
+      variables() {
+        return {
+          idWo: parseInt(this.$route.params.id, 10),
+        };
+      },
+      prefetch: false,
+      result({ data, loading }) {
+        if (!loading) {
+          const { getWoModules } = data;
+          this.modules = getWoModules;
+        }
+      },
+      error({ graphQLErrors, networkError }) {
+        this.errors = graphQLErrors || networkError.result.errors;
+      },
     },
   },
 };

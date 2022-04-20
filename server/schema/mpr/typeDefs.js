@@ -79,6 +79,7 @@ const typeDefs = `
     packing: Int
     hold: Int
     cancel: Int
+    idHeader: Int
     colorClass: String
     module: WOMODULE
   }

@@ -147,6 +147,7 @@ export const GetOneWO = gql`
             packing
             hold
             cancel
+            idHeader
             colorClass
             mpr {
               id
@@ -203,6 +204,7 @@ export const GetOneWO = gql`
               packing
               hold
               cancel
+              idHeader
               colorClass
             }
           }
@@ -241,10 +243,21 @@ export const GetOneWO = gql`
             packing
             hold
             cancel
+            idHeader
             colorClass
           }
         }
       }
+    }
+  }
+`;
+
+export const GetWoModules = gql`
+  query getWoModules($idWo: Int) {
+    getWoModules(idWo: $idWo) {
+      id
+      hid
+      header
     }
   }
 `;

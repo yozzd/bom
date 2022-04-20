@@ -3,6 +3,7 @@ const typeDefs = `
     getAllLT(status: Int): [LT]
     getOneLT(id: Int, status: Int): LT
     getOneWO(idLt:Int, id: Int): WODetail
+    getWoModules(idWo: Int): [WOMODULE]
   }
 
   extend type Mutation {
@@ -113,6 +114,7 @@ const typeDefs = `
     packing: Int
     hold: Int
     cancel: Int
+    idHeader: Int
     colorClass: String
     mpr: MPR
     wo: WO
@@ -170,6 +172,7 @@ const typeDefs = `
     packing: Int
     hold: Int
     cancel: Int
+    idHeader: Int
     unit: Int
     sgd: Float
     idr: Float
