@@ -4,7 +4,7 @@
       :data="data"
       size="mini"
       border
-      class="mt-4 mb-8"
+      class="my-4"
       :row-class-name="highlighter"
     >
       <el-table-column

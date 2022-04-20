@@ -255,10 +255,11 @@
               :key="h.id"
               class="flex flex-col divide-y divide-gray-400 divide-dashed"
             >
-              <div class="text-xs font-bold mb-4">
+              <div class="text-xs font-bold my-4">
                 {{ h.hid }} {{ h.header }}
               </div>
               <index-data-table v-if="h.items.length" :data="h.items" :wo="wo" />
+              <div></div>
             </div>
           </el-tab-pane>
           <el-tab-pane label="MPR">
@@ -268,7 +269,7 @@
               class="flex flex-col divide-y divide-gray-400 divide-dashed"
             >
               <div
-                class="flex font-bold text-xs mb-4"
+                class="flex font-bold text-xs my-4"
               >
                 <div>MPR No. :</div>
                 <div class="flex ml-2">
@@ -288,11 +289,15 @@
                     </client-only>
                   </a>
                 </div>
-                <div class="mx-2">&bull;</div>
+                <div class="mx-2">
+                  &bull;
+                </div>
                 <div>
                   Requestor: {{ mpr.requestorName }}
                 </div>
-                <div class="mx-2">&bull;</div>
+                <div class="mx-2">
+                  &bull;
+                </div>
                 <div>Approved By MRP: {{ mpr.bomTimestamp }}</div>
               </div>
               <div v-for="module in mpr.modules" :key="module.id">
@@ -300,6 +305,7 @@
                   {{ module.moduleChar }} {{ module.moduleName }}
                 </div>
                 <index-data-table :data="module.items" :wo="wo" :mpr="mpr" />
+                <div></div>
               </div>
               <index-data-table
                 v-if="mpr.items.length"
@@ -307,6 +313,7 @@
                 :wo="wo"
                 :mpr="mpr"
               />
+              <div></div>
             </div>
           </el-tab-pane>
         </el-tabs>
