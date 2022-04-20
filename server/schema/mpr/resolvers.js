@@ -102,6 +102,14 @@ const resolvers = {
 
       return mpr;
     }),
+    getMprModules: isAuthenticated(async (_, { idMpr }) => {
+      const modules = await MPRMODULE.findAll({
+        attributes: ['id', 'moduleChar', 'moduleName'],
+        where: { idMpr },
+      });
+
+      return modules;
+    }),
   },
   Mutation: {},
 };

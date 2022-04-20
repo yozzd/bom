@@ -300,13 +300,13 @@
                 <div class="font-bold text-xs my-4">
                   {{ module.moduleChar }} {{ module.moduleName }}
                 </div>
-                <index-data-table :data="module.items" :wo="wo" :unit="mpr.unit" />
+                <index-data-table :data="module.items" :wo="wo" :mpr="mpr" />
               </div>
               <index-data-table
                 v-if="mpr.items.length"
                 :data="mpr.items"
                 :wo="wo"
-                :unit="mpr.unit"
+                :mpr="mpr"
               />
             </div>
           </el-tab-pane>

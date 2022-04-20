@@ -2,6 +2,7 @@ const typeDefs = `
   extend type Query {
     getAllMPR(status: Int): [MPR]
     getOneMPR(id: Int): MPR
+    getMprModules(idMpr: Int): [MPRMODULE]
   }
 
   type MPR {
@@ -80,6 +81,7 @@ const typeDefs = `
     hold: Int
     cancel: Int
     idHeader: Int
+    idModule: Int
     colorClass: String
     module: WOMODULE
   }

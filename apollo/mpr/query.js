@@ -89,7 +89,13 @@ export const GetOneMPR = gql`
           bomRemarks
           priority
           bomEtaStatus
+          sr
           isMpr
+          packing
+          hold
+          cancel
+          idHeader
+          idModule
           colorClass
           module {
             id
@@ -128,7 +134,13 @@ export const GetOneMPR = gql`
         bomRemarks
         priority
         bomEtaStatus
+        sr
         isMpr
+        packing
+        hold
+        cancel
+        idHeader
+        idModule
         colorClass
         module {
           id
@@ -136,6 +148,16 @@ export const GetOneMPR = gql`
           header
         }
       }
+    }
+  }
+`;
+
+export const GetMprModules = gql`
+  query getMprModules($idMpr: Int) {
+    getMprModules(idMpr: $idMpr) {
+      id
+      moduleChar
+      moduleName
     }
   }
 `;

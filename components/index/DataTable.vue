@@ -266,8 +266,9 @@
     <BomWoEditItem
       :data="dataEditItem"
       :wo="wo"
-      :unit="unit"
+      :mpr="mpr"
       :show="showEditItemDialog"
+      :from-mpr="fromMpr"
       @close="closeEditItemDialog"
     />
   </div>
@@ -284,9 +285,13 @@ export default {
       type: Object,
       default: () => ({}),
     },
-    unit: {
-      type: Number,
-      default: 0,
+    mpr: {
+      type: Object,
+      default: () => ({}),
+    },
+    fromMpr: {
+      type: Boolean,
+      default: false,
     },
   },
   data() {

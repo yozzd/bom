@@ -115,6 +115,7 @@ const typeDefs = `
     hold: Int
     cancel: Int
     idHeader: Int
+    idModule: Int
     colorClass: String
     mpr: MPR
     wo: WO
@@ -173,6 +174,7 @@ const typeDefs = `
     hold: Int
     cancel: Int
     idHeader: Int
+    idModule: Int
     unit: Int
     sgd: Float
     idr: Float

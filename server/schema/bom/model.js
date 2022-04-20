@@ -428,6 +428,9 @@ const WOITEM = sequelize.define('item', {
     type: DataTypes.INTEGER,
     allowNull: false,
   },
+  idModule: {
+    type: DataTypes.VIRTUAL,
+  },
   idWo: {
     type: DataTypes.INTEGER,
     allowNull: false,

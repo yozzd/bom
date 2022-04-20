@@ -182,11 +182,11 @@
           <div class="text-xs font-bold my-4">
             {{ h.moduleChar }} {{ h.moduleName }}
           </div>
-          <index-data-table :data="h.items" :wo="wo" :unit="mpr.unit" />
+          <index-data-table :data="h.items" :wo="wo" :mpr="mpr" from-mpr />
         </div>
       </div>
       <div v-if="items.length">
-        <index-data-table :data="items" :wo="wo" :unit="mpr.unit" class="my-4" />
+        <index-data-table :data="items" :wo="wo" :mpr="mpr" from-mpr class="my-4" />
       </div>
     </div>
   </div>

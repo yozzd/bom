@@ -148,6 +148,7 @@ export const GetOneWO = gql`
             hold
             cancel
             idHeader
+            idModule
             colorClass
             mpr {
               id
@@ -205,6 +206,7 @@ export const GetOneWO = gql`
               hold
               cancel
               idHeader
+              idModule
               colorClass
             }
           }
@@ -244,6 +246,7 @@ export const GetOneWO = gql`
             hold
             cancel
             idHeader
+            idModule
             colorClass
           }
         }

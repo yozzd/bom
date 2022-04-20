@@ -71,7 +71,7 @@
           <el-form-item
             label="Requirement"
           >
-            {{ form.bomQty * (form.isMpr ? unit : wo.unit) }}
+            {{ form.bomQty * (form.isMpr ? mpr.unit : wo.unit) }}
           </el-form-item>
           <el-form-item
             label="ETA"
@@ -266,6 +266,20 @@
             class="col-span-2"
           >
             <el-select
+              v-if="fromMpr"
+              v-model="form.idModule"
+            >
+              <el-option
+                v-for="item in modules"
+                :key="item.id"
+                :label="`${item.moduleChar} ${item.moduleName }`"
+                :value="item.id"
+              >
+                <span>{{ item.moduleChar }} {{ item.moduleName }}</span>
+              </el-option>
+            </el-select>
+            <el-select
+              v-else
               v-model="form.idHeader"
             >
               <el-option
@@ -299,6 +313,7 @@
 <script>
 import currency from '../../../mixins/currency';
 import { GetWoModules } from '../../../apollo/bom/query';
+import { GetMprModules } from '../../../apollo/mpr/query';
 import { UpdateItem } from '../../../apollo/bom/mutation';
 import GetAllSupplier from '../../../apollo/supplier/query';
 
@@ -317,9 +332,13 @@ export default {
       type: Object,
       default: () => ({}),
     },
-    unit: {
-      type: Number,
-      default: 0,
+    mpr: {
+      type: Object,
+      default: () => ({}),
+    },
+    fromMpr: {
+      type: Boolean,
+      default: false,
     },
   },
   data() {
@@ -355,6 +374,7 @@ export default {
         hold: 0,
         cancel: 0,
         idHeader: 0,
+        idModule: 0,
       },
       rules: {
         bomDescription: [{ required: true, message: 'This field is required' }],
@@ -384,7 +404,7 @@ export default {
         if (valid) {
           try {
             this.loading = true;
-            const unit = this.form.isMpr ? this.unit : this.wo.unit;
+            const unit = this.form.isMpr ? this.mpr.unit : this.wo.unit;
 
             await this.$apollo.mutate({
               mutation: UpdateItem,
@@ -416,6 +436,7 @@ export default {
                   hold: parseInt(this.form.hold, 10),
                   cancel: parseInt(this.form.cancel, 10),
                   idHeader: parseInt(this.form.idHeader, 10),
+                  idModule: parseInt(this.form.idModule, 10),
                   isMpr: parseInt(this.form.isMpr, 10),
                   unit: parseInt(unit, 10),
                   euro: parseFloat(this.wo.euro),
@@ -472,11 +493,35 @@ export default {
           idWo: parseInt(this.wo.id, 10),
         };
       },
+      skip() {
+        return this.fromMpr;
+      },
       prefetch: false,
       result({ data, loading }) {
         if (!loading) {
           const { getWoModules } = data;
           this.modules = getWoModules;
+        }
+      },
+      error({ graphQLErrors, networkError }) {
+        this.errors = graphQLErrors || networkError.result.errors;
+      },
+    },
+    getMprModules: {
+      query: GetMprModules,
+      variables() {
+        return {
+          idMpr: parseInt(this.mpr.id, 10),
+        };
+      },
+      skip() {
+        return !this.fromMpr;
+      },
+      prefetch: false,
+      result({ data, loading }) {
+        if (!loading) {
+          const { getMprModules } = data;
+          this.modules = getMprModules;
         }
       },
       error({ graphQLErrors, networkError }) {
