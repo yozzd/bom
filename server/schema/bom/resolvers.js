@@ -332,7 +332,7 @@ const resolvers = {
   Mutation: {
     updateItem: isAuthenticated(async (_, { input }) => {
       const {
-        euro, gbp, myr, idr, sgd, ...obj
+        euro, gbp, myr, idr, sgd, fromMpr, ...obj
       } = input;
       let { unit } = obj;
       delete obj.unit;
@@ -378,6 +378,12 @@ const resolvers = {
         const [zone, no] = obj.bomPoNo.split('.');
         item.poZone = zone;
         item.poNo = no;
+      }
+
+      if (fromMpr) {
+        item.idModule = obj.idModule;
+      } else {
+        item.idHeader = obj.idHeader;
       }
 
       const save = await item.save();

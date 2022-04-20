@@ -181,6 +181,7 @@ const typeDefs = `
     euro: Float
     gbp: Float
     myr: Float
+    fromMpr: Boolean
   }
 `;
 

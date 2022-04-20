@@ -375,6 +375,7 @@ export default {
         cancel: 0,
         idHeader: 0,
         idModule: 0,
+        fromMpr: false,
       },
       rules: {
         bomDescription: [{ required: true, message: 'This field is required' }],
@@ -444,6 +445,7 @@ export default {
                   myr: parseFloat(this.wo.myr),
                   idr: parseFloat(this.wo.idr),
                   sgd: parseFloat(this.wo.sgd),
+                  fromMpr: this.fromMpr,
                 },
               },
             });

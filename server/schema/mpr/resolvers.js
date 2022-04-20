@@ -65,9 +65,9 @@ const resolvers = {
         ],
         where: { id },
         required: false,
-        include: [{    
+        include: [{
           model: WO,
-          attributes: ['id' ,'euro', 'gbp', 'myr', 'idr', 'sgd'],
+          attributes: ['id', 'euro', 'gbp', 'myr', 'idr', 'sgd'],
         }, {
           model: MPRMODULE,
           attributes: ['id', 'moduleChar', 'moduleName'],
