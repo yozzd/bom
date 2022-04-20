@@ -270,30 +270,29 @@
               <div
                 class="flex font-bold text-xs mb-4"
               >
-                <div class="flex flex-1">
-                  <div>MPR No. :</div>
-                  <div class="flex ml-2">
-                    <nuxt-link
-                      :to="{ name: 'mpr-id', params: { id: mpr.id } }"
-                      class="flex-1 truncate"
-                    >
-                      {{ mpr.no }}
-                    </nuxt-link>
-                    <a
-                      :href="`/mpr/${mpr.id}`"
-                      title="Open in new tab"
-                      target="_blank"
-                      class="ml-2"
-                    >
-                      <client-only>
-                        <v-icon name="ri-external-link-line" class="remixicons w-4 h-4" />
-                      </client-only>
-                    </a>
-                  </div>
+                <div>MPR No. :</div>
+                <div class="flex ml-2">
+                  <nuxt-link
+                    :to="{ name: 'mpr-id', params: { id: mpr.id } }"
+                  >
+                    {{ mpr.no }}
+                  </nuxt-link>
+                  <a
+                    :href="`/mpr/${mpr.id}`"
+                    title="Open in new tab"
+                    target="_blank"
+                    class="ml-2"
+                  >
+                    <client-only>
+                      <v-icon name="ri-external-link-line" class="remixicons w-4 h-4" />
+                    </client-only>
+                  </a>
                 </div>
-                <div class="flex-1">
+                <div class="mx-2">&bull;</div>
+                <div>
                   Requestor: {{ mpr.requestorName }}
                 </div>
+                <div class="mx-2">&bull;</div>
                 <div>Approved By MRP: {{ mpr.bomTimestamp }}</div>
               </div>
               <div v-for="module in mpr.modules" :key="module.id">
