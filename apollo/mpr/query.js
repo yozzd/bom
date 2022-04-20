@@ -47,6 +47,14 @@ export const GetOneMPR = gql`
       idWo
       packing
       requestorName
+      wo {
+        id
+        euro
+        gbp
+        myr
+        idr
+        sgd
+      }
       modules {
         id
         moduleChar

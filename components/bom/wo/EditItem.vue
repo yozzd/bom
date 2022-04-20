@@ -469,7 +469,7 @@ export default {
       query: GetWoModules,
       variables() {
         return {
-          idWo: parseInt(this.$route.params.id, 10),
+          idWo: parseInt(this.wo.id, 10),
         };
       },
       prefetch: false,

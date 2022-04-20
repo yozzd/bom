@@ -182,11 +182,11 @@
           <div class="text-xs font-bold my-4">
             {{ h.moduleChar }} {{ h.moduleName }}
           </div>
-          <index-data-table :data="h.items" :unit="mpr.unit" />
+          <index-data-table :data="h.items" :wo="wo" :unit="mpr.unit" />
         </div>
       </div>
       <div v-if="items.length">
-        <index-data-table :data="items" class="my-4" />
+        <index-data-table :data="items" :wo="wo" :unit="mpr.unit" class="my-4" />
       </div>
     </div>
   </div>
@@ -200,6 +200,7 @@ export default {
     return {
       errors: [],
       mpr: {},
+      wo: {},
       modules: [],
       items: [],
     };
@@ -215,8 +216,13 @@ export default {
       prefetch: false,
       result({ data, loading }) {
         if (!loading) {
-          const { getOneMPR: { modules, items, ...mpr } } = data;
+          const {
+            getOneMPR: {
+              wo, modules, items, ...mpr
+            },
+          } = data;
           this.mpr = mpr;
+          this.wo = wo;
           this.modules = modules;
           this.items = items;
         }
