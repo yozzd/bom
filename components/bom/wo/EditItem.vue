@@ -71,7 +71,7 @@
           <el-form-item
             label="Requirement"
           >
-            {{ form.bomQty * wo.unit }}
+            {{ form.bomQty * (form.isMpr ? unit : wo.unit) }}
           </el-form-item>
           <el-form-item
             label="ETA"
