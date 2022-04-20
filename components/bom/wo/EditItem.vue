@@ -148,7 +148,7 @@
             <el-select
               v-model="form.bomSupplier"
               remote
-              :remote-method="remoteMethod"
+              :remote-method="supplierRemote"
               :loading="supplierLoading"
               filterable
             >
@@ -425,7 +425,7 @@ export default {
         }
       });
     },
-    async remoteMethod(key) {
+    async supplierRemote(key) {
       if (key) {
         this.supplierLoading = true;
         const { data: { getAllSupplier } } = await this.$apollo.query({
