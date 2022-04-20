@@ -49,7 +49,7 @@
       <div v-if="tableData.length">
         <div class="flex flex-col space-y-4 my-4">
           <div class="font-bold text-xl">
-            Status
+            {{ header }}
           </div>
           <div>
             <el-table
@@ -184,7 +184,7 @@ export default {
       showFilterByStatusDialog: false,
       loading: false,
       statusValue: 0,
-      form: {},
+      form: { status: 'Running' },
       header: '',
       rules: {
         status: [
@@ -198,6 +198,9 @@ export default {
       }),
     };
   },
+  mounted() {
+    this.handleFetch();
+  },
   methods: {
     handleCommand(command) {
       if (command === 'a') this.showFilterByStatus();
@@ -205,36 +208,39 @@ export default {
     showFilterByStatus() {
       this.showFilterByStatusDialog = true;
     },
+    async handleFetch() {
+      this.loading = true;
+      const status = parseInt(
+        (Object.keys(this.status).find((key) => this.status[key] === this.form.status)
+        ), 10,
+      );
+      this.statusValue = status;
+
+      const { data: { getAllLT } } = await this.$apollo.query({
+        query: GetAllLT,
+        variables: { status },
+        prefetch: false,
+        error({ graphQLErrors, networkError }) {
+          this.errors = graphQLErrors || networkError.result.errors;
+        },
+      });
+      this.items = {};
+      this.items = getAllLT;
+      this.header = `Status: ${this.form.status}`;
+
+      this.page = 1;
+      this.pageSize = 10;
+
+      this.miniSearch.removeAll();
+      this.miniSearch.addAll(this.items);
+
+      this.loading = false;
+      this.showFilterByStatusDialog = false;
+    },
     handleFilterByStatus(form) {
       this.$refs[form].validate(async (valid) => {
         if (valid) {
-          this.loading = true;
-          const status = parseInt(
-            (Object.keys(this.status).find((key) => this.status[key] === this.form.status)
-            ), 10,
-          );
-          this.statusValue = status;
-
-          const { data: { getAllLT } } = await this.$apollo.query({
-            query: GetAllLT,
-            variables: { status },
-            prefetch: false,
-            error({ graphQLErrors, networkError }) {
-              this.errors = graphQLErrors || networkError.result.errors;
-            },
-          });
-          this.items = {};
-          this.items = getAllLT;
-          this.header = `Status: ${this.form.status}`;
-
-          this.page = 1;
-          this.pageSize = 10;
-
-          this.miniSearch.removeAll();
-          this.miniSearch.addAll(this.items);
-
-          this.loading = false;
-          this.showFilterByStatusDialog = false;
+          this.handleFetch();
         }
       });
     },
