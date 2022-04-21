@@ -122,6 +122,17 @@ const resolvers = {
 
       return save;
     }),
+    deleteOutPo: isAuthenticated(async (_, { input }) => {
+      await Promise.all(
+        input.map(async (v) => {
+          await OUTSTANDINGPO.destroy({
+            where: { id: v.id },
+          });
+        }),
+      );
+
+      return input;
+    }),
   },
 };
 

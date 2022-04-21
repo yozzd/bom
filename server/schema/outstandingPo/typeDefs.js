@@ -9,6 +9,7 @@ const typeDefs = `
   extend type Mutation {
     createOutPo(input: CreateOutPoInput): item
     updateOutPo(input: UpdateOutPoInput): item
+    deleteOutPo(input: [DeleteOutPoInput]): [item]
   }
 
   type outstandingPo {
@@ -101,6 +102,10 @@ const typeDefs = `
     poRemarksAdmin: String
     poRemarksFinance: String
     poRemarksWarehouse: String
+  }
+
+  input DeleteOutPoInput {
+    id: Int
   }
 `;
 

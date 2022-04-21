@@ -51,6 +51,17 @@
             </client-only>
             Add
           </el-button>
+          <el-button
+            v-if="$auth.$state.user.section === 212"
+            type="danger"
+            :disabled="!multipleSelection.length"
+            @click="handleDelete"
+          >
+            <client-only>
+              <v-icon name="ri-delete-bin-2-line" class="remixicons w-4 h-4" />
+            </client-only>
+            Delete
+          </el-button>
           <div class="flex-1"></div>
           <div>
             <el-popover
@@ -160,7 +171,15 @@
             :row-class-name="highlighter"
             size="mini"
             border
+            @selection-change="handleSelectionChange"
           >
+            <el-table-column
+              v-if="$auth.$state.user.section === 212"
+              type="selection"
+              width="40"
+              align="center"
+              fixed
+            ></el-table-column>
             <el-table-column type="index" align="center" width="50" fixed></el-table-column>
             <el-table-column
               label="PO Issue"
@@ -590,6 +609,7 @@ import {
   GetAllOutstandingPoByStatus,
   GetAllOutstandingPoByZones,
 } from '../../apollo/outstandingPo/query';
+import { DeleteOutPo } from '../../apollo/outstandingPo/mutation';
 
 export default {
   mixins: [table, outp],
@@ -629,6 +649,7 @@ export default {
       showAddDialog: false,
       dataEdit: {},
       showEditDialog: false,
+      multipleSelection: [],
     };
   },
   methods: {
@@ -759,6 +780,23 @@ export default {
     },
     closeEditDialog(value) {
       this.showEditDialog = value;
+    },
+    handleSelectionChange(arr) {
+      this.multipleSelection = arr.map((v) => ({ id: v.id }));
+    },
+    handleDelete() {
+      this.$confirm('This will permanently delete the data. Continue?', 'Warning', {
+        confirmButtonText: 'Yes',
+        cancelButtonText: 'Cancel',
+        type: 'warning',
+      }).then(async () => {
+        await this.$apollo.mutate({
+          mutation: DeleteOutPo,
+          variables: {
+            input: this.multipleSelection,
+          },
+        });
+      }).catch(() => {});
     },
   },
 };

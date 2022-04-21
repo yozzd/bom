@@ -55,3 +55,11 @@ export const UpdateOutPo = gql`
     }
   }
 `;
+
+export const DeleteOutPo = gql`
+  mutation deleteOutPo($input: [DeleteOutPoInput]) {
+    deleteOutPo(input: $input) {
+      id
+    }
+  }
+`;
