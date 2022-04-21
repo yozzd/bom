@@ -138,6 +138,26 @@
               :disabled="$auth.$state.user.section !== 219"
             ></el-input>
           </el-form-item>
+          <el-form-item
+            label="LT Project"
+            prop="poLt"
+          >
+            <el-input
+              v-model="form.poLt"
+              :disabled="$auth.$state.user.section !== 212"
+            ></el-input>
+          </el-form-item>
+          <el-form-item
+            label="Latest Payment"
+            prop="poLpayment"
+          >
+            <el-date-picker
+              v-model="form.poLpayment"
+              type="date"
+              value-format="yyyy-MM-dd"
+              :disabled="$auth.$state.user.section !== 212"
+            ></el-date-picker>
+          </el-form-item>
         </div>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -186,6 +206,8 @@ export default {
         poValue: 0,
         poValueUsd: 0,
         poPaidUsd: 0,
+        poLt: '',
+        poLpayment: '',
       },
       rules: {
         poIssue: [{ required: true, message: 'This field is required' }],
