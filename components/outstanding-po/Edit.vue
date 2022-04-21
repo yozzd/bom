@@ -35,6 +35,7 @@
               v-model="form.approvalDate"
               type="date"
               value-format="yyyy-MM-dd"
+              :disabled="$auth.$state.user.section !== 219"
             ></el-date-picker>
           </el-form-item>
           <el-form-item label="Zone">

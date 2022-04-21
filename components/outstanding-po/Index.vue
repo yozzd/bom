@@ -580,7 +580,7 @@ export default {
   mixins: [table, outp],
   data() {
     return {
-      users: [211, 212],
+      users: [211, 212, 219],
       showFilterByCategoryDialog: false,
       showFilterByStatusDialog: false,
       showFilterByZonesDialog: false,
