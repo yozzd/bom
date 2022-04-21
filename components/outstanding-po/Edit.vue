@@ -25,6 +25,7 @@
               v-model="form.poIssue"
               type="date"
               value-format="yyyy-MM-dd"
+              :disabled="$auth.$state.user.section !== 212"
             ></el-date-picker>
           </el-form-item>
           <el-form-item
@@ -39,7 +40,11 @@
             ></el-date-picker>
           </el-form-item>
           <el-form-item label="Zone">
-            <el-select v-model="form.poZone" filterable>
+            <el-select
+              v-model="form.poZone"
+              :disabled="$auth.$state.user.section !== 212"
+              filterable
+            >
               <el-option
                 v-for="item in zones"
                 :key="item.zone"
@@ -53,7 +58,32 @@
             label="Po No."
             prop="poNo"
           >
-            <el-input v-model="form.poNo"></el-input>
+            <el-input
+              v-model="form.poNo"
+              :disabled="$auth.$state.user.section !== 212"
+            ></el-input>
+          </el-form-item>
+          <el-form-item
+            label="Supplier"
+            prop="poSupplier"
+            class="col-span-2"
+          >
+            <el-select
+              v-model="form.poSupplier"
+              remote
+              :remote-method="supplierRemote"
+              :loading="supplierLoading"
+              :disabled="$auth.$state.user.section !== 212"
+              filterable
+            >
+              <el-option
+                v-for="item in supplier"
+                :key="item.suplierID"
+                :label="item.suplierNM"
+                :value="item.suplierNM"
+              >
+              </el-option>
+            </el-select>
           </el-form-item>
         </div>
       </el-form>
@@ -75,6 +105,7 @@
 
 <script>
 import { GetZones } from '../../apollo/outstandingPo/query';
+import GetAllSupplier from '../../apollo/supplier/query';
 
 export default {
   props: {
@@ -96,11 +127,14 @@ export default {
         approvalDate: '',
         poZone: '',
         poNo: '',
+        poSuppier: '',
       },
       rules: {
         poIssue: [{ required: true, message: 'This field is required' }],
       },
       zones: [],
+      supplier: [],
+      supplierLoading: false,
     };
   },
   watch: {
@@ -117,6 +151,23 @@ export default {
     },
     handleUpdate(form) {
       console.log(form);
+    },
+    async supplierRemote(key) {
+      if (key) {
+        this.supplierLoading = true;
+        const { data: { getAllSupplier } } = await this.$apollo.query({
+          query: GetAllSupplier,
+          variables: { key },
+          prefetch: false,
+          error({ graphQLErrors, networkError }) {
+            this.errors = graphQLErrors || networkError.result.errors;
+          },
+        });
+        this.supplier = getAllSupplier;
+        this.supplierLoading = false;
+      } else {
+        this.supplier = [];
+      }
     },
   },
   apollo: {
