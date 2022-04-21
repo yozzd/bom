@@ -96,7 +96,11 @@ const resolvers = {
       return { items, totals };
     }),
   },
-  Mutation: {},
+  Mutation: {
+    updateOutPo: isAuthenticated(async (_, { input }) => {
+      console.log(input); 
+    }),
+  },
 };
 
 module.exports = { resolvers };

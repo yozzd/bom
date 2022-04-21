@@ -343,6 +343,7 @@
 
 <script>
 import { GetZones } from '../../apollo/outstandingPo/query';
+import { UpdateOutPo } from '../../apollo/outstandingPo/mutation';
 import GetAllSupplier from '../../apollo/supplier/query';
 
 export default {
@@ -413,7 +414,64 @@ export default {
       this.$emit('close', false);
     },
     handleUpdate(form) {
-      console.log(form);
+      this.$refs[form].validate(async (valid) => {
+        if (valid) {
+          try {
+            this.loading = true;
+
+            await this.$apollo.mutate({
+              mutation: UpdateOutPo,
+              variables: {
+                input: {
+                  id: parseInt(this.form.id, 10),
+                  poIssue: this.form.poIssue,
+                  approvalDate: this.form.approvalDate,
+                  poZone: this.form.poZone,
+                  poNo: this.form.poNo,
+                  poSupplier: this.form.poSupplier,
+                  poDescription: this.form.poDescription,
+                  poKvalue: this.form.poKvalue,
+                  poValue: parseFloat(this.form.poValue),
+                  poValueUsd: parseFloat(this.form.poValueUsd),
+                  poPaidUsd: parseFloat(this.form.poPaidUsd),
+                  poLt: this.form.poLt,
+                  poLpayment: this.form.poLpayment,
+                  poBom: this.form.poBom,
+                  poAdmin: this.form.poAdmin,
+                  poFinance: this.form.poFinance,
+                  poEta: this.form.poEta,
+                  poArrival: this.form.poArrival,
+                  poStatus: this.form.poStatus,
+                  comp: this.form.comp,
+                  hse: this.form.hse,
+                  poCancel: parseInt(this.form.poCancel, 10),
+                  poRemarks: this.form.poRemarks,
+                  poRemarksBom: this.form.poRemarksBom,
+                  poRemarksAdmin: this.form.poRemarksAdmin,
+                  poRemarksFinance: this.form.poRemarksFinance,
+                  poRemarksWarehouse: this.form.poRemarksWarehouse,
+                },
+              },
+            });
+
+            this.$message({
+              type: 'success',
+              message: 'Data has been updated successfully',
+              onClose: setTimeout(() => {
+                this.handleCancel();
+                this.loading = false;
+              }, 1000),
+            });
+
+            return true;
+          } catch ({ graphQLErrors, networkError }) {
+            this.errors = graphQLErrors || networkError.result.errors;
+            return false;
+          }
+        } else {
+          return false;
+        }
+      });
     },
     async supplierRemote(key) {
       if (key) {

@@ -6,6 +6,10 @@ const typeDefs = `
     getAllOutstandingPoByZones(zone: String): outstandingPo
   }
 
+  extend type Mutation {
+    updateOutPo(input: UpdateOutPoInput): item
+  }
+
   type outstandingPo {
     items: [item]
     totals: [total]
@@ -52,6 +56,36 @@ const typeDefs = `
 
   type zones {
     zone: String
+  }
+
+  input UpdateOutPoInput {
+    id: Int
+    poIssue: String
+    approvalDate: String
+    poZone: String
+    poNo: String
+    poSupplier: String
+    poDescription: String
+    poKvalue: String
+    poValue: Float
+    poValueUsd: Float
+    poPaidUsd: Float
+    poLt: String
+    poLpayment: String
+    poBom: String
+    poAdmin: String
+    poFinance: String
+    poEta: String
+    poArrival: String
+    poStatus: String
+    comp: String
+    hse: String
+    poCancel: Int
+    poRemarks: String
+    poRemarksBom: String
+    poRemarksAdmin: String
+    poRemarksFinance: String
+    poRemarksWarehouse: String
   }
 `;
 
