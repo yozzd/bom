@@ -194,6 +194,17 @@
               :disabled="$auth.$state.user.section !== 331"
             ></el-date-picker>
           </el-form-item>
+          <el-form-item
+            label="ETA at Labtech"
+            prop="poEta"
+          >
+            <el-date-picker
+              v-model="form.poEta"
+              type="date"
+              value-format="yyyy-MM-dd"
+              :disabled="$auth.$state.user.section !== 212"
+            ></el-date-picker>
+          </el-form-item>
         </div>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -247,6 +258,7 @@ export default {
         poBom: '',
         poAdmin: '',
         poFinance: '',
+        poEta: '',
       },
       rules: {
         poIssue: [{ required: true, message: 'This field is required' }],
