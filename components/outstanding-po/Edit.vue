@@ -27,6 +27,17 @@
               value-format="yyyy-MM-dd"
             ></el-date-picker>
           </el-form-item>
+          <el-form-item label="Zone">
+            <el-select v-model="form.poZone" filterable>
+              <el-option
+                v-for="item in zones"
+                :key="item.zone"
+                :label="item.zone"
+                :value="item.zone"
+              >
+              </el-option>
+            </el-select>
+          </el-form-item>
         </div>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -46,6 +57,8 @@
 </template>
 
 <script>
+import { GetZones } from '../../apollo/outstandingPo/query';
+
 export default {
   props: {
     data: {
@@ -63,10 +76,12 @@ export default {
       loading: false,
       form: {
         poIssue: '',
+        poZone: '',
       },
       rules: {
         poIssue: [{ required: true, message: 'This field is required' }],
       },
+      zones: [],
     };
   },
   watch: {
@@ -83,6 +98,21 @@ export default {
     },
     handleUpdate(form) {
       console.log(form);
+    },
+  },
+  apollo: {
+    getZones: {
+      query: GetZones,
+      prefetch: false,
+      result({ data, loading }) {
+        if (!loading) {
+          const { getZones } = data;
+          this.zones = getZones;
+        }
+      },
+      error({ graphQLErrors, networkError }) {
+        this.errors = graphQLErrors || networkError.result.errors;
+      },
     },
   },
 };
