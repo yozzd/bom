@@ -273,6 +273,16 @@
               Cancel
             </el-checkbox>
           </el-form-item>
+          <el-form-item
+            v-if="$auth.$state.user.section === 212"
+            label="Remarks"
+            prop="poRemarks"
+            class="col-span-2"
+          >
+            <client-only>
+              <IndexEditor v-model="form.poRemarks" />
+            </client-only>
+          </el-form-item>
         </div>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -331,6 +341,7 @@ export default {
         poStatus: '',
         comp: '',
         hse: '',
+        poCancel: 0,
       },
       rules: {
         poIssue: [{ required: true, message: 'This field is required' }],
