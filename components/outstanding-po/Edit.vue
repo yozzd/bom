@@ -120,6 +120,24 @@
               :disabled="$auth.$state.user.section !== 212"
             ></el-input>
           </el-form-item>
+          <el-form-item
+            label="PO Value (USD)"
+            prop="poValueUsd"
+          >
+            <el-input
+              v-model="form.poValueUsd"
+              :disabled="$auth.$state.user.section !== 219"
+            ></el-input>
+          </el-form-item>
+          <el-form-item
+            label="PO Paid (USD)"
+            prop="poPaidUsd"
+          >
+            <el-input
+              v-model="form.poPaidUsd"
+              :disabled="$auth.$state.user.section !== 219"
+            ></el-input>
+          </el-form-item>
         </div>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -166,6 +184,8 @@ export default {
         poDescription: '',
         poKvalue: '',
         poValue: 0,
+        poValueUsd: 0,
+        poPaidUsd: 0,
       },
       rules: {
         poIssue: [{ required: true, message: 'This field is required' }],
