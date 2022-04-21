@@ -98,7 +98,24 @@ const resolvers = {
   },
   Mutation: {
     updateOutPo: isAuthenticated(async (_, { input }) => {
-      console.log(input); 
+      const po = await OUTSTANDINGPO.findOne({
+        attributes: [...Object.keys(input)],
+        where: { id: input.id },
+      });
+      
+      Object.assign(po, input);
+      po.poIssue = input.poIssue || null;
+      po.approvalDate = input.approvalDate || null;
+      po.poLpayment = input.poLpayment || null;
+      po.poBom = input.poBom || null;
+      po.poAdmin = input.poAdmin || null;
+      po.poFinance = input.poFinance || null;
+      po.poEta = input.poEta || null;
+      po.poArrival = input.poArrival || null;
+      
+      const save = await po.save();
+      
+      return save;
     }),
   },
 };

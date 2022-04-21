@@ -195,6 +195,7 @@ const OUTSTANDINGPO = sequelize.define('outstandingPo', {
 }, {
   tableName: 'outstanding_po',
   underscored: true,
+  timestamps: false,
 });
 
 module.exports = { OUTSTANDINGPO };
