@@ -313,6 +313,16 @@
               <IndexEditor v-model="form.poRemarksFinance" />
             </client-only>
           </el-form-item>
+          <el-form-item
+            v-if="$auth.$state.user.section === 213"
+            label="Remarks"
+            prop="poRemarksWarehouse"
+            class="col-span-2"
+          >
+            <client-only>
+              <IndexEditor v-model="form.poRemarksWarehouse" />
+            </client-only>
+          </el-form-item>
         </div>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -376,6 +386,7 @@ export default {
         poRemarksBom: '',
         poRemarksAdmin: '',
         poRemarksFinance: '',
+        poRemarksWarehouse: '',
       },
       rules: {
         poIssue: [{ required: true, message: 'This field is required' }],
