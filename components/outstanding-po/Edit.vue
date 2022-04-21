@@ -224,7 +224,7 @@
               filterable
             >
               <el-option
-                v-for="item in status"
+                v-for="item in statusWh"
                 :key="item"
                 :label="item"
                 :value="item"
@@ -342,11 +342,12 @@
 </template>
 
 <script>
-import { GetZones } from '../../apollo/outstandingPo/query';
 import { UpdateOutPo } from '../../apollo/outstandingPo/mutation';
 import GetAllSupplier from '../../apollo/supplier/query';
+import outp from '../../mixins/outstanding.po';
 
 export default {
+  mixins: [outp],
   props: {
     data: {
       type: Object,
@@ -394,11 +395,10 @@ export default {
         poDescription: [{ required: true, message: 'This field is required' }],
         poSupplier: [{ required: true, message: 'This field is required' }],
       },
-      zones: [],
       supplier: [],
       supplierLoading: false,
       currency: ['EUR', 'GBP', 'JPY', 'MYR', 'Rp', 'Rupe', 'SGD', 'USD'],
-      status: ['', 'Complete', 'Partial'],
+      statusWh: ['', 'Complete', 'Partial'],
       completeStatus: ['', 'Yes', 'No'],
       hseStatus: ['', 'Required', 'Non Required'],
     };
@@ -491,21 +491,6 @@ export default {
       } else {
         this.supplier = [];
       }
-    },
-  },
-  apollo: {
-    getZones: {
-      query: GetZones,
-      prefetch: false,
-      result({ data, loading }) {
-        if (!loading) {
-          const { getZones } = data;
-          this.zones = getZones;
-        }
-      },
-      error({ graphQLErrors, networkError }) {
-        this.errors = graphQLErrors || networkError.result.errors;
-      },
     },
   },
 };
