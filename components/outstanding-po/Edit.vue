@@ -232,6 +232,36 @@
               </el-option>
             </el-select>
           </el-form-item>
+          <el-form-item label="Complete">
+            <el-select
+              v-model="form.comp"
+              :disabled="$auth.$state.user.section !== 219"
+              filterable
+            >
+              <el-option
+                v-for="item in completeStatus"
+                :key="item"
+                :label="item"
+                :value="item"
+              >
+              </el-option>
+            </el-select>
+          </el-form-item>
+          <el-form-item label="HSE">
+            <el-select
+              v-model="form.hse"
+              :disabled="$auth.$state.user.section !== 219"
+              filterable
+            >
+              <el-option
+                v-for="item in hseStatus"
+                :key="item"
+                :label="item"
+                :value="item"
+              >
+              </el-option>
+            </el-select>
+          </el-form-item>
         </div>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -287,6 +317,9 @@ export default {
         poFinance: '',
         poEta: '',
         poArrival: '',
+        poStatus: '',
+        comp: '',
+        hse: '',
       },
       rules: {
         poIssue: [{ required: true, message: 'This field is required' }],
@@ -296,6 +329,8 @@ export default {
       supplierLoading: false,
       currency: ['EUR', 'GBP', 'JPY', 'MYR', 'Rp', 'Rupe', 'SGD', 'USD'],
       status: ['', 'Complete', 'Partial'],
+      completeStatus: ['', 'Yes', 'No'],
+      hseStatus: ['', 'Required', 'Non Required'],
     };
   },
   watch: {
