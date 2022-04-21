@@ -85,6 +85,17 @@
               </el-option>
             </el-select>
           </el-form-item>
+          <el-form-item
+            label="Description"
+            prop="poDescription"
+            class="col-span-2"
+          >
+            <el-input
+              v-model="form.poDescription"
+              type="textarea"
+              :disabled="$auth.$state.user.section !== 212"
+            ></el-input>
+          </el-form-item>
         </div>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -128,6 +139,7 @@ export default {
         poZone: '',
         poNo: '',
         poSuppier: '',
+        poDescription: '',
       },
       rules: {
         poIssue: [{ required: true, message: 'This field is required' }],
