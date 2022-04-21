@@ -180,18 +180,24 @@
               width="70"
               fixed
             ></el-table-column>
-            <el-table-column label="Supplier" width="160" fixed>
+            <el-table-column
+              label="Supplier"
+              width="160"
+              :show-overflow-tooltip="true"
+              fixed
+            >
               <template slot-scope="scope">
-                <p :title="scope.row.poSupplier" class="truncate">
-                  {{ scope.row.poSupplier }}
-                </p>
+                {{ scope.row.poSupplier }}
               </template>
             </el-table-column>
-            <el-table-column label="Description" width="160" fixed>
+            <el-table-column
+              label="Description"
+              width="160"
+              :show-overflow-tooltip="true"
+              fixed
+            >
               <template slot-scope="scope">
-                <p :title="scope.row.poDescription" class="truncate">
-                  {{ scope.row.poDescription }}
-                </p>
+                {{ scope.row.poDescription }}
               </template>
             </el-table-column>
             <el-table-column label="PO Value" align="right" width="100">
@@ -219,11 +225,13 @@
                 USD {{ scope.row.poBalanceUsd | currency }}
               </template>
             </el-table-column>
-            <el-table-column label="LT Project" width="80">
+            <el-table-column
+              label="LT Project"
+              width="80"
+              :show-overflow-tooltip="true"
+            >
               <template slot-scope="scope">
-                <p :title="scope.row.poLt" class="truncate">
-                  {{ scope.row.poLt }}
-                </p>
+                {{ scope.row.poLt }}
               </template>
             </el-table-column>
             <el-table-column align="center" width="90">
