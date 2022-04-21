@@ -246,7 +246,7 @@
                 {{ scope.row.poBom }}
                 <el-popover
                   v-if="scope.row.poRemarksBom"
-                  placement="left"
+                  placement="top"
                   trigger="hover"
                 >
                   <template #default>
@@ -268,7 +268,7 @@
                 {{ scope.row.poAdmin }}
                 <el-popover
                   v-if="scope.row.poRemarksAdmin"
-                  placement="left"
+                  placement="top"
                   trigger="hover"
                 >
                   <template #default>
@@ -290,7 +290,7 @@
                 {{ scope.row.poFinance }}
                 <el-popover
                   v-if="scope.row.poRemarksFinance"
-                  placement="left"
+                  placement="top"
                   trigger="hover"
                 >
                   <template #default>
@@ -322,7 +322,7 @@
                 {{ scope.row.poArrival }}
                 <el-popover
                   v-if="scope.row.poRemarksWarehouse"
-                  placement="left"
+                  placement="top"
                   trigger="hover"
                 >
                   <template #default>
@@ -360,7 +360,7 @@
               <template slot-scope="scope">
                 <el-popover
                   v-if="scope.row.poRemarks"
-                  placement="left"
+                  placement="top"
                   trigger="hover"
                 >
                   <template #default>
