@@ -1,5 +1,24 @@
 import gql from 'graphql-tag';
 
+export const CreateOutPo = gql`
+  mutation createOutPo($input: CreateOutPoInput) {
+    createOutPo(input: $input) {
+      poIssue
+      poZone
+      poNo
+      poSupplier
+      poDescription
+      poKvalue
+      poValue
+      poLt
+      poLpayment
+      poEta
+      poRemarks
+      colorClass
+    }
+  }
+`;
+
 export const UpdateOutPo = gql`
   mutation updateOutPo($input: UpdateOutPoInput) {
     updateOutPo(input: $input) {
@@ -36,5 +55,3 @@ export const UpdateOutPo = gql`
     }
   }
 `;
-
-export const empty = null;

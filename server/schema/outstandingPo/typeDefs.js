@@ -7,6 +7,7 @@ const typeDefs = `
   }
 
   extend type Mutation {
+    createOutPo(input: CreateOutPoInput): item
     updateOutPo(input: UpdateOutPoInput): item
   }
 
@@ -56,6 +57,20 @@ const typeDefs = `
 
   type zones {
     zone: String
+  }
+
+  input CreateOutPoInput {
+    poIssue: String
+    poZone: String
+    poNo: String
+    poSupplier: String
+    poDescription: String
+    poKvalue: String
+    poValue: Float
+    poLt: String
+    poLpayment: String
+    poEta: String
+    poRemarks: String
   }
 
   input UpdateOutPoInput {

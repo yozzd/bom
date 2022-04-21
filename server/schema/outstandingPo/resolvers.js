@@ -97,6 +97,11 @@ const resolvers = {
     }),
   },
   Mutation: {
+    createOutPo: isAuthenticated(async (_, { input }) => {
+      const newOutPo = new OUTSTANDINGPO(input);
+      const save = await newOutPo.save();
+      return save;
+    }),
     updateOutPo: isAuthenticated(async (_, { input }) => {
       const po = await OUTSTANDINGPO.findOne({
         attributes: [...Object.keys(input)],

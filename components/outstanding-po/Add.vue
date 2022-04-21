@@ -155,6 +155,7 @@
 
 <script>
 import { GetZones } from '../../apollo/outstandingPo/query';
+import { CreateOutPo } from '../../apollo/outstandingPo/mutation';
 import GetAllSupplier from '../../apollo/supplier/query';
 
 export default {
@@ -202,7 +203,48 @@ export default {
       this.$emit('close', false);
     },
     handleCreate(form) {
-      console.log(form);
+      this.$refs[form].validate(async (valid) => {
+        if (valid) {
+          try {
+            this.loading = true;
+
+            await this.$apollo.mutate({
+              mutation: CreateOutPo,
+              variables: {
+                input: {
+                  poIssue: this.form.poIssue,
+                  poZone: this.form.poZone,
+                  poNo: this.form.poNo,
+                  poSupplier: this.form.poSupplier,
+                  poDescription: this.form.poDescription,
+                  poKvalue: this.form.poKvalue,
+                  poValue: parseFloat(this.form.poValue),
+                  poLt: this.form.poLt,
+                  poLpayment: this.form.poLpayment,
+                  poEta: this.form.poEta,
+                  poRemarks: this.form.poRemarks,
+                },
+              },
+            });
+
+            this.$message({
+              type: 'success',
+              message: 'Data has been saved successfully',
+              onClose: setTimeout(() => {
+                this.handleCancel();
+                this.loading = false;
+              }, 1000),
+            });
+
+            return true;
+          } catch ({ graphQLErrors, networkError }) {
+            this.errors = graphQLErrors || networkError.result.errors;
+            return false;
+          }
+        } else {
+          return false;
+        }
+      });
     },
     async supplierRemote(key) {
       if (key) {
