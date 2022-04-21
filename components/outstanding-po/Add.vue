@@ -154,11 +154,12 @@
 </template>
 
 <script>
-import { GetZones } from '../../apollo/outstandingPo/query';
 import { CreateOutPo } from '../../apollo/outstandingPo/mutation';
 import GetAllSupplier from '../../apollo/supplier/query';
+import outp from '../../mixins/outstanding.po';
 
 export default {
+  mixins: [outp],
   props: {
     show: {
       type: Boolean,
@@ -187,7 +188,6 @@ export default {
         poDescription: [{ required: true, message: 'This field is required' }],
         poSupplier: [{ required: true, message: 'This field is required' }],
       },
-      zones: [],
       supplier: [],
       supplierLoading: false,
       currency: ['EUR', 'GBP', 'JPY', 'MYR', 'Rp', 'Rupe', 'SGD', 'USD'],
@@ -262,21 +262,6 @@ export default {
       } else {
         this.supplier = [];
       }
-    },
-  },
-  apollo: {
-    getZones: {
-      query: GetZones,
-      prefetch: false,
-      result({ data, loading }) {
-        if (!loading) {
-          const { getZones } = data;
-          this.zones = getZones;
-        }
-      },
-      error({ graphQLErrors, networkError }) {
-        this.errors = graphQLErrors || networkError.result.errors;
-      },
     },
   },
 };
