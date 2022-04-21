@@ -96,6 +96,30 @@
               :disabled="$auth.$state.user.section !== 212"
             ></el-input>
           </el-form-item>
+          <el-form-item label="Currency">
+            <el-select
+              v-model="form.poKvalue"
+              :disabled="$auth.$state.user.section !== 212"
+              filterable
+            >
+              <el-option
+                v-for="item in currency"
+                :key="item"
+                :label="item"
+                :value="item"
+              >
+              </el-option>
+            </el-select>
+          </el-form-item>
+          <el-form-item
+            label="Value"
+            prop="poValue"
+          >
+            <el-input
+              v-model="form.poValue"
+              :disabled="$auth.$state.user.section !== 212"
+            ></el-input>
+          </el-form-item>
         </div>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -138,8 +162,10 @@ export default {
         approvalDate: '',
         poZone: '',
         poNo: '',
-        poSuppier: '',
+        poSupplier: '',
         poDescription: '',
+        poKvalue: '',
+        poValue: 0,
       },
       rules: {
         poIssue: [{ required: true, message: 'This field is required' }],
@@ -147,6 +173,7 @@ export default {
       zones: [],
       supplier: [],
       supplierLoading: false,
+      currency: ['EUR', 'GBP', 'JPY', 'MYR', 'Rp', 'Rupe', 'SGD', 'USD'],
     };
   },
   watch: {
