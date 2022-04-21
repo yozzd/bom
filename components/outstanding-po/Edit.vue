@@ -158,6 +158,18 @@
               :disabled="$auth.$state.user.section !== 212"
             ></el-date-picker>
           </el-form-item>
+          <el-form-item
+            label="Production (Production Required) Date"
+            prop="poBom"
+            class="col-span-2"
+          >
+            <el-date-picker
+              v-model="form.poBom"
+              type="date"
+              value-format="yyyy-MM-dd"
+              :disabled="$auth.$state.user.section !== 211"
+            ></el-date-picker>
+          </el-form-item>
         </div>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -208,6 +220,7 @@ export default {
         poPaidUsd: 0,
         poLt: '',
         poLpayment: '',
+        poBom: '',
       },
       rules: {
         poIssue: [{ required: true, message: 'This field is required' }],
