@@ -175,11 +175,22 @@
             ></el-table-column>
             <el-table-column
               label="PO No."
-              prop="poNo"
               align="center"
               width="70"
               fixed
-            ></el-table-column>
+            >
+              <template slot-scope="scope">
+                <a
+                  v-if="users.includes($auth.$state.user.section)"
+                  @click="showEdit(scope.row)"
+                >
+                  {{ scope.row.poNo }}
+                </a>
+                <div v-else>
+                  {{ scope.row.poNo }}
+                </div>
+              </template>
+            </el-table-column>
             <el-table-column
               label="Supplier"
               width="160"
@@ -546,6 +557,12 @@
         </el-button>
       </span>
     </el-dialog>
+
+    <OutstandingPoEdit
+      :data="dataEdit"
+      :show="showEditDialog"
+      @close="closeEditDialog"
+    />
   </div>
 </template>
 
@@ -563,6 +580,7 @@ export default {
   mixins: [table, outp],
   data() {
     return {
+      users: [211, 212],
       showFilterByCategoryDialog: false,
       showFilterByStatusDialog: false,
       showFilterByZonesDialog: false,
@@ -593,6 +611,8 @@ export default {
           'poRemarksFinance', 'poRemarksWarehouse', 'poCancel', 'colorClass',
         ],
       }),
+      dataEdit: {},
+      showEditDialog: false,
     };
   },
   methods: {
@@ -710,6 +730,13 @@ export default {
     },
     highlighter({ row }) {
       return row.colorClass;
+    },
+    showEdit(row) {
+      this.dataEdit = row;
+      this.showEditDialog = true;
+    },
+    closeEditDialog(value) {
+      this.showEditDialog = value;
     },
   },
 };
