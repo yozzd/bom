@@ -170,6 +170,18 @@
               :disabled="$auth.$state.user.section !== 211"
             ></el-date-picker>
           </el-form-item>
+          <el-form-item
+            label="Documents to Finance + PI (Complete) Date"
+            prop="poAdmin"
+            class="col-span-2"
+          >
+            <el-date-picker
+              v-model="form.poAdmin"
+              type="date"
+              value-format="yyyy-MM-dd"
+              :disabled="$auth.$state.user.section !== 219"
+            ></el-date-picker>
+          </el-form-item>
         </div>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -221,6 +233,7 @@ export default {
         poLt: '',
         poLpayment: '',
         poBom: '',
+        poAdmin: '',
       },
       rules: {
         poIssue: [{ required: true, message: 'This field is required' }],
