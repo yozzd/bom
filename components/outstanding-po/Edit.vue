@@ -262,6 +262,17 @@
               </el-option>
             </el-select>
           </el-form-item>
+          <el-form-item
+            prop="poCancel"
+          >
+            <el-checkbox
+              v-model="form.poCancel"
+              :true-label="1"
+              :disabled="$auth.$state.user.section !== 212"
+            >
+              Cancel
+            </el-checkbox>
+          </el-form-item>
         </div>
       </el-form>
       <div slot="footer" class="dialog-footer">
