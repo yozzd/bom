@@ -197,6 +197,7 @@
           <el-form-item
             label="ETA at Labtech"
             prop="poEta"
+            class="col-span-2"
           >
             <el-date-picker
               v-model="form.poEta"
@@ -204,6 +205,32 @@
               value-format="yyyy-MM-dd"
               :disabled="$auth.$state.user.section !== 212"
             ></el-date-picker>
+          </el-form-item>
+          <el-form-item
+            label="Time Arrival"
+            prop="poArrival"
+          >
+            <el-date-picker
+              v-model="form.poArrival"
+              type="date"
+              value-format="yyyy-MM-dd"
+              :disabled="$auth.$state.user.section !== 213"
+            ></el-date-picker>
+          </el-form-item>
+          <el-form-item label="Status">
+            <el-select
+              v-model="form.poStatus"
+              :disabled="$auth.$state.user.section !== 213"
+              filterable
+            >
+              <el-option
+                v-for="item in status"
+                :key="item"
+                :label="item"
+                :value="item"
+              >
+              </el-option>
+            </el-select>
           </el-form-item>
         </div>
       </el-form>
@@ -259,6 +286,7 @@ export default {
         poAdmin: '',
         poFinance: '',
         poEta: '',
+        poArrival: '',
       },
       rules: {
         poIssue: [{ required: true, message: 'This field is required' }],
@@ -267,6 +295,7 @@ export default {
       supplier: [],
       supplierLoading: false,
       currency: ['EUR', 'GBP', 'JPY', 'MYR', 'Rp', 'Rupe', 'SGD', 'USD'],
+      status: ['', 'Complete', 'Partial'],
     };
   },
   watch: {
