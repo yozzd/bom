@@ -391,6 +391,8 @@ export default {
       },
       rules: {
         poIssue: [{ required: true, message: 'This field is required' }],
+        poDescription: [{ required: true, message: 'This field is required' }],
+        poSupplier: [{ required: true, message: 'This field is required' }],
       },
       zones: [],
       supplier: [],

@@ -2,6 +2,7 @@ import Vue from 'vue';
 
 import { OhVueIcon, addIcons } from 'oh-vue-icons';
 import {
+  RiAddLine,
   RiAlignCenter,
   RiAlignJustify,
   RiAlignLeft,
@@ -26,6 +27,7 @@ import {
 } from 'oh-vue-icons/icons';
 
 addIcons(
+  RiAddLine,
   RiAlignCenter,
   RiAlignJustify,
   RiAlignLeft,

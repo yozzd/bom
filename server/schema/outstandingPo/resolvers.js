@@ -102,7 +102,7 @@ const resolvers = {
         attributes: [...Object.keys(input)],
         where: { id: input.id },
       });
-      
+
       Object.assign(po, input);
       po.poIssue = input.poIssue || null;
       po.approvalDate = input.approvalDate || null;
@@ -112,9 +112,9 @@ const resolvers = {
       po.poFinance = input.poFinance || null;
       po.poEta = input.poEta || null;
       po.poArrival = input.poArrival || null;
-      
+
       const save = await po.save();
-      
+
       return save;
     }),
   },
