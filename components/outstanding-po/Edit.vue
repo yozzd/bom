@@ -27,6 +27,16 @@
               value-format="yyyy-MM-dd"
             ></el-date-picker>
           </el-form-item>
+          <el-form-item
+            label="Approval Date"
+            prop="approvalDate"
+          >
+            <el-date-picker
+              v-model="form.approvalDate"
+              type="date"
+              value-format="yyyy-MM-dd"
+            ></el-date-picker>
+          </el-form-item>
           <el-form-item label="Zone">
             <el-select v-model="form.poZone" filterable>
               <el-option
@@ -37,6 +47,12 @@
               >
               </el-option>
             </el-select>
+          </el-form-item>
+          <el-form-item
+            label="Po No."
+            prop="poNo"
+          >
+            <el-input v-model="form.poNo"></el-input>
           </el-form-item>
         </div>
       </el-form>
@@ -76,7 +92,9 @@ export default {
       loading: false,
       form: {
         poIssue: '',
+        approvalDate: '',
         poZone: '',
+        poNo: '',
       },
       rules: {
         poIssue: [{ required: true, message: 'This field is required' }],
