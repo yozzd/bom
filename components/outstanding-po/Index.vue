@@ -647,7 +647,9 @@ export default {
           'poRemarksFinance', 'poRemarksWarehouse', 'poCancel', 'colorClass',
         ],
       }),
-      category: 1,
+      query: {},
+      variables: {},
+      sdata: '',
       showAddDialog: false,
       dataEdit: {},
       showEditDialog: false,
@@ -668,14 +670,14 @@ export default {
       this.$refs[form].validate(async (valid) => {
         if (valid) {
           this.loading = true;
-          this.category = parseInt(
+          const category = parseInt(
             (Object.keys(this.categories).find((key) => this.categories[key] === this.form.category)
             ), 10,
           ) + 1;
 
           const { data: { getAllOutstandingPoByCategory } } = await this.$apollo.query({
             query: GetAllOutstandingPoByCategory,
-            variables: { category: this.category },
+            variables: { category },
             prefetch: false,
             error({ graphQLErrors, networkError }) {
               this.errors = graphQLErrors || networkError.result.errors;
@@ -686,6 +688,10 @@ export default {
           this.items = items;
           this.totals = totals;
           this.header = this.form.category;
+
+          this.query = GetAllOutstandingPoByCategory;
+          this.variables = { category };
+          this.sdata = 'getAllOutstandingPoByCategory';
 
           this.page = 1;
           this.pageSize = 10;
@@ -724,6 +730,10 @@ export default {
           this.totals = totals;
           this.header = `Status: ${this.form.status}`;
 
+          this.query = GetAllOutstandingPoByStatus;
+          this.variables = { status };
+          this.sdata = 'getAllOutstandingPoByStatus';
+
           this.page = 1;
           this.pageSize = 10;
 
@@ -756,6 +766,10 @@ export default {
           this.items = items;
           this.totals = totals;
           this.header = `Zone: ${this.form.zone}`;
+
+          this.query = GetAllOutstandingPoByZones;
+          this.variables = { zone: this.form.zone };
+          this.sdata = 'getAllOutstandingPoByZones';
 
           this.page = 1;
           this.pageSize = 10;
@@ -801,19 +815,19 @@ export default {
           },
           update: (store, { data: { deleteOutPo } }) => {
             const cdata = store.readQuery({
-              query: GetAllOutstandingPoByCategory,
-              variables: { category: this.category },
+              query: this.query,
+              variables: this.variables,
             });
 
-            pullAllBy(cdata.getAllOutstandingPoByCategory.items, deleteOutPo, 'id');
+            pullAllBy(cdata[this.sdata].items, deleteOutPo, 'id');
             this.items = {};
-            const { items, totals: [totals] } = cdata.getAllOutstandingPoByCategory;
+            const { items, totals: [totals] } = cdata[this.sdata];
             this.items = items;
             this.totals = totals;
 
             store.writeQuery({
-              query: GetAllOutstandingPoByCategory,
-              variables: { category: this.category },
+              query: this.query,
+              variables: this.variables,
               data: cdata,
             });
           },
