@@ -41,6 +41,10 @@ a {
   @apply rounded-md;
 }
 
+.el-checkbox__inner {
+  @apply rounded;
+}
+
 .el-date-editor.el-input,
 .el-date-editor.el-input__inner,
 .el-select {
@@ -254,4 +258,12 @@ table.plain {
 
 .el-table__body tr.hover-row > td.el-table__cell {
   @apply bg-transparent;  
+}
+
+.el-table th.el-table__cell.is-leaf:first-child .el-checkbox__input {
+  @apply -mr-[3px];
+}
+
+.el-table td.el-table__cell .el-checkbox__input {
+  @apply -mr-[5px];
 }
