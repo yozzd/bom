@@ -17,6 +17,12 @@
         class="grid grid-cols-5"
       >
         <div class="col-span-3 col-start-2 grid grid-cols-2 gap-x-4">
+          <IndexErrorHandler
+            v-if="errors.length"
+            :errors="errors"
+            class="col-span-2 mb-4"
+          />
+
           <el-form-item
             label="PO Issue"
             prop="poIssue"
@@ -332,7 +338,7 @@
         <el-button
           type="primary"
           :loading="loading"
-          @click="handleUpdate('form')"
+          @click="handleUpdate()"
         >
           Update
         </el-button>
@@ -403,6 +409,7 @@ export default {
       statusWh: ['', 'Complete', 'Partial'],
       completeStatus: ['', 'Yes', 'No'],
       hseStatus: ['', 'Required', 'Non Required'],
+      errors: [],
     };
   },
   watch: {
@@ -415,10 +422,12 @@ export default {
   },
   methods: {
     handleCancel() {
+      this.loading = false;
+      this.errors = [];
       this.$emit('close', false);
     },
-    handleUpdate(form) {
-      this.$refs[form].validate(async (valid) => {
+    handleUpdate() {
+      this.$refs.form.validate(async (valid) => {
         if (valid) {
           try {
             this.loading = true;
