@@ -601,6 +601,7 @@
 </template>
 
 <script>
+import pullAllBy from 'lodash/pullAllBy';
 import MiniSearch from 'minisearch';
 import table from '../../mixins/table';
 import outp from '../../mixins/outstanding.po';
@@ -646,10 +647,12 @@ export default {
           'poRemarksFinance', 'poRemarksWarehouse', 'poCancel', 'colorClass',
         ],
       }),
+      category: 1,
       showAddDialog: false,
       dataEdit: {},
       showEditDialog: false,
       multipleSelection: [],
+      cachedArr: [],
     };
   },
   methods: {
@@ -665,14 +668,14 @@ export default {
       this.$refs[form].validate(async (valid) => {
         if (valid) {
           this.loading = true;
-          const category = parseInt(
+          this.category = parseInt(
             (Object.keys(this.categories).find((key) => this.categories[key] === this.form.category)
             ), 10,
           ) + 1;
 
           const { data: { getAllOutstandingPoByCategory } } = await this.$apollo.query({
             query: GetAllOutstandingPoByCategory,
-            variables: { category },
+            variables: { category: this.category },
             prefetch: false,
             error({ graphQLErrors, networkError }) {
               this.errors = graphQLErrors || networkError.result.errors;
@@ -783,6 +786,7 @@ export default {
     },
     handleSelectionChange(arr) {
       this.multipleSelection = arr.map((v) => ({ id: v.id }));
+      this.cachedArr = arr;
     },
     handleDelete() {
       this.$confirm('This will permanently delete the data. Continue?', 'Warning', {
@@ -795,6 +799,33 @@ export default {
           variables: {
             input: this.multipleSelection,
           },
+          update: (store, { data: { deleteOutPo } }) => {
+            const cdata = store.readQuery({
+              query: GetAllOutstandingPoByCategory,
+              variables: { category: this.category },
+            });
+
+            pullAllBy(cdata.getAllOutstandingPoByCategory.items, deleteOutPo, 'id');
+            this.items = {};
+            const { items, totals: [totals] } = cdata.getAllOutstandingPoByCategory;
+            this.items = items;
+            this.totals = totals;
+
+            store.writeQuery({
+              query: GetAllOutstandingPoByCategory,
+              variables: { category: this.category },
+              data: cdata,
+            });
+          },
+          optimisticResponse: {
+            __typename: 'Mutation',
+            deleteOutPo: this.cachedArr,
+          },
+        });
+
+        this.$message({
+          type: 'success',
+          message: 'Data has been delete successfully',
         });
       }).catch(() => {});
     },
