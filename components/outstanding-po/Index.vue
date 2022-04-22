@@ -593,6 +593,7 @@
       :query="query"
       :variables="variables"
       :sdata="sdata"
+      :recommend="recommend"
       @close="closeAddDialog"
       @update="updateList"
     />
@@ -614,6 +615,7 @@ import {
   GetAllOutstandingPoByCategory,
   GetAllOutstandingPoByStatus,
   GetAllOutstandingPoByZones,
+  GetRecommendPoNo,
 } from '../../apollo/outstandingPo/query';
 import { DeleteOutPo } from '../../apollo/outstandingPo/mutation';
 
@@ -660,6 +662,7 @@ export default {
       showEditDialog: false,
       multipleSelection: [],
       cachedArr: [],
+      recommend: '',
     };
   },
   methods: {
@@ -853,6 +856,22 @@ export default {
       const { items, totals: [totals] } = value;
       this.items = items;
       this.totals = totals;
+    },
+  },
+  apollo: {
+    getRecommendPoNo: {
+      query: GetRecommendPoNo,
+      prefetch: false,
+      result({ data, loading }) {
+        if (!loading) {
+          const { getRecommendPoNo: [{ poNo }] } = data;
+          console.log(poNo);
+          this.recommend = poNo;
+        }
+      },
+      error({ graphQLErrors, networkError }) {
+        this.errors = graphQLErrors || networkError.result.errors;
+      },
     },
   },
 };

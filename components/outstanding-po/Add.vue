@@ -34,26 +34,33 @@
               value-format="yyyy-MM-dd"
             ></el-date-picker>
           </el-form-item>
-          <el-form-item label="Zone">
-            <el-select
-              v-model="form.poZone"
-              filterable
-            >
-              <el-option
-                v-for="item in zones"
-                :key="item.zone"
-                :label="item.zone"
-                :value="item.zone"
+          <div class="col-span-2 grid grid-cols-3 gap-x-4">
+            <el-form-item label="Zone">
+              <el-select
+                v-model="form.poZone"
+                filterable
               >
-              </el-option>
-            </el-select>
-          </el-form-item>
-          <el-form-item
-            label="Po No."
-            prop="poNo"
-          >
-            <el-input v-model="form.poNo"></el-input>
-          </el-form-item>
+                <el-option
+                  v-for="item in zones"
+                  :key="item.zone"
+                  :label="item.zone"
+                  :value="item.zone"
+                >
+                </el-option>
+              </el-select>
+            </el-form-item>
+            <el-form-item
+              label="Po No."
+              prop="poNo"
+            >
+              <el-input v-model="form.poNo"></el-input>
+            </el-form-item>
+            <el-form-item
+              label="Recommend Po No."
+            >
+              {{ recommend }}
+            </el-form-item>
+          </div>
           <el-form-item
             label="Supplier"
             prop="poSupplier"
@@ -180,6 +187,10 @@ export default {
       default: () => ({}),
     },
     sdata: {
+      type: String,
+      default: '',
+    },
+    recommend: {
       type: String,
       default: '',
     },

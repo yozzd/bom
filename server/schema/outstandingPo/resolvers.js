@@ -96,6 +96,15 @@ const resolvers = {
 
       return { items, totals };
     }),
+    getRecommendPoNo: isAuthenticated(async () => {
+      const poNum = await OUTSTANDINGPO.findAll({
+        attributes: [
+          [sequelize.fn('MAX', sequelize.col('po_no')), 'poNo'],
+        ]
+      });
+      
+      return poNum;
+    }),
   },
   Mutation: {
     createOutPo: isAuthenticated(async (_, { input }) => {

@@ -76,3 +76,11 @@ export const GetZones = gql`
     }
   }
 `;
+
+export const GetRecommendPoNo = gql`
+  query getRecommendPoNo {
+    getRecommendPoNo {
+      poNo
+    }
+  }
+`;

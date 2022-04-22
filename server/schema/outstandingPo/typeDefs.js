@@ -4,6 +4,7 @@ const typeDefs = `
     getAllOutstandingPoByCategory(category: Int): outstandingPo
     getAllOutstandingPoByStatus(status: Int): outstandingPo
     getAllOutstandingPoByZones(zone: String): outstandingPo
+    getRecommendPoNo: [poNum]
   }
 
   extend type Mutation {
@@ -58,6 +59,10 @@ const typeDefs = `
 
   type zones {
     zone: String
+  }
+
+  type poNum {
+    poNo: String
   }
 
   input CreateOutPoInput {
