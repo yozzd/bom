@@ -258,6 +258,8 @@ export default {
               },
             });
 
+            this.$refs[form].resetFields();
+
             this.$message({
               type: 'success',
               message: 'Data has been saved successfully',
