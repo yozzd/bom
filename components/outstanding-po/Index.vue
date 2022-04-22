@@ -44,6 +44,7 @@
           <el-button
             v-if="$auth.$state.user.section === 212"
             type="primary"
+            :disabled="!tableData.length"
             @click="showAdd"
           >
             <client-only>
@@ -589,7 +590,11 @@
 
     <OutstandingPoAdd
       :show="showAddDialog"
+      :query="query"
+      :variables="variables"
+      :sdata="sdata"
       @close="closeAddDialog"
+      @update="updateList"
     />
 
     <OutstandingPoEdit
@@ -842,6 +847,12 @@ export default {
           message: 'Data has been delete successfully',
         });
       }).catch(() => {});
+    },
+    updateList(value) {
+      this.items = {};
+      const { items, totals: [totals] } = value;
+      this.items = items;
+      this.totals = totals;
     },
   },
 };

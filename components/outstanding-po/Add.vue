@@ -165,6 +165,18 @@ export default {
       type: Boolean,
       default: false,
     },
+    query: {
+      type: Object,
+      default: () => ({}),
+    },
+    variables: {
+      type: Object,
+      default: () => ({}),
+    },
+    sdata: {
+      type: String,
+      default: '',
+    },
   },
   data() {
     return {
@@ -226,6 +238,23 @@ export default {
                   poEta: this.form.poEta,
                   poRemarks: this.form.poRemarks,
                 },
+              },
+              update: (store, { data: { createOutPo } }) => {
+                const cdata = store.readQuery({
+                  query: this.query,
+                  variables: this.variables,
+                });
+
+                cdata[this.sdata].items.push(createOutPo);
+                cdata[this.sdata].items.sort((a, b) => b.poIssue.localeCompare(a.poIssue));
+
+                this.$emit('update', cdata[this.sdata]);
+
+                store.writeQuery({
+                  query: this.query,
+                  variables: this.variables,
+                  data: cdata,
+                });
               },
             });
 
