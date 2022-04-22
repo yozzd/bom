@@ -1,3 +1,4 @@
+const { ErrorWithProps } = require('mercurius');
 const sequelize = require('../../config/db');
 const {
   OUTSTANDINGPO,
@@ -98,9 +99,15 @@ const resolvers = {
   },
   Mutation: {
     createOutPo: isAuthenticated(async (_, { input }) => {
-      const newOutPo = new OUTSTANDINGPO(input);
-      const save = await newOutPo.save();
-      return save;
+      const count = await OUTSTANDINGPO.count({ where: { poNo: input.poNo } });
+
+      if (count > 0) {
+        throw new ErrorWithProps(`This Po No '${input.poNo}' has been registered, please choose another number`);
+      } else {
+        const newOutPo = new OUTSTANDINGPO(input);
+        const save = await newOutPo.save();
+        return save;
+      }
     }),
     updateOutPo: isAuthenticated(async (_, { input }) => {
       const po = await OUTSTANDINGPO.findOne({

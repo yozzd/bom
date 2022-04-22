@@ -17,6 +17,12 @@
         class="grid grid-cols-5"
       >
         <div class="col-span-3 col-start-2 grid grid-cols-2 gap-x-4">
+          <IndexErrorHandler
+            v-if="errors.length"
+            :errors="errors"
+            class="col-span-2 mb-4"
+          />
+
           <el-form-item
             label="PO Issue"
             prop="poIssue"
@@ -144,7 +150,7 @@
         <el-button
           type="primary"
           :loading="loading"
-          @click="handleCreate('form')"
+          @click="handleCreate()"
         >
           Save
         </el-button>
@@ -205,6 +211,7 @@ export default {
       supplier: [],
       supplierLoading: false,
       currency: ['EUR', 'GBP', 'JPY', 'MYR', 'Rp', 'Rupe', 'SGD', 'USD'],
+      errors: [],
     };
   },
   watch: {
@@ -214,10 +221,13 @@ export default {
   },
   methods: {
     handleCancel() {
+      this.$refs.form.resetFields();
+      this.loading = false;
+      this.errors = [];
       this.$emit('close', false);
     },
-    handleCreate(form) {
-      this.$refs[form].validate(async (valid) => {
+    handleCreate() {
+      this.$refs.form.validate(async (valid) => {
         if (valid) {
           try {
             this.loading = true;
@@ -257,8 +267,6 @@ export default {
                 });
               },
             });
-
-            this.$refs[form].resetFields();
 
             this.$message({
               type: 'success',
