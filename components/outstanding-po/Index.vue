@@ -865,7 +865,7 @@ export default {
       result({ data, loading }) {
         if (!loading) {
           const { getProposedPoNo: [{ poNo }] } = data;
-          this.proposed = poNo;
+          this.proposed = (parseInt(poNo, 10) + 1).toString();
         }
       },
       error({ graphQLErrors, networkError }) {

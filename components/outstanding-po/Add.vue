@@ -58,7 +58,14 @@
             <el-form-item
               label="Proposed Po No."
             >
-              {{ proposed }}
+              <span>{{ proposed }}</span>
+              <el-tooltip effect="dark" content="Copy" placement="top">
+                <a @click="copyProposed">
+                  <client-only>
+                    <v-icon name="ri-file-copy-line" class="remixicons w-4 h-4" />
+                  </client-only>
+                </a>
+              </el-tooltip>
             </el-form-item>
           </div>
           <el-form-item
@@ -231,6 +238,9 @@ export default {
     },
   },
   methods: {
+    copyProposed() {
+      this.form.poNo = this.proposed;
+    },
     handleCancel() {
       this.$refs.form.resetFields();
       this.loading = false;

@@ -100,9 +100,9 @@ const resolvers = {
       const poNum = await OUTSTANDINGPO.findAll({
         attributes: [
           [sequelize.fn('MAX', sequelize.col('po_no')), 'poNo'],
-        ]
+        ],
       });
-      
+
       return poNum;
     }),
   },
