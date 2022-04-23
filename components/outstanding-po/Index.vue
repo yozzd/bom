@@ -593,7 +593,7 @@
       :query="query"
       :variables="variables"
       :sdata="sdata"
-      :recommend="recommend"
+      :proposed="proposed"
       @close="closeAddDialog"
       @update="updateList"
     />
@@ -615,7 +615,7 @@ import {
   GetAllOutstandingPoByCategory,
   GetAllOutstandingPoByStatus,
   GetAllOutstandingPoByZones,
-  GetRecommendPoNo,
+  GetProposedPoNo,
 } from '../../apollo/outstandingPo/query';
 import { DeleteOutPo } from '../../apollo/outstandingPo/mutation';
 
@@ -662,7 +662,7 @@ export default {
       showEditDialog: false,
       multipleSelection: [],
       cachedArr: [],
-      recommend: '',
+      proposed: '',
     };
   },
   methods: {
@@ -859,14 +859,13 @@ export default {
     },
   },
   apollo: {
-    getRecommendPoNo: {
-      query: GetRecommendPoNo,
+    getProposedPoNo: {
+      query: GetProposedPoNo,
       prefetch: false,
       result({ data, loading }) {
         if (!loading) {
-          const { getRecommendPoNo: [{ poNo }] } = data;
-          console.log(poNo);
-          this.recommend = poNo;
+          const { getProposedPoNo: [{ poNo }] } = data;
+          this.proposed = poNo;
         }
       },
       error({ graphQLErrors, networkError }) {

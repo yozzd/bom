@@ -96,7 +96,7 @@ const resolvers = {
 
       return { items, totals };
     }),
-    getRecommendPoNo: isAuthenticated(async () => {
+    getProposedPoNo: isAuthenticated(async () => {
       const poNum = await OUTSTANDINGPO.findAll({
         attributes: [
           [sequelize.fn('MAX', sequelize.col('po_no')), 'poNo'],

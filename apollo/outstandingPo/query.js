@@ -77,9 +77,9 @@ export const GetZones = gql`
   }
 `;
 
-export const GetRecommendPoNo = gql`
-  query getRecommendPoNo {
-    getRecommendPoNo {
+export const GetProposedPoNo = gql`
+  query getProposedPoNo {
+    getProposedPoNo {
       poNo
     }
   }

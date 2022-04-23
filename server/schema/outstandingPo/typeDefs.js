@@ -4,7 +4,7 @@ const typeDefs = `
     getAllOutstandingPoByCategory(category: Int): outstandingPo
     getAllOutstandingPoByStatus(status: Int): outstandingPo
     getAllOutstandingPoByZones(zone: String): outstandingPo
-    getRecommendPoNo: [poNum]
+    getProposedPoNo: [poNum]
   }
 
   extend type Mutation {

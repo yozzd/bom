@@ -56,9 +56,9 @@
               <el-input v-model="form.poNo"></el-input>
             </el-form-item>
             <el-form-item
-              label="Recommend Po No."
+              label="Proposed Po No."
             >
-              {{ recommend }}
+              {{ proposed }}
             </el-form-item>
           </div>
           <el-form-item
@@ -190,7 +190,7 @@ export default {
       type: String,
       default: '',
     },
-    recommend: {
+    proposed: {
       type: String,
       default: '',
     },
