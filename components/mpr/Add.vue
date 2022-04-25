@@ -72,6 +72,17 @@
               Packing
             </el-checkbox>
           </el-form-item>
+          </el-form-item>
+          <el-form-item
+            label="Model"
+            prop="model"
+            class="col-span-2"
+          >
+            <el-input
+              v-model="form.model"
+              type="textarea"
+            ></el-input>
+          </el-form-item>
         </div>
       </el-form>
       <div slot="footer" class="dialog-footer">
