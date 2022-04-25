@@ -126,16 +126,6 @@ const whereUser = async ({
         ],
       };
     }
-  } else if (group !== 11 && !isManager && status === 0) {
-    where = {
-      [Op.and]: [
-        { id: { [Op.in]: ids } },
-        { cancel: 0 },
-        { hold: 0 },
-        { no: { [Op.is]: null } },
-        { requestorSection: section },
-      ],
-    };
   } else {
     where = {
       [Op.and]: [
