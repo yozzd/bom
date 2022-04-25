@@ -23,7 +23,10 @@
             class="col-span-2 mb-4"
           />
 
-          <el-form-item label="Status">
+          <el-form-item
+            label="Status"
+            prop="status"
+          >
             <el-select
               v-model="form.status"
               filterable
@@ -39,10 +42,11 @@
           </el-form-item>
           <el-form-item
             label="Wo No."
-            prop="woNo"
+            prop="wo"
           >
             <el-select
-              v-model="form.woNo"
+              v-model="form.wo"
+              value-key="id"
               remote
               :remote-method="woRunningRemote"
               :loading="woRunningLoading"
@@ -52,7 +56,7 @@
                 v-for="item in woRunning"
                 :key="item.id"
                 :label="item.woNo"
-                :value="item.id"
+                :value="item"
               >
               </el-option>
             </el-select>
@@ -107,10 +111,7 @@ export default {
       ],
       woRunning: [],
       woRunningLoading: false,
-      form: {
-        status: '',
-        woNo: '',
-      },
+      form: {},
       rules: {},
       errors: [],
     };
