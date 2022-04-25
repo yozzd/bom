@@ -9,6 +9,7 @@ const typeDefs = `
     department: Int
     section: Int
     fullname: String
+    isManager: Int
   }
 `;
 

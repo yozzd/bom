@@ -5,6 +5,7 @@
       :errors="errors"
     />
 
+    {{ $auth.$state.user }}
     <div class="flex flex-col divide-y divide-gray-400 divide-dashed">
       <el-breadcrumb separator="/" class="mb-4">
         <el-breadcrumb-item :to="{ name: 'index' }" title="Home">

@@ -8,6 +8,7 @@ export default gql`
       department
       section
       fullname
+      isManager
     }
   }
 `;
