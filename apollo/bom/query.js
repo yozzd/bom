@@ -264,3 +264,12 @@ export const GetWoModules = gql`
     }
   }
 `;
+
+export default gql`
+  query getAllWoRunning($key: String) {
+    getAllWoRunning(key: $key) {
+      id
+      woNo
+    }
+  }
+`;

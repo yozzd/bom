@@ -4,6 +4,7 @@ const typeDefs = `
     getOneLT(id: Int, status: Int): LT
     getOneWO(idLt:Int, id: Int): WODetail
     getWoModules(idWo: Int): [WOMODULE]
+    getAllWoRunning(key: String): [WO]
   }
 
   extend type Mutation {

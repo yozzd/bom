@@ -37,6 +37,26 @@
               </el-option>
             </el-select>
           </el-form-item>
+          <el-form-item
+            label="Wo No."
+            prop="woNo"
+          >
+            <el-select
+              v-model="form.woNo"
+              remote
+              :remote-method="woRunningRemote"
+              :loading="woRunningLoading"
+              filterable
+            >
+              <el-option
+                v-for="item in woRunning"
+                :key="item.id"
+                :label="item.woNo"
+                :value="item.id"
+              >
+              </el-option>
+            </el-select>
+          </el-form-item>
         </div>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -56,6 +76,8 @@
 </template>
 
 <script>
+import GetAllWoRunning from '../../apollo/bom/query';
+
 export default {
   props: {
     show: {
@@ -75,11 +97,6 @@ export default {
       default: '',
     },
   },
-  watch: {
-    show(value) {
-      this.visible = value;
-    },
-  },
   data() {
     return {
       visible: false,
@@ -88,12 +105,20 @@ export default {
         { label: 'Non Project', value: 'NP' },
         { label: 'Project', value: 'P' },
       ],
+      woRunning: [],
+      woRunningLoading: false,
       form: {
         status: '',
+        woNo: '',
       },
       rules: {},
       errors: [],
     };
+  },
+  watch: {
+    show(value) {
+      this.visible = value;
+    },
   },
   methods: {
     handleCancel() {
@@ -102,7 +127,40 @@ export default {
       this.errors = [];
       this.$emit('close', false);
     },
-    handleCreate() {},
+    handleCreate() {
+      this.$refs.form.validate(async (valid) => {
+        if (valid) {
+          try {
+            this.loading = true;
+
+            console.log(this.form);
+            return true;
+          } catch ({ graphQLErrors, networkError }) {
+            this.errors = graphQLErrors || networkError.result.errors;
+            return false;
+          }
+        } else {
+          return false;
+        }
+      });
+    },
+    async woRunningRemote(key) {
+      if (key) {
+        this.woRunningLoading = true;
+        const { data: { getAllWoRunning } } = await this.$apollo.query({
+          query: GetAllWoRunning,
+          variables: { key },
+          prefetch: false,
+          error({ graphQLErrors, networkError }) {
+            this.errors = graphQLErrors || networkError.result.errors;
+          },
+        });
+        this.woRunning = getAllWoRunning;
+        this.woRunningLoading = false;
+      } else {
+        this.woRunning = [];
+      }
+    },
   },
 };
 </script>

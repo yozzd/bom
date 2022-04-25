@@ -328,6 +328,14 @@ const resolvers = {
 
       return modules;
     }),
+    getAllWoRunning: isAuthenticated(async (_, { key }) => {
+      const wo = await WO.findAll({
+        attributes: ['id', 'woNo'],
+        where: { woNo: { [Op.substring]: key } },
+      });
+
+      return wo;
+    }),
   },
   Mutation: {
     updateItem: isAuthenticated(async (_, { input }) => {
