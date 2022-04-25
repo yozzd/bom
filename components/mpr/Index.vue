@@ -162,7 +162,7 @@
               </el-table-column>
               <el-table-column
                 label="Project Name"
-                 width="180"
+                width="180"
                 :show-overflow-tooltip="true"
                 fixed
               >
@@ -399,6 +399,15 @@
         </el-button>
       </span>
     </el-dialog>
+
+    <MprAdd
+      :show="showAddDialog"
+      :query="query"
+      :variables="variables"
+      :sdata="sdata"
+      @close="closeAddDialog"
+      @update="updateList"
+    />
   </div>
 </template>
 
@@ -432,6 +441,9 @@ export default {
           'bomTimestamp', 'attachment', 'remark', 'wo',
         ],
       }),
+      query: {},
+      variables: {},
+      sdata: '',
       showAddDialog: false,
     };
   },
@@ -463,6 +475,10 @@ export default {
           this.items = getAllMPR;
           this.header = `Status: ${this.form.status}`;
 
+          this.query = GetAllMPR;
+          this.variables = { status };
+          this.sdata = 'getAllMPR';
+
           this.page = 1;
           this.pageSize = 10;
 
@@ -476,6 +492,13 @@ export default {
     },
     showAdd() {
       this.showAddDialog = true;
+    },
+    closeAddDialog(value) {
+      this.showAddDialog = value;
+    },
+    updateList(value) {
+      this.items = {};
+      this.items = value;
     },
   },
 };
