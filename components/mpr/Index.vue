@@ -5,7 +5,6 @@
       :errors="errors"
     />
 
-    {{ $auth.$state.user }}
     <div class="flex flex-col divide-y divide-gray-400 divide-dashed">
       <el-breadcrumb separator="/" class="mb-4">
         <el-breadcrumb-item :to="{ name: 'index' }" title="Home">
@@ -19,7 +18,7 @@
       </el-breadcrumb>
 
       <div>
-        <div class="flex my-4 space-x-8 items-center">
+        <div class="flex my-4 space-x-4 items-center">
           <el-dropdown trigger="click" @command="handleCommand">
             <el-button type="primary">
               <client-only>
@@ -36,6 +35,17 @@
               </el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
+          <el-button
+            v-if="$auth.$state.user.isManager === 0"
+            type="primary"
+            :disabled="!tableData.length"
+            @click="showAdd"
+          >
+            <client-only>
+              <v-icon name="ri-add-line" class="remixicons w-4 h-4" />
+            </client-only>
+            Add MPR
+          </el-button>
           <div class="flex-1"></div>
           <div class="w-64">
             <el-input
@@ -413,6 +423,7 @@ export default {
           'bomTimestamp', 'attachment', 'remark', 'wo',
         ],
       }),
+      showAddDialog: false,
     };
   },
   methods: {
@@ -453,6 +464,9 @@ export default {
           this.showFilterByStatusDialog = false;
         }
       });
+    },
+    showAdd() {
+      this.showAddDialog = true;
     },
   },
 };
