@@ -150,18 +150,24 @@
                   </p>
                 </template>
               </el-table-column>
-              <el-table-column label="Product Name" width="180" fixed>
+              <el-table-column
+                label="Product Name"
+                width="180"
+                :show-overflow-tooltip="true"
+                fixed
+              >
                 <template slot-scope="scope">
-                  <p :title="scope.row.product" class="truncate">
-                    {{ scope.row.product }}
-                  </p>
+                  {{ scope.row.product }}
                 </template>
               </el-table-column>
-              <el-table-column label="Project Name" width="140" fixed>
+              <el-table-column
+                label="Project Name"
+                 width="180"
+                :show-overflow-tooltip="true"
+                fixed
+              >
                 <template slot-scope="scope">
-                  <p :title="scope.row.projectName" class="truncate">
-                    {{ scope.row.projectName }}
-                  </p>
+                  {{ scope.row.projectName }}
                 </template>
               </el-table-column>
               <el-table-column prop="unit" label="Unit" align="center" width="50"></el-table-column>
@@ -192,7 +198,7 @@
                       Approved
                     </el-tag>
                     <el-popover
-                      placement="left"
+                      placement="top"
                       trigger="hover"
                     >
                       <template #default>
@@ -217,7 +223,7 @@
                       Approved
                     </el-tag>
                     <el-popover
-                      placement="left"
+                      placement="top"
                       trigger="hover"
                     >
                       <template #default>
@@ -242,7 +248,7 @@
                       Approved
                     </el-tag>
                     <el-popover
-                      placement="left"
+                      placement="top"
                       trigger="hover"
                     >
                       <template #default>
@@ -260,27 +266,30 @@
                   </el-tag>
                 </template>
               </el-table-column>
-              <el-table-column label="Requestor" width="180">
+              <el-table-column
+                label="Requestor"
+                :show-overflow-tooltip="true"
+                width="140"
+                class="relative"
+              >
                 <template slot-scope="scope">
-                  <div class="flex">
-                    <div :title="scope.row.requestorName" class="flex-1 truncate">
-                      {{ scope.row.requestorName }}
-                    </div>
-                    <el-popover
-                      placement="left"
-                      trigger="hover"
-                      class="inline-block"
-                    >
-                      <template #default>
-                        <div class="text-xs">
-                          {{ scope.row.requestorTimestamp }}
-                        </div>
-                      </template>
-                      <client-only slot="reference">
-                        <v-icon name="ri-time-line" class="remixicons w-4 h-4" />
-                      </client-only>
-                    </el-popover>
-                  </div>
+                  {{ scope.row.requestorName }}
+                  <el-popover
+                    placement="top"
+                    trigger="hover"
+                  >
+                    <template #default>
+                      <div class="text-xs">
+                        {{ scope.row.requestorTimestamp }}
+                      </div>
+                    </template>
+                    <client-only slot="reference">
+                      <v-icon
+                        name="ri-time-line"
+                        class="remixicons w-4 h-4 absolute top-1 right-0"
+                      />
+                    </client-only>
+                  </el-popover>
                 </template>
               </el-table-column>
               <el-table-column label="Attachment" width="140">
@@ -301,7 +310,7 @@
                 <template slot-scope="scope">
                   <el-popover
                     v-if="scope.row.remark"
-                    placement="left"
+                    placement="top"
                     trigger="hover"
                   >
                     <template #default>
