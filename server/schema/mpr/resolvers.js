@@ -48,7 +48,7 @@ const resolvers = {
         ],
         order: [
           ['category', 'DESC'],
-          ['dor', 'ASC'],
+          ['dor', 'DESC'],
         ],
         where: whereU,
         include: [{

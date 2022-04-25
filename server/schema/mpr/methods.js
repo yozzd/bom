@@ -128,12 +128,25 @@ const whereUser = async ({
     }
   } else {
     where = {
-      [Op.and]: [
-        { id: { [Op.in]: ids } },
-        { cancel: 0 },
-        { hold: 0 },
-        { requestorId: group },
-        { requestorSection: section },
+      [Op.or]: [
+        {
+          [Op.and]: [
+            { id: { [Op.in]: ids } },
+            { cancel: 0 },
+            { hold: 0 },
+            { requestorId: group },
+            { requestorSection: section },
+          ],
+        },
+        {
+          [Op.and]: [
+            { cancel: 0 },
+            { hold: 0 },
+            { no: { [Op.is]: null } },
+            { requestorId: group },
+            { requestorSection: section },
+          ],
+        },
       ],
     };
   }
