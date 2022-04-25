@@ -99,6 +99,7 @@ const typeDefs = `
     category: Int
     dor: String
     idWo: Int
+    ltNo: String
   }
 
 `;

@@ -71,6 +71,7 @@ const typeDefs = `
     bomPercentValidation: Float
     mprPercentValidation: Float
     totalMpr: Int
+    lt: LT
   }
   
   type WOMODULE {

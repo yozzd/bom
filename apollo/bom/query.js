@@ -270,6 +270,9 @@ export default gql`
     getAllWoRunning(key: $key) {
       id
       woNo
+      lt {
+        ltNo
+      }
     }
   }
 `;

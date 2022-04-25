@@ -332,6 +332,10 @@ const resolvers = {
       const wo = await WO.findAll({
         attributes: ['id', 'woNo'],
         where: { woNo: { [Op.substring]: key } },
+        include: [{
+          model: LT,
+          attributes: ['id', 'ltNo'],
+        }],
       });
 
       return wo;

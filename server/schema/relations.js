@@ -8,7 +8,10 @@ LT.hasMany(WO, {
   foreignKey: 'idLt',
   targetKey: 'id',
 });
-WO.belongsTo(LT);
+WO.belongsTo(LT, {    
+  foreignKey: 'idLt',
+  targetKey: 'id',
+});
 
 WO.hasMany(WOMODULE, {
   foreignKey: 'idWo',
