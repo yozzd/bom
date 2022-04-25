@@ -41,7 +41,7 @@
     "mysql2": "^2.3.3",
     "node-fetch": "2",
     "nuxt": "^2.15.8",
-    "oh-vue-icons": "^1.0.0-rc2",
+    "oh-vue-icons": "^1.0.0-rc3",
     "passport": "^0.5.2",
     "passport-local": "^1.0.0",
     "sequelize": "^6.19.0",
