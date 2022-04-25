@@ -65,6 +65,7 @@ const MPR = sequelize.define('mpr', {
   requestorTimestamp: {
     type: DataTypes.DATE,
     allowNull: false,
+    defaultValue: DataTypes.NOW,
     get() {
       if (isValidDate(this.getDataValue('requestorTimestamp'))) return uDateFormat(this.getDataValue('requestorTimestamp'), 'yyyy-MM-dd HH:mm:ss');
       return '';
@@ -78,6 +79,7 @@ const MPR = sequelize.define('mpr', {
   managerTimestamp: {
     type: DataTypes.DATE,
     allowNull: false,
+    defaultValue: DataTypes.NOW,
     get() {
       if (isValidDate(this.getDataValue('managerTimestamp'))) return uDateFormat(this.getDataValue('managerTimestamp'), 'yyyy-MM-dd HH:mm:ss');
       return '';
@@ -91,6 +93,7 @@ const MPR = sequelize.define('mpr', {
   whTimestamp: {
     type: DataTypes.DATE,
     allowNull: false,
+    defaultValue: DataTypes.NOW,
     get() {
       if (isValidDate(this.getDataValue('whTimestamp'))) return uDateFormat(this.getDataValue('whTimestamp'), 'yyyy-MM-dd HH:mm:ss');
       return '';
@@ -104,6 +107,7 @@ const MPR = sequelize.define('mpr', {
   bomTimestamp: {
     type: DataTypes.DATE,
     allowNull: false,
+    defaultValue: DataTypes.NOW,
     get() {
       if (isValidDate(this.getDataValue('bomTimestamp'))) return uDateFormat(this.getDataValue('bomTimestamp'), 'yyyy-MM-dd HH:mm:ss');
       return '';
@@ -141,6 +145,7 @@ const MPR = sequelize.define('mpr', {
 }, {
   tableName: 'mpr',
   underscored: true,
+  timestamps: false,
 });
 
 const MPRMODULE = sequelize.define('module', {
