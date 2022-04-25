@@ -5,6 +5,10 @@ const typeDefs = `
     getMprModules(idMpr: Int): [MPRMODULE]
   }
 
+  extend type Mutation {
+    createMpr(input: CreateMprInput): MPR
+  }
+
   type MPR {
     id: Int
     no: String
@@ -85,6 +89,18 @@ const typeDefs = `
     colorClass: String
     module: WOMODULE
   }
+
+  input CreateMprInput {
+    status: String
+    woNo: String
+    model: String
+    product: String
+    unit: Int
+    category: Int
+    dor: String
+    idWo: Int
+  }
+
 `;
 
 module.exports = { typeDefs };

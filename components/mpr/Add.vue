@@ -156,6 +156,7 @@
 
 <script>
 import GetAllWoRunning from '../../apollo/bom/query';
+import { CreateMpr } from '../../apollo/mpr/mutation';
 
 export default {
   props: {
@@ -216,7 +217,47 @@ export default {
           try {
             this.loading = true;
 
-            console.log(this.form);
+            await this.$apollo.mutate({
+              mutation: CreateMpr,
+              variables: {
+                input: {
+                  status: this.form.status,
+                  woNo: this.form.wo.woNo,
+                  model: this.form.model,
+                  product: this.form.product,
+                  unit: parseInt(this.form.unit, 10),
+                  category: parseInt(this.form.category, 10),
+                  dor: this.form.dor,
+                  idWo: this.form.wo.id,
+                },
+              },
+              // update: (store, { data: { createMpr } }) => {
+              //   const cdata = store.readQuery({
+              //     query: this.query,
+              //     variables: this.variables,
+              //   });
+
+              //   cdata[this.sdata].items.push(createMpr);
+
+              //   this.$emit('update', cdata[this.sdata]);
+
+              //   store.writeQuery({
+              //     query: this.query,
+              //     variables: this.variables,
+              //     data: cdata,
+              //   });
+              // },
+            });
+
+            this.$message({
+              type: 'success',
+              message: 'Data has been saved successfully',
+              onClose: setTimeout(() => {
+                this.handleCancel();
+                this.loading = false;
+              }, 1000),
+            });
+
             return true;
           } catch ({ graphQLErrors, networkError }) {
             this.errors = graphQLErrors || networkError.result.errors;

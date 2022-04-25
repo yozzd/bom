@@ -9,9 +9,9 @@ const { itemAttributes } = require('../bom/resolvers');
 
 const resolvers = {
   MPR: {
-    attachmentCheck: async ({ id, attachment }) => {
+    attachmentCheck: ({ id, attachment }) => {
       try {
-        await fs.existsSync(`static/attachment/${id}/${attachment}`);
+        fs.existsSync(`static/attachment/${id}/${attachment}`);
         return true;
       } catch (err) {
         return false;
@@ -111,7 +111,14 @@ const resolvers = {
       return modules;
     }),
   },
-  Mutation: {},
+  Mutation: {
+    createMpr: isAuthenticated(async (_, { input }) => {
+      console.log(input);
+      // const newMpr = new MPR(input);
+      // const save = await newMpr.save();
+      // return save;
+    }),
+  },
 };
 
 module.exports = { resolvers };
