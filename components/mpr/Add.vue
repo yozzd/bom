@@ -61,6 +61,17 @@
               </el-option>
             </el-select>
           </el-form-item>
+          <el-form-item
+            prop="packing"
+            class="col-span-2"
+          >
+            <el-checkbox
+              v-model="form.packing"
+              :true-label="1"
+            >
+              Packing
+            </el-checkbox>
+          </el-form-item>
         </div>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -112,7 +123,9 @@ export default {
       woRunning: [],
       woRunningLoading: false,
       form: {},
-      rules: {},
+      rules: {
+        wo: [{ required: true, message: 'This field is required', trigger: 'change' }],
+      },
       errors: [],
     };
   },
