@@ -116,6 +116,17 @@
               </el-option>
             </el-select>
           </el-form-item>
+          <el-form-item
+            label="Date of Requirement"
+            prop="dor"
+            class="col-span-2"
+          >
+            <el-date-picker
+              v-model="form.dor"
+              type="date"
+              value-format="yyyy-MM-dd"
+            ></el-date-picker>
+          </el-form-item>
         </div>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -173,6 +184,7 @@ export default {
       form: {},
       rules: {
         wo: [{ required: true, message: 'This field is required', trigger: 'change' }],
+        unit: [{ required: true, message: 'This field is required' }],
       },
       errors: [],
     };
