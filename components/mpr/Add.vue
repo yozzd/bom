@@ -83,6 +83,16 @@
               type="textarea"
             ></el-input>
           </el-form-item>
+          <el-form-item
+            label="Product Name"
+            prop="product"
+            class="col-span-2"
+          >
+            <el-input
+              v-model="form.product"
+              type="textarea"
+            ></el-input>
+          </el-form-item>
         </div>
       </el-form>
       <div slot="footer" class="dialog-footer">
