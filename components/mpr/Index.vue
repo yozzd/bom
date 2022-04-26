@@ -101,19 +101,23 @@
               ></el-table-column>
               <el-table-column
                 label="Number"
-                align="center"
                 width="100"
                 fixed
+                class-name="group"
               >
                 <template slot-scope="scope">
-                  <div class="flex">
-                    <nuxt-link
-                      :to="{ name: 'mpr-id', params: { id: scope.row.id } }"
-                      class="flex-1 truncate"
+                  <nuxt-link
+                    :to="{ name: 'mpr-id', params: { id: scope.row.id } }"
+                  >
+                    {{ scope.row.no }}
+                  </nuxt-link>
+                  <div class="hidden group-hover:inline-block">
+                    <el-tooltip
+                      effect="dark"
+                      content="Open in new tab"
+                      placement="top"
+                      class="absolute top-1 right-0"
                     >
-                      {{ scope.row.no }}
-                    </nuxt-link>
-                    <el-tooltip effect="dark" content="Open in new tab" placement="top">
                       <a
                         :href="`/mpr/${scope.row.id}`"
                         target="_blank"
