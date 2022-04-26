@@ -66,6 +66,29 @@
               type="textarea"
             ></el-input>
           </el-form-item>
+          <el-form-item
+            label="Unit"
+            prop="unit"
+          >
+            <el-input v-model="form.unit"></el-input>
+          </el-form-item>
+          <el-form-item
+            label="Category"
+            prop="category"
+          >
+            <el-select
+              v-model="form.category"
+              filterable
+            >
+              <el-option
+                v-for="item in category"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value"
+              >
+              </el-option>
+            </el-select>
+          </el-form-item>
         </div>
       </el-form>
       <div slot="footer" class="dialog-footer">
