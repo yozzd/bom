@@ -1,7 +1,7 @@
 const fs = require('fs');
 const fetch = require('node-fetch');
-const { pssUrl, pssAuth } = require('../../config');
 const { Op } = require('sequelize');
+const { pssUrl, pssAuth } = require('../../config');
 const {
   WO, WOMODULE, MPR, MPRMODULE, MPRITEM, OUTSTANDINGPO,
 } = require('../relations');
@@ -116,19 +116,19 @@ const resolvers = {
   Mutation: {
     createMpr: isAuthenticated(async (_, { input }, ctx) => {
       const { idLt, ltNo, ...obj } = input;
-      
+
       const no = ltNo.split(' ').join('+');
       const headers = { Authorization: pssAuth };
       const info = await fetch(`${pssUrl}${no}`, { headers });
       const t = await info.json();
       obj.projectName = t.customer_name || 'PT. LABTECH PENTA INTERNATIONAL';
-      
+
       const { group, section, fullname } = ctx.req.user;
       obj.requestorId = group;
       obj.requestorSection = section;
       obj.requestorName = fullname;
       obj.requestorTimestamp = Date.now();
-      
+
       const newMpr = new MPR(obj);
       const save = await newMpr.save();
       save.wo = { idLt };

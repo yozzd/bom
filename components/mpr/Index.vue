@@ -46,6 +46,17 @@
             </client-only>
             Add MPR
           </el-button>
+          <el-button
+            v-if="$auth.$state.user.isManager === 0"
+            type="danger"
+            :disabled="!multipleSelection.length"
+            @click="handleDelete"
+          >
+            <client-only>
+              <v-icon name="ri-delete-bin-2-line" class="remixicons w-4 h-4" />
+            </client-only>
+            Delete
+          </el-button>
           <div class="flex-1"></div>
           <div class="w-64">
             <el-input
@@ -71,7 +82,15 @@
               :data="tableData"
               size="mini"
               border
+              @selection-change="handleSelectionChange"
             >
+              <el-table-column
+                v-if="$auth.$state.user.isManager === 0"
+                type="selection"
+                width="40"
+                align="center"
+                fixed
+              ></el-table-column>
               <el-table-column type="index" align="center" width="50" fixed></el-table-column>
               <el-table-column
                 prop="id"
@@ -412,10 +431,12 @@
 </template>
 
 <script>
+import pullAllBy from 'lodash/pullAllBy';
 import MiniSearch from 'minisearch';
 import table from '../../mixins/table';
 import mprStatus from '../../mixins/mpr';
 import { GetAllMPR } from '../../apollo/mpr/query';
+import { DeleteMpr } from '../../apollo/mpr/mutation';
 
 export default {
   mixins: [table, mprStatus],
@@ -445,6 +466,8 @@ export default {
       variables: {},
       sdata: '',
       showAddDialog: false,
+      multipleSelection: [],
+      cachedArr: [],
     };
   },
   methods: {
@@ -495,6 +518,49 @@ export default {
     },
     closeAddDialog(value) {
       this.showAddDialog = value;
+    },
+    handleSelectionChange(arr) {
+      this.multipleSelection = arr.map((v) => ({ id: v.id }));
+      this.cachedArr = arr;
+    },
+    handleDelete() {
+      this.$confirm('This will permanently delete the data. Continue?', 'Warning', {
+        confirmButtonText: 'Yes',
+        cancelButtonText: 'Cancel',
+        type: 'warning',
+      }).then(async () => {
+        await this.$apollo.mutate({
+          mutation: DeleteMpr,
+          variables: {
+            input: this.multipleSelection,
+          },
+          update: (store, { data: { deleteMpr } }) => {
+            const cdata = store.readQuery({
+              query: this.query,
+              variables: this.variables,
+            });
+
+            pullAllBy(cdata[this.sdata], deleteMpr, 'id');
+            this.items = {};
+            this.items = cdata[this.sdata];
+
+            store.writeQuery({
+              query: this.query,
+              variables: this.variables,
+              data: cdata,
+            });
+          },
+          optimisticResponse: {
+            __typename: 'Mutation',
+            deleteMpr: this.cachedArr,
+          },
+        });
+
+        this.$message({
+          type: 'success',
+          message: 'Data has been delete successfully',
+        });
+      }).catch(() => {});
     },
     updateList(value) {
       this.items = {};
