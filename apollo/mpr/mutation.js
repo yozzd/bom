@@ -32,4 +32,10 @@ export const CreateMpr = gql`
   }
 `;
 
-export const empty = null;
+export const DeleteMpr = gql`
+  mutation deleteMpr($input: [DeleteMprInput]) {
+    deleteMpr(input: $input) {
+      id
+    }
+  }
+`;
