@@ -4,6 +4,7 @@ export const CreateMpr = gql`
   mutation createMpr($input: CreateMprInput) {
     createMpr(input: $input) {
       id
+      status
       no
       woNo
       model

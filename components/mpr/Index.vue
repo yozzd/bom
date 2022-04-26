@@ -100,6 +100,15 @@
                 fixed
               ></el-table-column>
               <el-table-column
+                label="Status"
+                width="60"
+                fixed
+              >
+                <template slot-scope="scope">
+                  {{ scope.row.status }}
+                </template>
+              </el-table-column>
+              <el-table-column
                 label="Number"
                 width="100"
                 fixed

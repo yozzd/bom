@@ -12,6 +12,7 @@ const typeDefs = `
 
   type MPR {
     id: Int
+    status: String
     no: String
     woNo: String
     model: String

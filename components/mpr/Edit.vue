@@ -80,7 +80,6 @@ export default {
   },
   watch: {
     data(value) {
-      console.log(value);
       this.form = value;
     },
     show(value) {

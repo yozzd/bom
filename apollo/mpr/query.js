@@ -4,6 +4,7 @@ export const GetAllMPR = gql`
   query getAllMPR($status: Int) {
     getAllMPR(status: $status) {
       id
+      status
       no
       woNo
       model
