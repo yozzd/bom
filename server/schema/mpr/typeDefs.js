@@ -7,6 +7,7 @@ const typeDefs = `
 
   extend type Mutation {
     createMpr(input: CreateMprInput): MPR
+    updateMpr(input: UpdateMprInput): MPR
     deleteMpr(input: [DeleteMprInput]): [MPR]
   }
 
@@ -100,9 +101,22 @@ const typeDefs = `
     unit: Int
     category: Int
     dor: String
+    remark: String
     idWo: Int
     idLt: Int
     ltNo: String
+  }
+
+  input UpdateMprInput {
+    id: Int
+    status: String
+    woNo: String
+    model: String
+    product: String
+    unit: Int
+    category: Int
+    dor: String
+    remark: String
   }
 
   input DeleteMprInput {
