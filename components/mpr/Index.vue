@@ -111,19 +111,24 @@
                   >
                     {{ scope.row.no }}
                   </nuxt-link>
-                  <div class="hidden group-hover:inline-block">
-                    <el-tooltip
-                      effect="dark"
-                      content="Open in new tab"
-                      placement="top"
-                      class="absolute top-1 right-0"
-                    >
+                  <div class="hidden group-hover:inline-block absolute top-1 right-0">
+                    <el-tooltip effect="dark" content="Open in new tab" placement="top">
                       <a
                         :href="`/mpr/${scope.row.id}`"
                         target="_blank"
                       >
                         <client-only>
                           <v-icon name="ri-external-link-line" class="remixicons w-4 h-4" />
+                        </client-only>
+                      </a>
+                    </el-tooltip>
+                    <el-tooltip effect="dark" content="Edit" placement="top">
+                      <a
+                        v-if="$auth.$state.user.isManager === 0"
+                        @click="showEdit(scope.row)"
+                      >
+                        <client-only>
+                          <v-icon name="ri-edit-2-line" class="remixicons w-4 h-4" />
                         </client-only>
                       </a>
                     </el-tooltip>
@@ -147,13 +152,8 @@
                   >
                     {{ scope.row.woNo }}
                   </nuxt-link>
-                  <div class="hidden group-hover:inline-block">
-                    <el-tooltip
-                      effect="dark"
-                      content="Open in new tab"
-                      placement="top"
-                      class="absolute top-1 right-0"
-                    >
+                  <div class="hidden group-hover:inline-block absolute top-1 right-0">
+                    <el-tooltip effect="dark" content="Open in new tab" placement="top">
                       <a
                         :href="`/bom/wo/${scope.row.wo.idLt}/${scope.row.idWo}`"
                         target="_blank"
@@ -445,6 +445,12 @@
       @close="closeAddDialog"
       @update="updateList"
     />
+
+    <MprEdit
+      :data="dataEdit"
+      :show="showEditDialog"
+      @close="closeEditDialog"
+    />
   </div>
 </template>
 
@@ -484,6 +490,8 @@ export default {
       variables: {},
       sdata: '',
       showAddDialog: false,
+      dataEdit: {},
+      showEditDialog: false,
       multipleSelection: [],
       cachedArr: [],
     };
@@ -536,6 +544,13 @@ export default {
     },
     closeAddDialog(value) {
       this.showAddDialog = value;
+    },
+    showEdit(row) {
+      this.dataEdit = row;
+      this.showEditDialog = true;
+    },
+    closeEditDialog(value) {
+      this.showEditDialog = value;
     },
     handleSelectionChange(arr) {
       this.multipleSelection = arr.map((v) => ({ id: v.id }));
