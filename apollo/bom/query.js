@@ -271,6 +271,7 @@ export default gql`
       id
       woNo
       lt {
+        id
         ltNo
       }
     }

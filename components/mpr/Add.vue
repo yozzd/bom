@@ -229,25 +229,26 @@ export default {
                   category: parseInt(this.form.category, 10),
                   dor: this.form.dor,
                   idWo: this.form.wo.id,
+                  idLt: this.form.wo.lt.id,
                   ltNo: this.form.wo.lt.ltNo,
                 },
               },
-              // update: (store, { data: { createMpr } }) => {
-              //   const cdata = store.readQuery({
-              //     query: this.query,
-              //     variables: this.variables,
-              //   });
+              update: (store, { data: { createMpr } }) => {
+                const cdata = store.readQuery({
+                  query: this.query,
+                  variables: this.variables,
+                });
 
-              //   cdata[this.sdata].items.push(createMpr);
+                cdata[this.sdata].push(createMpr);
 
-              //   this.$emit('update', cdata[this.sdata]);
+                this.$emit('update', cdata[this.sdata]);
 
-              //   store.writeQuery({
-              //     query: this.query,
-              //     variables: this.variables,
-              //     data: cdata,
-              //   });
-              // },
+                store.writeQuery({
+                  query: this.query,
+                  variables: this.variables,
+                  data: cdata,
+                });
+              },
             });
 
             this.$message({

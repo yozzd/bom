@@ -115,7 +115,7 @@ const resolvers = {
   },
   Mutation: {
     createMpr: isAuthenticated(async (_, { input }, ctx) => {
-      const { ltNo, ...obj } = input;
+      const { idLt, ltNo, ...obj } = input;
       
       const no = ltNo.split(' ').join('+');
       const headers = { Authorization: pssAuth };
@@ -131,6 +131,7 @@ const resolvers = {
       
       const newMpr = new MPR(obj);
       const save = await newMpr.save();
+      save.wo = { idLt };
       return save;
     }),
   },
