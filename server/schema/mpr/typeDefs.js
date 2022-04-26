@@ -117,6 +117,7 @@ const typeDefs = `
     category: Int
     dor: String
     remark: String
+    idLt: Int
   }
 
   input DeleteMprInput {

@@ -132,6 +132,22 @@ const resolvers = {
       const newMpr = new MPR(obj);
       const save = await newMpr.save();
       save.wo = { idLt };
+
+      return save;
+    }),
+    updateMpr: isAuthenticated(async (_, { input }) => {
+      const { idLt, ...obj } = input;
+
+      const mpr = await MPR.findOne({
+        attributes: [...Object.keys(obj)],
+        where: { id: obj.id },
+      });
+
+      Object.assign(mpr, obj);
+
+      const save = await mpr.save();
+      save.wo = { idLt };
+
       return save;
     }),
     deleteMpr: isAuthenticated(async (_, { input }) => {

@@ -129,6 +129,7 @@
 
 <script>
 import mpr from '../../mixins/mpr';
+import { UpdateMpr } from '../../apollo/mpr/mutation';
 
 export default {
   mixins: [mpr],
@@ -162,7 +163,47 @@ export default {
       this.$emit('close', false);
     },
     handleUpdate() {
-      console.log(this.form.wo);
+      this.$refs.form.validate(async (valid) => {
+        if (valid) {
+          try {
+            this.loading = true;
+
+            await this.$apollo.mutate({
+              mutation: UpdateMpr,
+              variables: {
+                input: {
+                  id: parseInt(this.form.id, 10),
+                  status: this.form.status,
+                  woNo: this.form.woNo,
+                  model: this.form.model,
+                  product: this.form.product,
+                  unit: parseInt(this.form.unit, 10),
+                  category: parseInt(this.form.category, 10),
+                  dor: this.form.dor,
+                  remark: this.form.remark,
+                  idLt: this.form.wo.idLt,
+                },
+              },
+            });
+
+            this.$message({
+              type: 'success',
+              message: 'Data has been updated successfully',
+              onClose: setTimeout(() => {
+                this.handleCancel();
+                this.loading = false;
+              }, 1000),
+            });
+
+            return true;
+          } catch ({ graphQLErrors, networkError }) {
+            this.errors = graphQLErrors || networkError.result.errors;
+            return false;
+          }
+        } else {
+          return false;
+        }
+      });
     },
   },
 };
