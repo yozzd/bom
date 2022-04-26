@@ -89,6 +89,26 @@
               </el-option>
             </el-select>
           </el-form-item>
+          <el-form-item
+            label="Date of Requirement"
+            prop="dor"
+            class="col-span-2"
+          >
+            <el-date-picker
+              v-model="form.dor"
+              type="date"
+              value-format="yyyy-MM-dd"
+            ></el-date-picker>
+          </el-form-item>
+          <el-form-item
+            label="Remark"
+            prop="remark"
+            class="col-span-2"
+          >
+            <client-only>
+              <IndexEditor v-model="form.remark" />
+            </client-only>
+          </el-form-item>
         </div>
       </el-form>
       <div slot="footer" class="dialog-footer">
