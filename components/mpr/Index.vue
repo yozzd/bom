@@ -113,41 +113,55 @@
                     >
                       {{ scope.row.no }}
                     </nuxt-link>
-                    <a
-                      :href="`/mpr/${scope.row.id}`"
-                      title="Open in new tab"
-                      target="_blank"
-                    >
-                      <client-only>
-                        <v-icon name="ri-external-link-line" class="remixicons w-4 h-4" />
-                      </client-only>
-                    </a>
+                    <el-tooltip effect="dark" content="Open in new tab" placement="top">
+                      <a
+                        :href="`/mpr/${scope.row.id}`"
+                        target="_blank"
+                      >
+                        <client-only>
+                          <v-icon name="ri-external-link-line" class="remixicons w-4 h-4" />
+                        </client-only>
+                      </a>
+                    </el-tooltip>
                   </div>
                 </template>
               </el-table-column>
-              <el-table-column label="WO" width="140" fixed>
+              <el-table-column
+                label="WO"
+                :show-overflow-tooltip="true"
+                width="100"
+                fixed
+                class-name="group"
+              >
                 <template slot-scope="scope">
-                  <div class="flex">
-                    <nuxt-link
-                      :to="{
-                        name: 'bom-wo-idLt-id', params: {
-                          idLt: scope.row.wo.idLt, id: scope.row.idWo,
-                        }
-                      }"
-                      :title="scope.row.woNo"
-                      class="flex-1 truncate"
+                  <nuxt-link
+                    :to="{
+                      name: 'bom-wo-idLt-id', params: {
+                        idLt: scope.row.wo.idLt, id: scope.row.idWo,
+                      }
+                    }"
+                  >
+                    {{ scope.row.woNo }}
+                  </nuxt-link>
+                  <div class="hidden group-hover:inline-block">
+                    <el-tooltip
+                      effect="dark"
+                      content="Open in new tab"
+                      placement="top"
+                      class="absolute top-1 right-0"
                     >
-                      {{ scope.row.woNo }}
-                    </nuxt-link>
-                    <a
-                      :href="`/bom/wo/${scope.row.wo.idLt}/${scope.row.idWo}`"
-                      title="Open in new tab"
-                      target="_blank"
-                    >
-                      <client-only>
-                        <v-icon name="ri-external-link-line" class="remixicons w-4 h-4" />
-                      </client-only>
-                    </a>
+                      <a
+                        :href="`/bom/wo/${scope.row.wo.idLt}/${scope.row.idWo}`"
+                        target="_blank"
+                      >
+                        <client-only>
+                          <v-icon
+                            name="ri-external-link-line"
+                            class="remixicons w-4 h-4"
+                          />
+                        </client-only>
+                      </a>
+                    </el-tooltip>
                   </div>
                 </template>
               </el-table-column>
