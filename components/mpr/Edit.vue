@@ -40,6 +40,32 @@
               </el-option>
             </el-select>
           </el-form-item>
+          <el-form-item
+            label="Wo No."
+            prop="woNo"
+          >
+            <el-input v-model="form.woNo" disabled></el-input>
+          </el-form-item>
+          <el-form-item
+            label="Model"
+            prop="model"
+            class="col-span-2"
+          >
+            <el-input
+              v-model="form.model"
+              type="textarea"
+            ></el-input>
+          </el-form-item>
+          <el-form-item
+            label="Product Name"
+            prop="product"
+            class="col-span-2"
+          >
+            <el-input
+              v-model="form.product"
+              type="textarea"
+            ></el-input>
+          </el-form-item>
         </div>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -92,7 +118,9 @@ export default {
       this.errors = [];
       this.$emit('close', false);
     },
-    handleUpdate() {},
+    handleUpdate() {
+      console.log(this.form.wo);
+    },
   },
 };
 </script>

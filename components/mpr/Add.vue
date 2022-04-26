@@ -72,7 +72,6 @@
               Packing
             </el-checkbox>
           </el-form-item>
-          </el-form-item>
           <el-form-item
             label="Model"
             prop="model"
