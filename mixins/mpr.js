@@ -16,6 +16,10 @@ export default {
         { label: 'Non Project', value: 'NP' },
         { label: 'Project', value: 'P' },
       ],
+      pStatusObj: {
+        NP: 'Non Project',
+        P: 'Project',
+      },
       category: [
         { label: 'Standard', value: 0 },
         { label: 'Urgent', value: 1 },

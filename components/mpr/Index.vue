@@ -101,11 +101,11 @@
               ></el-table-column>
               <el-table-column
                 label="Status"
-                width="60"
+                width="80"
                 fixed
               >
                 <template slot-scope="scope">
-                  {{ scope.row.status }}
+                  {{ pStatusObj[scope.row.status] }}
                 </template>
               </el-table-column>
               <el-table-column
