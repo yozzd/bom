@@ -134,6 +134,17 @@ const resolvers = {
       save.wo = { idLt };
       return save;
     }),
+    deleteMpr: isAuthenticated(async (_, { input }) => {
+      await Promise.all(
+        input.map(async (v) => {
+          await MPR.destroy({
+            where: { id: v.id },
+          });
+        }),
+      );
+
+      return input;
+    }),
   },
 };
 

@@ -7,6 +7,7 @@ const typeDefs = `
 
   extend type Mutation {
     createMpr(input: CreateMprInput): MPR
+    deleteMpr(input: [DeleteMprInput]): [MPR]
   }
 
   type MPR {
@@ -103,6 +104,9 @@ const typeDefs = `
     ltNo: String
   }
 
+  input DeleteMprInput {
+    id: Int
+  }
 `;
 
 module.exports = { typeDefs };
