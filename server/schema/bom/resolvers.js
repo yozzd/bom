@@ -263,6 +263,7 @@ const resolvers = {
                 { whApproved: 1 },
                 { managerApproved: 1 },
                 { bomApproved: 1 },
+                { no: { [Op.not]: null } },
               ],
             },
             required: false,
@@ -291,6 +292,7 @@ const resolvers = {
           attributes: [
             'id', 'no', 'unit', 'requestorName', 'bomTimestamp',
           ],
+          where: { no: { [Op.not]: null } },
           required: false,
           include: [{
             model: MPRMODULE,
