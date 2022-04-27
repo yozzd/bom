@@ -109,17 +109,32 @@
               <IndexEditor v-model="form.remark" />
             </client-only>
           </el-form-item>
-          <el-form-item
-            prop="packing"
-            class="col-span-2"
-          >
-            <el-checkbox
-              v-model="form.packing"
-              :true-label="1"
-            >
-              Packing
-            </el-checkbox>
-          </el-form-item>
+          <div class="col-span-2 grid grid-cols-3 gap-x-4">
+            <el-form-item prop="packing">
+              <el-checkbox
+                v-model="form.packing"
+                :true-label="1"
+              >
+                Packing
+              </el-checkbox>
+            </el-form-item>
+            <el-form-item prop="hold">
+              <el-checkbox
+                v-model="form.hold"
+                :true-label="1"
+              >
+                Hold
+              </el-checkbox>
+            </el-form-item>
+            <el-form-item prop="cancel">
+              <el-checkbox
+                v-model="form.cancel"
+                :true-label="1"
+              >
+                Cancel
+              </el-checkbox>
+            </el-form-item>
+          </div>
         </div>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -193,6 +208,8 @@ export default {
                   dor: this.form.dor,
                   remark: this.form.remark,
                   packing: parseInt(this.form.packing, 10),
+                  hold: parseInt(this.form.hold, 10),
+                  cancel: parseInt(this.form.cancel, 10),
                   idLt: this.form.wo.idLt,
                 },
               },

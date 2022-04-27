@@ -121,6 +121,8 @@ const typeDefs = `
     dor: String
     remark: String
     packing: Int
+    hold: Int
+    cancel: Int
     idLt: Int
   }
 
