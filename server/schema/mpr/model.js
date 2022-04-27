@@ -121,17 +121,14 @@ const MPR = sequelize.define('mpr', {
   },
   cancel: {
     type: DataTypes.INTEGER,
-    allowNull: false,
     defaultValue: 0,
   },
   packing: {
     type: DataTypes.INTEGER,
-    allowNull: false,
     defaultValue: 0,
   },
   hold: {
     type: DataTypes.INTEGER,
-    allowNull: false,
     defaultValue: 0,
   },
 }, {
