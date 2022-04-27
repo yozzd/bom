@@ -1,4 +1,6 @@
 const typeDefs = `
+  scalar Upload
+
   extend type Query {
     getAllMPR(status: Int): [MPR]
     getOneMPR(id: Int): MPR
@@ -124,6 +126,7 @@ const typeDefs = `
     hold: Int
     cancel: Int
     idLt: Int
+    file: Upload
   }
 
   input DeleteMprInput {

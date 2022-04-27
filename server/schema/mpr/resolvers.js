@@ -1,5 +1,7 @@
 const fs = require('fs');
 const fetch = require('node-fetch');
+const { ErrorWithProps } = require('mercurius');
+const { GraphQLUpload } = require('graphql-upload');
 const { Op } = require('sequelize');
 const { pssUrl, pssAuth } = require('../../config');
 const {
@@ -10,6 +12,7 @@ const { whereStatus, whereUser } = require('./methods');
 const { itemAttributes } = require('../bom/resolvers');
 
 const resolvers = {
+  Upload: GraphQLUpload,
   MPR: {
     attachmentCheck: ({ id, attachment }) => {
       try {
@@ -64,7 +67,7 @@ const resolvers = {
         attributes: [
           'id', 'no', 'woNo', 'model', 'product', 'projectName',
           'unit', 'category', 'dor', 'idWo', 'requestorName',
-          'packing', 'hold', 'cancel'
+          'packing', 'hold', 'cancel',
         ],
         where: { id },
         required: false,
@@ -137,7 +140,7 @@ const resolvers = {
       return save;
     }),
     updateMpr: isAuthenticated(async (_, { input }) => {
-      const { idLt, ...obj } = input;
+      const { idLt, file, ...obj } = input;
 
       const mpr = await MPR.findOne({
         attributes: [...Object.keys(obj)],
@@ -145,6 +148,38 @@ const resolvers = {
       });
 
       Object.assign(mpr, obj);
+
+      if (file) {
+        const { filename, createReadStream } = await file;
+        const stream = createReadStream();
+
+        const tmp = `/tmp/${filename}`;
+        return new Promise((resolve, reject) => {
+          stream
+            .on('error', (error) => {
+              if (stream.truncated) fs.unlinkSync(tmp);
+              reject(error);
+            })
+            .pipe(fs.createWriteStream(tmp))
+            .on('finish', () => {
+              try {
+                const dir = `static/attachment/${obj.id}`;
+                if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+
+                fs.copyFileSync(tmp, `${dir}/${filename}`);
+
+                mpr.attachment = filename;
+                resolve();
+              } catch (err) {
+                if (typeof err === 'string') {
+                  reject(new ErrorWithProps(err));
+                } else {
+                  reject(new ErrorWithProps(err.message));
+                }
+              }
+            });
+        });
+      }
 
       const save = await mpr.save();
       save.wo = { idLt };

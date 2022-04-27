@@ -137,6 +137,25 @@
               </el-checkbox>
             </el-form-item>
           </div>
+          <el-form-item
+            label="Attachment"
+            prop="attachment"
+          >
+            <el-upload
+              ref="upload"
+              action=""
+              :on-change="handleOnChange"
+              :auto-upload="false"
+            >
+              <el-button
+                slot="trigger"
+                type="primary"
+                size="small"
+              >
+                Browse
+              </el-button>
+            </el-upload>
+          </el-form-item>
         </div>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -174,6 +193,7 @@ export default {
   data() {
     return {
       form: {},
+      file: {},
     };
   },
   watch: {
@@ -189,6 +209,9 @@ export default {
       this.loading = false;
       this.errors = [];
       this.$emit('close', false);
+    },
+    handleOnChange({ raw }) {
+      this.file = raw;
     },
     handleUpdate() {
       this.$refs.form.validate(async (valid) => {
@@ -213,6 +236,7 @@ export default {
                   hold: parseInt(this.form.hold, 10),
                   cancel: parseInt(this.form.cancel, 10),
                   idLt: this.form.wo.idLt,
+                  file: this.file,
                 },
               },
             });
