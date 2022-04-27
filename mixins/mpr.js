@@ -27,6 +27,9 @@ export default {
       rules: {
         wo: [{ required: true, message: 'This field is required', trigger: 'change' }],
         unit: [{ required: true, message: 'This field is required' }],
+        dor: [{
+          type: 'date', required: true, message: 'This field is required', trigger: 'change',
+        }],
       },
       woRunning: [],
       woRunningLoading: false,
