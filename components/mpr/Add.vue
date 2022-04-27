@@ -154,6 +154,7 @@
 </template>
 
 <script>
+import orderBy from 'lodash/orderBy';
 import { CreateMpr } from '../../apollo/mpr/mutation';
 import mpr from '../../mixins/mpr';
 
@@ -223,14 +224,17 @@ export default {
                   variables: this.variables,
                 });
 
-                cdata[this.sdata].push(createMpr);
+                const odata = {};
 
-                this.$emit('update', cdata[this.sdata]);
+                cdata[this.sdata].push(createMpr);
+                odata[this.sdata] = orderBy(cdata[this.sdata], ['category', 'dor'], ['desc', 'desc']);
+
+                this.$emit('update', odata[this.sdata]);
 
                 store.writeQuery({
                   query: this.query,
                   variables: this.variables,
-                  data: cdata,
+                  data: odata,
                 });
               },
             });
