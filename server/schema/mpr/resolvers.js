@@ -41,10 +41,10 @@ const resolvers = {
       const mpr = await MPR.findAll({
         attributes: [
           'id', 'status', 'no', 'woNo', 'model', 'product', 'projectName',
-          'unit', 'category', 'dor', 'idWo', 'packing', 'requestorSection',
+          'unit', 'category', 'dor', 'idWo', 'requestorSection',
           'requestorName', 'requestorTimestamp', 'managerApproved',
           'managerTimestamp', 'whApproved', 'whTimestamp', 'bomApproved',
-          'bomTimestamp', 'attachment', 'remark',
+          'bomTimestamp', 'attachment', 'remark', 'packing', 'hold', 'cancel',
         ],
         order: [
           ['category', 'DESC'],
@@ -63,7 +63,8 @@ const resolvers = {
       const mpr = await MPR.findOne({
         attributes: [
           'id', 'no', 'woNo', 'model', 'product', 'projectName',
-          'unit', 'category', 'dor', 'idWo', 'packing', 'requestorName',
+          'unit', 'category', 'dor', 'idWo', 'requestorName',
+          'packing', 'hold', 'cancel'
         ],
         where: { id },
         required: false,

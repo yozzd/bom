@@ -14,7 +14,6 @@ export const GetAllMPR = gql`
       category
       dor
       idWo
-      packing
       requestorName
       requestorTimestamp
       managerApproved
@@ -26,6 +25,9 @@ export const GetAllMPR = gql`
       attachment
       attachmentCheck
       remark
+      packing
+      hold
+      cancel
       wo {
         idLt
       }
@@ -46,8 +48,10 @@ export const GetOneMPR = gql`
       category
       dor
       idWo
-      packing
       requestorName
+      packing
+      hold
+      cancel
       wo {
         id
         euro

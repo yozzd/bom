@@ -14,7 +14,6 @@ export const CreateMpr = gql`
       category
       dor
       idWo
-      packing
       requestorName
       requestorTimestamp
       managerApproved
@@ -26,6 +25,9 @@ export const CreateMpr = gql`
       attachment
       attachmentCheck
       remark
+      packing
+      hold
+      cancel
       wo {
         idLt
       }
@@ -47,7 +49,6 @@ export const UpdateMpr = gql`
       category
       dor
       idWo
-      packing
       requestorName
       requestorTimestamp
       managerApproved
@@ -59,6 +60,9 @@ export const UpdateMpr = gql`
       attachment
       attachmentCheck
       remark
+      packing
+      hold
+      cancel
       wo {
         idLt
       }

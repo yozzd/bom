@@ -23,7 +23,6 @@ const typeDefs = `
     category: Int
     dor: String
     idWo: Int
-    packing: Int
     requestorName: String
     requestorTimestamp: String
     managerApproved: Int
@@ -35,6 +34,9 @@ const typeDefs = `
     attachment: String
     attachmentCheck: Boolean
     remark: String
+    packing: Int
+    hold: Int
+    cancel: Int
     wo: WO
     modules: [MPRMODULE]
     items: [MPRITEM]
@@ -102,6 +104,7 @@ const typeDefs = `
     category: Int
     dor: String
     remark: String
+    packing: Int
     idWo: Int
     idLt: Int
     ltNo: String
@@ -117,6 +120,7 @@ const typeDefs = `
     category: Int
     dor: String
     remark: String
+    packing: Int
     idLt: Int
   }
 

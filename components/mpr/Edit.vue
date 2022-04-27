@@ -109,6 +109,17 @@
               <IndexEditor v-model="form.remark" />
             </client-only>
           </el-form-item>
+          <el-form-item
+            prop="packing"
+            class="col-span-2"
+          >
+            <el-checkbox
+              v-model="form.packing"
+              :true-label="1"
+            >
+              Packing
+            </el-checkbox>
+          </el-form-item>
         </div>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -181,6 +192,7 @@ export default {
                   category: parseInt(this.form.category, 10),
                   dor: this.form.dor,
                   remark: this.form.remark,
+                  packing: parseInt(this.form.packing, 10),
                   idLt: this.form.wo.idLt,
                 },
               },

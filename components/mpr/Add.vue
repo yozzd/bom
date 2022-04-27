@@ -213,6 +213,7 @@ export default {
                   category: parseInt(this.form.category, 10),
                   dor: this.form.dor,
                   remark: this.form.remark,
+                  packing: parseInt(this.form.packing, 10),
                   idWo: this.form.wo.id,
                   idLt: this.form.wo.lt.id,
                   ltNo: this.form.wo.lt.ltNo,
