@@ -62,17 +62,6 @@
             </el-select>
           </el-form-item>
           <el-form-item
-            prop="packing"
-            class="col-span-2"
-          >
-            <el-checkbox
-              v-model="form.packing"
-              :true-label="1"
-            >
-              Packing
-            </el-checkbox>
-          </el-form-item>
-          <el-form-item
             label="Model"
             prop="model"
             class="col-span-2"
@@ -134,6 +123,17 @@
             <client-only>
               <IndexEditor v-model="form.remark" />
             </client-only>
+          </el-form-item>
+          <el-form-item
+            prop="packing"
+            class="col-span-2"
+          >
+            <el-checkbox
+              v-model="form.packing"
+              :true-label="1"
+            >
+              Packing
+            </el-checkbox>
           </el-form-item>
         </div>
       </el-form>
