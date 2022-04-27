@@ -88,7 +88,9 @@ a {
 }
 
 .el-form-item.is-error .el-input__inner,
-.el-form-item.is-error .el-input__inner:focus {
+.el-form-item.is-error .el-input__inner:focus,
+.el-form-item.is-error .el-textarea__inner,
+.el-form-item.is-error .el-textarea__inner:focus {
   @apply ring-3 ring-red-200 ring-opacity-50;
 }
 
