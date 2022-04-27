@@ -122,6 +122,7 @@
               <el-checkbox
                 v-model="form.hold"
                 :true-label="1"
+                disabled
               >
                 Hold
               </el-checkbox>
@@ -130,6 +131,7 @@
               <el-checkbox
                 v-model="form.cancel"
                 :true-label="1"
+                disabled
               >
                 Cancel
               </el-checkbox>
