@@ -218,7 +218,7 @@ export default {
   },
   watch: {
     data(value) {
-      this.form = value;
+      this.form = { ...value };
     },
     show(value) {
       this.visible = value;
