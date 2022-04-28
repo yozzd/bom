@@ -24,10 +24,12 @@ export default {
       loading: false,
       rules: {
         poIssue: [{ required: true, message: 'This field is required' }],
-        poZone: [{ required: true, message: 'This field is required' }],
+        poZone: [{ required: true, message: 'This field is required', trigger: 'change' }],
         poNo: [{ required: true, message: 'This field is required' }],
         poDescription: [{ required: true, message: 'This field is required' }],
         poSupplier: [{ required: true, message: 'This field is required' }],
+        poKvalue: [{ required: true, message: 'This field is required', trigger: 'change' }],
+        poValue: [{ required: true, message: 'This field is required' }],
       },
       supplier: [],
       supplierLoading: false,

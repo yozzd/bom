@@ -45,7 +45,7 @@
               :disabled="$auth.$state.user.section !== 219"
             ></el-date-picker>
           </el-form-item>
-          <el-form-item label="Zone">
+          <el-form-item label="Zone" prop="poZone">
             <el-select
               v-model="form.poZone"
               :disabled="$auth.$state.user.section !== 212"
@@ -102,7 +102,7 @@
               :disabled="$auth.$state.user.section !== 212"
             ></el-input>
           </el-form-item>
-          <el-form-item label="Currency">
+          <el-form-item label="Currency" prop="poKvalue">
             <el-select
               v-model="form.poKvalue"
               :disabled="$auth.$state.user.section !== 212"

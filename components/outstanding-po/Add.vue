@@ -35,7 +35,7 @@
             ></el-date-picker>
           </el-form-item>
           <div class="col-span-2 grid grid-cols-3 gap-x-4">
-            <el-form-item label="Zone">
+            <el-form-item label="Zone" prop="poZone">
               <el-select
                 v-model="form.poZone"
                 filterable
@@ -99,7 +99,7 @@
               type="textarea"
             ></el-input>
           </el-form-item>
-          <el-form-item label="Currency">
+          <el-form-item label="Currency" prop="poKvalue">
             <el-select
               v-model="form.poKvalue"
               filterable
