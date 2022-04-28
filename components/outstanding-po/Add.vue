@@ -174,8 +174,8 @@
 </template>
 
 <script>
+import orderBy from 'lodash/orderBy';
 import { CreateOutPo } from '../../apollo/outstandingPo/mutation';
-import GetAllSupplier from '../../apollo/supplier/query';
 import outp from '../../mixins/outstanding.po';
 
 export default {
@@ -204,32 +204,9 @@ export default {
   },
   data() {
     return {
-      visible: false,
-      loading: false,
       form: {
-        poIssue: '',
-        poZone: '',
         poNo: '',
-        poSupplier: '',
-        poDescription: '',
-        poKvalue: '',
-        poValue: 0,
-        poLt: '',
-        poLpayment: '',
-        poEta: '',
-        poRemarks: '',
       },
-      rules: {
-        poIssue: [{ required: true, message: 'This field is required' }],
-        poZone: [{ required: true, message: 'This field is required' }],
-        poNo: [{ required: true, message: 'This field is required' }],
-        poDescription: [{ required: true, message: 'This field is required' }],
-        poSupplier: [{ required: true, message: 'This field is required' }],
-      },
-      supplier: [],
-      supplierLoading: false,
-      currency: ['EUR', 'GBP', 'JPY', 'MYR', 'Rp', 'Rupe', 'SGD', 'USD'],
-      errors: [],
     };
   },
   watch: {
@@ -276,15 +253,19 @@ export default {
                   variables: this.variables,
                 });
 
-                cdata[this.sdata].items.push(createOutPo);
-                cdata[this.sdata].items.sort((a, b) => b.poIssue.localeCompare(a.poIssue));
+                const odata = {};
 
-                this.$emit('update', cdata[this.sdata]);
+                cdata[this.sdata].items.push(createOutPo);
+                const { items, ...obj } = cdata[this.sdata];
+                odata[this.sdata] = obj;
+                odata[this.sdata].items = orderBy(items, ['poIssue'], ['desc']);
+
+                this.$emit('update', odata[this.sdata]);
 
                 store.writeQuery({
                   query: this.query,
                   variables: this.variables,
-                  data: cdata,
+                  data: odata,
                 });
               },
             });
@@ -307,23 +288,6 @@ export default {
           return false;
         }
       });
-    },
-    async supplierRemote(key) {
-      if (key) {
-        this.supplierLoading = true;
-        const { data: { getAllSupplier } } = await this.$apollo.query({
-          query: GetAllSupplier,
-          variables: { key },
-          prefetch: false,
-          error({ graphQLErrors, networkError }) {
-            this.errors = graphQLErrors || networkError.result.errors;
-          },
-        });
-        this.supplier = getAllSupplier;
-        this.supplierLoading = false;
-      } else {
-        this.supplier = [];
-      }
     },
   },
 };

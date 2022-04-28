@@ -348,8 +348,8 @@
 </template>
 
 <script>
+import orderBy from 'lodash/orderBy';
 import { UpdateOutPo } from '../../apollo/outstandingPo/mutation';
-import GetAllSupplier from '../../apollo/supplier/query';
 import outp from '../../mixins/outstanding.po';
 
 export default {
@@ -363,58 +363,27 @@ export default {
       type: Boolean,
       default: false,
     },
+    query: {
+      type: Object,
+      default: () => ({}),
+    },
+    variables: {
+      type: Object,
+      default: () => ({}),
+    },
+    sdata: {
+      type: String,
+      default: '',
+    },
   },
   data() {
     return {
-      visible: false,
-      loading: false,
-      form: {
-        poIssue: '',
-        approvalDate: '',
-        poZone: '',
-        poNo: '',
-        poSupplier: '',
-        poDescription: '',
-        poKvalue: '',
-        poValue: 0,
-        poValueUsd: 0,
-        poPaidUsd: 0,
-        poLt: '',
-        poLpayment: '',
-        poBom: '',
-        poAdmin: '',
-        poFinance: '',
-        poEta: '',
-        poArrival: '',
-        poStatus: '',
-        comp: '',
-        hse: '',
-        poCancel: 0,
-        poRemarks: '',
-        poRemarksBom: '',
-        poRemarksAdmin: '',
-        poRemarksFinance: '',
-        poRemarksWarehouse: '',
-      },
-      rules: {
-        poIssue: [{ required: true, message: 'This field is required' }],
-        poZone: [{ required: true, message: 'This field is required' }],
-        poNo: [{ required: true, message: 'This field is required' }],
-        poDescription: [{ required: true, message: 'This field is required' }],
-        poSupplier: [{ required: true, message: 'This field is required' }],
-      },
-      supplier: [],
-      supplierLoading: false,
-      currency: ['EUR', 'GBP', 'JPY', 'MYR', 'Rp', 'Rupe', 'SGD', 'USD'],
-      statusWh: ['', 'Complete', 'Partial'],
-      completeStatus: ['', 'Yes', 'No'],
-      hseStatus: ['', 'Required', 'Non Required'],
-      errors: [],
+      form: {},
     };
   },
   watch: {
     data(value) {
-      this.form = value;
+      this.form = { ...value };
     },
     show(value) {
       this.visible = value;
@@ -465,6 +434,28 @@ export default {
                   poRemarksWarehouse: this.form.poRemarksWarehouse,
                 },
               },
+              update: (store, { data: { updateOutPo } }) => {
+                const cdata = store.readQuery({
+                  query: this.query,
+                  variables: this.variables,
+                });
+
+                const odata = {};
+
+                const index = cdata[this.sdata].items.findIndex((e) => e.id === this.form.id);
+                cdata[this.sdata].items[index] = updateOutPo;
+                const { items, ...obj } = cdata[this.sdata];
+                odata[this.sdata] = obj;
+                odata[this.sdata].items = orderBy(items, ['poIssue'], ['desc']);
+
+                this.$emit('update', odata[this.sdata]);
+
+                store.writeQuery({
+                  query: this.query,
+                  variables: this.variables,
+                  data: odata,
+                });
+              },
             });
 
             this.$message({
@@ -485,23 +476,6 @@ export default {
           return false;
         }
       });
-    },
-    async supplierRemote(key) {
-      if (key) {
-        this.supplierLoading = true;
-        const { data: { getAllSupplier } } = await this.$apollo.query({
-          query: GetAllSupplier,
-          variables: { key },
-          prefetch: false,
-          error({ graphQLErrors, networkError }) {
-            this.errors = graphQLErrors || networkError.result.errors;
-          },
-        });
-        this.supplier = getAllSupplier;
-        this.supplierLoading = false;
-      } else {
-        this.supplier = [];
-      }
     },
   },
 };

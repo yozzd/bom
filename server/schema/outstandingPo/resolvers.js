@@ -6,6 +6,14 @@ const {
 const { isAuthenticated } = require('../auth/service');
 const { whereCategory, whereStatus, whereZones } = require('./methods');
 
+const itemAttributes = [
+  'id', 'poIssue', 'poZone', 'poNo', 'poSupplier', 'poDescription',
+  'poKvalue', 'poValue', 'poLt', 'poLpayment', 'poBom', 'poAdmin',
+  'poFinance', 'poEta', 'poArrival', 'poStatus', 'approvalDate',
+  'comp', 'hse', 'poValueUsd', 'poPaidUsd', 'poBalanceUsd',
+  'arrivalStatus', 'poRemarks', 'poRemarksBom', 'poRemarksAdmin',
+  'poRemarksFinance', 'poRemarksWarehouse', 'poCancel', 'colorClass',
+];
 const resolvers = {
   Query: {
     getZones: isAuthenticated(async () => {
@@ -22,14 +30,7 @@ const resolvers = {
       const where = whereCategory(category);
 
       const items = await OUTSTANDINGPO.findAll({
-        attributes: [
-          'id', 'poIssue', 'poZone', 'poNo', 'poSupplier', 'poDescription',
-          'poKvalue', 'poValue', 'poLt', 'poLpayment', 'poBom', 'poAdmin',
-          'poFinance', 'poEta', 'poArrival', 'poStatus', 'approvalDate',
-          'comp', 'hse', 'poValueUsd', 'poPaidUsd', 'poBalanceUsd',
-          'arrivalStatus', 'poRemarks', 'poRemarksBom', 'poRemarksAdmin',
-          'poRemarksFinance', 'poRemarksWarehouse', 'poCancel', 'colorClass',
-        ],
+        attributes: itemAttributes,
         where,
         order: [['poIssue', 'DESC']],
       });
@@ -48,14 +49,7 @@ const resolvers = {
       const where = whereStatus(status);
 
       const items = await OUTSTANDINGPO.findAll({
-        attributes: [
-          'id', 'poIssue', 'poZone', 'poNo', 'poSupplier', 'poDescription',
-          'poKvalue', 'poValue', 'poLt', 'poLpayment', 'poBom', 'poAdmin',
-          'poFinance', 'poEta', 'poArrival', 'poStatus', 'approvalDate',
-          'comp', 'hse', 'poValueUsd', 'poPaidUsd', 'poBalanceUsd',
-          'arrivalStatus', 'poRemarks', 'poRemarksBom', 'poRemarksAdmin',
-          'poRemarksFinance', 'poRemarksWarehouse', 'poCancel', 'colorClass',
-        ],
+        attributes: itemAttributes,
         where,
         order: [['poIssue', 'DESC']],
       });
@@ -74,14 +68,7 @@ const resolvers = {
       const where = whereZones(zone);
 
       const items = await OUTSTANDINGPO.findAll({
-        attributes: [
-          'id', 'poIssue', 'poZone', 'poNo', 'poSupplier', 'poDescription',
-          'poKvalue', 'poValue', 'poLt', 'poLpayment', 'poBom', 'poAdmin',
-          'poFinance', 'poEta', 'poArrival', 'poStatus', 'approvalDate',
-          'comp', 'hse', 'poValueUsd', 'poPaidUsd', 'poBalanceUsd',
-          'arrivalStatus', 'poRemarks', 'poRemarksBom', 'poRemarksAdmin',
-          'poRemarksFinance', 'poRemarksWarehouse', 'poCancel', 'colorClass',
-        ],
+        attributes: itemAttributes,
         where,
         order: [['poIssue', 'DESC']],
       });
@@ -120,7 +107,7 @@ const resolvers = {
     }),
     updateOutPo: isAuthenticated(async (_, { input }) => {
       const po = await OUTSTANDINGPO.findOne({
-        attributes: [...Object.keys(input)],
+        attributes: itemAttributes,
         where: { id: input.id },
       });
 
