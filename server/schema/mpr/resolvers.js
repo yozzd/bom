@@ -11,6 +11,14 @@ const { isAuthenticated } = require('../auth/service');
 const { whereStatus, whereUser } = require('./methods');
 const { itemAttributes } = require('../bom/resolvers');
 
+const mprAttributes = [
+  'id', 'status', 'no', 'woNo', 'model', 'product', 'projectName',
+  'unit', 'category', 'dor', 'idWo', 'requestorSection',
+  'requestorName', 'requestorTimestamp', 'managerApproved',
+  'managerTimestamp', 'whApproved', 'whTimestamp', 'bomApproved',
+  'bomTimestamp', 'attachment', 'remark', 'packing', 'hold', 'cancel',
+];
+
 const resolvers = {
   Upload: GraphQLUpload,
   MPR: {
@@ -42,13 +50,7 @@ const resolvers = {
 
       const whereU = await whereUser(ctx, items, status);
       const mpr = await MPR.findAll({
-        attributes: [
-          'id', 'status', 'no', 'woNo', 'model', 'product', 'projectName',
-          'unit', 'category', 'dor', 'idWo', 'requestorSection',
-          'requestorName', 'requestorTimestamp', 'managerApproved',
-          'managerTimestamp', 'whApproved', 'whTimestamp', 'bomApproved',
-          'bomTimestamp', 'attachment', 'remark', 'packing', 'hold', 'cancel',
-        ],
+        attributes: mprAttributes,
         order: [
           ['category', 'DESC'],
           ['dor', 'DESC'],
@@ -143,7 +145,7 @@ const resolvers = {
       const { idLt, file, ...obj } = input;
 
       const mpr = await MPR.findOne({
-        attributes: [...Object.keys(obj)],
+        attributes: mprAttributes,
         where: { id: obj.id },
       });
 
@@ -154,7 +156,8 @@ const resolvers = {
         const stream = createReadStream();
 
         const tmp = `/tmp/${filename}`;
-        return new Promise((resolve, reject) => {
+        
+        await new Promise((resolve, reject) => {
           stream
             .on('error', (error) => {
               if (stream.truncated) fs.unlinkSync(tmp);
@@ -169,6 +172,7 @@ const resolvers = {
                 fs.copyFileSync(tmp, `${dir}/${filename}`);
 
                 mpr.attachment = filename;
+              
                 resolve();
               } catch (err) {
                 if (typeof err === 'string') {

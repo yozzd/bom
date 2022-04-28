@@ -458,7 +458,11 @@
     <MprEdit
       :data="dataEdit"
       :show="showEditDialog"
+      :query="query"
+      :variables="variables"
+      :sdata="sdata"
       @close="closeEditDialog"
+      @update="updateList"
     />
   </div>
 </template>

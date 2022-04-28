@@ -137,10 +137,7 @@
               </el-checkbox>
             </el-form-item>
           </div>
-          <el-form-item
-            label="Attachment"
-            prop="attachment"
-          >
+          <el-form-item label="Attachment">
             <el-upload
               ref="upload"
               action=""
@@ -175,6 +172,7 @@
 </template>
 
 <script>
+import orderBy from 'lodash/orderBy';
 import mpr from '../../mixins/mpr';
 import { UpdateMpr } from '../../apollo/mpr/mutation';
 
@@ -189,11 +187,23 @@ export default {
       type: Boolean,
       default: false,
     },
+    query: {
+      type: Object,
+      default: () => ({}),
+    },
+    variables: {
+      type: Object,
+      default: () => ({}),
+    },
+    sdata: {
+      type: String,
+      default: '',
+    },
   },
   data() {
     return {
       form: {},
-      file: {},
+      file: null,
     };
   },
   watch: {
@@ -238,6 +248,26 @@ export default {
                   idLt: this.form.wo.idLt,
                   file: this.file,
                 },
+              },
+              update: (store, { data: { updateMpr } }) => {
+                const cdata = store.readQuery({
+                  query: this.query,
+                  variables: this.variables,
+                });
+
+                const odata = {};
+
+                const index = cdata[this.sdata].findIndex((e) => e.id === this.form.id);
+                cdata[this.sdata][index] = updateMpr;
+                odata[this.sdata] = orderBy(cdata[this.sdata], ['category', 'dor'], ['desc', 'desc']);
+
+                this.$emit('update', odata[this.sdata]);
+
+                store.writeQuery({
+                  query: this.query,
+                  variables: this.variables,
+                  data: odata,
+                });
               },
             });
 
