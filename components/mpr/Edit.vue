@@ -154,6 +154,14 @@
               </el-button>
             </el-upload>
           </el-form-item>
+          <el-form-item prop="remove">
+            <el-checkbox
+              v-model="form.remAttach"
+              :true-label="1"
+            >
+              Remove Attachment
+            </el-checkbox>
+          </el-form-item>
         </div>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -250,6 +258,7 @@ export default {
                   cancel: parseInt(this.form.cancel, 10),
                   idLt: this.form.wo.idLt,
                   file: this.file,
+                  remAttach: parseInt(this.form.remAttach, 10),
                 },
               },
               update: (store, { data: { updateMpr } }) => {

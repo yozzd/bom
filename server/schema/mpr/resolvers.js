@@ -142,7 +142,9 @@ const resolvers = {
       return save;
     }),
     updateMpr: isAuthenticated(async (_, { input }) => {
-      const { idLt, file, ...obj } = input;
+      const {
+        idLt, file, remAttach, ...obj
+      } = input;
 
       const mpr = await MPR.findOne({
         attributes: mprAttributes,
@@ -151,12 +153,13 @@ const resolvers = {
 
       Object.assign(mpr, obj);
 
+      const dir = `static/attachment/${obj.id}`;
       if (file) {
         const { filename, createReadStream } = await file;
         const stream = createReadStream();
 
         const tmp = `/tmp/${filename}`;
-        
+
         await new Promise((resolve, reject) => {
           stream
             .on('error', (error) => {
@@ -166,13 +169,12 @@ const resolvers = {
             .pipe(fs.createWriteStream(tmp))
             .on('finish', () => {
               try {
-                const dir = `static/attachment/${obj.id}`;
                 if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
 
                 fs.copyFileSync(tmp, `${dir}/${filename}`);
 
                 mpr.attachment = filename;
-              
+
                 resolve();
               } catch (err) {
                 if (typeof err === 'string') {
@@ -183,6 +185,11 @@ const resolvers = {
               }
             });
         });
+      }
+
+      if (remAttach) {
+        fs.unlinkSync(`${dir}/${mpr.attachment}`);
+        mpr.attachment = null;
       }
 
       const save = await mpr.save();

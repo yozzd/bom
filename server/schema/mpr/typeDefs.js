@@ -127,6 +127,7 @@ const typeDefs = `
     cancel: Int
     idLt: Int
     file: Upload
+    remAttach: Int
   }
 
   input DeleteMprInput {
