@@ -142,6 +142,7 @@
               ref="upload"
               action=""
               :on-change="handleOnChange"
+              :file-list="fileList"
               :auto-upload="false"
             >
               <el-button
@@ -204,6 +205,7 @@ export default {
     return {
       form: {},
       file: null,
+      fileList: [],
     };
   },
   watch: {
@@ -217,6 +219,7 @@ export default {
   methods: {
     handleCancel() {
       this.loading = false;
+      this.fileList = [];
       this.errors = [];
       this.$emit('close', false);
     },
