@@ -344,7 +344,10 @@ const resolvers = {
     }),
     getSearchItems: isAuthenticated(async (_, { key }) => {
       const items = await WOITEM.findAll({
-        attributes: ['id', 'bomDescription', 'bomSpecification'],
+        attributes: [
+          'id', 'bomDescription', 'bomSpecification', 'bomModel', 'bomBrand',
+          'bomSupplier',
+        ],
         where: {
           [Op.or]: [
             { bomDescription: { [Op.substring]: key } },

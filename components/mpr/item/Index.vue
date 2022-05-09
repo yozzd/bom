@@ -258,7 +258,7 @@
         ></el-table-column>
         <el-table-column
           label="Description"
-          width="140"
+          width="180"
           :show-overflow-tooltip="true"
         >
           <template slot-scope="scope">
@@ -267,11 +267,38 @@
         </el-table-column>
         <el-table-column
           label="Specification"
-          width="140"
+          width="180"
           :show-overflow-tooltip="true"
         >
           <template slot-scope="scope">
             {{ scope.row.bomSpecification }}
+          </template>
+        </el-table-column>
+        <el-table-column
+          label="Model"
+          width="140"
+          :show-overflow-tooltip="true"
+        >
+          <template slot-scope="scope">
+            {{ scope.row.bomModel }}
+          </template>
+        </el-table-column>
+        <el-table-column
+          label="Brand"
+          width="140"
+          :show-overflow-tooltip="true"
+        >
+          <template slot-scope="scope">
+            {{ scope.row.bomBrand }}
+          </template>
+        </el-table-column>
+        <el-table-column
+          label="Supplier"
+          width="140"
+          :show-overflow-tooltip="true"
+        >
+          <template slot-scope="scope">
+            {{ scope.row.bomSupplier }}
           </template>
         </el-table-column>
         <el-table-column label="" min-width="50"></el-table-column>

@@ -284,6 +284,9 @@ export const GetSearchItems = gql`
       id
       bomDescription
       bomSpecification
+      bomModel
+      bomBrand
+      bomSupplier
     }
   }
 `;
