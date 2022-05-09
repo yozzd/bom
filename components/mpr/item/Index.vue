@@ -220,7 +220,7 @@
       :visible.sync="showSearchByItemsDialog"
       :close-on-click-modal="false"
       :close-on-press-escape="false"
-      width="40%"
+      width="60%"
     >
       <el-form
         ref="formItems"
@@ -242,6 +242,40 @@
           </el-button>
         </el-form-item>
       </el-form>
+      <el-table
+        v-if="searchItems.length"
+        :data="searchItems"
+        size="mini"
+        border
+        class="mt-4"
+      >
+        <el-table-column
+          type="index"
+          label="No"
+          align="center"
+          width="40"
+          fixed
+        ></el-table-column>
+        <el-table-column
+          label="Description"
+          width="140"
+          :show-overflow-tooltip="true"
+        >
+          <template slot-scope="scope">
+            {{ scope.row.bomDescription }}
+          </template>
+        </el-table-column>
+        <el-table-column
+          label="Specification"
+          width="140"
+          :show-overflow-tooltip="true"
+        >
+          <template slot-scope="scope">
+            {{ scope.row.bomSpecification }}
+          </template>
+        </el-table-column>
+        <el-table-column label="" min-width="50"></el-table-column>
+      </el-table>
       <span slot="footer" class="dialog-footer">
         <el-button
           type="text"
@@ -300,8 +334,7 @@ export default {
               this.errors = graphQLErrors || networkError.result.errors;
             },
           });
-          // this.searchItems = getSearchItems;
-          console.log(getSearchItems);
+          this.searchItems = getSearchItems;
           this.loadingSearchByItems = false;
         }
       });
