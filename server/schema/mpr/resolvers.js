@@ -216,6 +216,12 @@ const resolvers = {
           let item = {};
           const attributes = [
             'idMaterial', 'bomDescription', 'bomSpecification', 'bomModel', 'bomBrand',
+            'bomQty', 'bomUnit', 'bomQtyRqd', 'bomQtyBalance', 'bomQtyStock', 'bomEta',
+            'bomQtyRec', 'bomDateRec', 'bomCurrSizeC', 'bomCurrSizeV', 'bomCurrEaC',
+            'bomCurrEaV', 'bomUsdEa', 'bomUsdUnit', 'bomUsdTotal', 'materialsProcessed',
+            'yetToPurchase', 'bomSupplier', 'bomPoDate', 'bomPoNo', 'bomRemarks', 'priority',
+            'bomEtaStatus', 'sr', 'isMpr', 'packing', 'hold', 'cancel', 'idHeader',
+            'idModule', 'colorClass',
           ];
           const where = { id: v.id };
 
@@ -233,8 +239,35 @@ const resolvers = {
             });
           }
 
+          item.bomQty = 0;
+          item.bomQtyRqd = 0;
+          item.bomQtyBalance = 0;
+          item.bomEta = null;
+          item.bomQtyRec = 0;
+          item.bomQtyStock = 0;
+          item.bomCurrSizeC = null;
+          item.bomCurrSizeV = 0;
+          item.bomCurrEaC = null;
+          item.bomCurrEaV = 0;
+          item.bomUsdEa = 0;
+          item.bomUsdUnit = 0;
+          item.bomUsdTotal = 0;
+          item.bomSupplier = null;
+          item.bomPoDate = null;
+          item.bomPoNo = null;
+          item.bomRemarks = null;
+          item.bomEtaStatus = null;
+          item.materialsProcessed = 0;
+          item.yetToPurchase = 0;
+          item.priority = null;
+          item.sr = 0;
+          item.hold = 0;
+          item.cancel = 0;
           item.isMpr = 1;
           item.idMpr = v.idMpr;
+          item.idHeader = null;
+          item.idModule = null;
+          item.colorClass = null;
           item.timestamp = Date.now();
 
           const newItem = new MPRITEM(item);

@@ -82,8 +82,48 @@ export const AddMprByItems = gql`
   mutation addMprByItems($input: [AddMprByItemsInput]) {
     addMprByItems(input: $input) {
       id
+      idMaterial
+      bomDescription
+      bomSpecification
+      bomModel
+      bomBrand
+      bomQty
+      bomUnit
+      bomQtyRqd
+      bomQtyBalance
+      bomQtyStock
+      bomEta
+      bomQtyRec
+      bomDateRec
+      bomCurrSizeC
+      bomCurrSizeV
+      bomCurrEaC
+      bomCurrEaV
+      bomUsdEa
+      bomUsdUnit
+      bomUsdTotal
+      materialsProcessed
+      yetToPurchase
+      bomSupplier
+      bomPoDate
+      bomPoNo
+      bomRemarks
+      priority
+      bomEtaStatus
+      sr
       isMpr
+      packing
+      hold
+      cancel
       idMpr
+      idHeader
+      idModule
+      colorClass
+      module {
+        id
+        hid
+        header
+      }
     }
   }
 `;

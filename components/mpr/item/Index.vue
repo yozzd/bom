@@ -260,7 +260,7 @@
           type="index"
           label="No"
           align="center"
-          width="40"
+          width="50"
         ></el-table-column>
         <el-table-column
           label="Description"
@@ -390,6 +390,29 @@ export default {
           mutation: AddMprByItems,
           variables: {
             input: this.itemsSelection,
+          },
+          update: async (store, { data: { addMprByItems } }) => {
+            const cdata = store.readQuery({
+              query: GetOneMPR,
+              variables: {
+                id: parseInt(this.$route.params.id, 10),
+              },
+            });
+
+            await Promise.all(
+              addMprByItems.map((v) => {
+                cdata.getOneMPR.items.push(v);
+                return true;
+              }),
+            );
+
+            store.writeQuery({
+              query: GetOneMPR,
+              variables: {
+                id: parseInt(this.$route.params.id, 10),
+              },
+              data: cdata,
+            });
           },
         });
 
