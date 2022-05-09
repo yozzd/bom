@@ -277,3 +277,12 @@ export const GetAllWoRunning = gql`
     }
   }
 `;
+
+export const SearchItems = gql`
+  query searchItems($key: String) {
+    searchItems(key: $key) {
+      id
+      bomDescription
+    }
+  }
+`;
