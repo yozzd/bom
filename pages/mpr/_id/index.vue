@@ -1,5 +1,5 @@
 <template>
-  <MprDetail />
+  <MprItem />
 </template>
 
 <script>

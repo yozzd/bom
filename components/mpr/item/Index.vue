@@ -195,7 +195,7 @@
 </template>
 
 <script>
-import { GetOneMPR } from '../../apollo/mpr/query';
+import { GetOneMPR } from '../../../apollo/mpr/query';
 
 export default {
   data() {
