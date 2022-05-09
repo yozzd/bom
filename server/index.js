@@ -1,8 +1,8 @@
 const fastify = require('fastify')({ logger: true });
 const mercurius = require('mercurius');
 const MercuriusGQLUpload = require('mercurius-upload');
-const cors = require('fastify-cors');
-const jwt = require('fastify-jwt');
+const cors = require('@fastify/cors');
+const jwt = require('@fastify/jwt');
 const { makeExecutableSchema } = require('@graphql-tools/schema');
 
 const sequelize = require('./config/db');
