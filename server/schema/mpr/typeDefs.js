@@ -11,6 +11,7 @@ const typeDefs = `
     createMpr(input: CreateMprInput): MPR
     updateMpr(input: UpdateMprInput): MPR
     deleteMpr(input: [DeleteMprInput]): [MPR]
+    addMprByItems(input: [AddMprByItemsInput]): [MPRITEM]
   }
 
   type MPR {
@@ -91,6 +92,7 @@ const typeDefs = `
     packing: Int
     hold: Int
     cancel: Int
+    idMpr: Int
     idHeader: Int
     idModule: Int
     colorClass: String
@@ -132,6 +134,12 @@ const typeDefs = `
 
   input DeleteMprInput {
     id: Int
+  }
+
+  input AddMprByItemsInput {
+    id: Int
+    isMpr: Int
+    idMpr: Int
   }
 `;
 

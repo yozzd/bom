@@ -208,6 +208,18 @@ const resolvers = {
 
       return input;
     }),
+    addMprByItems: isAuthenticated(async (_, { input }) => {
+      console.log(input);
+      // await Promise.all(
+      //   input.map(async (v) => {
+      //     await MPR.destroy({
+      //       where: { id: v.id },
+      //     });
+      //   }),
+      // );
+
+      // return input;
+    }),
   },
 };
 

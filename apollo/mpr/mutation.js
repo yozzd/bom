@@ -77,3 +77,13 @@ export const DeleteMpr = gql`
     }
   }
 `;
+
+export const AddMprByItems = gql`
+  mutation addMprByItems($input: [AddMprByItemsInput]) {
+    addMprByItems(input: $input) {
+      id
+      isMpr
+      idMpr
+    }
+  }
+`;

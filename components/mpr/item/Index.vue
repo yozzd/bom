@@ -331,6 +331,7 @@
 
 <script>
 import { GetOneMPR } from '../../../apollo/mpr/query';
+import { AddMprByItems } from '../../../apollo/mpr/mutation';
 import { GetSearchItems } from '../../../apollo/bom/query';
 
 export default {
@@ -375,9 +376,30 @@ export default {
       });
     },
     handleItemsSelection(arr) {
-      this.itemsSelection = arr.map((v) => ({ id: v.id, isMpr: v.isMpr }));
+      this.itemsSelection = arr.map((v) => ({
+        id: v.id,
+        isMpr: v.isMpr,
+        idMpr: parseInt(this.$route.params.id, 10),
+      }));
+      console.log(this.itemsSelection);
     },
-    handleSaveByItems() {},
+    async handleSaveByItems() {
+      try {
+        this.loadingSaveByItems = false;
+
+        await this.$apollo.mutate({
+          mutation: AddMprByItems,
+          variables: {
+            input: this.itemsSelection,
+          },
+        });
+
+        return true;
+      } catch ({ graphQLErrors, networkError }) {
+        this.errors = graphQLErrors || networkError.result.errors;
+        return false;
+      }
+    },
   },
   apollo: {
     getOneMPR: {
