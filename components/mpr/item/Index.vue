@@ -24,6 +24,7 @@
           ITEMS
         </el-breadcrumb-item>
       </el-breadcrumb>
+
       <div class="flex space-x-4 items-center">
         <div class="flex flex-col space-y-4 w-full my-4">
           <div class="flex space-x-8 items-center">
@@ -173,6 +174,28 @@
           </table>
         </div>
       </div>
+
+      <div>
+        <div class="flex my-4 space-x-4 items-center">
+          <el-dropdown trigger="click" @command="handleCommand">
+            <el-button type="primary">
+              <client-only>
+                <v-icon name="ri-search-line" class="remixicons w-4 h-4" />
+              </client-only>
+              Search
+              <client-only>
+                <v-icon name="ri-arrow-down-s-line" class="remixicons w-4 h-4" />
+              </client-only>
+            </el-button>
+            <el-dropdown-menu slot="dropdown">
+              <el-dropdown-item command="a">
+                By Item
+              </el-dropdown-item>
+            </el-dropdown-menu>
+          </el-dropdown>
+        </div>
+      </div>
+
       <div v-if="modules.length">
         <div
           v-for="h in modules"
@@ -206,6 +229,9 @@ export default {
       modules: [],
       items: [],
     };
+  },
+  methods: {
+    handleCommand() {},
   },
   apollo: {
     getOneMPR: {
