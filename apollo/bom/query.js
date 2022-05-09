@@ -265,7 +265,7 @@ export const GetWoModules = gql`
   }
 `;
 
-export default gql`
+export const GetAllWoRunning = gql`
   query getAllWoRunning($key: String) {
     getAllWoRunning(key: $key) {
       id

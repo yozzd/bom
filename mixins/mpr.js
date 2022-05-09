@@ -1,4 +1,4 @@
-import GetAllWoRunning from '../apollo/bom/query';
+import { GetAllWoRunning } from '../apollo/bom/query';
 
 export default {
   data() {
