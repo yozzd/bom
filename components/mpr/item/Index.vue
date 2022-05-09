@@ -263,7 +263,7 @@
 
 <script>
 import { GetOneMPR } from '../../../apollo/mpr/query';
-import { SearchItems } from '../../../apollo/bom/query';
+import { GetSearchItems } from '../../../apollo/bom/query';
 
 export default {
   data() {
@@ -292,16 +292,16 @@ export default {
         if (valid) {
           this.loadingSearchByItems = true;
 
-          const { data: { searchItems } } = await this.$apollo.query({
-            query: SearchItems,
+          const { data: { getSearchItems } } = await this.$apollo.query({
+            query: GetSearchItems,
             variables: { key: this.formItems.keyword },
             prefetch: false,
             error({ graphQLErrors, networkError }) {
               this.errors = graphQLErrors || networkError.result.errors;
             },
           });
-          // this.searchItems = searchItems;
-          console.log(searchItems);
+          // this.searchItems = getSearchItems;
+          console.log(getSearchItems);
           this.loadingSearchByItems = false;
         }
       });

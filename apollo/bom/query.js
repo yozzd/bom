@@ -278,11 +278,12 @@ export const GetAllWoRunning = gql`
   }
 `;
 
-export const SearchItems = gql`
-  query searchItems($key: String) {
-    searchItems(key: $key) {
+export const GetSearchItems = gql`
+  query getSearchItems($key: String) {
+    getSearchItems(key: $key) {
       id
       bomDescription
+      bomSpecification
     }
   }
 `;

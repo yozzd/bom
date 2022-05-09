@@ -342,6 +342,19 @@ const resolvers = {
 
       return wo;
     }),
+    getSearchItems: isAuthenticated(async (_, { key }) => {
+      const items = await WOITEM.findAll({
+        attributes: ['id', 'bomDescription', 'bomSpecification'],
+        where: {
+          [Op.or]: [
+            { bomDescription: { [Op.substring]: key } },
+            { bomSpecification: { [Op.substring]: key } },
+          ],
+        },
+      });
+
+      return items;
+    }),
   },
   Mutation: {
     updateItem: isAuthenticated(async (_, { input }) => {
