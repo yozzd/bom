@@ -189,7 +189,7 @@
             </el-button>
             <el-dropdown-menu slot="dropdown">
               <el-dropdown-item command="a">
-                By Item
+                By Items
               </el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
@@ -214,6 +214,46 @@
       </div>
       <div></div>
     </div>
+
+    <el-dialog
+      title="Search By Items"
+      :visible.sync="showSearchByItemsDialog"
+      :close-on-click-modal="false"
+      :close-on-press-escape="false"
+      width="40%"
+    >
+      <el-form
+        ref="formItems"
+        :model="formItems"
+        :rules="rulesItems"
+        :hide-required-asterisk="true"
+        :inline="true"
+      >
+        <el-form-item label="Keyword" prop="keyword">
+          <el-input v-model="formItems.keyword"></el-input>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" @click="handleSearchByItems">
+            Search
+          </el-button>
+        </el-form-item>
+      </el-form>
+      <span slot="footer" class="dialog-footer">
+        <el-button
+          type="text"
+          @click="showSearchByItemsDialog = false"
+        >
+          Cancel
+        </el-button>
+        <el-button
+          type="primary"
+          :loading="loadingSaveByItems"
+          @click="handleSaveByItems"
+        >
+          Save
+        </el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 
@@ -228,10 +268,20 @@ export default {
       wo: {},
       modules: [],
       items: [],
+      showSearchByItemsDialog: false,
+      formItems: {},
+      rulesItems: {
+        keyword: [{ required: true, message: 'This field is required' }],
+      },
+      loadingSaveByItems: false,
     };
   },
   methods: {
-    handleCommand() {},
+    handleCommand(command) {
+      if (command === 'a') this.showSearchByItemsDialog = true;
+    },
+    handleSearchByItems() {},
+    handleSaveByItems() {},
   },
   apollo: {
     getOneMPR: {
