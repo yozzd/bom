@@ -343,31 +343,26 @@ const resolvers = {
       return wo;
     }),
     getSearchItems: isAuthenticated(async (_, { key }) => {
-      const bomItems = await WOITEM.findAll({
-        attributes: [
-          'id', 'bomDescription', 'bomSpecification', 'bomModel', 'bomBrand',
-          'bomSupplier',
+      const attributes = [
+        'id', 'bomDescription', 'bomSpecification', 'bomModel', 'bomBrand',
+        'bomSupplier',
+      ];
+      const where = {
+        [Op.or]: [
+          { bomDescription: { [Op.substring]: key } },
+          { bomSpecification: { [Op.substring]: key } },
         ],
-        where: {
-          [Op.or]: [
-            { bomDescription: { [Op.substring]: key } },
-            { bomSpecification: { [Op.substring]: key } },
-          ],
-        },
+      };
+
+      const bomItems = await WOITEM.findAll({
+        attributes,
+        where,
         raw: true,
       });
 
       const mprItems = await MPRITEM.findAll({
-        attributes: [
-          'id', 'bomDescription', 'bomSpecification', 'bomModel', 'bomBrand',
-          'bomSupplier',
-        ],
-        where: {
-          [Op.or]: [
-            { bomDescription: { [Op.substring]: key } },
-            { bomSpecification: { [Op.substring]: key } },
-          ],
-        },
+        attributes,
+        where,
         raw: true,
       });
 
