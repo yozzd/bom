@@ -5,7 +5,7 @@ const { GraphQLUpload } = require('graphql-upload');
 const { Op } = require('sequelize');
 const { pssUrl, pssAuth } = require('../../config');
 const {
-  WO, WOMODULE, MPR, MPRMODULE, MPRITEM, OUTSTANDINGPO,
+  WO, WOMODULE, WOITEM, MPR, MPRMODULE, MPRITEM, OUTSTANDINGPO,
 } = require('../relations');
 const { isAuthenticated } = require('../auth/service');
 const { whereStatus, whereUser } = require('./methods');
@@ -209,16 +209,41 @@ const resolvers = {
       return input;
     }),
     addMprByItems: isAuthenticated(async (_, { input }) => {
-      console.log(input);
-      // await Promise.all(
-      //   input.map(async (v) => {
-      //     await MPR.destroy({
-      //       where: { id: v.id },
-      //     });
-      //   }),
-      // );
+      const saved = [];
 
-      // return input;
+      await Promise.all(
+        input.map(async (v) => {
+          let item = {};
+          const attributes = [
+            'idMaterial', 'bomDescription', 'bomSpecification', 'bomModel', 'bomBrand',
+          ];
+          const where = { id: v.id };
+
+          if (v.isMpr) {
+            item = await MPRITEM.findOne({
+              attributes,
+              where,
+              raw: true,
+            });
+          } else {
+            item = await WOITEM.findOne({
+              attributes,
+              where,
+              raw: true,
+            });
+          }
+
+          item.isMpr = 1;
+          item.idMpr = v.idMpr;
+          item.timestamp = Date.now();
+
+          const newItem = new MPRITEM(item);
+          const save = await newItem.save();
+          saved.push(save);
+        }),
+      );
+
+      return saved;
     }),
   },
 };

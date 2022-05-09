@@ -381,7 +381,6 @@ export default {
         isMpr: v.isMpr,
         idMpr: parseInt(this.$route.params.id, 10),
       }));
-      console.log(this.itemsSelection);
     },
     async handleSaveByItems() {
       try {

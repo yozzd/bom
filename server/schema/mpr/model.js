@@ -363,15 +363,12 @@ const MPRITEM = sequelize.define('item', {
   },
   idWo: {
     type: DataTypes.INTEGER,
-    allowNull: false,
   },
   idModule: {
     type: DataTypes.INTEGER,
-    allowNull: false,
   },
   idHeader: {
     type: DataTypes.INTEGER,
-    allowNull: false,
   },
   idMaterial: {
     type: DataTypes.BIGINT(20),
