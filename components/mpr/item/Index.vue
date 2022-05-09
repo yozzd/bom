@@ -233,7 +233,11 @@
           <el-input v-model="formItems.keyword"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="handleSearchByItems">
+          <el-button
+            type="primary"
+            :loading="loadingSearchByItems"
+            @click="handleSearchByItems"
+          >
             Search
           </el-button>
         </el-form-item>
@@ -273,6 +277,7 @@ export default {
       rulesItems: {
         keyword: [{ required: true, message: 'This field is required' }],
       },
+      loadingSearchByItems: false,
       loadingSaveByItems: false,
     };
   },
@@ -280,7 +285,13 @@ export default {
     handleCommand(command) {
       if (command === 'a') this.showSearchByItemsDialog = true;
     },
-    handleSearchByItems() {},
+    handleSearchByItems() {
+      this.$refs.formItems.validate(async (valid) => {
+        if (valid) {
+          this.loadingSearchByItems = true;
+        }
+      });
+    },
     handleSaveByItems() {},
   },
   apollo: {
