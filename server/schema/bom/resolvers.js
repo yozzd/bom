@@ -345,7 +345,7 @@ const resolvers = {
     getSearchItems: isAuthenticated(async (_, { key }) => {
       const attributes = [
         'id', 'bomDescription', 'bomSpecification', 'bomModel', 'bomBrand',
-        'bomSupplier',
+        'bomSupplier', 'isMpr',
       ];
       const where = {
         [Op.or]: [

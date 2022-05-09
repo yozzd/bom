@@ -248,13 +248,19 @@
         size="mini"
         border
         class="mt-4"
+        @selection-change="handleItemsSelection"
       >
+        <el-table-column
+          type="selection"
+          width="40"
+          align="center"
+          fixed
+        ></el-table-column>
         <el-table-column
           type="index"
           label="No"
           align="center"
           width="40"
-          fixed
         ></el-table-column>
         <el-table-column
           label="Description"
@@ -313,6 +319,7 @@
         <el-button
           type="primary"
           :loading="loadingSaveByItems"
+          :disabled="!itemsSelection.length"
           @click="handleSaveByItems"
         >
           Save
@@ -341,6 +348,7 @@ export default {
       },
       loadingSearchByItems: false,
       searchItems: [],
+      itemsSelection: [],
       loadingSaveByItems: false,
     };
   },
@@ -365,6 +373,9 @@ export default {
           this.loadingSearchByItems = false;
         }
       });
+    },
+    handleItemsSelection(arr) {
+      this.itemsSelection = arr.map((v) => ({ id: v.id, isMpr: v.isMpr }));
     },
     handleSaveByItems() {},
   },

@@ -287,6 +287,7 @@ export const GetSearchItems = gql`
       bomModel
       bomBrand
       bomSupplier
+      isMpr
     }
   }
 `;
