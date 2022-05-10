@@ -193,6 +193,16 @@
               </el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
+          <el-button
+            type="danger"
+            :disabled="!multipleSelection.length"
+            @click="handleDelete"
+          >
+            <client-only>
+              <v-icon name="ri-delete-bin-2-line" class="remixicons w-4 h-4" />
+            </client-only>
+            Delete
+          </el-button>
         </div>
       </div>
 
@@ -269,6 +279,7 @@ export default {
         isMpr: v.isMpr,
       }));
     },
+    handleDelete() {},
   },
   apollo: {
     getOneMPR: {
