@@ -399,12 +399,8 @@ export default {
               },
             });
 
-            await Promise.all(
-              addMprByItems.map((v) => {
-                cdata.getOneMPR.items.push(v);
-                return true;
-              }),
-            );
+            const itm = [...cdata.getOneMPR.items];
+            cdata.getOneMPR.items = [...itm, ...addMprByItems];
 
             store.writeQuery({
               query: GetOneMPR,
