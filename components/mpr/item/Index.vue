@@ -205,12 +205,25 @@
           <div class="text-xs font-bold my-4">
             {{ h.moduleChar }} {{ h.moduleName }}
           </div>
-          <index-data-table :data="h.items" :wo="wo" :mpr="mpr" from-mpr />
+          <index-data-table
+            :data="h.items"
+            :wo="wo"
+            :mpr="mpr"
+            @selection-change="handleSelectionChange"
+            from-mpr
+          />
           <div></div>
         </div>
       </div>
       <div v-if="items.length">
-        <index-data-table :data="items" :wo="wo" :mpr="mpr" from-mpr class="my-4" />
+        <index-data-table
+          :data="items"
+          :wo="wo"
+          :mpr="mpr"
+          from-mpr
+          @selection-change="handleSelectionChange"
+          class="my-4"
+        />
       </div>
       <div></div>
     </div>
@@ -236,6 +249,7 @@ export default {
       modules: [],
       items: [],
       showItemsDialog: false,
+      multipleSelection: [],
     };
   },
   methods: {
@@ -248,6 +262,12 @@ export default {
     updateList(value) {
       this.items = {};
       this.items = value;
+    },
+    handleSelectionChange(arr) {
+      this.multipleSelection = arr.map((v) => ({
+        id: v.id,
+        isMpr: v.isMpr,
+      }));
     },
   },
   apollo: {

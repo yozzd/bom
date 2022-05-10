@@ -6,12 +6,20 @@
       border
       class="my-4"
       :row-class-name="highlighter"
+      @selection-change="selection => $emit('selection-change', selection)"
     >
+      <el-table-column
+        v-if="$auth.$state.user.section === 211 || $auth.$state.user.section === 212 || fromMpr"
+        type="selection"
+        width="40"
+        align="center"
+        fixed
+      ></el-table-column>
       <el-table-column
         type="index"
         label="No"
         align="center"
-        width="40"
+        width="50"
         fixed
       ></el-table-column>
       <el-table-column label="CD" align="center" width="60" fixed>
@@ -27,7 +35,7 @@
       >
         <template slot-scope="scope">
           <a
-            v-if="$auth.$state.user.section === 211 || $auth.$state.user.section === 212"
+            v-if="$auth.$state.user.section === 211 || $auth.$state.user.section === 212 || fromMpr"
             @click="showEditItem(scope.row)"
           >
             {{ scope.row.bomDescription }}
