@@ -155,8 +155,8 @@
 
 <script>
 import { GetAllWoModules, GetSearchModules } from '../../../apollo/bom/query';
-// import { GetOneMPR } from '../../../apollo/mpr/query';
-// import { AddMprByModules } from '../../../apollo/mpr/mutation';
+import { GetOneMPR } from '../../../apollo/mpr/query';
+import { AddMprByItems } from '../../../apollo/mpr/mutation';
 
 export default {
   props: {
@@ -251,42 +251,42 @@ export default {
       try {
         this.loadingSave = false;
 
-        // await this.$apollo.mutate({
-        //   mutation: AddMprByModules,
-        //   variables: {
-        //     input: this.multipleSelection,
-        //   },
-        //   update: async (store, { data: { addMprByModules } }) => {
-        //     const cdata = store.readQuery({
-        //       query: GetOneMPR,
-        //       variables: {
-        //         id: parseInt(this.$route.params.id, 10),
-        //       },
-        //     });
+        await this.$apollo.mutate({
+          mutation: AddMprByItems,
+          variables: {
+            input: this.multipleSelection,
+          },
+          update: async (store, { data: { addMprByItems } }) => {
+            const cdata = store.readQuery({
+              query: GetOneMPR,
+              variables: {
+                id: parseInt(this.$route.params.id, 10),
+              },
+            });
 
-        //     const itm = [...cdata.getOneMPR.items];
-        //     cdata.getOneMPR.items = [...itm, ...addMprByModules];
+            const itm = [...cdata.getOneMPR.items];
+            cdata.getOneMPR.items = [...itm, ...addMprByItems];
 
-        //     this.$emit('update', cdata.getOneMPR.items);
+            this.$emit('update', cdata.getOneMPR.items);
 
-        //     store.writeQuery({
-        //       query: GetOneMPR,
-        //       variables: {
-        //         id: parseInt(this.$route.params.id, 10),
-        //       },
-        //       data: cdata,
-        //     });
-        //   },
-        // });
+            store.writeQuery({
+              query: GetOneMPR,
+              variables: {
+                id: parseInt(this.$route.params.id, 10),
+              },
+              data: cdata,
+            });
+          },
+        });
 
-        // this.$message({
-        //   type: 'success',
-        //   message: 'Data has been saved successfully',
-        //   onClose: setTimeout(() => {
-        //     this.handleCancel();
-        //     this.loading = false;
-        //   }, 1000),
-        // });
+        this.$message({
+          type: 'success',
+          message: 'Data has been saved successfully',
+          onClose: setTimeout(() => {
+            this.handleCancel();
+            this.loading = false;
+          }, 1000),
+        });
 
         return true;
       } catch ({ graphQLErrors, networkError }) {
