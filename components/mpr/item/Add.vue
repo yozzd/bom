@@ -126,6 +126,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    wo: {
+      type: Object,
+      default: () => ({}),
+    },
   },
   data() {
     return {
@@ -170,6 +174,7 @@ export default {
         id: v.id,
         isMpr: v.isMpr,
         idMpr: parseInt(this.$route.params.id, 10),
+        idWo: parseInt(this.wo.id, 10),
       }));
     },
     handleCancel() {

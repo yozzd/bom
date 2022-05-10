@@ -217,6 +217,7 @@
 
     <MprItemAdd
       :show="showItemsDialog"
+      :wo="wo"
       @close="closeItemsDialog"
       @update="updateList"
     />

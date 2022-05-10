@@ -140,6 +140,7 @@ const typeDefs = `
     id: Int
     isMpr: Int
     idMpr: Int
+    idWo: Int
   }
 `;
 

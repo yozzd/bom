@@ -266,6 +266,7 @@ const resolvers = {
           item.cancel = 0;
           item.isMpr = 1;
           item.idMpr = v.idMpr;
+          item.idWo = v.idWo;
           item.idHeader = null;
           item.idModule = null;
           item.colorClass = null;
