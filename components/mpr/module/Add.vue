@@ -13,10 +13,48 @@
         :model="form"
         :rules="rules"
         :hide-required-asterisk="true"
-        :inline="true"
+        label-width="120px"
+        class="w-1/2"
       >
-        <el-form-item label="Keyword" prop="keyword">
-          <el-input v-model="form.keyword"></el-input>
+        <el-form-item
+          label="Wo No."
+          prop="wo"
+        >
+          <el-select
+            v-model="form.wo"
+            value-key="id"
+            remote
+            :remote-method="woAllRemote"
+            :loading="woAllLoading"
+            filterable
+            @change="handleWoChange"
+          >
+            <el-option
+              v-for="item in woAll"
+              :key="item.id"
+              :label="item.woNo"
+              :value="item"
+            >
+            </el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item
+          label="Modules"
+          prop="module"
+        >
+          <el-select
+            v-model="form.module"
+            filterable
+          >
+            <el-option
+              v-for="item in woModules"
+              :key="item.id"
+              :label="`${item.hid} ${item.header }`"
+              :value="item.id"
+            >
+              <span>{{ item.hid }} {{ item.header }}</span>
+            </el-option>
+          </el-select>
         </el-form-item>
         <el-form-item>
           <el-button
@@ -116,6 +154,7 @@
 </template>
 
 <script>
+import { GetAllWoModules } from '../../../apollo/bom/query';
 // import { GetOneMPR } from '../../../apollo/mpr/query';
 // import { AddMprByModules } from '../../../apollo/mpr/mutation';
 // import { GetSearchModules } from '../../../apollo/bom/query';
@@ -135,13 +174,16 @@ export default {
     return {
       form: {},
       rules: {
-        keyword: [{ required: true, message: 'This field is required' }],
+        wo: [{ required: true, message: 'This field is required', trigger: 'change' }],
       },
       loadingSearch: false,
       searchModules: [],
       multipleSelection: [],
       loadingSave: false,
       visible: false,
+      woAll: [],
+      woModules: [],
+      woAllLoading: false,
       errors: [],
     };
   },
@@ -151,6 +193,26 @@ export default {
     },
   },
   methods: {
+    async woAllRemote(key) {
+      if (key) {
+        this.woAllLoading = true;
+        const { data: { getAllWoModules } } = await this.$apollo.query({
+          query: GetAllWoModules,
+          variables: { key },
+          prefetch: false,
+          error({ graphQLErrors, networkError }) {
+            this.errors = graphQLErrors || networkError.result.errors;
+          },
+        });
+        this.woAll = getAllWoModules;
+        this.woAllLoading = false;
+      } else {
+        this.woAll = [];
+      }
+    },
+    handleWoChange({ modules }) {
+      this.woModules = modules;
+    },
     handleSearchByModules() {
       this.$refs.form.validate(async (valid) => {
         if (valid) {

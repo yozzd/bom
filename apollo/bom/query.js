@@ -278,6 +278,20 @@ export const GetAllWoRunning = gql`
   }
 `;
 
+export const GetAllWoModules = gql`
+  query getAllWoModules($key: String) {
+    getAllWoModules(key: $key) {
+      id
+      woNo
+      modules {
+        id
+        hid
+        header
+      }
+    }
+  }
+`;
+
 export const GetSearchItems = gql`
   query getSearchItems($key: String) {
     getSearchItems(key: $key) {

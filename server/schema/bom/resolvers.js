@@ -342,6 +342,18 @@ const resolvers = {
 
       return wo;
     }),
+    getAllWoModules: isAuthenticated(async (_, { key }) => {
+      const wo = await WO.findAll({
+        attributes: ['id', 'woNo'],
+        where: { woNo: { [Op.substring]: key } },
+        include: [{
+          model: WOMODULE,
+          attributes: ['id', 'hid', 'header'],
+        }],
+      });
+
+      return wo;
+    }),
     getSearchItems: isAuthenticated(async (_, { key }) => {
       const attributes = [
         'id', 'bomDescription', 'bomSpecification', 'bomModel', 'bomBrand',

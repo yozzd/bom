@@ -5,6 +5,7 @@ const typeDefs = `
     getOneWO(idLt:Int, id: Int): WODetail
     getWoModules(idWo: Int): [WOMODULE]
     getAllWoRunning(key: String): [WO]
+    getAllWoModules(key: String): [WO]
     getSearchItems(key: String): [WOITEM]
   }
 
