@@ -29,7 +29,6 @@
         </el-form-item>
       </el-form>
       <el-table
-        v-if="searchItems.length"
         :data="searchItems"
         size="mini"
         border

@@ -67,7 +67,6 @@
         </el-form-item>
       </el-form>
       <el-table
-        v-if="searchModules.length"
         :data="searchModules"
         size="mini"
         border
@@ -244,6 +243,8 @@ export default {
       this.$refs.form.resetFields();
       this.searchModules = [];
       this.multipleSelection = [];
+      this.woAll = [];
+      this.woModules = [];
       this.errors = [];
       this.$emit('close', false);
     },
