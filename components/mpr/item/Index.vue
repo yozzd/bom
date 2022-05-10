@@ -312,7 +312,7 @@
       <span slot="footer" class="dialog-footer">
         <el-button
           type="text"
-          @click="showSearchByItemsDialog = false"
+          @click="handleCancelByItems"
         >
           Cancel
         </el-button>
@@ -382,6 +382,12 @@ export default {
         idMpr: parseInt(this.$route.params.id, 10),
       }));
     },
+    handleCancelByItems() {
+      this.$refs.formItems.resetFields();
+      this.searchItems = [];
+      this.itemsSelection = [];
+      this.showSearchByItemsDialog = false;
+    },
     async handleSaveByItems() {
       try {
         this.loadingSaveByItems = false;
@@ -410,6 +416,15 @@ export default {
               data: cdata,
             });
           },
+        });
+
+        this.$message({
+          type: 'success',
+          message: 'Data has been saved successfully',
+          onClose: setTimeout(() => {
+            this.handleCancelByItems();
+            this.loading = false;
+          }, 1000),
         });
 
         return true;

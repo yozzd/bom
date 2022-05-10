@@ -244,6 +244,7 @@ const resolvers = {
           item.bomQtyBalance = 0;
           item.bomEta = null;
           item.bomQtyRec = 0;
+          item.bomDateRec = null;
           item.bomQtyStock = 0;
           item.bomCurrSizeC = null;
           item.bomCurrSizeV = 0;
