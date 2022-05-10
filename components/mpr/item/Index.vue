@@ -215,124 +215,16 @@
       <div></div>
     </div>
 
-    <el-dialog
-      title="Search By Items"
-      :visible.sync="showSearchByItemsDialog"
-      :close-on-click-modal="false"
-      :close-on-press-escape="false"
-      width="60%"
-    >
-      <el-form
-        ref="formItems"
-        :model="formItems"
-        :rules="rulesItems"
-        :hide-required-asterisk="true"
-        :inline="true"
-      >
-        <el-form-item label="Keyword" prop="keyword">
-          <el-input v-model="formItems.keyword"></el-input>
-        </el-form-item>
-        <el-form-item>
-          <el-button
-            type="primary"
-            :loading="loadingSearchByItems"
-            @click="handleSearchByItems"
-          >
-            Search
-          </el-button>
-        </el-form-item>
-      </el-form>
-      <el-table
-        v-if="searchItems.length"
-        :data="searchItems"
-        size="mini"
-        border
-        class="mt-4"
-        @selection-change="handleItemsSelection"
-      >
-        <el-table-column
-          type="selection"
-          width="40"
-          align="center"
-          fixed
-        ></el-table-column>
-        <el-table-column
-          type="index"
-          label="No"
-          align="center"
-          width="50"
-        ></el-table-column>
-        <el-table-column
-          label="Description"
-          width="180"
-          :show-overflow-tooltip="true"
-        >
-          <template slot-scope="scope">
-            {{ scope.row.bomDescription }}
-          </template>
-        </el-table-column>
-        <el-table-column
-          label="Specification"
-          width="180"
-          :show-overflow-tooltip="true"
-        >
-          <template slot-scope="scope">
-            {{ scope.row.bomSpecification }}
-          </template>
-        </el-table-column>
-        <el-table-column
-          label="Model"
-          width="140"
-          :show-overflow-tooltip="true"
-        >
-          <template slot-scope="scope">
-            {{ scope.row.bomModel }}
-          </template>
-        </el-table-column>
-        <el-table-column
-          label="Brand"
-          width="140"
-          :show-overflow-tooltip="true"
-        >
-          <template slot-scope="scope">
-            {{ scope.row.bomBrand }}
-          </template>
-        </el-table-column>
-        <el-table-column
-          label="Supplier"
-          width="140"
-          :show-overflow-tooltip="true"
-        >
-          <template slot-scope="scope">
-            {{ scope.row.bomSupplier }}
-          </template>
-        </el-table-column>
-        <el-table-column label="" min-width="50"></el-table-column>
-      </el-table>
-      <span slot="footer" class="dialog-footer">
-        <el-button
-          type="text"
-          @click="handleCancelByItems"
-        >
-          Cancel
-        </el-button>
-        <el-button
-          type="primary"
-          :loading="loadingSaveByItems"
-          :disabled="!itemsSelection.length"
-          @click="handleSaveByItems"
-        >
-          Save
-        </el-button>
-      </span>
-    </el-dialog>
+    <MprItemAdd
+      :show="showItemsDialog"
+      @close="closeItemsDialog"
+      @update="updateList"
+    />
   </div>
 </template>
 
 <script>
 import { GetOneMPR } from '../../../apollo/mpr/query';
-import { AddMprByItems } from '../../../apollo/mpr/mutation';
-import { GetSearchItems } from '../../../apollo/bom/query';
 
 export default {
   data() {
@@ -342,96 +234,19 @@ export default {
       wo: {},
       modules: [],
       items: [],
-      showSearchByItemsDialog: false,
-      formItems: {},
-      rulesItems: {
-        keyword: [{ required: true, message: 'This field is required' }],
-      },
-      loadingSearchByItems: false,
-      searchItems: [],
-      itemsSelection: [],
-      loadingSaveByItems: false,
+      showItemsDialog: false,
     };
   },
   methods: {
     handleCommand(command) {
-      if (command === 'a') this.showSearchByItemsDialog = true;
+      if (command === 'a') this.showItemsDialog = true;
     },
-    handleSearchByItems() {
-      this.$refs.formItems.validate(async (valid) => {
-        if (valid) {
-          this.loadingSearchByItems = true;
-
-          const { data: { getSearchItems } } = await this.$apollo.query({
-            query: GetSearchItems,
-            variables: { key: this.formItems.keyword },
-            prefetch: false,
-            error({ graphQLErrors, networkError }) {
-              this.errors = graphQLErrors || networkError.result.errors;
-            },
-          });
-          this.searchItems = getSearchItems;
-          this.loadingSearchByItems = false;
-        }
-      });
+    closeItemsDialog(value) {
+      this.showItemsDialog = value;
     },
-    handleItemsSelection(arr) {
-      this.itemsSelection = arr.map((v) => ({
-        id: v.id,
-        isMpr: v.isMpr,
-        idMpr: parseInt(this.$route.params.id, 10),
-      }));
-    },
-    handleCancelByItems() {
-      this.$refs.formItems.resetFields();
-      this.searchItems = [];
-      this.itemsSelection = [];
-      this.showSearchByItemsDialog = false;
-    },
-    async handleSaveByItems() {
-      try {
-        this.loadingSaveByItems = false;
-
-        await this.$apollo.mutate({
-          mutation: AddMprByItems,
-          variables: {
-            input: this.itemsSelection,
-          },
-          update: async (store, { data: { addMprByItems } }) => {
-            const cdata = store.readQuery({
-              query: GetOneMPR,
-              variables: {
-                id: parseInt(this.$route.params.id, 10),
-              },
-            });
-
-            const itm = [...cdata.getOneMPR.items];
-            cdata.getOneMPR.items = [...itm, ...addMprByItems];
-
-            store.writeQuery({
-              query: GetOneMPR,
-              variables: {
-                id: parseInt(this.$route.params.id, 10),
-              },
-              data: cdata,
-            });
-          },
-        });
-
-        this.$message({
-          type: 'success',
-          message: 'Data has been saved successfully',
-          onClose: setTimeout(() => {
-            this.handleCancelByItems();
-            this.loading = false;
-          }, 1000),
-        });
-
-        return true;
-      } catch ({ graphQLErrors, networkError }) {
-        this.errors = graphQLErrors || networkError.result.errors;
-        return false;
-      }
+    updateList(value) {
+      this.items = {};
+      this.items = value;
     },
   },
   apollo: {
