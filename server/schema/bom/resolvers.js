@@ -431,6 +431,23 @@ const resolvers = {
 
       return save;
     }),
+    deleteItem: isAuthenticated(async (_, { input }) => {
+      await Promise.all(
+        input.map(async (v) => {
+          if (v.isMpr) {
+            await MPRITEM.destroy({
+              where: { id: v.id },
+            });
+          } else {
+            await WOITEM.destroy({
+              where: { id: v.id },
+            });
+          }
+        }),
+      );
+
+      return input;
+    }),
   },
 };
 

@@ -10,6 +10,7 @@ const typeDefs = `
 
   extend type Mutation {
     updateItem(input: UpdateItemInput): WOITEM
+    deleteItem(input: [DeleteItemInput]): [WOITEM]
   }
 
   type WODetail {
@@ -185,6 +186,11 @@ const typeDefs = `
     gbp: Float
     myr: Float
     fromMpr: Boolean
+  }
+
+  input DeleteItemInput {
+    id: Int
+    isMpr: Int
   }
 `;
 

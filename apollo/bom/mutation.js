@@ -42,4 +42,10 @@ export const UpdateItem = gql`
   }
 `;
 
-export const empty = null;
+export const DeleteItem = gql`
+  mutation deleteItem($input: [DeleteItemInput]) {
+    deleteItem(input: $input) {
+      id
+    }
+  }
+`;

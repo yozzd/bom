@@ -219,8 +219,8 @@
             :data="h.items"
             :wo="wo"
             :mpr="mpr"
-            @selection-change="handleSelectionChange"
             from-mpr
+            @selection-change="handleSelectionChange"
           />
           <div></div>
         </div>
@@ -231,8 +231,8 @@
           :wo="wo"
           :mpr="mpr"
           from-mpr
-          @selection-change="handleSelectionChange"
           class="my-4"
+          @selection-change="handleSelectionChange"
         />
       </div>
       <div></div>
@@ -248,7 +248,9 @@
 </template>
 
 <script>
+import pullAllBy from 'lodash/pullAllBy';
 import { GetOneMPR } from '../../../apollo/mpr/query';
+import { DeleteItem } from '../../../apollo/bom/mutation';
 
 export default {
   data() {
@@ -260,6 +262,7 @@ export default {
       items: [],
       showItemsDialog: false,
       multipleSelection: [],
+      cachedArr: [],
     };
   },
   methods: {
@@ -278,8 +281,52 @@ export default {
         id: v.id,
         isMpr: v.isMpr,
       }));
+      this.cachedArr = arr;
     },
-    handleDelete() {},
+    handleDelete() {
+      this.$confirm('This will permanently delete the data. Continue?', 'Warning', {
+        confirmButtonText: 'Yes',
+        cancelButtonText: 'Cancel',
+        type: 'warning',
+      }).then(async () => {
+        await this.$apollo.mutate({
+          mutation: DeleteItem,
+          variables: {
+            input: this.multipleSelection,
+          },
+          update: (store, { data: { deleteItem } }) => {
+            const cdata = store.readQuery({
+              query: GetOneMPR,
+              variables: {
+                id: parseInt(this.$route.params.id, 10),
+              },
+            });
+
+            pullAllBy(cdata.getOneMPR.items, deleteItem, 'id');
+            this.items = {};
+            this.items = cdata.getOneMPR.items;
+
+            store.writeQuery({
+              query: GetOneMPR,
+              variables: {
+                id: parseInt(this.$route.params.id, 10),
+              },
+              data: cdata,
+            });
+          },
+          optimisticResponse: {
+            __typename: 'Mutation',
+            deleteItem: this.cachedArr,
+          },
+        });
+
+        this.$message({
+          type: 'success',
+          message: 'Data has been delete successfully',
+        });
+        this.multipleSelection = [];
+      }).catch(() => {});
+    },
   },
   apollo: {
     getOneMPR: {
