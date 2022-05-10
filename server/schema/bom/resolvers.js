@@ -346,6 +346,7 @@ const resolvers = {
       const wo = await WO.findAll({
         attributes: ['id', 'woNo'],
         where: { woNo: { [Op.substring]: key } },
+        order: ['woNo', ['modules', 'hid']],
         include: [{
           model: WOMODULE,
           attributes: ['id', 'hid', 'header'],

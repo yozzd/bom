@@ -26,8 +26,8 @@
             remote
             :remote-method="woAllRemote"
             :loading="woAllLoading"
-            filterable
             @change="handleWoChange"
+            filterable
           >
             <el-option
               v-for="item in woAll"
@@ -211,6 +211,7 @@ export default {
       }
     },
     handleWoChange({ modules }) {
+      this.woModules = [];
       this.woModules = modules;
     },
     handleSearchByModules() {
