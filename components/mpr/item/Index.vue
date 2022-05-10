@@ -191,6 +191,9 @@
               <el-dropdown-item command="a">
                 By Items
               </el-dropdown-item>
+              <el-dropdown-item command="b">
+                By Modules
+              </el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
           <el-button
@@ -244,6 +247,13 @@
       @close="closeItemsDialog"
       @update="updateList"
     />
+
+    <MprModuleAdd
+      :show="showModulesDialog"
+      :wo="wo"
+      @close="closeModulesDialog"
+      @update="updateList"
+    />
   </div>
 </template>
 
@@ -261,6 +271,7 @@ export default {
       modules: [],
       items: [],
       showItemsDialog: false,
+      showModulesDialog: false,
       multipleSelection: [],
       cachedArr: [],
     };
@@ -268,9 +279,13 @@ export default {
   methods: {
     handleCommand(command) {
       if (command === 'a') this.showItemsDialog = true;
+      else this.showModulesDialog = true;
     },
     closeItemsDialog(value) {
       this.showItemsDialog = value;
+    },
+    closeModulesDialog(value) {
+      this.showModulesDialog = value;
     },
     updateList(value) {
       this.items = {};
