@@ -7,6 +7,7 @@ const typeDefs = `
     getAllWoRunning(key: String): [WO]
     getAllWoModules(key: String): [WO]
     getSearchItems(key: String): [WOITEM]
+    getSearchModules(idHeader: Int): [WOITEM]
   }
 
   extend type Mutation {

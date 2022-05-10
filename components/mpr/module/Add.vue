@@ -154,10 +154,9 @@
 </template>
 
 <script>
-import { GetAllWoModules } from '../../../apollo/bom/query';
+import { GetAllWoModules, GetSearchModules } from '../../../apollo/bom/query';
 // import { GetOneMPR } from '../../../apollo/mpr/query';
 // import { AddMprByModules } from '../../../apollo/mpr/mutation';
-// import { GetSearchModules } from '../../../apollo/bom/query';
 
 export default {
   props: {
@@ -219,15 +218,15 @@ export default {
         if (valid) {
           this.loadingSearch = true;
 
-          // const { data: { getSearchModules } } = await this.$apollo.query({
-          //   query: GetSearchModules,
-          //   variables: { key: this.form.keyword },
-          //   prefetch: false,
-          //   error({ graphQLErrors, networkError }) {
-          //     this.errors = graphQLErrors || networkError.result.errors;
-          //   },
-          // });
-          // this.searchModules = getSearchModules;
+          const { data: { getSearchModules } } = await this.$apollo.query({
+            query: GetSearchModules,
+            variables: { idHeader: parseInt(this.form.module, 10) },
+            prefetch: false,
+            error({ graphQLErrors, networkError }) {
+              this.errors = graphQLErrors || networkError.result.errors;
+            },
+          });
+          this.searchModules = getSearchModules;
 
           this.loadingSearch = false;
         }

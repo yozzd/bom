@@ -305,3 +305,17 @@ export const GetSearchItems = gql`
     }
   }
 `;
+
+export const GetSearchModules = gql`
+  query getSearchModules($idHeader: Int) {
+    getSearchModules(idHeader: $idHeader) {
+      id
+      bomDescription
+      bomSpecification
+      bomModel
+      bomBrand
+      bomSupplier
+      isMpr
+    }
+  }
+`;

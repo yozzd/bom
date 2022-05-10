@@ -382,6 +382,18 @@ const resolvers = {
       const items = [...bomItems, ...mprItems];
       return items;
     }),
+    getSearchModules: isAuthenticated(async (_, { idHeader }) => {
+      const items = await WOITEM.findAll({
+        attributes: [          
+          'id', 'bomDescription', 'bomSpecification', 'bomModel', 'bomBrand',
+          'bomSupplier', 'isMpr',
+        ],
+        where: { idHeader},
+        raw: true,
+      });
+
+      return items;
+    }),
   },
   Mutation: {
     updateItem: isAuthenticated(async (_, { input }) => {
