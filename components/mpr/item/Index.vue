@@ -242,16 +242,16 @@
     </div>
 
     <MprItemAdd
-      :show="showItemsDialog"
+      :show="showKeywordDialog"
       :wo="wo"
-      @close="closeItemsDialog"
+      @close="closeKeywordDialog"
       @update="updateList"
     />
 
     <MprModuleAdd
-      :show="showModulesDialog"
+      :show="showModuleDialog"
       :wo="wo"
-      @close="closeModulesDialog"
+      @close="closeModuleDialog"
       @update="updateList"
     />
   </div>
@@ -270,22 +270,22 @@ export default {
       wo: {},
       modules: [],
       items: [],
-      showItemsDialog: false,
-      showModulesDialog: false,
+      showKeywordDialog: false,
+      showModuleDialog: false,
       multipleSelection: [],
       cachedArr: [],
     };
   },
   methods: {
     handleCommand(command) {
-      if (command === 'a') this.showItemsDialog = true;
-      else this.showModulesDialog = true;
+      if (command === 'a') this.showKeywordDialog = true;
+      else this.showModuleDialog = true;
     },
-    closeItemsDialog(value) {
-      this.showItemsDialog = value;
+    closeKeywordDialog(value) {
+      this.showKeywordDialog = value;
     },
-    closeModulesDialog(value) {
-      this.showModulesDialog = value;
+    closeModuleDialog(value) {
+      this.showModuleDialog = value;
     },
     updateList(value) {
       this.items = {};

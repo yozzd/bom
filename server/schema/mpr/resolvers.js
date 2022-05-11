@@ -208,7 +208,7 @@ const resolvers = {
 
       return input;
     }),
-    addMprByItems: isAuthenticated(async (_, { input }) => {
+    addMprItems: isAuthenticated(async (_, { input }) => {
       const saved = [];
 
       await Promise.all(

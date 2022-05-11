@@ -78,9 +78,9 @@ export const DeleteMpr = gql`
   }
 `;
 
-export const AddMprByItems = gql`
-  mutation addMprByItems($input: [AddMprByItemsInput]) {
-    addMprByItems(input: $input) {
+export const AddMprItems = gql`
+  mutation addMprItems($input: [AddMprItemsInput]) {
+    addMprItems(input: $input) {
       id
       idMaterial
       bomDescription

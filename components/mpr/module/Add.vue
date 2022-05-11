@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-dialog
-      title="Search By Modules"
+      title="Search By Module"
       :visible.sync="visible"
       :close-on-click-modal="false"
       :close-on-press-escape="false"
@@ -39,7 +39,7 @@
           </el-select>
         </el-form-item>
         <el-form-item
-          label="Modules"
+          label="Module"
           prop="module"
         >
           <el-select
@@ -47,7 +47,7 @@
             filterable
           >
             <el-option
-              v-for="item in woModules"
+              v-for="item in woModule"
               :key="item.id"
               :label="`${item.hid} ${item.header }`"
               :value="item.id"
@@ -60,14 +60,14 @@
           <el-button
             type="primary"
             :loading="loadingSearch"
-            @click="handleSearchByModules"
+            @click="handleSearchByModule"
           >
             Search
           </el-button>
         </el-form-item>
       </el-form>
       <el-table
-        :data="searchModules"
+        :data="searchModule"
         size="mini"
         border
         class="mt-4"
@@ -143,7 +143,7 @@
           type="primary"
           :loading="loadingSave"
           :disabled="!multipleSelection.length"
-          @click="handleSaveByModules"
+          @click="handleSaveByModule"
         >
           Save
         </el-button>
@@ -155,7 +155,7 @@
 <script>
 import { GetAllWoModules, GetSearchModules } from '../../../apollo/bom/query';
 import { GetOneMPR } from '../../../apollo/mpr/query';
-import { AddMprByItems } from '../../../apollo/mpr/mutation';
+import { AddMprItems } from '../../../apollo/mpr/mutation';
 
 export default {
   props: {
@@ -175,12 +175,12 @@ export default {
         wo: [{ required: true, message: 'This field is required', trigger: 'change' }],
       },
       loadingSearch: false,
-      searchModules: [],
+      searchModule: [],
       multipleSelection: [],
       loadingSave: false,
       visible: false,
       woAll: [],
-      woModules: [],
+      woModule: [],
       woAllLoading: false,
       errors: [],
     };
@@ -209,10 +209,10 @@ export default {
       }
     },
     handleWoChange({ modules }) {
-      this.woModules = [];
-      this.woModules = modules;
+      this.woModule = [];
+      this.woModule = modules;
     },
-    handleSearchByModules() {
+    handleSearchByModule() {
       this.$refs.form.validate(async (valid) => {
         if (valid) {
           this.loadingSearch = true;
@@ -225,7 +225,7 @@ export default {
               this.errors = graphQLErrors || networkError.result.errors;
             },
           });
-          this.searchModules = getSearchModules;
+          this.searchModule = getSearchModules;
 
           this.loadingSearch = false;
         }
@@ -241,23 +241,23 @@ export default {
     },
     handleCancel() {
       this.$refs.form.resetFields();
-      this.searchModules = [];
+      this.searchModule = [];
       this.multipleSelection = [];
       this.woAll = [];
-      this.woModules = [];
+      this.woModule = [];
       this.errors = [];
       this.$emit('close', false);
     },
-    async handleSaveByModules() {
+    async handleSaveByModule() {
       try {
         this.loadingSave = false;
 
         await this.$apollo.mutate({
-          mutation: AddMprByItems,
+          mutation: AddMprItems,
           variables: {
             input: this.multipleSelection,
           },
-          update: async (store, { data: { addMprByItems } }) => {
+          update: async (store, { data: { addMprItems } }) => {
             const cdata = store.readQuery({
               query: GetOneMPR,
               variables: {
@@ -266,7 +266,7 @@ export default {
             });
 
             const itm = [...cdata.getOneMPR.items];
-            cdata.getOneMPR.items = [...itm, ...addMprByItems];
+            cdata.getOneMPR.items = [...itm, ...addMprItems];
 
             this.$emit('update', cdata.getOneMPR.items);
 

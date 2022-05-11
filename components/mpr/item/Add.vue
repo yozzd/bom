@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-dialog
-      title="Search By Items"
+      title="Search By Keyword"
       :visible.sync="visible"
       :close-on-click-modal="false"
       :close-on-press-escape="false"
@@ -22,7 +22,7 @@
           <el-button
             type="primary"
             :loading="loadingSearch"
-            @click="handleSearchByItems"
+            @click="handleSearchByKeyword"
           >
             Search
           </el-button>
@@ -105,7 +105,7 @@
           type="primary"
           :loading="loadingSave"
           :disabled="!multipleSelection.length"
-          @click="handleSaveByItems"
+          @click="handleSaveByKeyword"
         >
           Save
         </el-button>
@@ -116,8 +116,8 @@
 
 <script>
 import { GetOneMPR } from '../../../apollo/mpr/query';
-import { AddMprByItems } from '../../../apollo/mpr/mutation';
 import { GetSearchItems } from '../../../apollo/bom/query';
+import { AddMprItems } from '../../../apollo/mpr/mutation';
 
 export default {
   props: {
@@ -150,7 +150,7 @@ export default {
     },
   },
   methods: {
-    handleSearchByItems() {
+    handleSearchByKeyword() {
       this.$refs.form.validate(async (valid) => {
         if (valid) {
           this.loadingSearch = true;
@@ -183,16 +183,16 @@ export default {
       this.errors = [];
       this.$emit('close', false);
     },
-    async handleSaveByItems() {
+    async handleSaveByKeyword() {
       try {
         this.loadingSave = false;
 
         await this.$apollo.mutate({
-          mutation: AddMprByItems,
+          mutation: AddMprItems,
           variables: {
             input: this.multipleSelection,
           },
-          update: async (store, { data: { addMprByItems } }) => {
+          update: async (store, { data: { addMprItems } }) => {
             const cdata = store.readQuery({
               query: GetOneMPR,
               variables: {
@@ -200,8 +200,8 @@ export default {
               },
             });
 
-            const itm = [...cdata.getOneMPR.items];
-            cdata.getOneMPR.items = [...itm, ...addMprByItems];
+            const oitems = [...cdata.getOneMPR.items];
+            cdata.getOneMPR.items = [...oitems, ...addMprItems];
 
             this.$emit('update', cdata.getOneMPR.items);
 

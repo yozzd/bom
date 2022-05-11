@@ -11,7 +11,7 @@ const typeDefs = `
     createMpr(input: CreateMprInput): MPR
     updateMpr(input: UpdateMprInput): MPR
     deleteMpr(input: [DeleteMprInput]): [MPR]
-    addMprByItems(input: [AddMprByItemsInput]): [MPRITEM]
+    addMprItems(input: [AddMprItemsInput]): [MPRITEM]
   }
 
   type MPR {
@@ -136,7 +136,7 @@ const typeDefs = `
     id: Int
   }
 
-  input AddMprByItemsInput {
+  input AddMprItemsInput {
     id: Int
     isMpr: Int
     idMpr: Int
