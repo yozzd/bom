@@ -233,7 +233,7 @@
             {{ h.moduleChar }} {{ h.moduleName }}
             <div class="hidden group-hover:inline-block">
               <el-tooltip effect="dark" content="Add Items" placement="top">
-                <a @click="showKeywordDialog = true">
+                <a @click="selectedModule(h.id)">
                   <client-only>
                     <v-icon name="ri-add-line" class="remixicons w-4 h-4" />
                   </client-only>
@@ -267,6 +267,7 @@
     <MprItemAdd
       :show="showKeywordDialog"
       :wo="wo"
+      :idModule="idModule"
       @close="closeKeywordDialog"
       @update="updateList"
     />
@@ -299,6 +300,7 @@ export default {
       wo: {},
       modules: [],
       items: [],
+      idModule: 0,
       showKeywordDialog: false,
       showModuleDialog: false,
       showTitleDialog: false,
@@ -308,6 +310,7 @@ export default {
   },
   methods: {
     handleCommand(command) {
+      this.idModule = 0;
       if (command === 'a') this.showKeywordDialog = true;
       else if (command === 'b') this.showModuleDialog = true;
       else this.showTitleDialog = true;
@@ -331,6 +334,10 @@ export default {
         isMpr: v.isMpr,
       }));
       this.cachedArr = arr;
+    },
+    selectedModule(id) {
+      this.idModule = id;
+      this.showKeywordDialog = true;
     },
     handleDelete() {
       this.$confirm('This will permanently delete the data. Continue?', 'Warning', {

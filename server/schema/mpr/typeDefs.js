@@ -142,6 +142,7 @@ const typeDefs = `
     isMpr: Int
     idMpr: Int
     idWo: Int
+    idModule: Int
   }
 
   input AddMprModuleInput {

@@ -268,7 +268,7 @@ const resolvers = {
           item.idMpr = v.idMpr;
           item.idWo = v.idWo;
           item.idHeader = null;
-          item.idModule = null;
+          item.idModule = v.idModule;
           item.colorClass = null;
           item.timestamp = Date.now();
 

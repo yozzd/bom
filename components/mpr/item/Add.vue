@@ -135,6 +135,10 @@ export default {
       type: Object,
       default: () => ({}),
     },
+    idModule: {
+      type: Number,
+      default: 0,
+    },
   },
   data() {
     return {
@@ -180,6 +184,7 @@ export default {
         isMpr: v.isMpr,
         idMpr: parseInt(this.$route.params.id, 10),
         idWo: parseInt(this.wo.id, 10),
+        idModule: parseInt(this.idModule, 10),
       }));
     },
     handleCancel() {
@@ -206,10 +211,16 @@ export default {
               },
             });
 
-            const oitems = [...cdata.getOneMPR.items];
-            cdata.getOneMPR.items = [...oitems, ...addMprItems];
-
-            this.$emit('update', cdata.getOneMPR.items);
+            if (this.idModule) {
+              const index = cdata.getOneMPR.modules.findIndex((e) => e.id === this.idModule);
+              const oitems = [...cdata.getOneMPR.modules[index].items];
+              cdata.getOneMPR.modules[index].items = [...oitems, ...addMprItems];
+              this.$emit('update', cdata.getOneMPR.modules[index].items);
+            } else {
+              const oitems = [...cdata.getOneMPR.items];
+              cdata.getOneMPR.items = [...oitems, ...addMprItems];
+              this.$emit('update', cdata.getOneMPR.items);
+            }
 
             store.writeQuery({
               query: GetOneMPR,

@@ -119,6 +119,11 @@ export const AddMprItems = gql`
       idHeader
       idModule
       colorClass
+        module {
+          id
+          hid
+          header
+        }
     }
   }
 `;
@@ -167,6 +172,11 @@ export const AddMprModule = gql`
         idHeader
         idModule
         colorClass
+        module {
+          id
+          hid
+          header
+        }
       }
     }
   }
