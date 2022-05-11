@@ -280,6 +280,13 @@ const resolvers = {
 
       return saved;
     }),
+    addMprModule: isAuthenticated(async (_, { input }) => {
+      const newModule = new MPRMODULE(input);
+      const save = await newModule.save();
+      save.items = [];
+
+      return save;
+    }),
   },
 };
 

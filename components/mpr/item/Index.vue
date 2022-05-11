@@ -204,7 +204,9 @@
                   </DropdownItem>
                 </DropdownMenu>
               </Dropdown>
-              <DropdownItem>Module</DropdownItem>
+              <DropdownItem name="c">
+                Module
+              </DropdownItem>
             </DropdownMenu>
           </Dropdown>
 
@@ -266,6 +268,12 @@
       @close="closeModuleDialog"
       @update="updateList"
     />
+
+    <MprModuleTitle
+      :show="showTitleDialog"
+      @close="closeTitleDialog"
+      @update="updateList"
+    />
   </div>
 </template>
 
@@ -284,6 +292,7 @@ export default {
       items: [],
       showKeywordDialog: false,
       showModuleDialog: false,
+      showTitleDialog: false,
       multipleSelection: [],
       cachedArr: [],
     };
@@ -292,12 +301,16 @@ export default {
     handleCommand(command) {
       if (command === 'a') this.showKeywordDialog = true;
       else if (command === 'b') this.showModuleDialog = true;
+      else this.showTitleDialog = true;
     },
     closeKeywordDialog(value) {
       this.showKeywordDialog = value;
     },
     closeModuleDialog(value) {
       this.showModuleDialog = value;
+    },
+    closeTitleDialog(value) {
+      this.showTitleDialog = value;
     },
     updateList(value) {
       this.items = {};

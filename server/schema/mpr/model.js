@@ -157,6 +157,7 @@ const MPRMODULE = sequelize.define('module', {
 }, {
   tableName: 'mpr_module',
   underscored: true,
+  timestamps: false,
 });
 
 const MPRITEM = sequelize.define('item', {

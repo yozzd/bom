@@ -119,10 +119,54 @@ export const AddMprItems = gql`
       idHeader
       idModule
       colorClass
-      module {
+    }
+  }
+`;
+
+export const AddMprModule = gql`
+  mutation addMprModule($input: AddMprModuleInput) {
+    addMprModule(input: $input) {
+      id
+      moduleChar
+      moduleName
+      items {
         id
-        hid
-        header
+        idMaterial
+        bomDescription
+        bomSpecification
+        bomModel
+        bomBrand
+        bomQty
+        bomUnit
+        bomQtyRqd
+        bomQtyBalance
+        bomQtyStock
+        bomEta
+        bomQtyRec
+        bomDateRec
+        bomCurrSizeC
+        bomCurrSizeV
+        bomCurrEaC
+        bomCurrEaV
+        bomUsdEa
+        bomUsdUnit
+        bomUsdTotal
+        materialsProcessed
+        yetToPurchase
+        bomSupplier
+        bomPoDate
+        bomPoNo
+        bomRemarks
+        priority
+        bomEtaStatus
+        sr
+        isMpr
+        packing
+        hold
+        cancel
+        idHeader
+        idModule
+        colorClass
       }
     }
   }
