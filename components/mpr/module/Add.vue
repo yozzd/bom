@@ -32,8 +32,8 @@
             remote
             :remote-method="woAllRemote"
             :loading="woAllLoading"
-            @change="handleWoChange"
             filterable
+            @change="handleWoChange"
           >
             <el-option
               v-for="item in woAll"

@@ -267,7 +267,7 @@
     <MprItemAdd
       :show="showKeywordDialog"
       :wo="wo"
-      :idModule="idModule"
+      :id-module="idModule"
       @close="closeKeywordDialog"
       @update="updateList"
     />
@@ -301,6 +301,7 @@ export default {
       modules: [],
       items: [],
       idModule: 0,
+      arrIdModule: [],
       showKeywordDialog: false,
       showModuleDialog: false,
       showTitleDialog: false,
@@ -329,10 +330,13 @@ export default {
       this.items = value;
     },
     handleSelectionChange(arr) {
-      this.multipleSelection = arr.map((v) => ({
-        id: v.id,
-        isMpr: v.isMpr,
-      }));
+      this.multipleSelection = arr.map((v) => {
+        this.idModule = v.idModule;
+        return {
+          id: v.id,
+          isMpr: v.isMpr,
+        };
+      });
       this.cachedArr = arr;
     },
     selectedModule(id) {
@@ -358,8 +362,14 @@ export default {
               },
             });
 
-            pullAllBy(cdata.getOneMPR.items, deleteItem, 'id');
-            this.updateList(cdata.getOneMPR.items);
+            if (this.idModule) {
+              const index = cdata.getOneMPR.modules.findIndex((e) => e.id === this.idModule);
+              pullAllBy(cdata.getOneMPR.modules[index].items, deleteItem, 'id');
+              this.modules[index] = cdata.getOneMPR.modules[index];
+            } else {
+              pullAllBy(cdata.getOneMPR.items, deleteItem, 'id');
+              this.updateList(cdata.getOneMPR.items);
+            }
 
             store.writeQuery({
               query: GetOneMPR,
@@ -380,6 +390,7 @@ export default {
           message: 'Data has been delete successfully',
         });
         this.multipleSelection = [];
+        this.idModule = 0;
       }).catch(() => {});
     },
   },
