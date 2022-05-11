@@ -384,11 +384,11 @@ const resolvers = {
     }),
     getSearchModules: isAuthenticated(async (_, { idHeader }) => {
       const items = await WOITEM.findAll({
-        attributes: [          
+        attributes: [
           'id', 'bomDescription', 'bomSpecification', 'bomModel', 'bomBrand',
           'bomSupplier', 'isMpr',
         ],
-        where: { idHeader},
+        where: { idHeader },
         raw: true,
       });
 

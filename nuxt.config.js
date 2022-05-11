@@ -19,12 +19,14 @@ export default {
 
   css: [
     '@/assets/css/variables.scss',
+    '@/assets/css/variables.less',
     '@/assets/css/style.css',
   ],
 
   plugins: [
     '@/plugins/auth',
     '@/plugins/element-ui',
+    '@/plugins/view-ui',
     { src: '@/plugins/oh-vue-icons', mode: 'client' },
   ],
 
@@ -61,6 +63,9 @@ export default {
     scss: [
       '@/assets/css/variables.scss',
     ],
+    less: [      
+      '@/assets/css/variables.less',
+    ],
   },
 
   currencyFilter: [
@@ -80,5 +85,13 @@ export default {
       /^element-ui/,
       'oh-vue-icons',
     ],
+    loaders: {
+      less: {
+        lessOptions: {
+          javascriptEnabled: true,
+          math: 'always',
+        },
+      },
+    },
   },
 };
