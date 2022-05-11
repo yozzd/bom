@@ -229,8 +229,17 @@
           :key="h.id"
           class="flex flex-col divide-y divide-gray-400 divide-dashed"
         >
-          <div class="text-xs font-bold my-4">
+          <div class="text-xs font-bold my-4 group">
             {{ h.moduleChar }} {{ h.moduleName }}
+            <div class="hidden group-hover:inline-block">
+              <el-tooltip effect="dark" content="Add Items" placement="top">
+                <a @click="showKeywordDialog = true">
+                  <client-only>
+                    <v-icon name="ri-add-line" class="remixicons w-4 h-4" />
+                  </client-only>
+                </a>
+              </el-tooltip>
+            </div>
           </div>
           <index-data-table
             :data="h.items"
