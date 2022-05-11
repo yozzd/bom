@@ -8,6 +8,12 @@
       :before-close="handleCancel"
       width="60%"
     >
+      <IndexErrorHandler
+        v-if="errors.length"
+        :errors="errors"
+        class="mb-4"
+      />
+
       <el-form
         ref="form"
         :model="form"
@@ -26,8 +32,8 @@
             remote
             :remote-method="woAllRemote"
             :loading="woAllLoading"
-            filterable
             @change="handleWoChange"
+            filterable
           >
             <el-option
               v-for="item in woAll"
