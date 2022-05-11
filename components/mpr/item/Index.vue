@@ -359,8 +359,7 @@ export default {
             });
 
             pullAllBy(cdata.getOneMPR.items, deleteItem, 'id');
-            this.items = {};
-            this.items = cdata.getOneMPR.items;
+            this.updateList(cdata.getOneMPR.items);
 
             store.writeQuery({
               query: GetOneMPR,
