@@ -34,7 +34,9 @@ a {
 .el-popover,
 .el-select-dropdown,
 .el-textarea__inner,
-.el-tooltip__popper {
+.el-tooltip__popper,
+.ivu-btn-large,
+.ivu-select-dropdown {
   @apply rounded-lg;
 }
 
@@ -60,7 +62,8 @@ a {
 .el-dropdown-menu,
 .el-picker-panel,
 .el-popover,
-.el-select-dropdown {
+.el-select-dropdown,
+.ivu-select-dropdown {
   @apply shadow-none border border-gray-200;
 }
 
@@ -269,4 +272,18 @@ table.plain {
 
 .el-table td.el-table__cell .el-checkbox__input {
   @apply -mr-[5px];
+}
+
+.ivu-btn-large {
+  @apply text-sm font-medium;
+}
+
+.ivu-dropdown-item-focus,
+.ivu-dropdown-item:hover {
+  background-color: #e9effd;
+  color: #5182ef;
+}
+
+.ivu-dropdown-menu {
+  @apply min-w-[140px];
 }

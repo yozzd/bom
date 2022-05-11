@@ -63,7 +63,7 @@ export default {
     scss: [
       '@/assets/css/variables.scss',
     ],
-    less: [      
+    less: [
       '@/assets/css/variables.less',
     ],
   },

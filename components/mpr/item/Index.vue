@@ -177,25 +177,37 @@
 
       <div>
         <div class="flex my-4 space-x-4 items-center">
-          <el-dropdown trigger="click" @command="handleCommand">
-            <el-button type="primary">
+          <Dropdown trigger="click" placement="bottom-start" @on-click="handleCommand">
+            <Button type="primary" size="large">
               <client-only>
-                <v-icon name="ri-search-line" class="remixicons w-4 h-4" />
+                <v-icon name="ri-add-line" class="remixicons w-4 h-4" />
               </client-only>
-              Search
+              Add
               <client-only>
                 <v-icon name="ri-arrow-down-s-line" class="remixicons w-4 h-4" />
               </client-only>
-            </el-button>
-            <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item command="a">
-                By Items
-              </el-dropdown-item>
-              <el-dropdown-item command="b">
-                By Modules
-              </el-dropdown-item>
-            </el-dropdown-menu>
-          </el-dropdown>
+            </Button>
+            <DropdownMenu slot="list">
+              <Dropdown placement="right-start">
+                <DropdownItem>
+                  Item
+                  <client-only>
+                    <v-icon name="ri-arrow-right-s-line" class="remixicons w-4 h-4" />
+                  </client-only>
+                </DropdownItem>
+                <DropdownMenu slot="list">
+                  <DropdownItem name="a">
+                    By Keyword
+                  </DropdownItem>
+                  <DropdownItem name="b">
+                    By Module
+                  </DropdownItem>
+                </DropdownMenu>
+              </Dropdown>
+              <DropdownItem>Module</DropdownItem>
+            </DropdownMenu>
+          </Dropdown>
+
           <el-button
             type="danger"
             :disabled="!multipleSelection.length"
@@ -279,7 +291,7 @@ export default {
   methods: {
     handleCommand(command) {
       if (command === 'a') this.showKeywordDialog = true;
-      else this.showModuleDialog = true;
+      else if (command === 'b') this.showModuleDialog = true;
     },
     closeKeywordDialog(value) {
       this.showKeywordDialog = value;
