@@ -211,6 +211,17 @@
           </Dropdown>
 
           <el-button
+            type="primary"
+            :disabled="!multipleSelection.length"
+            @click="showMoveToModuleDialog = true"
+          >
+            <client-only>
+              <v-icon name="ri-delete-bin-2-line" class="remixicons w-4 h-4" />
+            </client-only>
+            Move
+          </el-button>
+
+          <el-button
             type="danger"
             :disabled="!multipleSelection.length"
             @click="handleDelete"
@@ -284,6 +295,13 @@
       @close="closeTitleDialog"
       @update="updateList"
     />
+
+    <MprModuleMove
+      :show="showMoveToModuleDialog"
+      :modules="modules"
+      @close="closeMoveToModuleDialog"
+      @update="updateList"
+    />
   </div>
 </template>
 
@@ -305,6 +323,7 @@ export default {
       showKeywordDialog: false,
       showModuleDialog: false,
       showTitleDialog: false,
+      showMoveToModuleDialog: false,
       multipleSelection: [],
       cachedArr: [],
     };
@@ -324,6 +343,9 @@ export default {
     },
     closeTitleDialog(value) {
       this.showTitleDialog = value;
+    },
+    closeMoveToModuleDialog(value) {
+      this.showMoveToModuleDialog = value;
     },
     updateList(value) {
       this.items = {};
