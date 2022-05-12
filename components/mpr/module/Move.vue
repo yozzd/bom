@@ -133,15 +133,16 @@ export default {
                 });
 
                 const { nIdModule } = this.form;
+                const nIndex = cdata.getOneMPR.modules.findIndex((e) => e.id === nIdModule);
+                const oitems = [...cdata.getOneMPR.modules[nIndex].items];
+                cdata.getOneMPR.modules[nIndex].items = [...oitems, ...moveToModule];
                 if (this.oIdModule) {
-                  const nIndex = cdata.getOneMPR.modules.findIndex((e) => e.id === nIdModule);
-                  const oitems = [...cdata.getOneMPR.modules[nIndex].items];
-                  cdata.getOneMPR.modules[nIndex].items = [...oitems, ...moveToModule];
-
                   const oIndex = cdata.getOneMPR.modules.findIndex((e) => e.id === this.oIdModule);
                   pullAllBy(cdata.getOneMPR.modules[oIndex].items, moveToModule, 'id');
-
                   this.$emit('update2', cdata.getOneMPR.modules);
+                } else {
+                  pullAllBy(cdata.getOneMPR.items, moveToModule, 'id');
+                  this.$emit('update', cdata.getOneMPR.items);
                 }
 
                 store.writeQuery({
