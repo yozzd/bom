@@ -216,7 +216,7 @@
             @click="showMoveToModuleDialog = true"
           >
             <client-only>
-              <v-icon name="ri-delete-bin-2-line" class="remixicons w-4 h-4" />
+              <v-icon name="ri-arrow-left-right-line" class="remixicons w-4 h-4" />
             </client-only>
             Move
           </el-button>
