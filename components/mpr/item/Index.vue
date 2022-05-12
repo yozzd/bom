@@ -299,8 +299,11 @@
     <MprModuleMove
       :show="showMoveToModuleDialog"
       :modules="modules"
+      :items="multipleSelection"
+      :o-id-module="idModule"
       @close="closeMoveToModuleDialog"
       @update="updateList"
+      @update2="updateList2"
     />
   </div>
 </template>
@@ -350,6 +353,10 @@ export default {
     updateList(value) {
       this.items = {};
       this.items = value;
+    },
+    updateList2(value) {
+      this.modules = {};
+      this.modules = value;
     },
     handleSelectionChange(arr) {
       this.multipleSelection = arr.map((v) => {

@@ -256,7 +256,7 @@ export default {
     },
     async handleSaveByModule() {
       try {
-        this.loadingSave = false;
+        this.loadingSave = true;
 
         await this.$apollo.mutate({
           mutation: AddMprItems,

@@ -287,6 +287,24 @@ const resolvers = {
 
       return save;
     }),
+    moveToModule: isAuthenticated(async (_, { input }) => {
+      const saved = [];
+
+      await Promise.all(
+        input.map(async (v) => {
+          const item = await MPRITEM.findOne({
+            attributes: itemAttributes,
+            where: { id: v.id },
+          });
+
+          Object.assign(item, v);
+          const save = await item.save();
+          saved.push(save);
+        }),
+      );
+
+      return saved;
+    }),
   },
 };
 

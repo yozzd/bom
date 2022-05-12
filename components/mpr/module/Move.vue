@@ -24,10 +24,10 @@
       >
         <el-form-item
           label="Module"
-          prop="module"
+          prop="nIdModule"
         >
           <el-select
-            v-model="form.module"
+            v-model="form.nIdModule"
             filterable
           >
             <el-option
@@ -61,6 +61,9 @@
 </template>
 
 <script>
+import pullAllBy from 'lodash/pullAllBy';
+import { GetOneMPR } from '../../../apollo/mpr/query';
+import { MoveToModule } from '../../../apollo/mpr/mutation';
 
 export default {
   props: {
@@ -72,12 +75,20 @@ export default {
       type: Array,
       default: () => ([]),
     },
+    items: {
+      type: Array,
+      default: () => ([]),
+    },
+    oIdModule: {
+      type: Number,
+      default: 0,
+    },
   },
   data() {
     return {
       form: {},
       rules: {
-        module: [{ required: true, message: 'This field is required', trigger: 'change' }],
+        nIdModule: [{ required: true, message: 'This field is required', trigger: 'change' }],
       },
       loading: false,
       visible: false,
@@ -95,7 +106,73 @@ export default {
       this.errors = [];
       this.$emit('close', false);
     },
-    handleSave() {},
+    handleSave() {
+      this.$refs.form.validate(async (valid) => {
+        if (valid) {
+          try {
+            this.loading = true;
+
+            const items = await Promise.all(
+              this.items.map((v) => ({
+                ...v,
+                idModule: this.form.nIdModule,
+              })),
+            );
+
+            await this.$apollo.mutate({
+              mutation: MoveToModule,
+              variables: {
+                input: items,
+              },
+              update: async (store, { data: { moveToModule } }) => {
+                const cdata = store.readQuery({
+                  query: GetOneMPR,
+                  variables: {
+                    id: parseInt(this.$route.params.id, 10),
+                  },
+                });
+
+                const { nIdModule } = this.form;
+                if (this.oIdModule) {
+                  const nIndex = cdata.getOneMPR.modules.findIndex((e) => e.id === nIdModule);
+                  const oitems = [...cdata.getOneMPR.modules[nIndex].items];
+                  cdata.getOneMPR.modules[nIndex].items = [...oitems, ...moveToModule];
+
+                  const oIndex = cdata.getOneMPR.modules.findIndex((e) => e.id === this.oIdModule);
+                  pullAllBy(cdata.getOneMPR.modules[oIndex].items, moveToModule, 'id');
+
+                  this.$emit('update2', cdata.getOneMPR.modules);
+                }
+
+                store.writeQuery({
+                  query: GetOneMPR,
+                  variables: {
+                    id: parseInt(this.$route.params.id, 10),
+                  },
+                  data: cdata,
+                });
+              },
+            });
+
+            this.$message({
+              type: 'success',
+              message: 'Data has been saved successfully',
+              onClose: setTimeout(() => {
+                this.handleCancel();
+                this.loading = false;
+              }, 1000),
+            });
+
+            return true;
+          } catch ({ graphQLErrors, networkError }) {
+            this.errors = graphQLErrors || networkError.result.errors;
+            return false;
+          }
+        } else {
+          return false;
+        }
+      });
+    },
   },
 };
 </script>
