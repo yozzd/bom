@@ -229,9 +229,9 @@
           :key="h.id"
           class="flex flex-col divide-y divide-gray-400 divide-dashed"
         >
-          <div class="text-xs font-bold my-4 group">
+          <div class="text-xs font-bold my-4 group relative">
             {{ h.moduleChar }} {{ h.moduleName }}
-            <div class="hidden group-hover:inline-block">
+            <div class="hidden group-hover:inline-block absolute">
               <el-tooltip effect="dark" content="Add Items" placement="top">
                 <a @click="selectedModule(h.id)">
                   <client-only>
