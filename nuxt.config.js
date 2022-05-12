@@ -18,8 +18,8 @@ export default {
   },
 
   css: [
-    '@/assets/css/variables.scss',
     '@/assets/css/variables.less',
+    '@/assets/css/variables.scss',
     '@/assets/css/style.css',
   ],
 
@@ -60,11 +60,11 @@ export default {
   },
 
   styleResources: {
-    scss: [
-      '@/assets/css/variables.scss',
-    ],
     less: [
       '@/assets/css/variables.less',
+    ],
+    scss: [
+      '@/assets/css/variables.scss',
     ],
   },
 
