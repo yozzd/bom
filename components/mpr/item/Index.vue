@@ -270,6 +270,7 @@
           from-mpr
           class="my-4"
           @selection-change="handleSelectionChange"
+          @update="updateList"
         />
       </div>
       <div></div>

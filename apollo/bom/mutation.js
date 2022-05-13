@@ -37,7 +37,14 @@ export const UpdateItem = gql`
       packing
       hold
       cancel
+      idHeader
+      idModule
       colorClass
+      module {
+        id
+        hid
+        header
+      }
     }
   }
 `;

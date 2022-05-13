@@ -125,6 +125,7 @@ const typeDefs = `
     colorClass: String
     mpr: MPR
     wo: WO
+    module: WOMODULE
   }
 
   type customerType {

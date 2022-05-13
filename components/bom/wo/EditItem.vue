@@ -313,7 +313,7 @@
 <script>
 import currency from '../../../mixins/currency';
 import { GetWoModules } from '../../../apollo/bom/query';
-import { GetMprModules } from '../../../apollo/mpr/query';
+import { GetOneMPR, GetMprModules } from '../../../apollo/mpr/query';
 import { UpdateItem } from '../../../apollo/bom/mutation';
 import GetAllSupplier from '../../../apollo/supplier/query';
 
@@ -365,7 +365,7 @@ export default {
       this.visible = value;
     },
     data(value) {
-      this.form = value;
+      this.form = { ...value };
     },
   },
   methods: {
@@ -419,6 +419,27 @@ export default {
                   sgd: parseFloat(this.wo.sgd),
                   fromMpr: this.fromMpr,
                 },
+              },
+              update: (store, { data: { updateItem } }) => {
+                const cdata = store.readQuery({
+                  query: GetOneMPR,
+                  variables: {
+                    id: parseInt(this.$route.params.id, 10),
+                  },
+                });
+
+                const index = cdata.getOneMPR.items.findIndex((e) => e.id === this.form.id);
+                cdata.getOneMPR.items[index] = updateItem;
+
+                this.$emit('update', cdata.getOneMPR.items);
+
+                store.writeQuery({
+                  query: GetOneMPR,
+                  variables: {
+                    id: parseInt(this.$route.params.id, 10),
+                  },
+                  data: cdata,
+                });
               },
             });
 
