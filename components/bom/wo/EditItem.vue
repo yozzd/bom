@@ -524,6 +524,19 @@ export default {
                       type: 'both',
                       value: { modules: cdata.getOneWO.wo.modules, mprs: cdata.getOneWO.mpr.mprs },
                     });
+                  } else if (!this.form.idModule && this.form.idHeader && this.form.isMpr) {
+                    const idx1 = cdata.getOneWO.wo
+                      .modules.findIndex((e) => e.id === this.form.idHeader);
+                    cdata.getOneWO.wo.modules[idx1].items.push(updateItem);
+
+                    const idx2 = cdata.getOneWO.mpr
+                      .mprs.findIndex((e) => e.id === this.form.mpr.id);
+                    pullAllBy(cdata.getOneWO.mpr.mprs[idx2].items, [updateItem], 'id');
+
+                    this.$emit('update', {
+                      type: 'both',
+                      value: { modules: cdata.getOneWO.wo.modules, mprs: cdata.getOneWO.mpr.mprs },
+                    });
                   } else {
                     const idx1 = cdata.getOneWO.mpr
                       .mprs.findIndex((e) => e.id === this.form.mpr.id);
