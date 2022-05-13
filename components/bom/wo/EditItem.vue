@@ -311,6 +311,7 @@
 </template>
 
 <script>
+import pullAllBy from 'lodash/pullAllBy';
 import currency from '../../../mixins/currency';
 import { GetOneWO, GetWoModules } from '../../../apollo/bom/query';
 import { GetOneMPR, GetMprModules } from '../../../apollo/mpr/query';
@@ -349,6 +350,7 @@ export default {
       supplierLoading: false,
       modules: [],
       form: {},
+      oIdModule: 0,
       rules: {
         bomDescription: [{ required: true, message: 'This field is required' }],
       },
@@ -366,6 +368,7 @@ export default {
     },
     data(value) {
       this.form = { ...value };
+      this.oIdModule = value.idModule;
     },
   },
   methods: {
@@ -429,7 +432,7 @@ export default {
                     },
                   });
 
-                  if (this.form.idModule) {
+                  if (this.form.idModule && this.form.idModule === this.oIdModule) {
                     const idx1 = cdata.getOneMPR
                       .modules.findIndex((e) => e.id === this.form.idModule);
                     const idx2 = cdata.getOneMPR
@@ -437,6 +440,16 @@ export default {
                     cdata.getOneMPR.modules[idx1].items[idx2] = updateItem;
 
                     this.$emit('update', { type: 'modules', values: cdata.getOneMPR.modules });
+                  } else if (this.form.idModule && this.form.idModule !== this.oIdModule) {
+                    const idx1 = cdata.getOneMPR
+                      .modules.findIndex((e) => e.id === this.form.idModule);
+                    cdata.getOneMPR.modules[idx1].items.push(updateItem);
+
+                    const idx2 = cdata.getOneMPR
+                      .modules.findIndex((e) => e.id === this.oIdModule);
+                    pullAllBy(cdata.getOneMPR.modules[idx2].items, [updateItem], 'id');
+
+                    this.$emit('update', { type: 'modules', value: cdata.getOneMPR.modules });
                   } else {
                     const index = cdata.getOneMPR.items.findIndex((e) => e.id === this.form.id);
                     cdata.getOneMPR.items[index] = updateItem;
