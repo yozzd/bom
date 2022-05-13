@@ -493,6 +493,16 @@ export default {
                     pullAllBy(cdata.getOneWO.wo.modules[idx2].items, [updateItem], 'id');
 
                     this.$emit('update', { type: 'modules', value: cdata.getOneWO.wo.modules });
+                  } else if (this.form.idModule && !this.form.idHeader) {
+                    const idx1 = cdata.getOneWO.mpr
+                      .mprs.findIndex((e) => e.id === this.form.mpr.id);
+                    const idx2 = cdata.getOneWO.mpr
+                      .mprs[idx1].modules.findIndex((e) => e.id === this.form.idModule);
+                    const idx3 = cdata.getOneWO.mpr
+                      .mprs[idx1].modules[idx2].items.findIndex((e) => e.id === this.form.id);
+                    cdata.getOneWO.mpr.mprs[idx1].modules[idx2].items[idx3] = updateItem;
+
+                    this.$emit('update', { type: 'mprs', values: cdata.getOneWO.mpr.mprs });
                   } else {
                     const idx1 = cdata.getOneWO.mpr
                       .mprs.findIndex((e) => e.id === this.form.mpr.id);
