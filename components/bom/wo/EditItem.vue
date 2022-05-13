@@ -312,7 +312,7 @@
 
 <script>
 import currency from '../../../mixins/currency';
-import { GetWoModules } from '../../../apollo/bom/query';
+import { GetOneWO, GetWoModules } from '../../../apollo/bom/query';
 import { GetOneMPR, GetMprModules } from '../../../apollo/mpr/query';
 import { UpdateItem } from '../../../apollo/bom/mutation';
 import GetAllSupplier from '../../../apollo/supplier/query';
@@ -421,25 +421,52 @@ export default {
                 },
               },
               update: (store, { data: { updateItem } }) => {
-                const cdata = store.readQuery({
-                  query: GetOneMPR,
-                  variables: {
-                    id: parseInt(this.$route.params.id, 10),
-                  },
-                });
+                if (this.fromMpr) {
+                  const cdata = store.readQuery({
+                    query: GetOneMPR,
+                    variables: {
+                      id: parseInt(this.$route.params.id, 10),
+                    },
+                  });
 
-                const index = cdata.getOneMPR.items.findIndex((e) => e.id === this.form.id);
-                cdata.getOneMPR.items[index] = updateItem;
+                  const index = cdata.getOneMPR.items.findIndex((e) => e.id === this.form.id);
+                  cdata.getOneMPR.items[index] = updateItem;
 
-                this.$emit('update', { type: 'items', values: cdata.getOneMPR.items });
+                  this.$emit('update', { type: 'items', values: cdata.getOneMPR.items });
 
-                store.writeQuery({
-                  query: GetOneMPR,
-                  variables: {
-                    id: parseInt(this.$route.params.id, 10),
-                  },
-                  data: cdata,
-                });
+                  store.writeQuery({
+                    query: GetOneMPR,
+                    variables: {
+                      id: parseInt(this.$route.params.id, 10),
+                    },
+                    data: cdata,
+                  });
+                } else {
+                  const cdata = store.readQuery({
+                    query: GetOneWO,
+                    variables: {
+                      idLt: parseInt(this.$route.params.idLt, 10),
+                      id: parseInt(this.$route.params.id, 10),
+                    },
+                  });
+
+                  const idx1 = cdata.getOneWO.wo
+                    .modules.findIndex((e) => e.id === this.form.idHeader);
+                  const idx2 = cdata.getOneWO.wo
+                    .modules[idx1].items.findIndex((e) => e.id === updateItem.id);
+                  cdata.getOneWO.wo.modules[idx1].items[idx2] = updateItem;
+
+                  this.$emit('update', { type: 'modules', values: cdata.getOneWO.wo.modules });
+
+                  store.writeQuery({
+                    query: GetOneWO,
+                    variables: {
+                      idLt: parseInt(this.$route.params.idLt, 10),
+                      id: parseInt(this.$route.params.id, 10),
+                    },
+                    data: cdata,
+                  });
+                }
               },
             });
 

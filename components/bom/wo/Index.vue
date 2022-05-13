@@ -258,7 +258,12 @@
               <div class="text-xs font-bold my-4">
                 {{ h.hid }} {{ h.header }}
               </div>
-              <index-data-table v-if="h.items.length" :data="h.items" :wo="wo" />
+              <index-data-table
+                v-if="h.items.length"
+                :data="h.items"
+                :wo="wo"
+                @update="updateList"
+              />
               <div></div>
             </div>
           </el-tab-pane>
@@ -341,6 +346,12 @@ export default {
   methods: {
     highlighter({ row }) {
       return row.colorClass;
+    },
+    updateList({ type, value }) {
+      if (type === 'modules') {
+        this.modules = {};
+        this.modules = value;
+      }
     },
   },
   apollo: {

@@ -99,6 +99,7 @@ const typeDefs = `
     idModule: Int
     colorClass: String
     module: WOMODULE
+    mpr: MPR
   }
 
   input CreateMprInput {

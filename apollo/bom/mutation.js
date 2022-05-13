@@ -45,6 +45,10 @@ export const UpdateItem = gql`
         hid
         header
       }
+      mpr {
+        id
+        no
+      }
     }
   }
 `;
