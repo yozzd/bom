@@ -258,6 +258,7 @@
             :mpr="mpr"
             from-mpr
             @selection-change="handleSelectionChange"
+            @update="updateList"
           />
           <div></div>
         </div>

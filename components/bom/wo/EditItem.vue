@@ -429,10 +429,20 @@ export default {
                     },
                   });
 
-                  const index = cdata.getOneMPR.items.findIndex((e) => e.id === this.form.id);
-                  cdata.getOneMPR.items[index] = updateItem;
+                  if (this.form.idModule) {
+                    const idx1 = cdata.getOneMPR
+                      .modules.findIndex((e) => e.id === this.form.idModule);
+                    const idx2 = cdata.getOneMPR
+                      .modules[idx1].items.findIndex((e) => e.id === updateItem.id);
+                    cdata.getOneMPR.modules[idx1].items[idx2] = updateItem;
 
-                  this.$emit('update', { type: 'items', values: cdata.getOneMPR.items });
+                    this.$emit('update', { type: 'modules', values: cdata.getOneMPR.modules });
+                  } else {
+                    const index = cdata.getOneMPR.items.findIndex((e) => e.id === this.form.id);
+                    cdata.getOneMPR.items[index] = updateItem;
+
+                    this.$emit('update', { type: 'items', values: cdata.getOneMPR.items });
+                  }
 
                   store.writeQuery({
                     query: GetOneMPR,
