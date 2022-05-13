@@ -475,7 +475,10 @@ export default {
                     },
                   });
 
-                  if (this.form.idHeader && this.form.idHeader === this.oIdHeader) {
+                  if (
+                    this.form.idHeader
+                  && this.form.idHeader === this.oIdHeader
+                  && !this.form.isMpr) {
                     const idx1 = cdata.getOneWO.wo
                       .modules.findIndex((e) => e.id === this.form.idHeader);
                     const idx2 = cdata.getOneWO.wo
@@ -483,7 +486,10 @@ export default {
                     cdata.getOneWO.wo.modules[idx1].items[idx2] = updateItem;
 
                     this.$emit('update', { type: 'modules', values: cdata.getOneWO.wo.modules });
-                  } else if (this.form.idHeader && this.form.idHeader !== this.oIdHeader) {
+                  } else if (
+                    this.form.idHeader
+                  && this.form.idHeader !== this.oIdHeader
+                  && !this.form.isMpr) {
                     const idx1 = cdata.getOneWO.wo
                       .modules.findIndex((e) => e.id === this.form.idHeader);
                     cdata.getOneWO.wo.modules[idx1].items.push(updateItem);
@@ -493,7 +499,7 @@ export default {
                     pullAllBy(cdata.getOneWO.wo.modules[idx2].items, [updateItem], 'id');
 
                     this.$emit('update', { type: 'modules', value: cdata.getOneWO.wo.modules });
-                  } else if (this.form.idModule && !this.form.idHeader) {
+                  } else if (this.form.idModule && !this.form.idHeader && this.form.isMpr) {
                     const idx1 = cdata.getOneWO.mpr
                       .mprs.findIndex((e) => e.id === this.form.mpr.id);
                     const idx2 = cdata.getOneWO.mpr
@@ -503,6 +509,21 @@ export default {
                     cdata.getOneWO.mpr.mprs[idx1].modules[idx2].items[idx3] = updateItem;
 
                     this.$emit('update', { type: 'mprs', values: cdata.getOneWO.mpr.mprs });
+                  } else if (this.form.idModule && this.form.idHeader && this.form.isMpr) {
+                    const idx1 = cdata.getOneWO.wo
+                      .modules.findIndex((e) => e.id === this.form.idHeader);
+                    cdata.getOneWO.wo.modules[idx1].items.push(updateItem);
+
+                    const idx2 = cdata.getOneWO.mpr
+                      .mprs.findIndex((e) => e.id === this.form.mpr.id);
+                    const idx3 = cdata.getOneWO.mpr
+                      .mprs[idx2].modules.findIndex((e) => e.id === this.form.idModule);
+                    pullAllBy(cdata.getOneWO.mpr.mprs[idx2].modules[idx3].items, [updateItem], 'id');
+
+                    this.$emit('update', {
+                      type: 'both',
+                      value: { modules: cdata.getOneWO.wo.modules, mprs: cdata.getOneWO.mpr.mprs },
+                    });
                   } else {
                     const idx1 = cdata.getOneWO.mpr
                       .mprs.findIndex((e) => e.id === this.form.mpr.id);

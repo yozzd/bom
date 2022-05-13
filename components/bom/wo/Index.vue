@@ -354,6 +354,11 @@ export default {
       } else if (type === 'mprs') {
         this.mprs = {};
         this.mprs = value;
+      } else if (type === 'both') {
+        this.modules = {};
+        this.modules = value.modules;
+        this.mprs = {};
+        this.mprs = value.mprs;
       }
     },
   },
