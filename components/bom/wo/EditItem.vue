@@ -350,6 +350,7 @@ export default {
       supplierLoading: false,
       modules: [],
       form: {},
+      oIdHeader: 0,
       oIdModule: 0,
       rules: {
         bomDescription: [{ required: true, message: 'This field is required' }],
@@ -368,6 +369,7 @@ export default {
     },
     data(value) {
       this.form = { ...value };
+      this.oIdHeader = value.idHeader;
       this.oIdModule = value.idModule;
     },
   },
@@ -473,13 +475,25 @@ export default {
                     },
                   });
 
-                  const idx1 = cdata.getOneWO.wo
-                    .modules.findIndex((e) => e.id === this.form.idHeader);
-                  const idx2 = cdata.getOneWO.wo
-                    .modules[idx1].items.findIndex((e) => e.id === updateItem.id);
-                  cdata.getOneWO.wo.modules[idx1].items[idx2] = updateItem;
+                  if (this.form.idHeader && this.form.idHeader === this.oIdHeader) {
+                    const idx1 = cdata.getOneWO.wo
+                      .modules.findIndex((e) => e.id === this.form.idHeader);
+                    const idx2 = cdata.getOneWO.wo
+                      .modules[idx1].items.findIndex((e) => e.id === updateItem.id);
+                    cdata.getOneWO.wo.modules[idx1].items[idx2] = updateItem;
 
-                  this.$emit('update', { type: 'modules', values: cdata.getOneWO.wo.modules });
+                    this.$emit('update', { type: 'modules', values: cdata.getOneWO.wo.modules });
+                  } else {
+                    const idx1 = cdata.getOneWO.wo
+                      .modules.findIndex((e) => e.id === this.form.idHeader);
+                    cdata.getOneWO.wo.modules[idx1].items.push(updateItem);
+
+                    const idx2 = cdata.getOneWO.wo
+                      .modules.findIndex((e) => e.id === this.oIdHeader);
+                    pullAllBy(cdata.getOneWO.wo.modules[idx2].items, [updateItem], 'id');
+
+                    this.$emit('update', { type: 'modules', value: cdata.getOneWO.wo.modules });
+                  }
 
                   store.writeQuery({
                     query: GetOneWO,
