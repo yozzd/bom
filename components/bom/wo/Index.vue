@@ -351,6 +351,9 @@ export default {
       if (type === 'modules') {
         this.modules = {};
         this.modules = value;
+      } else if (type === 'mprs') {
+        this.mprs = {};
+        this.mprs = value;
       }
     },
   },

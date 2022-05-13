@@ -208,6 +208,10 @@ export const GetOneWO = gql`
               idHeader
               idModule
               colorClass
+              mpr {
+                id
+                no
+              }
             }
           }
           items {
@@ -248,6 +252,10 @@ export const GetOneWO = gql`
             idHeader
             idModule
             colorClass
+            mpr {
+              id
+              no
+            }
           }
         }
       }

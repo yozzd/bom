@@ -483,7 +483,7 @@ export default {
                     cdata.getOneWO.wo.modules[idx1].items[idx2] = updateItem;
 
                     this.$emit('update', { type: 'modules', values: cdata.getOneWO.wo.modules });
-                  } else {
+                  } else if (this.form.idHeader && this.form.idHeader !== this.oIdHeader) {
                     const idx1 = cdata.getOneWO.wo
                       .modules.findIndex((e) => e.id === this.form.idHeader);
                     cdata.getOneWO.wo.modules[idx1].items.push(updateItem);
@@ -493,6 +493,14 @@ export default {
                     pullAllBy(cdata.getOneWO.wo.modules[idx2].items, [updateItem], 'id');
 
                     this.$emit('update', { type: 'modules', value: cdata.getOneWO.wo.modules });
+                  } else {
+                    const idx1 = cdata.getOneWO.mpr
+                      .mprs.findIndex((e) => e.id === this.form.mpr.id);
+                    const idx2 = cdata.getOneWO.mpr
+                      .mprs[idx1].items.findIndex((e) => e.id === this.form.id);
+                    cdata.getOneWO.mpr.mprs[idx1].items[idx2] = updateItem;
+
+                    this.$emit('update', { type: 'mprs', values: cdata.getOneWO.mpr.mprs });
                   }
 
                   store.writeQuery({

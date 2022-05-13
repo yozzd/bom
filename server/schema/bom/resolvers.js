@@ -303,6 +303,11 @@ const resolvers = {
               attributes: itemAttributes,
               where: { idHeader: { [Op.is]: null } },
               required: false,
+              include: [{
+                model: MPR,
+                attributes: ['id', 'no'],
+                required: false,
+              }],
             }],
           }, {
             model: MPRITEM,
@@ -314,6 +319,11 @@ const resolvers = {
               ],
             },
             required: false,
+            include: [{
+              model: MPR,
+              attributes: ['id', 'no'],
+              required: false,
+            }],
           }],
         }],
       });
@@ -415,16 +425,23 @@ const resolvers = {
         'bomEtaStatus', 'validasi', 'poZone', 'poNo', 'idHeader', 'idModule',
         'colorClass',
       ];
+      const include = [{
+        model: MPR,
+        attributes: ['id', 'no'],
+        required: false,
+      }];
 
       if (obj.isMpr) {
         item = await MPRITEM.findOne({
           attributes,
           where: { id: obj.id },
+          include,
         });
       } else {
         item = await WOITEM.findOne({
           attributes,
           where: { id: obj.id },
+          include,
         });
       }
 
