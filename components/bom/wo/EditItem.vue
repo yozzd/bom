@@ -431,7 +431,7 @@ export default {
                 const index = cdata.getOneMPR.items.findIndex((e) => e.id === this.form.id);
                 cdata.getOneMPR.items[index] = updateItem;
 
-                this.$emit('update', cdata.getOneMPR.items);
+                this.$emit('update', { type: 'items', values: cdata.getOneMPR.items });
 
                 store.writeQuery({
                   query: GetOneMPR,

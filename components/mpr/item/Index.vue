@@ -395,10 +395,10 @@ export default {
             if (this.idModule) {
               const index = cdata.getOneMPR.modules.findIndex((e) => e.id === this.idModule);
               pullAllBy(cdata.getOneMPR.modules[index].items, deleteItem, 'id');
-              this.modules[index] = cdata.getOneMPR.modules[index];
+              this.updateList({ type: 'modules', value: cdata.getOneMPR.modules });
             } else {
               pullAllBy(cdata.getOneMPR.items, deleteItem, 'id');
-              this.updateList(cdata.getOneMPR.items);
+              this.updateList({ type: 'items', value: cdata.getOneMPR.items });
             }
 
             store.writeQuery({
