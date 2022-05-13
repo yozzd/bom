@@ -274,7 +274,7 @@ export default {
             const itm = [...cdata.getOneMPR.items];
             cdata.getOneMPR.items = [...itm, ...addMprItems];
 
-            this.$emit('update', cdata.getOneMPR.items);
+            this.$emit('update', { type: 'items', values: cdata.getOneMPR.items });
 
             store.writeQuery({
               query: GetOneMPR,
