@@ -103,7 +103,7 @@ export default {
 
             cdata.getOneMPR.modules.push(addMprModule);
 
-            this.$emit('update', cdata.getOneMPR.modules);
+            this.$emit('update', { type: 'module', values: cdata.getOneMPR.modules });
 
             store.writeQuery({
               query: GetOneMPR,
