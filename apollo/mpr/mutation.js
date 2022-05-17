@@ -182,6 +182,60 @@ export const AddMprModule = gql`
   }
 `;
 
+export const UpdateMprModule = gql`
+  mutation updateMprModule($input: UpdateMprModuleInput) {
+    updateMprModule(input: $input) {
+      id
+      moduleChar
+      moduleName
+      items {
+        id
+        idMaterial
+        bomDescription
+        bomSpecification
+        bomModel
+        bomBrand
+        bomQty
+        bomUnit
+        bomQtyRqd
+        bomQtyBalance
+        bomQtyStock
+        bomEta
+        bomQtyRec
+        bomDateRec
+        bomCurrSizeC
+        bomCurrSizeV
+        bomCurrEaC
+        bomCurrEaV
+        bomUsdEa
+        bomUsdUnit
+        bomUsdTotal
+        materialsProcessed
+        yetToPurchase
+        bomSupplier
+        bomPoDate
+        bomPoNo
+        bomRemarks
+        priority
+        bomEtaStatus
+        sr
+        isMpr
+        packing
+        hold
+        cancel
+        idHeader
+        idModule
+        colorClass
+        module {
+          id
+          hid
+          header
+        }
+      }
+    }
+  }
+`;
+
 export const MoveToModule = gql`
   mutation moveToModule($input: [MoveToModuleInput]) {
     moveToModule(input: $input) {

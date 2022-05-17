@@ -19,6 +19,16 @@ const mprAttributes = [
   'bomTimestamp', 'attachment', 'remark', 'packing', 'hold', 'cancel',
 ];
 
+const attributes = [
+  'idMaterial', 'bomDescription', 'bomSpecification', 'bomModel', 'bomBrand',
+  'bomQty', 'bomUnit', 'bomQtyRqd', 'bomQtyBalance', 'bomQtyStock', 'bomEta',
+  'bomQtyRec', 'bomDateRec', 'bomCurrSizeC', 'bomCurrSizeV', 'bomCurrEaC',
+  'bomCurrEaV', 'bomUsdEa', 'bomUsdUnit', 'bomUsdTotal', 'materialsProcessed',
+  'yetToPurchase', 'bomSupplier', 'bomPoDate', 'bomPoNo', 'bomRemarks', 'priority',
+  'bomEtaStatus', 'sr', 'isMpr', 'packing', 'hold', 'cancel', 'idHeader',
+  'idModule', 'colorClass',
+];
+
 const resolvers = {
   Upload: GraphQLUpload,
   MPR: {
@@ -214,15 +224,6 @@ const resolvers = {
       await Promise.all(
         input.map(async (v) => {
           let item = {};
-          const attributes = [
-            'idMaterial', 'bomDescription', 'bomSpecification', 'bomModel', 'bomBrand',
-            'bomQty', 'bomUnit', 'bomQtyRqd', 'bomQtyBalance', 'bomQtyStock', 'bomEta',
-            'bomQtyRec', 'bomDateRec', 'bomCurrSizeC', 'bomCurrSizeV', 'bomCurrEaC',
-            'bomCurrEaV', 'bomUsdEa', 'bomUsdUnit', 'bomUsdTotal', 'materialsProcessed',
-            'yetToPurchase', 'bomSupplier', 'bomPoDate', 'bomPoNo', 'bomRemarks', 'priority',
-            'bomEtaStatus', 'sr', 'isMpr', 'packing', 'hold', 'cancel', 'idHeader',
-            'idModule', 'colorClass',
-          ];
           const where = { id: v.id };
 
           if (v.isMpr) {
@@ -285,6 +286,27 @@ const resolvers = {
       const save = await newModule.save();
       save.items = [];
 
+      return save;
+    }),
+    updateMprModule: isAuthenticated(async (_, { input }) => {
+      const module = await MPRMODULE.findOne({
+          attributes: ['id', 'moduleChar', 'moduleName', 'idMpr'],
+          where: { id: input.id },
+          include: [{
+            model: MPRITEM,
+            attributes,
+            required: false,
+            include: [{
+              model: WOMODULE,
+              attributes: ['id', 'hid', 'header'],
+              required: false,
+            }],
+          }],
+        });
+
+      module.moduleChar = input.moduleChar;
+      module.moduleName = input.moduleName;
+      const save = await module.save();
       return save;
     }),
     moveToModule: isAuthenticated(async (_, { input }) => {

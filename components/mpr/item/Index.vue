@@ -250,6 +250,13 @@
                   </client-only>
                 </a>
               </el-tooltip>
+              <el-tooltip effect="dark" content="Edit Module" placement="top">
+                <a @click="editModule(h)">
+                  <client-only>
+                    <v-icon name="ri-edit-2-line" class="remixicons w-3.5 h-3.5" />
+                  </client-only>
+                </a>
+              </el-tooltip>
               <el-tooltip effect="dark" content="Delete Module" placement="top">
                 <a @click="deleteModule(h)">
                   <client-only>
@@ -313,6 +320,13 @@
       @close="closeMoveToModuleDialog"
       @update="updateList"
     />
+
+    <MprModuleEdit
+      :show="showEditModuleDialog"
+      :data="module"
+      @close="closeEditModuleDialog"
+      @update="updateList"
+    />
   </div>
 </template>
 
@@ -328,6 +342,7 @@ export default {
       errors: [],
       mpr: {},
       wo: {},
+      module: {},
       modules: [],
       items: [],
       idModule: 0,
@@ -336,6 +351,7 @@ export default {
       showModuleDialog: false,
       showTitleDialog: false,
       showMoveToModuleDialog: false,
+      showEditModuleDialog: false,
       multipleSelection: [],
       cachedArr: [],
     };
@@ -359,6 +375,9 @@ export default {
     closeMoveToModuleDialog(value) {
       this.showMoveToModuleDialog = value;
     },
+    closeEditModuleDialog(value) {
+      this.showEditModuleDialog = value;
+    },
     updateList({ type, value }) {
       if (type === 'items') {
         this.items = {};
@@ -379,8 +398,13 @@ export default {
       this.cachedArr = arr;
     },
     addNewItem(id) {
+      this.idModule = 0;
       this.idModule = id;
       this.showKeywordDialog = true;
+    },
+    editModule(module) {
+      this.module = module;
+      this.showEditModuleDialog = true;
     },
     handleDelete() {
       this.$confirm('This will permanently delete the data. Continue?', 'Warning', {
