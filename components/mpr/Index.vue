@@ -249,7 +249,8 @@
                   </div>
                   <div
                     v-else-if="scope.row.managerApproved"
-                    class="flex space-x-1">
+                    class="flex space-x-1"
+                  >
                     <el-tag type="success" size="mini">
                       Approved
                     </el-tag>
@@ -308,7 +309,16 @@
               </el-table-column>
               <el-table-column label="MRP" align="center" width="100">
                 <template slot-scope="scope">
-                  <div v-if="scope.row.bomApproved" class="flex space-x-1">
+                  <div v-if="!scope.row.bomApproved && $auth.$state.user.section === 211">
+                    <el-tooltip effect="dark" content="Approve?" placement="top">
+                      <a @click="approve(scope.row, 'bom')">
+                        <el-tag type="warning" size="mini">
+                          Waiting
+                        </el-tag>
+                      </a>
+                    </el-tooltip>
+                  </div>
+                  <div v-else-if="scope.row.bomApproved" class="flex space-x-1">
                     <el-tag type="success" size="mini">
                       Approved
                     </el-tag>
@@ -647,7 +657,13 @@ export default {
               variables: this.variables,
             });
 
-            pullAllBy(cdata[this.sdata], [approveMpr], 'id');
+            if (type === 'bom') {
+              const index = cdata[this.sdata].findIndex((e) => e.id === mpr.id);
+              cdata[this.sdata][index] = approveMpr;
+            } else {
+              pullAllBy(cdata[this.sdata], [approveMpr], 'id');
+            }
+
             this.updateList(cdata[this.sdata]);
 
             store.writeQuery({

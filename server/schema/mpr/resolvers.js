@@ -290,19 +290,19 @@ const resolvers = {
     }),
     updateMprModule: isAuthenticated(async (_, { input }) => {
       const module = await MPRMODULE.findOne({
-          attributes: ['id', 'moduleChar', 'moduleName', 'idMpr'],
-          where: { id: input.id },
+        attributes: ['id', 'moduleChar', 'moduleName', 'idMpr'],
+        where: { id: input.id },
+        include: [{
+          model: MPRITEM,
+          attributes,
+          required: false,
           include: [{
-            model: MPRITEM,
-            attributes,
+            model: WOMODULE,
+            attributes: ['id', 'hid', 'header'],
             required: false,
-            include: [{
-              model: WOMODULE,
-              attributes: ['id', 'hid', 'header'],
-              required: false,
-            }],
           }],
-        });
+        }],
+      });
 
       module.moduleChar = input.moduleChar;
       module.moduleName = input.moduleName;
@@ -336,15 +336,18 @@ const resolvers = {
           attributes: ['idLt'],
         }],
       });
-      
+
       if (input.type === 'manager') {
         mpr.managerApproved = 1;
         mpr.managerTimestamp = Date.now();
       } else if (input.type === 'wh') {
         mpr.whApproved = 1;
         mpr.whTimestamp = Date.now();
+      } else {
+        mpr.bomApproved = 1;
+        mpr.bomTimestamp = Date.now();
       }
-      
+
       const save = await mpr.save();
       return save;
     }),
