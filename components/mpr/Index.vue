@@ -238,7 +238,18 @@
               </el-table-column>
               <el-table-column label="Manager" align="center" width="100">
                 <template slot-scope="scope">
-                  <div v-if="scope.row.managerApproved" class="flex space-x-1">
+                  <div v-if="!scope.row.managerApproved && $auth.$state.user.isManager === 1">
+                    <el-tooltip effect="dark" content="Approve?" placement="top">
+                      <a @click="approve(scope.row, 'manager')">
+                        <el-tag type="warning" size="mini">
+                          Waiting
+                        </el-tag>
+                      </a>
+                    </el-tooltip>
+                  </div>
+                  <div
+                    v-else-if="scope.row.managerApproved"
+                    class="flex space-x-1">
                     <el-tag type="success" size="mini">
                       Approved
                     </el-tag>
@@ -256,15 +267,9 @@
                       </client-only>
                     </el-popover>
                   </div>
-                  <div v-else>
-                    <el-tooltip effect="dark" content="Approve?" placement="top">
-                      <a @click="approve(scope.row, 'manager')">
-                        <el-tag type="warning" size="mini">
-                          Waiting
-                        </el-tag>
-                      </a>
-                    </el-tooltip>
-                  </div>
+                  <el-tag v-else type="warning" size="mini">
+                    Waiting
+                  </el-tag>
                 </template>
               </el-table-column>
               <el-table-column label="Warehouse" align="center" width="100">
