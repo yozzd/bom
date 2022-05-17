@@ -244,7 +244,7 @@
             {{ h.moduleChar }} {{ h.moduleName }}
             <div class="hidden group-hover:inline-block absolute">
               <el-tooltip effect="dark" content="Add Items" placement="top">
-                <a @click="selectedModule(h.id)">
+                <a @click="addNewItem(h.id)">
                   <client-only>
                     <v-icon name="ri-add-line" class="remixicons w-4 h-4" />
                   </client-only>
@@ -370,7 +370,7 @@ export default {
       });
       this.cachedArr = arr;
     },
-    selectedModule(id) {
+    addNewItem(id) {
       this.idModule = id;
       this.showKeywordDialog = true;
     },
