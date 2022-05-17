@@ -11,6 +11,7 @@ const typeDefs = `
     createMpr(input: CreateMprInput): MPR
     updateMpr(input: UpdateMprInput): MPR
     deleteMpr(input: [DeleteMprInput]): [MPR]
+    approveMpr(input: ApproveMprInput): MPR
     addMprItems(input: [AddMprItemsInput]): [MPRITEM]
     addMprModule(input: AddMprModuleInput): MPRMODULE
     updateMprModule(input: UpdateMprModuleInput): MPRMODULE
@@ -166,6 +167,11 @@ const typeDefs = `
     idModule: Int
     id: Int
     isMpr: Int
+  }
+
+  input ApproveMprInput {
+    id: Int
+    type: String
   }
 `;
 

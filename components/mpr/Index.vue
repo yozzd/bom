@@ -258,7 +258,7 @@
                   </div>
                   <div v-else>
                     <el-tooltip effect="dark" content="Approve?" placement="top">
-                      <a @click="approve(id, 'manager')">
+                      <a @click="approve(scope.row, 'manager')">
                         <el-tag type="warning" size="mini">
                           Waiting
                         </el-tag>
@@ -478,7 +478,7 @@ import MiniSearch from 'minisearch';
 import table from '../../mixins/table';
 import mprStatus from '../../mixins/mpr';
 import { GetAllMPR } from '../../apollo/mpr/query';
-import { DeleteMpr } from '../../apollo/mpr/mutation';
+import { ApproveMpr, DeleteMpr } from '../../apollo/mpr/mutation';
 
 export default {
   mixins: [table, mprStatus],
@@ -570,6 +570,10 @@ export default {
     closeEditDialog(value) {
       this.showEditDialog = value;
     },
+    updateList(value) {
+      this.items = {};
+      this.items = value;
+    },
     handleSelectionChange(arr) {
       this.multipleSelection = arr.map((v) => ({ id: v.id }));
       this.cachedArr = arr;
@@ -592,8 +596,7 @@ export default {
             });
 
             pullAllBy(cdata[this.sdata], deleteMpr, 'id');
-            this.items = {};
-            this.items = cdata[this.sdata];
+            this.updateList(cdata[this.sdata]);
 
             store.writeQuery({
               query: this.query,
@@ -613,11 +616,44 @@ export default {
         });
       }).catch(() => {});
     },
-    updateList(value) {
-      this.items = {};
-      this.items = value;
+    approve(mpr, type) {
+      this.$confirm('You are about to approve this MPR, are you sure?', 'Approval Confirmation', {
+        confirmButtonText: 'Yes',
+        cancelButtonText: 'Cancel',
+        type: 'warning',
+      }).then(async () => {
+        await this.$apollo.mutate({
+          mutation: ApproveMpr,
+          variables: {
+            input: { id: mpr.id, type },
+          },
+          update: (store, { data: { approveMpr } }) => {
+            const cdata = store.readQuery({
+              query: this.query,
+              variables: this.variables,
+            });
+
+            pullAllBy(cdata[this.sdata], [approveMpr], 'id');
+            this.updateList(cdata[this.sdata]);
+
+            store.writeQuery({
+              query: this.query,
+              variables: this.variables,
+              data: cdata,
+            });
+          },
+          optimisticResponse: {
+            __typename: 'Mutation',
+            approveMpr: mpr,
+          },
+        });
+
+        this.$message({
+          type: 'success',
+          message: 'Data has been delete successfully',
+        });
+      }).catch(() => {});
     },
-    approve() {},
   },
 };
 </script>
