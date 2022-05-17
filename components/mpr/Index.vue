@@ -274,7 +274,16 @@
               </el-table-column>
               <el-table-column label="Warehouse" align="center" width="100">
                 <template slot-scope="scope">
-                  <div v-if="scope.row.whApproved" class="flex space-x-1">
+                  <div v-if="!scope.row.whApproved && $auth.$state.user.section === 213">
+                    <el-tooltip effect="dark" content="Approve?" placement="top">
+                      <a @click="approve(scope.row, 'wh')">
+                        <el-tag type="warning" size="mini">
+                          Waiting
+                        </el-tag>
+                      </a>
+                    </el-tooltip>
+                  </div>
+                  <div v-else-if="scope.row.whApproved" class="flex space-x-1">
                     <el-tag type="success" size="mini">
                       Approved
                     </el-tag>
