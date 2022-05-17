@@ -256,9 +256,15 @@
                       </client-only>
                     </el-popover>
                   </div>
-                  <el-tag v-else type="warning" size="mini">
-                    Waiting
-                  </el-tag>
+                  <div v-else>
+                    <el-tooltip effect="dark" content="Approve?" placement="top">
+                      <a @click="approve(id, 'manager')">
+                        <el-tag type="warning" size="mini">
+                          Waiting
+                        </el-tag>
+                      </a>
+                    </el-tooltip>
+                  </div>
                 </template>
               </el-table-column>
               <el-table-column label="Warehouse" align="center" width="100">
@@ -611,6 +617,7 @@ export default {
       this.items = {};
       this.items = value;
     },
+    approve() {},
   },
 };
 </script>
