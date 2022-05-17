@@ -14,6 +14,7 @@ const typeDefs = `
     addMprItems(input: [AddMprItemsInput]): [MPRITEM]
     addMprModule(input: AddMprModuleInput): MPRMODULE
     moveToModule(input: [MoveToModuleInput]): [MPRITEM]
+    deleteModule(id: Int): MPRMODULE
   }
 
   type MPR {

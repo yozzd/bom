@@ -231,3 +231,11 @@ export const MoveToModule = gql`
     }
   }
 `;
+
+export const DeleteModule = gql`
+  mutation deleteModule($id: Int) {
+    deleteModule(id: $id) {
+      id
+    }
+  }
+`;

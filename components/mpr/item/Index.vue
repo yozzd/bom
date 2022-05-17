@@ -250,6 +250,13 @@
                   </client-only>
                 </a>
               </el-tooltip>
+              <el-tooltip effect="dark" content="Delete Module" placement="top">
+                <a @click="deleteModule(h)">
+                  <client-only>
+                    <v-icon name="ri-delete-bin-2-line" class="remixicons w-4 h-4" />
+                  </client-only>
+                </a>
+              </el-tooltip>
             </div>
           </div>
           <index-data-table
@@ -312,6 +319,7 @@
 <script>
 import pullAllBy from 'lodash/pullAllBy';
 import { GetOneMPR } from '../../../apollo/mpr/query';
+import { DeleteModule } from '../../../apollo/mpr/mutation';
 import { DeleteItem } from '../../../apollo/bom/mutation';
 
 export default {
@@ -422,6 +430,52 @@ export default {
         });
         this.multipleSelection = [];
         this.idModule = 0;
+      }).catch(() => {});
+    },
+    deleteModule(selectedModule) {
+      this.$confirm('This will permanently delete the data. Continue?', 'Warning', {
+        confirmButtonText: 'Yes',
+        cancelButtonText: 'Cancel',
+        type: 'warning',
+      }).then(async () => {
+        await this.$apollo.mutate({
+          mutation: DeleteModule,
+          variables: {
+            id: parseInt(selectedModule.id, 10),
+          },
+          update: (store, { data: { deleteModule } }) => {
+            const cdata = store.readQuery({
+              query: GetOneMPR,
+              variables: {
+                id: parseInt(this.$route.params.id, 10),
+              },
+            });
+
+            if (deleteModule.id) {
+              pullAllBy(cdata.getOneMPR.modules, [deleteModule], 'id');
+            } else {
+              pullAllBy(cdata.getOneMPR.modules, [selectedModule], 'id');
+            }
+            this.updateList({ type: 'modules', value: cdata.getOneMPR.modules });
+
+            store.writeQuery({
+              query: GetOneMPR,
+              variables: {
+                id: parseInt(this.$route.params.id, 10),
+              },
+              data: cdata,
+            });
+          },
+          optimisticResponse: {
+            __typename: 'Mutation',
+            deleteModule: selectedModule,
+          },
+        });
+
+        this.$message({
+          type: 'success',
+          message: 'Data has been delete successfully',
+        });
       }).catch(() => {});
     },
   },

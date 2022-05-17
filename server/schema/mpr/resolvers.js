@@ -305,6 +305,17 @@ const resolvers = {
 
       return saved;
     }),
+    deleteModule: isAuthenticated(async (_, { id }) => {
+      await MPRMODULE.destroy({
+        where: { id },
+      });
+
+      await MPRITEM.destroy({
+        where: { idModule: id },
+      });
+
+      return id;
+    }),
   },
 };
 
