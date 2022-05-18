@@ -82,6 +82,7 @@
               :data="tableData"
               size="mini"
               border
+              @selection-change="handleSelectionChange"
             >
               <el-table-column
                 v-if="$auth.$state.user.isManager === 0"
