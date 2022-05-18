@@ -113,6 +113,15 @@ export default {
               data: cdata,
             });
           },
+          optimisticResponse: {
+            __typename: 'Mutation',
+            addMprModule: {
+              __typename: 'MPRMODULE',
+              id: -1,
+              ...this.form,
+              items: [],
+            },
+          },
         });
 
         this.$message({
