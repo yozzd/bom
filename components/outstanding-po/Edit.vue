@@ -456,6 +456,10 @@ export default {
                   data: odata,
                 });
               },
+              optimisticResponse: {
+                __typename: 'Mutation',
+                updateOutPo: this.form,
+              },
             });
 
             this.$message({
