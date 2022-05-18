@@ -277,22 +277,25 @@
                 class="flex font-bold text-xs my-4"
               >
                 <div>MPR No. :</div>
-                <div class="flex ml-2">
+                <div class="flex ml-2 group">
                   <nuxt-link
                     :to="{ name: 'mpr-id', params: { id: mpr.id } }"
                   >
                     {{ mpr.no }}
                   </nuxt-link>
-                  <a
-                    :href="`/mpr/${mpr.id}`"
-                    title="Open in new tab"
-                    target="_blank"
-                    class="ml-2"
-                  >
-                    <client-only>
-                      <v-icon name="ri-external-link-line" class="remixicons w-4 h-4" />
-                    </client-only>
-                  </a>
+                  <div class="hidden group-hover:inline-block">
+                    <el-tooltip effect="dark" content="Open in new tab" placement="top">
+                      <a
+                        :href="`/mpr/${mpr.id}`"
+                        target="_blank"
+                        class="ml-2"
+                      >
+                        <client-only>
+                          <v-icon name="ri-external-link-line" class="remixicons w-3.5 h-3.5" />
+                        </client-only>
+                      </a>
+                    </el-tooltip>
+                  </div>
                 </div>
                 <div class="mx-2">
                   &bull;
