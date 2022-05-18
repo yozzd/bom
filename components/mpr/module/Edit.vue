@@ -121,6 +121,10 @@ export default {
               data: cdata,
             });
           },
+          optimisticResponse: {
+            __typename: 'Mutation',
+            updateMprModule: this.form,
+          },
         });
 
         this.$message({
