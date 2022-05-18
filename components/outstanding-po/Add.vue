@@ -204,9 +204,7 @@ export default {
   },
   data() {
     return {
-      form: {
-        poNo: '',
-      },
+      form: {},
     };
   },
   watch: {
@@ -267,6 +265,42 @@ export default {
                   variables: this.variables,
                   data: odata,
                 });
+              },
+              optimisticResponse: {
+                __typename: 'Mutation',
+                createOutPo: {
+                  __typename: 'item',
+                  id: -1,
+                  poIssue: this.form.poIssue,
+                  poZone: this.form.poZone,
+                  poNo: this.form.poNo,
+                  poSupplier: this.form.poSupplier,
+                  poDescription: this.form.poDescription,
+                  poKvalue: this.form.poKvalue,
+                  poValue: parseFloat(this.form.poValue),
+                  poLt: this.form.poLt,
+                  poLpayment: this.form.poLpayment,
+                  poBom: null,
+                  poAdmin: null,
+                  poFinance: null,
+                  poEta: this.form.poEta,
+                  poArrival: null,
+                  poStatus: null,
+                  approvalDate: null,
+                  comp: null,
+                  hse: null,
+                  poValueUsd: null,
+                  poPaidUsd: null,
+                  poBalanceUsd: null,
+                  arrivalStatus: null,
+                  poRemarks: this.form.poRemarks,
+                  poRemarksBom: null,
+                  poRemarksAdmin: null,
+                  poRemarksFinance: null,
+                  poRemarksWarehouse: null,
+                  poCancel: null,
+                  colorClass: null,
+                },
               },
             });
 

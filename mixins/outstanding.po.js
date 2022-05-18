@@ -30,6 +30,7 @@ export default {
         poSupplier: [{ required: true, message: 'This field is required' }],
         poKvalue: [{ required: true, message: 'This field is required', trigger: 'change' }],
         poValue: [{ required: true, message: 'This field is required' }],
+        poLt: [{ required: true, message: 'This field is required' }],
       },
       supplier: [],
       supplierLoading: false,
