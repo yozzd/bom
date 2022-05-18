@@ -368,11 +368,14 @@
                   </el-popover>
                 </template>
               </el-table-column>
-              <el-table-column label="Attachment" width="140">
+              <el-table-column
+                label="Attachment"
+                width="140"
+                :show-overflow-tooltip="true"
+              >
                 <template slot-scope="scope">
                   <div
                     v-if="scope.row.attachmentCheck"
-                    :title="scope.row.attachment"
                     class="truncate"
                   >
                     <a
