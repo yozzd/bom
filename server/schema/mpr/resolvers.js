@@ -3,6 +3,7 @@ const fetch = require('node-fetch');
 const { ErrorWithProps } = require('mercurius');
 const { GraphQLUpload } = require('graphql-upload');
 const { Op } = require('sequelize');
+const sequelize = require('../../config/db');
 const { pssUrl, pssAuth } = require('../../config');
 const {
   WO, WOMODULE, WOITEM, MPR, MPRMODULE, MPRITEM, OUTSTANDINGPO,
@@ -346,6 +347,20 @@ const resolvers = {
       } else {
         mpr.bomApproved = 1;
         mpr.bomTimestamp = Date.now();
+
+        if (mpr.no === '######') {
+          const no = await MPR.findAll({
+            attributes: [
+              [sequelize.literal('MAX(no) + 1'), 'no'],
+            ],
+            raw: true,
+          });
+          
+          const p = parseInt(no[0].no);
+          const n = p < 10000 ? `0${p}` : p;
+          
+          mpr.no = n;
+        }
       }
 
       const save = await mpr.save();
