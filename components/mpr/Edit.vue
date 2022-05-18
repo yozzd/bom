@@ -283,10 +283,7 @@ export default {
               },
               optimisticResponse: {
                 __typename: 'Mutation',
-                updateMpr: {
-                  __typename: 'MPR',
-                  ...this.form,
-                },
+                updateMpr: this.form,
               },
             });
 
