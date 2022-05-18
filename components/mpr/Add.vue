@@ -269,7 +269,7 @@ export default {
                   cancel: 0,
                   wo: {
                     __typename: 'WO',
-                    idLt: this.form.wo.lt.id,
+                    idLt: -1,
                   },
                 },
               },
