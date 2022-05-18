@@ -13,7 +13,7 @@ const itemAttributes = [
   'bomDateRec', 'bomCurrSizeC', 'bomCurrSizeV', 'bomCurrEaC',
   'bomCurrEaV', 'bomUsdEa', 'bomUsdUnit', 'bomUsdTotal',
   'materialsProcessed', 'yetToPurchase', 'bomSupplier',
-  'bomPoDate', 'bomPoNo', 'bomRemarks', 'priority', 'bomEtaStatus',
+  'bomPoDate', 'bomPoNo', 'poNo', 'bomRemarks', 'priority', 'bomEtaStatus',
   'sr', 'isMpr', 'validasi', 'packing', 'hold', 'cancel',
   'idHeader', 'idModule', 'colorClass',
 ];
@@ -441,7 +441,6 @@ const resolvers = {
         item = await WOITEM.findOne({
           attributes,
           where: { id: obj.id },
-          include,
         });
       }
 

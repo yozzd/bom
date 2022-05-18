@@ -452,7 +452,7 @@ const WOITEM = sequelize.define('item', {
   colorClass: {
     type: DataTypes.VIRTUAL,
     get() {
-      const outPoNo = this.outstandingPo ? this.outstandingPo.poNo : '';
+      const outPoNo = this.outstandingPo ? this.outstandingPo.poNo : null;
 
       if (this.validasi && !this.cancel) return 'validated-row';
       if (this.bomQty > 0 && this.bomQtyStock > 0 && this.bomQtyBalance >= 0) return 'stock-row';
@@ -461,7 +461,7 @@ const WOITEM = sequelize.define('item', {
       if (!outPoNo && this.bomQtyRec <= 0 && this.poNo && !this.hold && !this.cancel) return 'draft-row';
       if (this.hold) return 'hold-row';
       if (this.cancel) return 'cancel-row';
-      return '';
+      return null;
     },
   },
 }, {
