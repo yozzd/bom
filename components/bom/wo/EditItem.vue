@@ -441,7 +441,7 @@ export default {
                       .modules[idx1].items.findIndex((e) => e.id === updateItem.id);
                     cdata.getOneMPR.modules[idx1].items[idx2] = updateItem;
 
-                    this.$emit('update', { type: 'modules', values: cdata.getOneMPR.modules });
+                    this.$emit('update', { type: 'modules', value: cdata.getOneMPR.modules });
                   } else if (this.form.idModule && this.form.idModule !== this.oIdModule) {
                     const idx1 = cdata.getOneMPR
                       .modules.findIndex((e) => e.id === this.form.idModule);
@@ -456,7 +456,7 @@ export default {
                     const index = cdata.getOneMPR.items.findIndex((e) => e.id === this.form.id);
                     cdata.getOneMPR.items[index] = updateItem;
 
-                    this.$emit('update', { type: 'items', values: cdata.getOneMPR.items });
+                    this.$emit('update', { type: 'items', value: cdata.getOneMPR.items });
                   }
 
                   store.writeQuery({
@@ -485,7 +485,7 @@ export default {
                       .modules[idx1].items.findIndex((e) => e.id === updateItem.id);
                     cdata.getOneWO.wo.modules[idx1].items[idx2] = updateItem;
 
-                    this.$emit('update', { type: 'modules', values: cdata.getOneWO.wo.modules });
+                    this.$emit('update', { type: 'modules', value: cdata.getOneWO.wo.modules });
                   } else if (
                     this.form.idHeader
                   && this.form.idHeader !== this.oIdHeader
@@ -508,7 +508,7 @@ export default {
                       .mprs[idx1].modules[idx2].items.findIndex((e) => e.id === this.form.id);
                     cdata.getOneWO.mpr.mprs[idx1].modules[idx2].items[idx3] = updateItem;
 
-                    this.$emit('update', { type: 'mprs', values: cdata.getOneWO.mpr.mprs });
+                    this.$emit('update', { type: 'mprs', value: cdata.getOneWO.mpr.mprs });
                   } else if (this.form.idModule && this.form.idHeader && this.form.isMpr) {
                     const idx1 = cdata.getOneWO.wo
                       .modules.findIndex((e) => e.id === this.form.idHeader);
@@ -544,7 +544,7 @@ export default {
                       .mprs[idx1].items.findIndex((e) => e.id === this.form.id);
                     cdata.getOneWO.mpr.mprs[idx1].items[idx2] = updateItem;
 
-                    this.$emit('update', { type: 'mprs', values: cdata.getOneWO.mpr.mprs });
+                    this.$emit('update', { type: 'mprs', value: cdata.getOneWO.mpr.mprs });
                   }
 
                   store.writeQuery({
