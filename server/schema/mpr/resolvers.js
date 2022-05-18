@@ -355,10 +355,10 @@ const resolvers = {
             ],
             raw: true,
           });
-          
-          const p = parseInt(no[0].no);
+
+          const p = parseInt(no[0].no, 10);
           const n = p < 10000 ? `0${p}` : p;
-          
+
           mpr.no = n;
         }
       }
