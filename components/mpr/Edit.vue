@@ -253,12 +253,12 @@ export default {
                   category: parseInt(this.form.category, 10),
                   dor: this.form.dor,
                   remark: this.form.remark,
-                  packing: parseInt(this.form.packing, 10),
-                  hold: parseInt(this.form.hold, 10),
-                  cancel: parseInt(this.form.cancel, 10),
+                  packing: parseInt(this.form.packing, 10) || 0,
+                  hold: parseInt(this.form.hold, 10) || 0,
+                  cancel: parseInt(this.form.cancel, 10) || 0,
                   idLt: this.form.wo.idLt,
                   file: this.file,
-                  remAttach: parseInt(this.form.remAttach, 10),
+                  remAttach: parseInt(this.form.remAttach, 10) || 0,
                 },
               },
               update: (store, { data: { updateMpr } }) => {
@@ -280,6 +280,13 @@ export default {
                   variables: this.variables,
                   data: odata,
                 });
+              },
+              optimisticResponse: {
+                __typename: 'Mutation',
+                updateMpr: {
+                  __typename: 'MPR',
+                  ...this.form,
+                },
               },
             });
 
