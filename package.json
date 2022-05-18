@@ -44,7 +44,7 @@
     "oh-vue-icons": "^1.0.0-rc3",
     "passport": "^0.5.3",
     "passport-local": "^1.0.0",
-    "sequelize": "^6.19.0",
+    "sequelize": "^6.19.1",
     "view-design": "^4.7.0",
     "vue": "^2.6.14",
     "vue-currency-filter": "^5.2.0",
