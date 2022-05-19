@@ -178,7 +178,7 @@
       <div>
         <div class="flex my-4 space-x-4 items-center">
           <Dropdown trigger="click" placement="bottom-start" @on-click="handleCommand">
-            <Button type="primary" size="large">
+            <VButton type="primary" size="large">
               <client-only>
                 <v-icon name="ri-add-line" class="remixicons w-4 h-4" />
               </client-only>
@@ -186,7 +186,7 @@
               <client-only>
                 <v-icon name="ri-arrow-down-s-line" class="remixicons w-4 h-4" />
               </client-only>
-            </Button>
+            </VButton>
             <DropdownMenu slot="list">
               <Dropdown placement="right-start">
                 <DropdownItem>

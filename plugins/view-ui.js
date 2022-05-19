@@ -10,7 +10,7 @@ import lang from 'view-design/dist/locale/en-US';
 
 locale(lang);
 
-Vue.component('Button', Button);
+Vue.component('VButton', Button);
 Vue.component('Dropdown', Dropdown);
 Vue.component('DropdownItem', DropdownItem);
 Vue.component('DropdownMenu', DropdownMenu);
