@@ -307,7 +307,6 @@
     <MprModuleTitle
       :show="showTitleDialog"
       @close="closeTitleDialog"
-      @update="updateList"
     />
 
     <MprModuleMove
