@@ -63,7 +63,7 @@
               <el-table-column type="index" align="center" width="50"></el-table-column>
               <el-table-column label="LT" width="200">
                 <template slot-scope="scope">
-                  <div class="flex">
+                  <div class="flex group">
                     <nuxt-link
                       :to="{
                         name: 'bom-lt-id-status', params: { id: scope.row.id, status: statusValue }
@@ -74,15 +74,18 @@
                       {{ scope.row.ltNo }}
                       <span v-if="scope.row.stage">[STAGE-{{ scope.row.stage }}]</span>
                     </nuxt-link>
-                    <a
-                      :href="`/bom/lt/${scope.row.id}/${statusValue}`"
-                      title="Open in new tab"
-                      target="_blank"
-                    >
-                      <client-only>
-                        <v-icon name="ri-external-link-line" class="remixicons w-4 h-4" />
-                      </client-only>
+                    <div class="hidden group-hover:inline-block">
+                      <el-tooltip effect="dark" content="Open in new tab" placement="top">
+                        <a
+                          :href="`/bom/lt/${scope.row.id}/${statusValue}`"
+                          target="_blank"
+                        >
+                          <client-only>
+                            <v-icon name="ri-external-link-line" class="remixicons w-4 h-4" />
+                          </client-only>
                     </a>
+                      </el-tooltip>
+                    </div>
                   </div>
                 </template>
               </el-table-column>
