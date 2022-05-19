@@ -315,7 +315,6 @@
       :items="multipleSelection"
       :o-id-module="idModule"
       @close="closeMoveToModuleDialog"
-      @update="updateList"
     />
 
     <MprModuleEdit
