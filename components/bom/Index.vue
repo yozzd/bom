@@ -61,34 +61,41 @@
               border
             >
               <el-table-column type="index" align="center" width="50"></el-table-column>
-              <el-table-column label="LT" width="200">
+              <el-table-column
+                label="LT"
+                width="200"
+                :show-overflow-tooltip="true"
+                class-name="relative group"
+              >
                 <template slot-scope="scope">
-                  <div class="flex group">
-                    <nuxt-link
-                      :to="{
-                        name: 'bom-lt-id-status', params: { id: scope.row.id, status: statusValue }
-                      }"
-                      class="flex-1"
-                    >
-                      {{ scope.row.ltNo }}
-                      <span v-if="scope.row.stage">[STAGE-{{ scope.row.stage }}]</span>
-                    </nuxt-link>
-                    <div class="hidden group-hover:inline-block">
-                      <el-tooltip effect="dark" content="Open in new tab" placement="top">
-                        <a
-                          :href="`/bom/lt/${scope.row.id}/${statusValue}`"
-                          target="_blank"
-                        >
-                          <client-only>
-                            <v-icon name="ri-external-link-line" class="remixicons w-4 h-4" />
-                          </client-only>
-                        </a>
-                      </el-tooltip>
-                    </div>
+                  <nuxt-link
+                    :to="{
+                      name: 'bom-lt-id-status', params: { id: scope.row.id, status: statusValue }
+                    }"
+                  >
+                    {{ scope.row.ltNo }}
+                    <span v-if="scope.row.stage">[STAGE-{{ scope.row.stage }}]</span>
+                  </nuxt-link>
+                  <div class="hidden group-hover:inline-block absolute top-1 right-0">
+                    <el-tooltip effect="dark" content="Open in new tab" placement="top">
+                      <a
+                        :href="`/bom/lt/${scope.row.id}/${statusValue}`"
+                        target="_blank"
+                      >
+                        <client-only>
+                          <v-icon name="ri-external-link-line" class="remixicons w-4 h-4" />
+                        </client-only>
+                      </a>
+                    </el-tooltip>
                   </div>
                 </template>
               </el-table-column>
-              <el-table-column prop="customer.name" label="Customer" width="400"></el-table-column>
+              <el-table-column
+                prop="customer.name"
+                label="Customer"
+                width="400"
+                :show-overflow-tooltip="true"
+              ></el-table-column>
               <el-table-column label="WO" min-width="50">
                 <template slot-scope="scope">
                   {{ scope.row.wos.length }}
