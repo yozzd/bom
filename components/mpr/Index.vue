@@ -112,35 +112,37 @@
                 label="Number"
                 width="100"
                 fixed
-                class-name="group"
               >
                 <template slot-scope="scope">
-                  <nuxt-link
-                    :to="{ name: 'mpr-id', params: { id: scope.row.id } }"
-                  >
-                    {{ scope.row.no }}
-                  </nuxt-link>
-                  <div class="hidden group-hover:inline-block absolute top-1 right-0">
-                    <el-tooltip effect="dark" content="Open in new tab" placement="top">
-                      <a
-                        :href="`/mpr/${scope.row.id}`"
-                        target="_blank"
-                      >
-                        <client-only>
-                          <v-icon name="ri-external-link-line" class="remixicons w-4 h-4" />
-                        </client-only>
-                      </a>
-                    </el-tooltip>
-                    <el-tooltip effect="dark" content="Edit" placement="top">
-                      <a
-                        v-if="$auth.$state.user.isManager === 0"
-                        @click="showEdit(scope.row)"
-                      >
-                        <client-only>
-                          <v-icon name="ri-edit-2-line" class="remixicons w-4 h-4" />
-                        </client-only>
-                      </a>
-                    </el-tooltip>
+                  <div class="flex group">
+                    <nuxt-link
+                      :to="{ name: 'mpr-id', params: { id: scope.row.id } }"
+                      class="flex-1"
+                    >
+                      {{ scope.row.no }}
+                    </nuxt-link>
+                    <div class="hidden group-hover:inline-block">
+                      <el-tooltip effect="dark" content="Open in new tab" placement="top">
+                        <a
+                          :href="`/mpr/${scope.row.id}`"
+                          target="_blank"
+                        >
+                          <client-only>
+                            <v-icon name="ri-external-link-line" class="remixicons w-4 h-4" />
+                          </client-only>
+                        </a>
+                      </el-tooltip>
+                      <el-tooltip effect="dark" content="Edit" placement="top">
+                        <a
+                          v-if="$auth.$state.user.isManager === 0"
+                          @click="showEdit(scope.row)"
+                        >
+                          <client-only>
+                            <v-icon name="ri-edit-2-line" class="remixicons w-4 h-4" />
+                          </client-only>
+                        </a>
+                      </el-tooltip>
+                    </div>
                   </div>
                 </template>
               </el-table-column>
@@ -149,32 +151,34 @@
                 :show-overflow-tooltip="true"
                 width="100"
                 fixed
-                class-name="group"
               >
                 <template slot-scope="scope">
-                  <nuxt-link
-                    :to="{
-                      name: 'bom-wo-idLt-id', params: {
-                        idLt: scope.row.wo.idLt, id: scope.row.idWo,
-                      }
-                    }"
-                  >
-                    {{ scope.row.woNo }}
-                  </nuxt-link>
-                  <div class="hidden group-hover:inline-block absolute top-1 right-0">
-                    <el-tooltip effect="dark" content="Open in new tab" placement="top">
-                      <a
-                        :href="`/bom/wo/${scope.row.wo.idLt}/${scope.row.idWo}`"
-                        target="_blank"
-                      >
-                        <client-only>
-                          <v-icon
-                            name="ri-external-link-line"
-                            class="remixicons w-4 h-4"
-                          />
-                        </client-only>
-                      </a>
-                    </el-tooltip>
+                  <div class="flex group">
+                    <nuxt-link
+                      :to="{
+                        name: 'bom-wo-idLt-id', params: {
+                          idLt: scope.row.wo.idLt, id: scope.row.idWo,
+                        }
+                      }"
+                      class="flex-1"
+                    >
+                      {{ scope.row.woNo }}
+                    </nuxt-link>
+                    <div class="hidden group-hover:inline-block">
+                      <el-tooltip effect="dark" content="Open in new tab" placement="top">
+                        <a
+                          :href="`/bom/wo/${scope.row.wo.idLt}/${scope.row.idWo}`"
+                          target="_blank"
+                        >
+                          <client-only>
+                            <v-icon
+                              name="ri-external-link-line"
+                              class="remixicons w-4 h-4"
+                            />
+                          </client-only>
+                        </a>
+                      </el-tooltip>
+                    </div>
                   </div>
                 </template>
               </el-table-column>

@@ -68,8 +68,7 @@
                       :to="{
                         name: 'bom-lt-id-status', params: { id: scope.row.id, status: statusValue }
                       }"
-                      :title="scope.row.ltNo"
-                      class="flex-1 truncate"
+                      class="flex-1"
                     >
                       {{ scope.row.ltNo }}
                       <span v-if="scope.row.stage">[STAGE-{{ scope.row.stage }}]</span>
@@ -83,7 +82,7 @@
                           <client-only>
                             <v-icon name="ri-external-link-line" class="remixicons w-4 h-4" />
                           </client-only>
-                    </a>
+                        </a>
                       </el-tooltip>
                     </div>
                   </div>
