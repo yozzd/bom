@@ -272,7 +272,6 @@
             :mpr="mpr"
             from-mpr
             @selection-change="handleSelectionChange"
-            @update="updateList"
           />
           <div></div>
         </div>
@@ -285,7 +284,6 @@
           from-mpr
           class="my-4"
           @selection-change="handleSelectionChange"
-          @update="updateList"
         />
       </div>
       <div></div>
@@ -321,7 +319,6 @@
       :show="showEditModuleDialog"
       :data="module"
       @close="closeEditModuleDialog"
-      @update="updateList"
     />
   </div>
 </template>
@@ -374,15 +371,6 @@ export default {
     closeEditModuleDialog(value) {
       this.showEditModuleDialog = value;
     },
-    updateList({ type, value }) {
-      if (type === 'items') {
-        this.items = {};
-        this.items = value;
-      } else {
-        this.modules = {};
-        this.modules = value;
-      }
-    },
     handleSelectionChange(arr) {
       this.multipleSelection = arr.map((v) => {
         this.idModule = v.idModule;
@@ -424,10 +412,8 @@ export default {
             if (this.idModule) {
               const index = cdata.getOneMPR.modules.findIndex((e) => e.id === this.idModule);
               pullAllBy(cdata.getOneMPR.modules[index].items, deleteItem, 'id');
-              this.updateList({ type: 'modules', value: cdata.getOneMPR.modules });
             } else {
               pullAllBy(cdata.getOneMPR.items, deleteItem, 'id');
-              this.updateList({ type: 'items', value: cdata.getOneMPR.items });
             }
 
             store.writeQuery({
@@ -476,7 +462,6 @@ export default {
             } else {
               pullAllBy(cdata.getOneMPR.modules, [selectedModule], 'id');
             }
-            this.updateList({ type: 'modules', value: cdata.getOneMPR.modules });
 
             store.writeQuery({
               query: GetOneMPR,
