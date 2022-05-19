@@ -350,6 +350,14 @@
         </el-tabs>
       </div>
     </div>
+
+    <BomWoItemAdd
+      :show="showKeywordDialog"
+      :wo="wo"
+      :id-header="idHeader"
+      @close="closeKeywordDialog"
+      @update="updateList"
+    />
   </div>
 </template>
 
@@ -367,6 +375,8 @@ export default {
       modules: {},
       mprs: [],
       errors: [],
+      idHeader: 0,
+      showKeywordDialog: false,
     };
   },
   methods: {
@@ -381,13 +391,25 @@ export default {
         this.mprs = {};
         this.mprs = value;
       } else if (type === 'both') {
+        const { modules, mprs } = value;
         this.modules = {};
-        this.modules = value.modules;
+        this.modules = modules;
         this.mprs = {};
-        this.mprs = value.mprs;
+        this.mprs = mprs;
+      } else if (type === 'index') {
+        const { index, modules } = value;
+        this.modules[index] = {};
+        this.modules[index] = modules;
       }
     },
-    addNewItem() {},
+    closeKeywordDialog(value) {
+      this.showKeywordDialog = value;
+    },
+    addNewItem(id) {
+      this.idHeader = 0;
+      this.idHeader = id;
+      this.showKeywordDialog = true;
+    },
     editModule() {},
     deleteModule() {},
   },

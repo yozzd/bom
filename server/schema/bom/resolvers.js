@@ -490,6 +490,80 @@ const resolvers = {
 
       return input;
     }),
+    addWoItems: isAuthenticated(async (_, { input }) => {
+      const saved = [];
+
+      await Promise.all(
+        input.map(async (v) => {
+          const item = await WOITEM.findOne({
+            attributes: [
+              ...itemAttributes, 'idWo', 'idLt', 'poZone', 'whRemarks', 'prRemarks',
+              'rndRemarks', 'hvacRemarks', 'mechanicalRemarks', 'electronicRemarks',
+              'fabricationRemarks',
+            ],
+            where: { id: v.id },
+            raw: true,
+          });
+
+          delete item.id;
+          delete item.moduleId;
+
+          item.bomQty = 0;
+          item.bomQtyRqd = 0;
+          item.bomQtyBalance = 0;
+          item.bomEta = null;
+          item.bomQtyRec = 0;
+          item.bomDateRec = null;
+          item.bomQtyStock = 0;
+          item.bomCurrSizeC = null;
+          item.bomCurrSizeV = 0;
+          item.bomCurrEaC = null;
+          item.bomCurrEaV = 0;
+          item.bomUsdEa = 0;
+          item.bomUsdUnit = 0;
+          item.bomUsdTotal = 0;
+          item.bomSupplier = null;
+          item.bomPoDate = null;
+          item.bomPoNo = null;
+          item.bomRemarks = null;
+          item.bomEtaStatus = null;
+          item.poZone = null;
+          item.poNo = null;
+          item.whRemarks = null;
+          item.prRemarks = null;
+          item.rndRemarks = null;
+          item.hvacRemarks = null;
+          item.mechanicalRemarks = null;
+          item.electronicRemarks = null;
+          item.fabricationRemarks = null;
+          item.materialsProcessed = 0;
+          item.yetToPurchase = 0;
+          item.priority = null;
+          item.sr = 0;
+          item.validasi = 0;
+          item.packing = 0;
+          item.hold = 0;
+          item.cancel = 0;
+          item.isMpr = 0;
+          item.idWo = v.idWo;
+          item.idHeader = v.idHeader;
+          item.idLt = v.idLt;
+          item.colorClass = null;
+          item.bomStatus = null;
+          item.poQty = null;
+          item.poCurr = null;
+          item.poVal = null;
+          item.poRemarks = null;
+          item.idModule = null;
+
+          const newItem = new WOITEM(item);
+          const save = await newItem.save();
+          saved.push(save);
+        }),
+      );
+
+      return saved;
+    }),
   },
 };
 

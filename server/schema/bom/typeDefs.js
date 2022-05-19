@@ -13,6 +13,7 @@ const typeDefs = `
   extend type Mutation {
     updateItem(input: UpdateItemInput): WOITEM
     deleteItem(input: [DeleteItemInput]): [WOITEM]
+    addWoItems(input: [AddWoItemsInput]): [WOITEM]
   }
 
   type WODetail {
@@ -194,6 +195,14 @@ const typeDefs = `
   input DeleteItemInput {
     id: Int
     isMpr: Int
+  }
+
+  input AddWoItemsInput {
+    id: Int
+    isMpr: Int
+    idWo: Int
+    idHeader: Int
+    idLt: Int
   }
 `;
 
