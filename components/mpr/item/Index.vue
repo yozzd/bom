@@ -302,7 +302,6 @@
       :show="showModuleDialog"
       :wo="wo"
       @close="closeModuleDialog"
-      @update="updateList"
     />
 
     <MprModuleTitle
