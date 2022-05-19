@@ -255,8 +255,31 @@
               :key="h.id"
               class="flex flex-col divide-y divide-gray-400 divide-dashed"
             >
-              <div class="text-xs font-bold my-4">
-                {{ h.hid }} {{ h.header }}
+              <div class="flex space-x-4 text-xs font-bold my-4 group">
+                <div>{{ h.hid }} {{ h.header }}</div>
+                <div class="hidden group-hover:inline-block">
+                  <el-tooltip effect="dark" content="Add Items" placement="top">
+                    <a @click="addNewItem(h.id)">
+                      <client-only>
+                        <v-icon name="ri-add-line" class="remixicons w-3.5 h-3.5" />
+                      </client-only>
+                    </a>
+                  </el-tooltip>
+                  <el-tooltip effect="dark" content="Edit Module" placement="top">
+                    <a @click="editModule(h)">
+                      <client-only>
+                        <v-icon name="ri-edit-2-line" class="remixicons w-3.5 h-3.5" />
+                      </client-only>
+                    </a>
+                  </el-tooltip>
+                  <el-tooltip effect="dark" content="Delete Module" placement="top">
+                    <a @click="deleteModule(h)">
+                      <client-only>
+                        <v-icon name="ri-delete-bin-2-line" class="remixicons w-3.5 h-3.5" />
+                      </client-only>
+                    </a>
+                  </el-tooltip>
+                </div>
               </div>
               <index-data-table
                 v-if="h.items.length"
@@ -364,6 +387,9 @@ export default {
         this.mprs = value.mprs;
       }
     },
+    addNewItem() {},
+    editModule() {},
+    deleteModule() {},
   },
   apollo: {
     getOneWO: {
