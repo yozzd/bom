@@ -296,7 +296,6 @@
       :wo="wo"
       :id-module="idModule"
       @close="closeKeywordDialog"
-      @update="updateList"
     />
 
     <MprModuleAdd

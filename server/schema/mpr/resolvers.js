@@ -221,6 +221,11 @@ const resolvers = {
     }),
     addMprItems: isAuthenticated(async (_, { input }) => {
       const saved = [];
+      const cAttributes = [
+        ...attributes, 'idWo', 'idLt', 'poZone', 'whRemarks', 'prRemarks',
+        'rndRemarks', 'hvacRemarks', 'mechanicalRemarks', 'electronicRemarks',
+        'fabricationRemarks',
+      ];
 
       await Promise.all(
         input.map(async (v) => {
@@ -229,17 +234,20 @@ const resolvers = {
 
           if (v.isMpr) {
             item = await MPRITEM.findOne({
-              attributes,
+              attributes: cAttributes,
               where,
               raw: true,
             });
           } else {
             item = await WOITEM.findOne({
-              attributes,
+              attributes: cAttributes,
               where,
               raw: true,
             });
           }
+
+          delete item.id;
+          delete item.moduleId;
 
           item.bomQty = 0;
           item.bomQtyRqd = 0;
@@ -260,6 +268,15 @@ const resolvers = {
           item.bomPoNo = null;
           item.bomRemarks = null;
           item.bomEtaStatus = null;
+          item.poZone = null;
+          item.poNo = null;
+          item.whRemarks = null;
+          item.prRemarks = null;
+          item.rndRemarks = null;
+          item.hvacRemarks = null;
+          item.mechanicalRemarks = null;
+          item.electronicRemarks = null;
+          item.fabricationRemarks = null;
           item.materialsProcessed = 0;
           item.yetToPurchase = 0;
           item.priority = null;
@@ -272,6 +289,11 @@ const resolvers = {
           item.idHeader = null;
           item.idModule = v.idModule;
           item.colorClass = null;
+          item.bomStatus = null;
+          item.poQty = null;
+          item.poCurr = null;
+          item.poVal = null;
+          item.poRemarks = null;
           item.timestamp = Date.now();
 
           const newItem = new MPRITEM(item);

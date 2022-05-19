@@ -215,11 +215,9 @@ export default {
               const index = cdata.getOneMPR.modules.findIndex((e) => e.id === this.idModule);
               const oitems = [...cdata.getOneMPR.modules[index].items];
               cdata.getOneMPR.modules[index].items = [...oitems, ...addMprItems];
-              this.$emit('update', { type: 'items', value: cdata.getOneMPR.modules[index].items });
             } else {
               const oitems = [...cdata.getOneMPR.items];
               cdata.getOneMPR.items = [...oitems, ...addMprItems];
-              this.$emit('update', { type: 'items', value: cdata.getOneMPR.items });
             }
 
             store.writeQuery({

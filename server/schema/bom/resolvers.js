@@ -492,18 +492,30 @@ const resolvers = {
     }),
     addWoItems: isAuthenticated(async (_, { input }) => {
       const saved = [];
+      const cAttributes = [
+        ...itemAttributes, 'idWo', 'idLt', 'poZone', 'whRemarks', 'prRemarks',
+        'rndRemarks', 'hvacRemarks', 'mechanicalRemarks', 'electronicRemarks',
+        'fabricationRemarks',
+      ];
 
       await Promise.all(
         input.map(async (v) => {
-          const item = await WOITEM.findOne({
-            attributes: [
-              ...itemAttributes, 'idWo', 'idLt', 'poZone', 'whRemarks', 'prRemarks',
-              'rndRemarks', 'hvacRemarks', 'mechanicalRemarks', 'electronicRemarks',
-              'fabricationRemarks',
-            ],
-            where: { id: v.id },
-            raw: true,
-          });
+          let item = {};
+          const where = { id: v.id };
+
+          if (v.isMpr) {
+            item = await MPRITEM.findOne({
+              attributes: cAttributes,
+              where,
+              raw: true,
+            });
+          } else {
+            item = await WOITEM.findOne({
+              attributes: cAttributes,
+              where,
+              raw: true,
+            });
+          }
 
           delete item.id;
           delete item.moduleId;
