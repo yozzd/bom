@@ -204,7 +204,9 @@ export default {
   },
   data() {
     return {
-      form: {},
+      form: {
+        poNo: null,
+      },
     };
   },
   watch: {
@@ -214,6 +216,7 @@ export default {
   },
   methods: {
     copyProposed() {
+      this.form.poNo = null;
       this.form.poNo = this.proposed;
     },
     handleCancel() {
