@@ -2502,10 +2502,10 @@
   dependencies:
     defer-to-connect "^1.0.1"
 
-"@tiptap/core@^2.0.0-beta.175":
-  version "2.0.0-beta.175"
-  resolved "https://registry.yarnpkg.com/@tiptap/core/-/core-2.0.0-beta.175.tgz#d23f6e60308cde192451121e21df83c256bdcd92"
-  integrity sha512-dDf+2GtifskNLysn49kaCIz0o5hf6VDZ8J7jSQAfoPDEkEkfw9OKhWrR7NzWW6J34CSJreFDRiWkGt8Qz283Vg==
+"@tiptap/core@^2.0.0-beta.176":
+  version "2.0.0-beta.176"
+  resolved "https://registry.yarnpkg.com/@tiptap/core/-/core-2.0.0-beta.176.tgz#a8bb9b57d2ecf77b6cd02340324626ef3e336a15"
+  integrity sha512-Gs/+yUYTNpt8PnclEHbfBnY56D/9PpKTyzrg8VZwCFK9S69aVD2dqLsYs/Gn+EjzKImXRAiqSe1/FWcNEDkmCg==
   dependencies:
     "@types/prosemirror-commands" "^1.0.4"
     "@types/prosemirror-keymap" "^1.0.4"
@@ -2658,12 +2658,12 @@
   resolved "https://registry.yarnpkg.com/@tiptap/extension-underline/-/extension-underline-2.0.0-beta.23.tgz#050a31ac55b7ad63e8abf57ac941c62e255f57b8"
   integrity sha512-pMjFH/NpFWLd2XQQa5rG9rGVQ9mu3ygdtu6VGfJ3aAjzBiyLXDKhE4biIFWyFsr8zLpp7DjwbrmLV0UGvbG1WQ==
 
-"@tiptap/starter-kit@^2.0.0-beta.184":
-  version "2.0.0-beta.184"
-  resolved "https://registry.yarnpkg.com/@tiptap/starter-kit/-/starter-kit-2.0.0-beta.184.tgz#c621d51d9cb8a1b18cbec7af6080ce8288bdce72"
-  integrity sha512-FgF94i5RQzXiGAIkaubnXEaYwJfiZRbMPZcmarwNo8IyqPnLT34Q1yjw/qZ3nv7rDehWV5l/zenbrrNtPYVCkA==
+"@tiptap/starter-kit@^2.0.0-beta.185":
+  version "2.0.0-beta.185"
+  resolved "https://registry.yarnpkg.com/@tiptap/starter-kit/-/starter-kit-2.0.0-beta.185.tgz#a14e2de102bce662f499de82253c2621dce982ef"
+  integrity sha512-UN7GfYpenav9osAhUYfUnYxtGOYxq6i+k/rDEil/LsFKiRgWW7LrddX6X99TW66dmKohNXU4PaCy5RJ7IfoMdg==
   dependencies:
-    "@tiptap/core" "^2.0.0-beta.175"
+    "@tiptap/core" "^2.0.0-beta.176"
     "@tiptap/extension-blockquote" "^2.0.0-beta.26"
     "@tiptap/extension-bold" "^2.0.0-beta.26"
     "@tiptap/extension-bullet-list" "^2.0.0-beta.26"
@@ -2683,10 +2683,10 @@
     "@tiptap/extension-strike" "^2.0.0-beta.27"
     "@tiptap/extension-text" "^2.0.0-beta.15"
 
-"@tiptap/vue-2@^2.0.0-beta.78":
-  version "2.0.0-beta.78"
-  resolved "https://registry.yarnpkg.com/@tiptap/vue-2/-/vue-2-2.0.0-beta.78.tgz#34c5aea2be46914026d8d58638761f1a46b3dc88"
-  integrity sha512-YTgKk7qCTu+odAwEzAseAdE1apYZL4OU3dRvtZ/WAXrs0NpV4H33cjSNx/MqNxdclQEbCPwMj/cRybDuYu0atQ==
+"@tiptap/vue-2@^2.0.0-beta.79":
+  version "2.0.0-beta.79"
+  resolved "https://registry.yarnpkg.com/@tiptap/vue-2/-/vue-2-2.0.0-beta.79.tgz#8192fc56b083097559f8158a177f76572ecfabf1"
+  integrity sha512-dwprmBVRvPJl0gMgH6LBU79yqhTbjiDQ3ReNtZ+MFBqwujQfkAqnsm6VVgLjd4jHsV+nzblP5HPH8s9MhIdySw==
   dependencies:
     "@tiptap/extension-bubble-menu" "^2.0.0-beta.56"
     "@tiptap/extension-floating-menu" "^2.0.0-beta.51"
@@ -6571,6 +6571,19 @@ eslint-plugin-vue@^8.7.1:
     semver "^7.3.5"
     vue-eslint-parser "^8.0.1"
 
+eslint-plugin-vue@^9.0.1:
+  version "9.0.1"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-vue/-/eslint-plugin-vue-9.0.1.tgz#66ba4a6e4085a26a724adcde06eaf72b178285c9"
+  integrity sha512-/w/9/vzz+4bSYtp5UqXgJ0CfycXTMtpp6lkz7/fMp0CcJxPWyRP6Pr88ihhrsNEcVt2ZweMupWRNYa+5Md41LQ==
+  dependencies:
+    eslint-utils "^3.0.0"
+    natural-compare "^1.4.0"
+    nth-check "^2.0.1"
+    postcss-selector-parser "^6.0.9"
+    semver "^7.3.5"
+    vue-eslint-parser "^9.0.1"
+    xml-name-validator "^4.0.0"
+
 eslint-scope@^4.0.3:
   version "4.0.3"
   resolved "https://registry.yarnpkg.com/eslint-scope/-/eslint-scope-4.0.3.tgz#ca03833310f6889a3264781aa82e63eb9cfe7848"
@@ -6691,7 +6704,7 @@ espree@^9.0.0:
     acorn-jsx "^5.3.1"
     eslint-visitor-keys "^3.3.0"
 
-espree@^9.3.2:
+espree@^9.3.1, espree@^9.3.2:
   version "9.3.2"
   resolved "https://registry.yarnpkg.com/espree/-/espree-9.3.2.tgz#f58f77bd334731182801ced3380a8cc859091596"
   integrity sha512-D211tC7ZwouTIuY5x9XnS0E9sWNChB7IYKX/Xp5eQj3nFXhqmiUDB9q27y76oFl8jTg3pXcQx/bpxMfs3CIZbA==
@@ -12456,7 +12469,7 @@ semver@^6.0.0, semver@^6.1.0, semver@^6.1.1, semver@^6.1.2, semver@^6.2.0, semve
   resolved "https://registry.yarnpkg.com/semver/-/semver-6.3.0.tgz#ee0a64c8af5e8ceea67687b133761e1becbd1d3d"
   integrity sha512-b39TBaTSfV6yBrapU89p5fKekE2m/NwnDocOVruQFS1/veMgdzuPcnOM34M6CwxW8jH/lxEa5rBoDeUwu5HHTw==
 
-semver@^7.0.0, semver@^7.3.7:
+semver@^7.0.0, semver@^7.3.6, semver@^7.3.7:
   version "7.3.7"
   resolved "https://registry.yarnpkg.com/semver/-/semver-7.3.7.tgz#12c5b649afdbf9049707796e22a4028814ce523f"
   integrity sha512-QlYTucUYOews+WeEujDoEGziz4K6c47V/Bd+LjSSYcA94p+DmINdf7ncaUinThfvZyu13lN9OY1XDxt8C0Tw0g==
@@ -12508,10 +12521,10 @@ sequelize-pool@^7.1.0:
   resolved "https://registry.yarnpkg.com/sequelize-pool/-/sequelize-pool-7.1.0.tgz#210b391af4002762f823188fd6ecfc7413020768"
   integrity sha512-G9c0qlIWQSK29pR/5U2JF5dDQeqqHRragoyahj/Nx4KOOQ3CPPfzxnfqFPCSB7x5UgjOgnZ61nSxz+fjDpRlJg==
 
-sequelize@^6.19.1:
-  version "6.19.1"
-  resolved "https://registry.yarnpkg.com/sequelize/-/sequelize-6.19.1.tgz#a2f92a8e2748823f39da0c3a110152e2ff9e41bf"
-  integrity sha512-iTgi0y6q6XCFf2+Tzclhpe/EBVlCNOSl5fLNmquAmrgfOsDzEoPbceu0TXmrEe9osYHscX295awi0+dTDR1qzQ==
+sequelize@^6.19.2:
+  version "6.19.2"
+  resolved "https://registry.yarnpkg.com/sequelize/-/sequelize-6.19.2.tgz#5e8ba39a0572094e51158dc68c6bc8b2b9a7e579"
+  integrity sha512-799X+BsyloPzq1ooZQNJgevRYwdAla50+6MchUra28Mdw3xmc0NTj+16pb/cAaKDcQS2pgmyDn1ZePjP2wS0nA==
   dependencies:
     "@types/debug" "^4.1.7"
     "@types/validator" "^13.7.1"
@@ -14243,6 +14256,19 @@ vue-eslint-parser@^8.3.0:
     lodash "^4.17.21"
     semver "^7.3.5"
 
+vue-eslint-parser@^9.0.1:
+  version "9.0.2"
+  resolved "https://registry.yarnpkg.com/vue-eslint-parser/-/vue-eslint-parser-9.0.2.tgz#d2535516f3f55adb387939427fe741065eb7948a"
+  integrity sha512-uCPQwTGjOtAYrwnU+76pYxalhjsh7iFBsHwBqDHiOPTxtICDaraO4Szw54WFTNZTAEsgHHzqFOu1mmnBOBRzDA==
+  dependencies:
+    debug "^4.3.4"
+    eslint-scope "^7.1.1"
+    eslint-visitor-keys "^3.3.0"
+    espree "^9.3.1"
+    esquery "^1.4.0"
+    lodash "^4.17.21"
+    semver "^7.3.6"
+
 vue-hot-reload-api@^2.3.0:
   version "2.3.4"
   resolved "https://registry.yarnpkg.com/vue-hot-reload-api/-/vue-hot-reload-api-2.3.4.tgz#532955cc1eb208a3d990b3a9f9a70574657e08f2"
@@ -14648,6 +14674,11 @@ xdg-basedir@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/xdg-basedir/-/xdg-basedir-4.0.0.tgz#4bc8d9984403696225ef83a1573cbbcb4e79db13"
   integrity sha512-PSNhEJDejZYV7h50BohL09Er9VaIefr2LMAf3OEmpCkjOi34eYyQYAXUTjEQtZJTKcF0E2UKTh+osDLsgNim9Q==
+
+xml-name-validator@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/xml-name-validator/-/xml-name-validator-4.0.0.tgz#79a006e2e63149a8600f15430f0a4725d1524835"
+  integrity sha512-ICP2e+jsHvAj2E2lIHxa5tjXRlKDJo4IdvPvCXbXQGdzSfmSpNVyIKMvoZHjDY9DP0zV17iI85o90vRFXNccRw==
 
 xss@^1.0.8:
   version "1.0.10"
