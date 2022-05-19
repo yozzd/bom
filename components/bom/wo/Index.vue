@@ -366,7 +366,9 @@
 </template>
 
 <script>
+import pullAllBy from 'lodash/pullAllBy';
 import { GetOneWO } from '../../../apollo/bom/query';
+import { DeleteWoModule } from '../../../apollo/bom/mutation';
 import bom from '../../../mixins/bom';
 
 export default {
@@ -404,7 +406,53 @@ export default {
       this.module = module;
       this.showEditModuleDialog = true;
     },
-    deleteModule() {},
+    deleteModule(selectedModule) {
+      this.$confirm('This will permanently delete the data. Continue?', 'Warning', {
+        confirmButtonText: 'Yes',
+        cancelButtonText: 'Cancel',
+        type: 'warning',
+      }).then(async () => {
+        await this.$apollo.mutate({
+          mutation: DeleteWoModule,
+          variables: {
+            id: parseInt(selectedModule.id, 10),
+          },
+          update: (store, { data: { deleteWoModule } }) => {
+            const cdata = store.readQuery({
+              query: GetOneWO,
+              variables: {
+                idLt: parseInt(this.$route.params.idLt, 10),
+                id: parseInt(this.$route.params.id, 10),
+              },
+            });
+
+            if (deleteWoModule.id) {
+              pullAllBy(cdata.getOneWO.wo.modules, [deleteWoModule], 'id');
+            } else {
+              pullAllBy(cdata.getOneWO.wo.modules, [selectedModule], 'id');
+            }
+
+            store.writeQuery({
+              query: GetOneWO,
+              variables: {
+                idLt: parseInt(this.$route.params.idLt, 10),
+                id: parseInt(this.$route.params.id, 10),
+              },
+              data: cdata,
+            });
+          },
+          optimisticResponse: {
+            __typename: 'Mutation',
+            deleteWoModule: selectedModule,
+          },
+        });
+
+        this.$message({
+          type: 'success',
+          message: 'Data has been delete successfully',
+        });
+      }).catch(() => {});
+    },
   },
   apollo: {
     getOneWO: {

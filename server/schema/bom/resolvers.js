@@ -592,6 +592,13 @@ const resolvers = {
       const save = await module.save();
       return save;
     }),
+    deleteWoModule: isAuthenticated(async (_, { id }) => {
+      await WOMODULE.destroy({
+        where: { id },
+      });
+
+      return id;
+    }),
   },
 };
 

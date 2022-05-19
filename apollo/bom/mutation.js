@@ -162,3 +162,11 @@ export const UpdateWoModule = gql`
     }
   }
 `;
+
+export const DeleteWoModule = gql`
+  mutation deleteWoModule($id: Int) {
+    deleteWoModule(id: $id) {
+      id
+    }
+  }
+`;
