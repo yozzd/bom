@@ -285,7 +285,6 @@
                 v-if="h.items.length"
                 :data="h.items"
                 :wo="wo"
-                @update="updateList"
               />
               <div></div>
             </div>
@@ -356,7 +355,6 @@
       :wo="wo"
       :id-header="idHeader"
       @close="closeKeywordDialog"
-      @update="updateList"
     />
   </div>
 </template>
@@ -396,7 +394,7 @@ export default {
         this.modules = modules;
         this.mprs = {};
         this.mprs = mprs;
-      } else if (type === 'index') {
+      } else if (type === 'indexed1') {
         const { index, modules } = value;
         this.modules[index] = {};
         this.modules[index] = modules;

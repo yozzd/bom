@@ -216,14 +216,6 @@ export default {
             const oitems = [...cdata.getOneWO.wo.modules[index].items];
             cdata.getOneWO.wo.modules[index].items = [...oitems, ...addWoItems];
 
-            this.$emit('update', {
-              type: 'index',
-              value: {
-                modules: cdata.getOneWO.wo.modules[index],
-                index,
-              },
-            });
-
             store.writeQuery({
               query: GetOneWO,
               variables: {

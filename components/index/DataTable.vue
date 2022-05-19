@@ -278,7 +278,6 @@
       :show="showEditItemDialog"
       :from-mpr="fromMpr"
       @close="closeEditItemDialog"
-      @update="value => $emit('update', value)"
     />
   </div>
 </template>
