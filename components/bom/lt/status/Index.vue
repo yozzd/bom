@@ -66,28 +66,33 @@
           class="mb-4"
         >
           <el-table-column type="index" align="center" width="50" fixed></el-table-column>
-          <el-table-column label="WO" width="180" fixed>
+          <el-table-column
+            label="WO"
+            width="120"
+            fixed
+            :show-overflow-tooltip="true"
+            class-name="relative group"
+          >
             <template slot-scope="scope">
-              <div class="flex">
-                <nuxt-link
-                  :to="{
-                    name: 'bom-wo-idLt-id', params: { idLt: $route.params.id, id: scope.row.id }
-                  }"
-                  :title="scope.row.woNo"
-                  class="flex-1 truncate"
-                >
-                  {{ scope.row.woNo }}
-                  <span v-if="scope.row.stage">[STAGE-{{ scope.row.stage }}]</span>
-                </nuxt-link>
-                <a
-                  :href="`/bom/wo/${$route.params.id}/${scope.row.id}`"
-                  title="Open in new tab"
-                  target="_blank"
-                >
-                  <client-only>
-                    <v-icon name="ri-external-link-line" class="remixicons w-4 h-4" />
-                  </client-only>
-                </a>
+              <nuxt-link
+                :to="{
+                  name: 'bom-wo-idLt-id', params: { idLt: $route.params.id, id: scope.row.id }
+                }"
+              >
+                {{ scope.row.woNo }}
+                <span v-if="scope.row.stage">[STAGE-{{ scope.row.stage }}]</span>
+              </nuxt-link>
+              <div class="hidden group-hover:inline-block absolute top-1 right-0">
+                <el-tooltip effect="dark" content="Open in new tab" placement="top">
+                  <a
+                    :href="`/bom/wo/${$route.params.id}/${scope.row.id}`"
+                    target="_blank"
+                  >
+                    <client-only>
+                      <v-icon name="ri-external-link-line" class="remixicons w-4 h-4" />
+                    </client-only>
+                  </a>
+                </el-tooltip>
               </div>
             </template>
           </el-table-column>
@@ -100,7 +105,7 @@
           </el-table-column>
           <el-table-column
             label="Product Name"
-            width="160"
+            width="200"
             :show-overflow-tooltip="true"
           >
             <template slot-scope="scope">
