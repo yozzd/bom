@@ -381,25 +381,6 @@ export default {
     highlighter({ row }) {
       return row.colorClass;
     },
-    updateList({ type, value }) {
-      if (type === 'modules') {
-        this.modules = {};
-        this.modules = value;
-      } else if (type === 'mprs') {
-        this.mprs = {};
-        this.mprs = value;
-      } else if (type === 'both') {
-        const { modules, mprs } = value;
-        this.modules = {};
-        this.modules = modules;
-        this.mprs = {};
-        this.mprs = mprs;
-      } else if (type === 'indexed1') {
-        const { index, modules } = value;
-        this.modules[index] = {};
-        this.modules[index] = modules;
-      }
-    },
     closeKeywordDialog(value) {
       this.showKeywordDialog = value;
     },

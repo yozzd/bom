@@ -440,8 +440,6 @@ export default {
                     const idx2 = cdata.getOneMPR
                       .modules[idx1].items.findIndex((e) => e.id === updateItem.id);
                     cdata.getOneMPR.modules[idx1].items[idx2] = updateItem;
-
-                    this.$emit('update', { type: 'modules', value: cdata.getOneMPR.modules });
                   } else if (this.form.idModule && this.form.idModule !== this.oIdModule) {
                     const idx1 = cdata.getOneMPR
                       .modules.findIndex((e) => e.id === this.form.idModule);
@@ -450,13 +448,9 @@ export default {
                     const idx2 = cdata.getOneMPR
                       .modules.findIndex((e) => e.id === this.oIdModule);
                     pullAllBy(cdata.getOneMPR.modules[idx2].items, [updateItem], 'id');
-
-                    this.$emit('update', { type: 'modules', value: cdata.getOneMPR.modules });
                   } else {
                     const index = cdata.getOneMPR.items.findIndex((e) => e.id === this.form.id);
                     cdata.getOneMPR.items[index] = updateItem;
-
-                    this.$emit('update', { type: 'items', value: cdata.getOneMPR.items });
                   }
 
                   store.writeQuery({
