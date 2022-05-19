@@ -22,10 +22,10 @@
         :inline="true"
       >
         <el-form-item label="Title">
-          <el-input v-model="form.moduleChar" style="width: 60px;"></el-input>
+          <el-input v-model="form.hid" style="width: 60px;"></el-input>
         </el-form-item>
-        <el-form-item label="" prop="moduleName">
-          <el-input v-model="form.moduleName"></el-input>
+        <el-form-item label="" prop="header">
+          <el-input v-model="form.header"></el-input>
         </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
@@ -48,8 +48,8 @@
 </template>
 
 <script>
-import { GetOneMPR } from '../../../apollo/mpr/query';
-import { UpdateMprModule } from '../../../apollo/mpr/mutation';
+import { GetOneWO } from '../../../../apollo/bom/query';
+import { UpdateWoModule } from '../../../../apollo/bom/mutation';
 
 export default {
   props: {
@@ -66,7 +66,7 @@ export default {
     return {
       form: {},
       rules: {
-        moduleName: [{ required: true, message: 'This field is required' }],
+        header: [{ required: true, message: 'This field is required' }],
       },
       loading: false,
       visible: false,
@@ -92,29 +92,30 @@ export default {
         this.loading = false;
 
         await this.$apollo.mutate({
-          mutation: UpdateMprModule,
+          mutation: UpdateWoModule,
           variables: {
             input: {
               id: parseInt(this.form.id, 10),
-              moduleChar: this.form.moduleChar,
-              moduleName: this.form.moduleName,
-              idMpr: parseInt(this.$route.params.id, 10),
+              hid: this.form.hid,
+              header: this.form.header,
             },
           },
-          update: async (store, { data: { updateMprModule } }) => {
+          update: async (store, { data: { updateWoModule } }) => {
             const cdata = store.readQuery({
-              query: GetOneMPR,
+              query: GetOneWO,
               variables: {
+                idLt: parseInt(this.$route.params.idLt, 10),
                 id: parseInt(this.$route.params.id, 10),
               },
             });
 
-            const index = cdata.getOneMPR.modules.findIndex((e) => e.id === this.form.id);
-            cdata.getOneMPR.modules[index] = updateMprModule;
+            const index = cdata.getOneWO.wo.modules.findIndex((e) => e.id === this.form.id);
+            cdata.getOneWO.wo.modules[index] = updateWoModule;
 
             store.writeQuery({
-              query: GetOneMPR,
+              query: GetOneWO,
               variables: {
+                idLt: parseInt(this.$route.params.idLt, 10),
                 id: parseInt(this.$route.params.id, 10),
               },
               data: cdata,
@@ -122,7 +123,7 @@ export default {
           },
           optimisticResponse: {
             __typename: 'Mutation',
-            updateMprModule: this.form,
+            updateWoModule: this.form,
           },
         });
 

@@ -14,6 +14,7 @@ const typeDefs = `
     updateItem(input: UpdateItemInput): WOITEM
     deleteItem(input: [DeleteItemInput]): [WOITEM]
     addWoItems(input: [AddWoItemsInput]): [WOITEM]
+    updateWoModule(input: UpdateWoModuleInput): WOMODULE
   }
 
   type WODetail {
@@ -204,6 +205,13 @@ const typeDefs = `
     idHeader: Int
     idLt: Int
   }
+
+  input UpdateWoModuleInput {
+    id: Int
+    hid: String
+    header: String
+  }
+
 `;
 
 module.exports = { typeDefs };

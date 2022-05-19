@@ -224,6 +224,7 @@ const WOMODULE = sequelize.define('module', {
 }, {
   tableName: 'bom_header',
   underscored: true,
+  timestamps: false,
 });
 
 const WOITEM = sequelize.define('item', {

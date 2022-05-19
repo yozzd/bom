@@ -576,6 +576,22 @@ const resolvers = {
 
       return saved;
     }),
+    updateWoModule: isAuthenticated(async (_, { input }) => {
+      const module = await WOMODULE.findOne({
+        attributes: ['id', 'hid', 'header'],
+        where: { id: input.id },
+        include: [{
+          model: WOITEM,
+          attributes: itemAttributes,
+          required: false,
+        }],
+      });
+
+      module.hid = input.hid;
+      module.header = input.header;
+      const save = await module.save();
+      return save;
+    }),
   },
 };
 

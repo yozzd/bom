@@ -330,9 +330,9 @@
                 </div>
                 <div>Approved By MRP: {{ mpr.bomTimestamp }}</div>
               </div>
-              <div v-for="module in mpr.modules" :key="module.id">
+              <div v-for="mod in mpr.modules" :key="mod.id">
                 <div class="font-bold text-xs my-4">
-                  {{ module.moduleChar }} {{ module.moduleName }}
+                  {{ mod.moduleChar }} {{ mod.moduleName }}
                 </div>
                 <index-data-table :data="module.items" :wo="wo" :mpr="mpr" />
                 <div></div>
@@ -356,6 +356,12 @@
       :id-header="idHeader"
       @close="closeKeywordDialog"
     />
+
+    <BomWoModuleEdit
+      :show="showEditModuleDialog"
+      :data="module"
+      @close="closeEditModuleDialog"
+    />
   </div>
 </template>
 
@@ -374,7 +380,9 @@ export default {
       mprs: [],
       errors: [],
       idHeader: 0,
+      module: {},
       showKeywordDialog: false,
+      showEditModuleDialog: false,
     };
   },
   methods: {
@@ -384,12 +392,18 @@ export default {
     closeKeywordDialog(value) {
       this.showKeywordDialog = value;
     },
+    closeEditModuleDialog(value) {
+      this.showEditModuleDialog = value;
+    },
     addNewItem(id) {
       this.idHeader = 0;
       this.idHeader = id;
       this.showKeywordDialog = true;
     },
-    editModule() {},
+    editModule(module) {
+      this.module = module;
+      this.showEditModuleDialog = true;
+    },
     deleteModule() {},
   },
   apollo: {
