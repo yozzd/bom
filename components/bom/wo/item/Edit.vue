@@ -312,11 +312,11 @@
 
 <script>
 import pullAllBy from 'lodash/pullAllBy';
-import currency from '../../../mixins/currency';
-import { GetOneWO, GetWoModules } from '../../../apollo/bom/query';
-import { GetOneMPR, GetMprModules } from '../../../apollo/mpr/query';
-import { UpdateItem } from '../../../apollo/bom/mutation';
-import GetAllSupplier from '../../../apollo/supplier/query';
+import currency from '../../../../mixins/currency';
+import { GetOneWO, GetWoModules } from '../../../../apollo/bom/query';
+import { GetOneMPR, GetMprModules } from '../../../../apollo/mpr/query';
+import { UpdateItem } from '../../../../apollo/bom/mutation';
+import GetAllSupplier from '../../../../apollo/supplier/query';
 
 export default {
   mixins: [currency],

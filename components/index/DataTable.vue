@@ -271,7 +271,7 @@
       <el-table-column label="" min-width="50"></el-table-column>
     </el-table>
 
-    <BomWoEditItem
+    <BomWoItemEdit
       :data="dataEditItem"
       :wo="wo"
       :mpr="mpr"
