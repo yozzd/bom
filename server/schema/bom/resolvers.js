@@ -444,7 +444,7 @@ const resolvers = {
           where: { id: obj.id },
         });
       }
-      
+
       Object.assign(item, obj);
       if (obj.sr) unit = 1;
       const qtyBalance = obj.bomQtyStock - ((unit * obj.bomQty) - obj.bomQtyRec);

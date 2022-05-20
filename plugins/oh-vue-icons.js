@@ -30,6 +30,7 @@ import {
   RiStrikethrough,
   RiTimeLine,
   RiUnderline,
+  RiUpload2Line,
 } from 'oh-vue-icons/icons';
 
 addIcons(
@@ -61,6 +62,7 @@ addIcons(
   RiStrikethrough,
   RiTimeLine,
   RiUnderline,
+  RiUpload2Line,
 );
 
 Vue.component('VIcon', OhVueIcon);

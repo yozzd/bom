@@ -18,7 +18,7 @@
       </el-breadcrumb>
 
       <div>
-        <div class="flex my-4 space-x-8 items-center">
+        <div class="flex my-4 space-x-4 items-center">
           <el-dropdown trigger="click" @command="handleCommand">
             <el-button type="primary">
               <client-only>
@@ -35,6 +35,12 @@
               </el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
+          <el-button type="success" @click="showImportDialog = true">
+            <client-only>
+              <v-icon name="ri-upload-2-line" class="remixicons w-4 h-4" />
+            </client-only>
+            Import
+          </el-button>
           <div class="flex-1"></div>
           <div class="w-64">
             <el-input
@@ -143,6 +149,12 @@
       :close-on-press-escape="false"
       width="40%"
     >
+      <IndexErrorHandler
+        v-if="errors.length"
+        :errors="errors"
+        class="mb-4"
+      />
+
       <el-form
         ref="form"
         :model="form"
@@ -177,6 +189,60 @@
         </el-button>
       </span>
     </el-dialog>
+
+    <el-dialog
+      title="Import"
+      :visible.sync="showImportDialog"
+      :close-on-click-modal="false"
+      :close-on-press-escape="false"
+      width="30%"
+    >
+      <IndexErrorHandler
+        v-if="errors.length"
+        :errors="errors"
+        class="mb-4"
+      />
+
+      <el-form
+        ref="formImport"
+        :model="formImport"
+        :rules="rulesImport"
+        :hide-required-asterisk="true"
+        label-position="top"
+      >
+        <el-form-item label="File" prop="file">
+          <el-upload
+            ref="upload"
+            drag
+            action=""
+            accept=".xls, .xlsx"
+            :on-change="handleOnChange"
+            :file-list="fileList"
+            :auto-upload="false"
+          >
+            <i class="el-icon-upload"></i>
+            <div class="el-upload__text">
+              Drop file here or <em>click to upload</em>
+            </div>
+          </el-upload>
+        </el-form-item>
+      </el-form>
+      <span slot="footer" class="dialog-footer">
+        <el-button
+          type="text"
+          @click="showImportDialog = false"
+        >
+          Cancel
+        </el-button>
+        <el-button
+          type="primary"
+          :loading="loading"
+          @click="handleImport('formImport')"
+        >
+          Import
+        </el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 
@@ -199,6 +265,14 @@ export default {
         status: [
           { required: true, message: 'This field is required', trigger: 'change' },
         ],
+      },
+      showImportDialog: false,
+      fileList: [],
+      formImport: {
+        file: null,
+      },
+      rulesImport: {
+        file: [{ type: Object, required: true, message: 'This field is required' }],
       },
       miniSearch: new MiniSearch({
         idField: 'id',
@@ -253,6 +327,10 @@ export default {
         }
       });
     },
+    handleOnChange({ raw }) {
+      this.formImport.file = raw;
+    },
+    handleImport() {},
   },
 };
 </script>
