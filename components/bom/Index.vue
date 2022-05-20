@@ -230,7 +230,7 @@
       <span slot="footer" class="dialog-footer">
         <el-button
           type="text"
-          @click="showImportDialog = false"
+          @click="handleCancel('formImport')"
         >
           Cancel
         </el-button>
@@ -272,7 +272,7 @@ export default {
         file: null,
       },
       rulesImport: {
-        file: [{ type: Object, required: true, message: 'This field is required' }],
+        file: [{ type: 'object', required: true, message: 'This field is required' }],
       },
       miniSearch: new MiniSearch({
         idField: 'id',
@@ -327,10 +327,29 @@ export default {
         }
       });
     },
+    handleCancel(form) {
+      this.showImportDialog = false;
+      this.fileList = [];
+      this.$refs[form].clearValidate();
+    },
     handleOnChange({ raw }) {
       this.formImport.file = raw;
     },
-    handleImport() {},
+    handleImport(form) {
+      this.$refs[form].validate(async (valid) => {
+        if (valid) {
+          try {
+            console.log(this.formImport);
+            return true;
+          } catch ({ graphQLErrors, networkError }) {
+            this.errors = graphQLErrors || networkError.result.errors;
+            return false;
+          }
+        } else {
+          return false;
+        }
+      });
+    },
   },
 };
 </script>
