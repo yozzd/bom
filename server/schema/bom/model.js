@@ -48,6 +48,7 @@ const LT = sequelize.define('lt', {
 }, {
   tableName: 'bom_lt',
   underscored: true,
+  timestamps: false,
 });
 
 const WO = sequelize.define('wo', {

@@ -2,6 +2,7 @@ const fs = require('fs');
 const { Op } = require('sequelize');
 const { GraphQLUpload } = require('graphql-upload');
 const { ErrorWithProps } = require('mercurius');
+const XLSX = require('xlsx');
 const sequelize = require('../../config/db');
 const {
   LT, WO, WOMODULE, WOITEM, MPR, MPRMODULE, MPRITEM, OUTSTANDINGPO,
@@ -632,8 +633,26 @@ const resolvers = {
             reject(error);
           })
           .pipe(fs.createWriteStream(tmp))
-          .on('finish', () => {
+          .on('finish', async () => {
             try {
+              const wb = XLSX.readFile(tmp);
+              const ws = wb.Sheets[wb.SheetNames[0]];
+              // const ft = XLSX.utils.sheet_to_json(ws, { raw: true, defval:null });
+              // console.log(ft[0]);
+
+              let lt = {};
+              const ltNo = ws.E1.v;
+              lt = await LT.findOne({
+                attributes: ['id'],
+                where: { ltNo },
+                raw: true,
+              });
+
+              if (!lt) {
+                const newLT = new LT({ ltNo });
+                lt = await newLT.save();
+              }
+
               resolve();
             } catch (err) {
               if (typeof err === 'string') {

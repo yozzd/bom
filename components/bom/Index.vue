@@ -331,6 +331,7 @@ export default {
     handleCancel(form) {
       this.showImportDialog = false;
       this.fileList = [];
+      this.loading = false;
       this.$refs[form].clearValidate();
     },
     handleOnChange({ raw }) {
