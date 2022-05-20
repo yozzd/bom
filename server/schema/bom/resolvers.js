@@ -652,6 +652,9 @@ const resolvers = {
                 const newLT = new LT({ ltNo });
                 lt = await newLT.save();
               }
+              
+              const cat = (ws.A2.v).split(':')[1].trim();
+              console.log(cat);
 
               resolve();
             } catch (err) {
