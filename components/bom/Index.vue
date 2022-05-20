@@ -251,6 +251,7 @@ import MiniSearch from 'minisearch';
 import table from '../../mixins/table';
 import bom from '../../mixins/bom';
 import { GetAllLT } from '../../apollo/bom/query';
+import { ImportWo } from '../../apollo/bom/mutation';
 
 export default {
   mixins: [table, bom],
@@ -339,7 +340,17 @@ export default {
       this.$refs[form].validate(async (valid) => {
         if (valid) {
           try {
-            console.log(this.formImport);
+            this.loading = true;
+
+            await this.$apollo.mutate({
+              mutation: ImportWo,
+              variables: {
+                input: {
+                  file: this.formImport.file,
+                },
+              },
+            });
+
             return true;
           } catch ({ graphQLErrors, networkError }) {
             this.errors = graphQLErrors || networkError.result.errors;

@@ -1,4 +1,5 @@
 const { Op } = require('sequelize');
+const { GraphQLUpload } = require('graphql-upload');
 const sequelize = require('../../config/db');
 const {
   LT, WO, WOMODULE, WOITEM, MPR, MPRMODULE, MPRITEM, OUTSTANDINGPO,
@@ -20,6 +21,7 @@ const itemAttributes = [
 ];
 
 const resolvers = {
+  Upload: GraphQLUpload,
   Query: {
     getAllLT: isAuthenticated(async (_, { status }, ctx) => {
       const where = wherePic(status, ctx);
@@ -612,6 +614,9 @@ const resolvers = {
       });
 
       return id;
+    }),
+    importWo: isAuthenticated(async (_, { input }) => {
+      console.log(input);
     }),
   },
 };

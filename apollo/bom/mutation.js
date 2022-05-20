@@ -2,7 +2,6 @@ import gql from 'graphql-tag';
 
 export const UpdateItem = gql`
   mutation updateItem($input: UpdateItemInput) {
-
     updateItem(input: $input) {
       id
       idMaterial
@@ -167,6 +166,25 @@ export const DeleteWoModule = gql`
   mutation deleteWoModule($id: Int) {
     deleteWoModule(id: $id) {
       id
+    }
+  }
+`;
+
+export const ImportWo = gql`
+  mutation importWo($input: ImportWoInput) {
+    importWo(input: $input) {
+      id
+      ltNo
+      customer {
+        name
+        contractDeadLine
+        productionDeadLine
+      }
+      wos {
+        id
+        woNo
+        status
+      }
     }
   }
 `;

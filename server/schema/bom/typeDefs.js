@@ -1,4 +1,6 @@
 const typeDefs = `
+  scalar Upload
+
   extend type Query {
     getAllLT(status: Int): [LT]
     getOneLT(id: Int, status: Int): LT
@@ -16,6 +18,7 @@ const typeDefs = `
     addWoItems(input: [AddWoItemsInput]): [WOITEM]
     updateWoModule(input: UpdateWoModuleInput): WOMODULE
     deleteWoModule(id: Int): WOMODULE
+    importWo(input: ImportWoInput): [LT]
   }
 
   type WODetail {
@@ -213,6 +216,9 @@ const typeDefs = `
     header: String
   }
 
+  input ImportWoInput {
+    file: Upload
+  }
 `;
 
 module.exports = { typeDefs };
