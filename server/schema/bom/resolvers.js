@@ -641,10 +641,20 @@ const resolvers = {
               // console.log(ft[0]);
 
               let lt = {};
+              let wo = {};
+
               const ltNo = ws.E1.v;
+              const woNo = (ws.E2.v).split(':')[1].trim();
+
               lt = await LT.findOne({
                 attributes: ['id'],
                 where: { ltNo },
+                raw: true,
+              });
+
+              wo = await WO.findOne({
+                attributes: ['id'],
+                where: { woNo },
                 raw: true,
               });
 
@@ -652,9 +662,34 @@ const resolvers = {
                 const newLT = new LT({ ltNo });
                 lt = await newLT.save();
               }
-              
-              const cat = (ws.A2.v).split(':')[1].trim();
-              console.log(cat);
+
+              if (!wo) {
+                const idLt = lt.id;
+                const unit = parseInt(ws.F3.v, 10);
+                const cat = (ws.A2.v).split(':')[1].trim();
+                const model = (ws.A3.v).split(':')[1].trim();
+                const product = (ws.A4.v).split(':')[1].trim();
+                const pic = 0;
+                const sgd = parseFloat(ws.T3.v);
+                const idr = parseInt(ws.T4.v, 10);
+                const euro = parseFloat(ws.T5.v);
+                const gbp = parseFloat(ws.T6.v);
+
+                const newWO = new WO({
+                  woNo,
+                  idLt,
+                  unit,
+                  cat,
+                  model,
+                  product,
+                  pic,
+                  sgd,
+                  idr,
+                  euro,
+                  gbp,
+                });
+                wo = await newWO.save();
+              }
 
               resolve();
             } catch (err) {

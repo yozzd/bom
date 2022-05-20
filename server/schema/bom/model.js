@@ -198,6 +198,7 @@ const WO = sequelize.define('wo', {
 }, {
   tableName: 'bom_wo',
   underscored: true,
+  timestamps: false,
 });
 
 const WOMODULE = sequelize.define('module', {
