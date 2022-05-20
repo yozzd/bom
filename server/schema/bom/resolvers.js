@@ -637,8 +637,6 @@ const resolvers = {
             try {
               const wb = XLSX.readFile(tmp);
               const ws = wb.Sheets[wb.SheetNames[0]];
-              // const ft = XLSX.utils.sheet_to_json(ws, { raw: true, defval:null });
-              // console.log(ft[0]);
 
               let lt = {};
               let wo = {};
@@ -690,6 +688,29 @@ const resolvers = {
                 });
                 wo = await newWO.save();
               }
+
+              const range = XLSX.utils.decode_range(ws['!ref']);
+
+              const items = [];
+              let idHeader = null;
+              for (let R = 9; R <= range.e.r; R += 1) {
+                if (ws[`A${R}`] && ws[`A${R}`].v === 'MRP BOM  IN-CHARGE : ') break;
+                else if (ws[`A${R}`] && ws[`C${R}`] && ws[`I${R}`] && ws[`I${R}`].v === 0) {
+                  const newModule = new WOMODULE({
+                    hid: ws[`A${R}`].v,
+                    header: ws[`C${R}`].v,
+                    idWo: wo.id,
+                    idLt: lt.id,
+                  });
+                  const save = await newModule.save();
+                  idHeader = save.id;
+                } else if (ws[`A${R}`] && ws[`C${R}`] && ws[`I${R}`] && ws[`I${R}`].v > 0) {
+                  items.push({
+                    bomDescription: ws[`C${R}`].v,
+                  });
+                }
+              }
+              console.log(items);
 
               resolve();
             } catch (err) {
