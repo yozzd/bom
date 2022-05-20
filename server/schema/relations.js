@@ -3,6 +3,7 @@ const {
 } = require('./bom/model');
 const { MPR, MPRMODULE, MPRITEM } = require('./mpr/model');
 const { OUTSTANDINGPO } = require('./outstandingPo/model');
+const { Material } = require('./material/model');
 
 LT.hasMany(WO, {
   foreignKey: 'idLt',
@@ -96,4 +97,5 @@ module.exports = {
   MPRMODULE,
   MPRITEM,
   OUTSTANDINGPO,
+  Material,
 };

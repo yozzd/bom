@@ -2,6 +2,7 @@ const { Op } = require('sequelize');
 const sequelize = require('../../config/db');
 const {
   LT, WO, WOMODULE, WOITEM, MPR, MPRMODULE, MPRITEM, OUTSTANDINGPO,
+  Material,
 } = require('../relations');
 const { isAuthenticated } = require('../auth/service');
 const { wherePic, getCurrency } = require('./method');
@@ -443,7 +444,7 @@ const resolvers = {
           where: { id: obj.id },
         });
       }
-
+      
       Object.assign(item, obj);
       if (obj.sr) unit = 1;
       const qtyBalance = obj.bomQtyStock - ((unit * obj.bomQty) - obj.bomQtyRec);
@@ -467,6 +468,19 @@ const resolvers = {
         item.idModule = obj.idModule;
       } else {
         item.idHeader = obj.idHeader;
+      }
+
+      if (item.idMaterial) {
+        const material = await Material.findOne({
+          attributes: ['MaterialCD', 'MaterialNM', 'MaterialDesc', 'Model', 'Brand', 'unit'],
+          where: { MaterialCD: item.idMaterial },
+        });
+
+        item.bomDescription = material.MaterialNM;
+        item.bomSpecification = material.MaterialDesc;
+        item.bomModel = material.Model;
+        item.bomBrand = material.Brand;
+        item.bomUnit = material.unit;
       }
 
       const save = await item.save();
