@@ -1,5 +1,7 @@
+const fs = require('fs');
 const { Op } = require('sequelize');
 const { GraphQLUpload } = require('graphql-upload');
+const { ErrorWithProps } = require('mercurius');
 const sequelize = require('../../config/db');
 const {
   LT, WO, WOMODULE, WOITEM, MPR, MPRMODULE, MPRITEM, OUTSTANDINGPO,
@@ -616,7 +618,32 @@ const resolvers = {
       return id;
     }),
     importWo: isAuthenticated(async (_, { input }) => {
-      console.log(input);
+      const { file } = input;
+
+      const { filename, createReadStream } = await file;
+      const stream = createReadStream();
+
+      const tmp = `/tmp/${filename}`;
+
+      await new Promise((resolve, reject) => {
+        stream
+          .on('error', (error) => {
+            if (stream.truncated) fs.unlinkSync(tmp);
+            reject(error);
+          })
+          .pipe(fs.createWriteStream(tmp))
+          .on('finish', () => {
+            try {
+              resolve();
+            } catch (err) {
+              if (typeof err === 'string') {
+                reject(new ErrorWithProps(err));
+              } else {
+                reject(new ErrorWithProps(err.message));
+              }
+            }
+          });
+      });
     }),
   },
 };
