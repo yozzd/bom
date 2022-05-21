@@ -619,7 +619,7 @@ const resolvers = {
 
       return id;
     }),
-    importWo: isAuthenticated(async (_, { input }) => {
+    importWo: isAuthenticated(async (_, { input }, ctx) => {
       const { file } = input;
 
       const { filename, createReadStream } = await file;
@@ -627,7 +627,7 @@ const resolvers = {
 
       const tmp = `/tmp/${filename}`;
 
-      await new Promise((resolve, reject) => {
+      return new Promise((resolve, reject) => {
         stream
           .on('error', (error) => {
             if (stream.truncated) fs.unlinkSync(tmp);
@@ -744,7 +744,18 @@ const resolvers = {
                 }
               }
 
-              resolve();
+              const where = wherePic(0, ctx);
+              const Lt = await LT.findOne({
+                attributes: ['id', 'ltNo', 'customer'],
+                where: { id: lt.id },
+                include: [{
+                  model: WO,
+                  attributes: ['id', 'woNo', 'status'],
+                  where,
+                }],
+              });
+
+              return resolve(Lt);
             } catch (err) {
               if (typeof err === 'string') {
                 reject(new ErrorWithProps(err));
@@ -752,6 +763,8 @@ const resolvers = {
                 reject(new ErrorWithProps(err.message));
               }
             }
+
+            return true;
           });
       });
     }),

@@ -18,7 +18,7 @@ const typeDefs = `
     addWoItems(input: [AddWoItemsInput]): [WOITEM]
     updateWoModule(input: UpdateWoModuleInput): WOMODULE
     deleteWoModule(id: Int): WOMODULE
-    importWo(input: ImportWoInput): [LT]
+    importWo(input: ImportWoInput): LT
     deleteLt(id: Int): LT
   }
 

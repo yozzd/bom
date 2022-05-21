@@ -365,6 +365,32 @@ export default {
                   file: this.formImport.file,
                 },
               },
+              update: (store, { data: { importWo } }) => {
+                const cdata = store.readQuery({
+                  query: GetAllLT,
+                  variables: { status: this.statusValue },
+                });
+
+                const index = cdata.getAllLT.findIndex((e) => e.id === importWo.id);
+                if (index < 0) {
+                  cdata.getAllLT.unshift(importWo);
+                }
+
+                store.writeQuery({
+                  query: GetAllLT,
+                  variables: { status: this.statusValue },
+                  data: cdata,
+                });
+              },
+            });
+
+            this.$message({
+              type: 'success',
+              message: 'Data has been updated successfully',
+              onClose: setTimeout(() => {
+                this.handleCancel('formImport');
+                this.loading = false;
+              }, 1000),
             });
 
             return true;
