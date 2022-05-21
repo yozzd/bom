@@ -35,7 +35,11 @@
               </el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
-          <el-button type="success" @click="showImportDialog = true">
+          <el-button
+            v-if="$auth.$state.user.section === 211"
+            type="success"
+            @click="showImportDialog = true"
+          >
             <client-only>
               <v-icon name="ri-upload-2-line" class="remixicons w-4 h-4" />
             </client-only>
@@ -94,7 +98,10 @@
                       </a>
                     </el-tooltip>
                     <el-tooltip effect="dark" content="Delete" placement="top">
-                      <a @click="deleteLt(scope.row)">
+                      <a
+                        v-if="$auth.$state.user.section === 211"
+                        @click="deleteLt(scope.row)"
+                      >
                         <client-only>
                           <v-icon name="ri-delete-bin-2-line" class="remixicons w-4 h-4" />
                         </client-only>
