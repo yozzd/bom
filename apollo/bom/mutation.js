@@ -188,3 +188,11 @@ export const ImportWo = gql`
     }
   }
 `;
+
+export const DeleteLt = gql`
+  mutation deleteLt($id: Int) {
+    deleteLt(id: $id) {
+      id
+    }
+  }
+`;

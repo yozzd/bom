@@ -93,6 +93,13 @@
                         </client-only>
                       </a>
                     </el-tooltip>
+                    <el-tooltip effect="dark" content="Delete" placement="top">
+                      <a @click="deleteLt(scope.row)">
+                        <client-only>
+                          <v-icon name="ri-delete-bin-2-line" class="remixicons w-4 h-4" />
+                        </client-only>
+                      </a>
+                    </el-tooltip>
                   </div>
                 </template>
               </el-table-column>
@@ -247,11 +254,12 @@
 </template>
 
 <script>
+import pullAllBy from 'lodash/pullAllBy';
 import MiniSearch from 'minisearch';
 import table from '../../mixins/table';
 import bom from '../../mixins/bom';
 import { GetAllLT } from '../../apollo/bom/query';
-import { ImportWo } from '../../apollo/bom/mutation';
+import { ImportWo, DeleteLt } from '../../apollo/bom/mutation';
 
 export default {
   mixins: [table, bom],
@@ -361,6 +369,49 @@ export default {
           return false;
         }
       });
+    },
+    deleteLt(row) {
+      this.$confirm('This will permanently delete the data. Continue?', 'Warning', {
+        confirmButtonText: 'Yes',
+        cancelButtonText: 'Cancel',
+        type: 'warning',
+      }).then(async () => {
+        await this.$apollo.mutate({
+          mutation: DeleteLt,
+          variables: {
+            id: parseInt(row.id, 10),
+          },
+          update: (store, { data: { deleteLt } }) => {
+            const cdata = store.readQuery({
+              query: GetAllLT,
+              variables: { status: this.statusValue },
+            });
+
+            if (deleteLt.id) {
+              pullAllBy(cdata.getAllLT, [deleteLt], 'id');
+            } else {
+              pullAllBy(cdata.getAllLT, [row], 'id');
+            }
+            this.items = {};
+            this.items = cdata.getAllLT;
+
+            store.writeQuery({
+              query: GetAllLT,
+              variables: { status: this.statusValue },
+              data: cdata,
+            });
+          },
+          optimisticResponse: {
+            __typename: 'Mutation',
+            deleteLt: row,
+          },
+        });
+
+        this.$message({
+          type: 'success',
+          message: 'Data has been delete successfully',
+        });
+      }).catch(() => {});
     },
   },
 };

@@ -19,6 +19,7 @@ const typeDefs = `
     updateWoModule(input: UpdateWoModuleInput): WOMODULE
     deleteWoModule(id: Int): WOMODULE
     importWo(input: ImportWoInput): [LT]
+    deleteLt(id: Int): LT
   }
 
   type WODetail {

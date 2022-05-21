@@ -755,6 +755,13 @@ const resolvers = {
           });
       });
     }),
+    deleteLt: isAuthenticated(async (_, { id }) => {
+      await LT.destroy({
+        where: { id },
+      });
+
+      return id;
+    }),
   },
 };
 
