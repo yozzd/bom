@@ -46,6 +46,22 @@
             value-format="yyyy-MM-dd"
           ></el-date-picker>
         </el-form-item>
+        <el-form-item>
+          <el-checkbox
+            v-model="form.fill"
+            :true-label="1"
+          >
+            Fill
+          </el-checkbox>
+        </el-form-item>
+        <el-form-item>
+          <el-checkbox
+            v-model="form.complete"
+            :true-label="1"
+          >
+            Complete
+          </el-checkbox>
+        </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="handleCancel">
@@ -79,7 +95,14 @@ export default {
   },
   data() {
     return {
-      form: {},
+      form: {
+        ltNo: null,
+        woNo: null,
+        unit: null,
+        bomEta: null,
+        fill: null,
+        complete: null,
+      },
       rules: {
         ltNo: [{ required: true, message: 'This field is required' }],
         woNo: [{ required: true, message: 'This field is required' }],
@@ -116,6 +139,8 @@ export default {
                   woNo: this.form.woNo,
                   unit: parseInt(this.form.unit, 10),
                   bomEta: this.form.bomEta,
+                  fill: parseInt(this.form.fill, 10) || 0,
+                  complete: parseInt(this.form.complete, 10) || 0,
                 },
               },
               // update: (store, { data: { importWo } }) => {

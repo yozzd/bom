@@ -227,6 +227,8 @@ const typeDefs = `
     woNo: String
     unit: Int
     bomEta: String
+    fill: Int
+    complete: Int
   }
 
 `;
