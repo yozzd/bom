@@ -50,7 +50,9 @@ a {
 
 .el-date-editor.el-input,
 .el-date-editor.el-input__inner,
-.el-select {
+.el-select,
+.el-upload,
+.el-upload-dragger {
   @apply w-full;
 }
 
