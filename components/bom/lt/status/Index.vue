@@ -96,7 +96,7 @@
                 <el-tooltip effect="dark" content="Clone" placement="top">
                   <a
                     v-if="$auth.$state.user.section === 211"
-                    @click="cloneWo(scope.row)"
+                    @click="cloneWo(scope.row.id)"
                   >
                     <client-only>
                       <v-icon name="ri-file-copy-line" class="remixicons w-4 h-4" />
@@ -406,6 +406,12 @@
         </el-pagination>
       </div>
     </div>
+
+    <BomWoClone
+      :id="idWo"
+      :show="showCloneDialog"
+      @close="closeCloneDialog"
+    />
   </div>
 </template>
 
@@ -419,6 +425,8 @@ export default {
   data() {
     return {
       lt: { customer: {} },
+      showCloneDialog: false,
+      idWo: null,
       miniSearch: new MiniSearch({
         idField: 'id',
         fields: ['woNo', 'model', 'product'],
@@ -433,8 +441,12 @@ export default {
     };
   },
   methods: {
-    cloneWo(row) {
-      console.log(row);
+    closeCloneDialog(value) {
+      this.showCloneDialog = value;
+    },
+    cloneWo(id) {
+      this.idWo = id;
+      this.showCloneDialog = true;
     },
   },
   apollo: {
