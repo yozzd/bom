@@ -693,6 +693,7 @@ const resolvers = {
               const range = XLSX.utils.decode_range(ws['!ref']);
 
               let idHeader = null;
+              /* eslint-disable no-await-in-loop */
               for (let R = 9; R <= range.e.r; R += 1) {
                 if (ws[`A${R}`] && ws[`A${R}`].v === 'MRP BOM  IN-CHARGE : ') break;
                 else if (ws[`A${R}`] && ws[`C${R}`] && ws[`I${R}`] && ws[`I${R}`].v === 0) {
@@ -713,7 +714,7 @@ const resolvers = {
                     poNo = (ws[`Y${R}`].v).split('.')[1].trim();
                   }
 
-                  const newItem = await new WOITEM({
+                  const newItem = new WOITEM({
                     bomDescription: ws[`A${R}`] ? ws[`C${R}`].v : null,
                     bomSpecification: ws[`D${R}`] ? ws[`D${R}`].v : null,
                     bomModel: ws[`E${R}`] ? ws[`E${R}`].v : null,
