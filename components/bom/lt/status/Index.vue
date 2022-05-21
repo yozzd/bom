@@ -68,7 +68,7 @@
           <el-table-column type="index" align="center" width="50" fixed></el-table-column>
           <el-table-column
             label="WO"
-            width="120"
+            width="160"
             fixed
             :show-overflow-tooltip="true"
             class-name="relative group"
@@ -90,6 +90,16 @@
                   >
                     <client-only>
                       <v-icon name="ri-external-link-line" class="remixicons w-4 h-4" />
+                    </client-only>
+                  </a>
+                </el-tooltip>
+                <el-tooltip effect="dark" content="Clone" placement="top">
+                  <a
+                    v-if="$auth.$state.user.section === 211"
+                    @click="cloneWo(scope.row)"
+                  >
+                    <client-only>
+                      <v-icon name="ri-file-copy-line" class="remixicons w-4 h-4" />
                     </client-only>
                   </a>
                 </el-tooltip>
@@ -421,6 +431,11 @@ export default {
         ],
       }),
     };
+  },
+  methods: {
+    cloneWo(row) {
+      console.log(row);
+    },
   },
   apollo: {
     getOneLT: {
