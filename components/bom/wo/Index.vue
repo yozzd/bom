@@ -257,7 +257,10 @@
             >
               <div class="flex space-x-4 text-xs font-bold my-4 group">
                 <div>{{ h.hid }} {{ h.header }}</div>
-                <div class="hidden group-hover:inline-block">
+                <div
+                  v-if="$auth.$state.user.section === 211"
+                  class="hidden group-hover:inline-block"
+                >
                   <el-tooltip effect="dark" content="Add Items" placement="top">
                     <a @click="addNewItem(h.id)">
                       <client-only>
