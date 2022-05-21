@@ -3,6 +3,7 @@ const { Op } = require('sequelize');
 const { GraphQLUpload } = require('graphql-upload');
 const { ErrorWithProps } = require('mercurius');
 const XLSX = require('xlsx');
+const { format } = require('date-fns');
 const sequelize = require('../../config/db');
 const {
   LT, WO, WOMODULE, WOITEM, MPR, MPRMODULE, MPRITEM, OUTSTANDINGPO,
@@ -691,7 +692,6 @@ const resolvers = {
 
               const range = XLSX.utils.decode_range(ws['!ref']);
 
-              const items = [];
               let idHeader = null;
               for (let R = 9; R <= range.e.r; R += 1) {
                 if (ws[`A${R}`] && ws[`A${R}`].v === 'MRP BOM  IN-CHARGE : ') break;
@@ -705,12 +705,43 @@ const resolvers = {
                   const save = await newModule.save();
                   idHeader = save.id;
                 } else if (ws[`A${R}`] && ws[`C${R}`] && ws[`I${R}`] && ws[`I${R}`].v > 0) {
-                  items.push({
-                    bomDescription: ws[`C${R}`].v,
+                  let poZone = null;
+                  let poNo = null;
+
+                  if (ws[`Y${R}`] && ws[`Y${R}`].v) {
+                    poZone = (ws[`Y${R}`].v).split('.')[0].trim();
+                    poNo = (ws[`Y${R}`].v).split('.')[1].trim();
+                  }
+
+                  const newItem = await new WOITEM({
+                    bomDescription: ws[`A${R}`] ? ws[`C${R}`].v : null,
+                    bomSpecification: ws[`D${R}`] ? ws[`D${R}`].v : null,
+                    bomModel: ws[`E${R}`] ? ws[`E${R}`].v : null,
+                    bomBrand: ws[`F${R}`] ? ws[`F${R}`].v : null,
+                    bomQty: ws[`G${R}`] ? ws[`G${R}`].v : null,
+                    bomUnit: ws[`H${R}`] ? ws[`H${R}`].v : null,
+                    bomQtyStock: ws[`L${R}`] ? ws[`L${R}`].v : null,
+                    bomEta: ws[`M${R}`] ? format(new Date(ws[`M${R}`].w), 'yyyy-MM-dd') : null,
+                    bomQtyRec: ws[`N${R}`] ? ws[`N${R}`].v : null,
+                    bomDateRec: ws[`O${R}`] ? format(new Date(ws[`O${R}`].w), 'yyyy-MM-dd') : null,
+                    bomCurrSizeC: ws[`P${R}`] ? ws[`P${R}`].v : null,
+                    bomCurrSizeV: ws[`Q${R}`] ? ws[`Q${R}`].v : null,
+                    bomCurrEaC: ws[`P${R}`] ? ws[`P${R}`].v : null,
+                    bomCurrEaV: ws[`S${R}`] ? ws[`S${R}`].v : null,
+                    bomUsdEa: ws[`T${R}`] ? ws[`T${R}`].v : null,
+                    bomSupplier: ws[`W${R}`] ? ws[`W${R}`].v : null,
+                    bomPoDate: ws[`X${R}`] ? format(new Date(ws[`X${R}`].w), 'yyyy-MM-dd') : null,
+                    bomPoNo: ws[`Y${R}`] ? ws[`Y${R}`].v : null,
+                    poZone,
+                    poNo,
+                    bomRemarks: ws[`Z${R}`] ? ws[`Z${R}`].v : null,
+                    idHeader,
+                    idWo: wo.id,
+                    idLt: lt.id,
                   });
+                  await newItem.save();
                 }
               }
-              console.log(items);
 
               resolve();
             } catch (err) {
