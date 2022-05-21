@@ -64,6 +64,8 @@
 </template>
 
 <script>
+import { CloneWo } from '../../../apollo/bom/mutation';
+
 export default {
   props: {
     show: {
@@ -100,7 +102,60 @@ export default {
       this.errors = [];
       this.$emit('close', false);
     },
-    handleSave() {},
+    handleSave() {
+      this.$refs.form.validate(async (valid) => {
+        if (valid) {
+          try {
+            this.loading = true;
+
+            await this.$apollo.mutate({
+              mutation: CloneWo,
+              variables: {
+                input: {
+                  ltNo: this.form.ltNo,
+                  woNo: this.form.woNo,
+                  unit: parseInt(this.form.unit, 10),
+                  bomEta: this.form.bomEta,
+                },
+              },
+              // update: (store, { data: { importWo } }) => {
+              //   const cdata = store.readQuery({
+              //     query: GetAllLT,
+              //     variables: { status: this.statusValue },
+              //   });
+
+              //   const index = cdata.getAllLT.findIndex((e) => e.id === importWo.id);
+              //   if (index < 0) {
+              //     cdata.getAllLT.unshift(importWo);
+              //   }
+
+              //   store.writeQuery({
+              //     query: GetAllLT,
+              //     variables: { status: this.statusValue },
+              //     data: cdata,
+              //   });
+              // },
+            });
+
+            this.$message({
+              type: 'success',
+              message: 'Data has been saved successfully',
+              onClose: setTimeout(() => {
+                this.handleCancel();
+                this.loading = false;
+              }, 1000),
+            });
+
+            return true;
+          } catch ({ graphQLErrors, networkError }) {
+            this.errors = graphQLErrors || networkError.result.errors;
+            return false;
+          }
+        } else {
+          return false;
+        }
+      });
+    },
   },
 };
 </script>

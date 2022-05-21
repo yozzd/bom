@@ -775,6 +775,9 @@ const resolvers = {
 
       return id;
     }),
+    cloneWo: isAuthenticated(async (_, { input }) => {
+      console.log(input);
+    }),
   },
 };
 

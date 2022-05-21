@@ -196,3 +196,22 @@ export const DeleteLt = gql`
     }
   }
 `;
+
+export const CloneWo = gql`
+  mutation cloneWo($input: CloneWoInput) {
+    cloneWo(input: $input) {
+      id
+      ltNo
+      customer {
+        name
+        contractDeadLine
+        productionDeadLine
+      }
+      wos {
+        id
+        woNo
+        status
+      }
+    }
+  }
+`;

@@ -20,6 +20,7 @@ const typeDefs = `
     deleteWoModule(id: Int): WOMODULE
     importWo(input: ImportWoInput): LT
     deleteLt(id: Int): LT
+    cloneWo(input: CloneWoInput): LT
   }
 
   type WODetail {
@@ -220,6 +221,14 @@ const typeDefs = `
   input ImportWoInput {
     file: Upload
   }
+  
+  input CloneWoInput {
+    ltNo: String
+    woNo: String
+    unit: Int
+    bomEta: String
+  }
+
 `;
 
 module.exports = { typeDefs };
