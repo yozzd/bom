@@ -775,8 +775,178 @@ const resolvers = {
 
       return id;
     }),
-    cloneWo: isAuthenticated(async (_, { input }) => {
-      console.log(input);
+    cloneWo: isAuthenticated(async (_, { input }, ctx) => {
+      const {
+        id, ltNo, woNo, unit, eta, fill, complete,
+      } = input;
+      const cAttributes = [
+        ...itemAttributes, 'idWo', 'idLt', 'poZone', 'whRemarks', 'prRemarks',
+        'rndRemarks', 'hvacRemarks', 'mechanicalRemarks', 'electronicRemarks',
+        'fabricationRemarks',
+      ];
+
+      let lt = {};
+      let wo = {};
+
+      lt = await LT.findOne({
+        attributes: ['id'],
+        where: { ltNo },
+        raw: true,
+      });
+
+      if (!lt) {
+        const newLT = new LT({ ltNo });
+        lt = await newLT.save();
+      }
+
+      const oldWo = await WO.findOne({
+        attributes: [
+          'woNo', 'cat', 'model', 'product', 'pic', 'picName', 'rndic',
+          'sgd', 'idr', 'euro', 'gbp', 'myr', 'budget', 'refer',
+        ],
+        where: { id },
+        raw: true,
+      });
+
+      const newWO = new WO({
+        woNo,
+        idLt: lt.id,
+        unit,
+        cat: oldWo.cat,
+        model: oldWo.model,
+        product: oldWo.product,
+        pic: oldWo.pic,
+        picName: oldWo.picName,
+        rndic: oldWo.rndic,
+        sgd: parseFloat(oldWo.sgd),
+        idr: parseInt(oldWo.idr, 10),
+        euro: parseFloat(oldWo.euro),
+        gbp: parseFloat(oldWo.gbp),
+        myr: parseFloat(oldWo.myr),
+        budget: parseFloat(oldWo.budget),
+        refer: oldWo.woNo,
+      });
+
+      wo = await newWO.save();
+
+      const oldModules = await WOMODULE.findAll({
+        attributes: ['id', 'hid', 'header'],
+        where: { idWo: id },
+        raw: true,
+      });
+
+      /* eslint-disable no-await-in-loop */
+      for (let i = 0; i < oldModules.length; i += 1) {
+        const newModule = new WOMODULE({
+          hid: oldModules[i].hid,
+          header: oldModules[i].header,
+          idWo: wo.id,
+          idLt: lt.id,
+        });
+
+        const mod = await newModule.save();
+
+        const oldItems = await WOITEM.findAll({
+          attributes: cAttributes,
+          where: { idHeader: oldModules[i].id, idWo: id },
+          raw: true,
+        });
+
+        for (let j = 0; j < oldItems.length; j += 1) {
+          let bomQtyBalance = 0;
+          let bomQtyStock = 0;
+          let bomEta = eta || null;
+          let bomQtyRec = 0;
+          let bomDateRec = null;
+          let bomPoDate = null;
+          let bomPoNo = null;
+          let poZone = null;
+          let poNo = null;
+          let bomEtaStatus = null;
+          let bomStatus = null;
+
+          const currObj = {
+            euro: wo.euro,
+            gbp: wo.gbp,
+            myr: wo.myr,
+            idr: wo.idr,
+            sgd: wo.sgd,
+          };
+          const value = getCurrency(oldItems[j].bomCurrEaC, oldItems[j].bomCurrEaV, currObj);
+
+          if (fill) {
+            bomQtyBalance = 0;
+            bomQtyStock = unit * oldItems[j].bomQty;
+          } else if (complete) {
+            bomQtyBalance = oldItems[j]
+              .bomQtyStock - ((unit * oldItems[j].bomQty) - oldItems[j].bomQtyRec);
+            bomQtyStock = unit * oldItems[j].bomQtyStock;
+            bomEta = oldItems[j].bomEta;
+            bomQtyRec = oldItems[j].bomQtyRec;
+            bomDateRec = oldItems[j].bomDateRec;
+            bomPoDate = oldItems[j].bomPoDate;
+            bomPoNo = oldItems[j].bomPoNo;
+            poZone = oldItems[j].poZone;
+            poNo = oldItems[j].poNo;
+            bomEtaStatus = oldItems[j].bomEtaStatus;
+            bomStatus = oldItems[j].bomStatus;
+          } else {
+            bomQtyBalance = (unit * oldItems[j].bomQty) * -1;
+            bomQtyStock = 0;
+          }
+
+          const newItem = new WOITEM({
+            bomDescription: oldItems[j].bomDescription,
+            bomSpecification: oldItems[j].bomSpecification,
+            bomModel: oldItems[j].bomModel,
+            bomBrand: oldItems[j].bomBrand,
+            bomQty: oldItems[j].bomQty,
+            bomUnit: oldItems[j].bomUnit,
+            bomQtyRqd: unit * oldItems[j].bomQty,
+            bomQtyBalance,
+            bomQtyStock,
+            bomEta,
+            bomQtyRec,
+            bomDateRec,
+            bomPoDate,
+            bomPoNo,
+            poZone,
+            poNo,
+            bomEtaStatus,
+            bomStatus,
+            bomCurrSizeC: oldItems[j].bomCurrSizeC,
+            bomCurrSizeV: oldItems[j].bomCurrSizeV,
+            bomCurrEaC: oldItems[j].bomCurrEaC,
+            bomCurrEaV: oldItems[j].bomCurrEaV,
+            bomUsdEa: value,
+            bomUsdUnit: value * oldItems[j].bomQty,
+            bomUsdTotal: unit * value * oldItems[j].bomQty,
+            bomSupplier: oldItems[j].bomSupplier,
+            bomRemarks: oldItems[j].bomRemarks,
+            sr: 0,
+            yetToPurchase: unit * value * oldItems[j].bomQty,
+            idMaterial: oldItems[j].idMaterial,
+            idWo: wo.id,
+            idLt: lt.id,
+            idHeader: mod.id,
+          });
+
+          await newItem.save();
+        }
+      }
+
+      const where = wherePic(0, ctx);
+      const Lt = await LT.findOne({
+        attributes: ['id', 'ltNo', 'customer'],
+        where: { id: lt.id },
+        include: [{
+          model: WO,
+          attributes: ['id', 'woNo', 'status'],
+          where,
+        }],
+      });
+
+      return Lt;
     }),
   },
 };

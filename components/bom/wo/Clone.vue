@@ -41,7 +41,7 @@
           prop="eta"
         >
           <el-date-picker
-            v-model="form.bomEta"
+            v-model="form.eta"
             type="date"
             value-format="yyyy-MM-dd"
           ></el-date-picker>
@@ -80,6 +80,7 @@
 </template>
 
 <script>
+import { GetAllLT } from '../../../apollo/bom/query';
 import { CloneWo } from '../../../apollo/bom/mutation';
 
 export default {
@@ -99,7 +100,7 @@ export default {
         ltNo: null,
         woNo: null,
         unit: null,
-        bomEta: null,
+        eta: null,
         fill: null,
         complete: null,
       },
@@ -135,31 +136,32 @@ export default {
               mutation: CloneWo,
               variables: {
                 input: {
+                  id: this.id,
                   ltNo: this.form.ltNo,
                   woNo: this.form.woNo,
                   unit: parseInt(this.form.unit, 10),
-                  bomEta: this.form.bomEta,
+                  eta: this.form.eta,
                   fill: parseInt(this.form.fill, 10) || 0,
                   complete: parseInt(this.form.complete, 10) || 0,
                 },
               },
-              // update: (store, { data: { importWo } }) => {
-              //   const cdata = store.readQuery({
-              //     query: GetAllLT,
-              //     variables: { status: this.statusValue },
-              //   });
+              update: (store, { data: { cloneWo } }) => {
+                const cdata = store.readQuery({
+                  query: GetAllLT,
+                  variables: { status: 0 },
+                });
 
-              //   const index = cdata.getAllLT.findIndex((e) => e.id === importWo.id);
-              //   if (index < 0) {
-              //     cdata.getAllLT.unshift(importWo);
-              //   }
+                const index = cdata.getAllLT.findIndex((e) => e.id === cloneWo.id);
+                if (index < 0) {
+                  cdata.getAllLT.unshift(cloneWo);
+                }
 
-              //   store.writeQuery({
-              //     query: GetAllLT,
-              //     variables: { status: this.statusValue },
-              //     data: cdata,
-              //   });
-              // },
+                store.writeQuery({
+                  query: GetAllLT,
+                  variables: { status: 0 },
+                  data: cdata,
+                });
+              },
             });
 
             this.$message({

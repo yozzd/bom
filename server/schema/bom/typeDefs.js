@@ -223,10 +223,11 @@ const typeDefs = `
   }
   
   input CloneWoInput {
+    id: Int
     ltNo: String
     woNo: String
     unit: Int
-    bomEta: String
+    eta: String
     fill: Int
     complete: Int
   }
