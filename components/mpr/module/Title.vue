@@ -60,7 +60,10 @@ export default {
   },
   data() {
     return {
-      form: {},
+      form: {
+        moduleChar: '',
+        moduleName: '',
+      },
       rules: {
         moduleName: [{ required: true, message: 'This field is required' }],
       },
