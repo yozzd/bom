@@ -472,7 +472,7 @@
         <el-button
           type="primary"
           :loading="loading"
-          @click="handleFilterByStatus('form')"
+          @click="handleFilterByStatus"
         >
           Filter
         </el-button>
@@ -514,7 +514,7 @@ export default {
     return {
       showFilterByStatusDialog: false,
       loading: false,
-      form: {},
+      form: { status: 'Open' },
       header: '',
       rules: {
         status: [
@@ -542,6 +542,9 @@ export default {
       cachedArr: [],
     };
   },
+  mounted() {
+    this.handleFilterByStatus();
+  },
   methods: {
     handleCommand(command) {
       if (command === 'a') this.showFilterByStatus();
@@ -549,41 +552,37 @@ export default {
     showFilterByStatus() {
       this.showFilterByStatusDialog = true;
     },
-    handleFilterByStatus(form) {
-      this.$refs[form].validate(async (valid) => {
-        if (valid) {
-          this.loading = true;
-          const status = parseInt(
-            (Object.keys(this.status).find((key) => this.status[key] === this.form.status)
-            ), 10,
-          );
+    async handleFilterByStatus() {
+      this.loading = true;
+      const status = parseInt(
+        (Object.keys(this.status).find((key) => this.status[key] === this.form.status)
+        ), 10,
+      );
 
-          const { data: { getAllMPR } } = await this.$apollo.query({
-            query: GetAllMPR,
-            variables: { status },
-            prefetch: false,
-            error({ graphQLErrors, networkError }) {
-              this.errors = graphQLErrors || networkError.result.errors;
-            },
-          });
-          this.items = {};
-          this.items = getAllMPR;
-          this.header = `Status: ${this.form.status}`;
-
-          this.query = GetAllMPR;
-          this.variables = { status };
-          this.sdata = 'getAllMPR';
-
-          this.page = 1;
-          this.pageSize = 10;
-
-          this.miniSearch.removeAll();
-          this.miniSearch.addAll(this.items);
-
-          this.loading = false;
-          this.showFilterByStatusDialog = false;
-        }
+      const { data: { getAllMPR } } = await this.$apollo.query({
+        query: GetAllMPR,
+        variables: { status },
+        prefetch: false,
+        error({ graphQLErrors, networkError }) {
+          this.errors = graphQLErrors || networkError.result.errors;
+        },
       });
+      this.items = {};
+      this.items = getAllMPR;
+      this.header = `Status: ${this.form.status}`;
+
+      this.query = GetAllMPR;
+      this.variables = { status };
+      this.sdata = 'getAllMPR';
+
+      this.page = 1;
+      this.pageSize = 10;
+
+      this.miniSearch.removeAll();
+      this.miniSearch.addAll(this.items);
+
+      this.loading = false;
+      this.showFilterByStatusDialog = false;
     },
     showAdd() {
       this.showAddDialog = true;
