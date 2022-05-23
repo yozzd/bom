@@ -44,7 +44,7 @@
             <client-only>
               <v-icon name="ri-add-line" class="remixicons w-4 h-4" />
             </client-only>
-            Add MPR
+            Add
           </el-button>
           <el-button
             v-if="$auth.$state.user.isManager === 0"

@@ -180,7 +180,16 @@ export default {
   },
   data() {
     return {
-      form: {},
+      form: {
+        status: null,
+        model: null,
+        product: null,
+        unit: null,
+        category: null,
+        dor: null,
+        remark: '',
+        packing: null,
+      },
     };
   },
   watch: {
