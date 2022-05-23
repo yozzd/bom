@@ -177,6 +177,15 @@
 
       <div>
         <div class="flex my-4 space-x-4 items-center">
+          <el-button
+            type="success"
+            @click="showImportDialog = true"
+          >
+            <client-only>
+              <v-icon name="ri-upload-2-line" class="remixicons w-4 h-4" />
+            </client-only>
+            Import
+          </el-button>
           <Dropdown trigger="click" placement="bottom-start" @on-click="handleCommand">
             <VButton type="primary" size="large">
               <client-only>
@@ -320,13 +329,67 @@
       :data="module"
       @close="closeEditModuleDialog"
     />
+
+    <el-dialog
+      title="Import"
+      :visible.sync="showImportDialog"
+      :close-on-click-modal="false"
+      :close-on-press-escape="false"
+      width="30%"
+    >
+      <IndexErrorHandler
+        v-if="errors.length"
+        :errors="errors"
+        class="mb-4"
+      />
+
+      <el-form
+        ref="formImport"
+        :model="formImport"
+        :rules="rulesImport"
+        :hide-required-asterisk="true"
+        label-position="top"
+      >
+        <el-form-item label="File" prop="file">
+          <el-upload
+            ref="upload"
+            drag
+            action=""
+            accept=".xls, .xlsx"
+            :on-change="handleOnChange"
+            :file-list="fileList"
+            :auto-upload="false"
+          >
+            <i class="el-icon-upload"></i>
+            <div class="el-upload__text">
+              Drop file here or <em>click to upload</em>
+            </div>
+          </el-upload>
+        </el-form-item>
+      </el-form>
+      <span slot="footer" class="dialog-footer">
+        <el-button
+          type="text"
+          @click="handleCancel('formImport')"
+        >
+          Cancel
+        </el-button>
+        <el-button
+          type="primary"
+          :loading="loading"
+          @click="handleImport('formImport')"
+        >
+          Import
+        </el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 
 <script>
 import pullAllBy from 'lodash/pullAllBy';
 import { GetOneMPR } from '../../../apollo/mpr/query';
-import { DeleteModule } from '../../../apollo/mpr/mutation';
+import { DeleteModule, ImportMpr } from '../../../apollo/mpr/mutation';
 import { DeleteItem } from '../../../apollo/bom/mutation';
 
 export default {
@@ -347,6 +410,15 @@ export default {
       showEditModuleDialog: false,
       multipleSelection: [],
       cachedArr: [],
+      showImportDialog: false,
+      loading: false,
+      fileList: [],
+      formImport: {
+        file: null,
+      },
+      rulesImport: {
+        file: [{ type: 'object', required: true, message: 'This field is required' }],
+      },
     };
   },
   methods: {
@@ -482,6 +554,51 @@ export default {
           message: 'Data has been delete successfully',
         });
       }).catch(() => {});
+    },
+    handleCancel(form) {
+      this.showImportDialog = false;
+      this.fileList = [];
+      this.loading = false;
+      this.$refs[form].clearValidate();
+    },
+    handleOnChange({ raw }) {
+      this.formImport.file = raw;
+    },
+    handleImport(form) {
+      this.$refs[form].validate(async (valid) => {
+        if (valid) {
+          try {
+            this.loading = true;
+
+            await this.$apollo.mutate({
+              mutation: ImportMpr,
+              variables: {
+                input: {
+                  idWo: parseInt(this.mpr.idWo, 10),
+                  idMpr: parseInt(this.mpr.id, 10),
+                  file: this.formImport.file,
+                },
+              },
+            });
+
+            this.$message({
+              type: 'success',
+              message: 'Data has been updated successfully',
+              onClose: setTimeout(() => {
+                this.handleCancel('formImport');
+                this.loading = false;
+              }, 1000),
+            });
+
+            return true;
+          } catch ({ graphQLErrors, networkError }) {
+            this.errors = graphQLErrors || networkError.result.errors;
+            return false;
+          }
+        } else {
+          return false;
+        }
+      });
     },
   },
   apollo: {

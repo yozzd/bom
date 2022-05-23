@@ -17,6 +17,7 @@ const typeDefs = `
     updateMprModule(input: UpdateMprModuleInput): MPRMODULE
     moveToModule(input: [MoveToModuleInput]): [MPRITEM]
     deleteModule(id: Int): MPRMODULE
+    importMpr(input: ImportMprInput): MPR
   }
 
   type MPR {
@@ -173,6 +174,13 @@ const typeDefs = `
     id: Int
     type: String
   }
+  
+  input ImportMprInput {
+    idWo: Int
+    idMpr: Int
+    file: Upload
+  }
+  
 `;
 
 module.exports = { typeDefs };

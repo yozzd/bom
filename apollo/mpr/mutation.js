@@ -328,3 +328,125 @@ export const DeleteModule = gql`
     }
   }
 `;
+
+export const ImportMpr = gql`
+  mutation importMpr($input: ImportMprInput) {
+    importMpr(input: $input) {
+      id
+      no
+      woNo
+      model
+      product
+      projectName
+      unit
+      category
+      dor
+      idWo
+      requestorName
+      packing
+      hold
+      cancel
+      wo {
+        id
+        euro
+        gbp
+        myr
+        idr
+        sgd
+      }
+      modules {
+        id
+        moduleChar
+        moduleName
+        items {
+          id
+          idMaterial
+          bomDescription
+          bomSpecification
+          bomModel
+          bomBrand
+          bomQty
+          bomUnit
+          bomQtyRqd
+          bomQtyBalance
+          bomQtyStock
+          bomEta
+          bomQtyRec
+          bomDateRec
+          bomCurrSizeC
+          bomCurrSizeV
+          bomCurrEaC
+          bomCurrEaV
+          bomUsdEa
+          bomUsdUnit
+          bomUsdTotal
+          materialsProcessed
+          yetToPurchase
+          bomSupplier
+          bomPoDate
+          bomPoNo
+          bomRemarks
+          priority
+          bomEtaStatus
+          sr
+          isMpr
+          packing
+          hold
+          cancel
+          idHeader
+          idModule
+          colorClass
+          module {
+            id
+            hid
+            header
+          }
+        }
+      }
+      items {
+        id
+        idMaterial
+        bomDescription
+        bomSpecification
+        bomModel
+        bomBrand
+        bomQty
+        bomUnit
+        bomQtyRqd
+        bomQtyBalance
+        bomQtyStock
+        bomEta
+        bomQtyRec
+        bomDateRec
+        bomCurrSizeC
+        bomCurrSizeV
+        bomCurrEaC
+        bomCurrEaV
+        bomUsdEa
+        bomUsdUnit
+        bomUsdTotal
+        materialsProcessed
+        yetToPurchase
+        bomSupplier
+        bomPoDate
+        bomPoNo
+        bomRemarks
+        priority
+        bomEtaStatus
+        sr
+        isMpr
+        packing
+        hold
+        cancel
+        idHeader
+        idModule
+        colorClass
+        module {
+          id
+          hid
+          header
+        }
+      }
+    }
+  }
+`;

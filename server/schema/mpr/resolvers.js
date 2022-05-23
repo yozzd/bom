@@ -399,6 +399,9 @@ const resolvers = {
 
       return id;
     }),
+    importMpr: isAuthenticated(async (_, { input }) => {
+      console.log(input);
+    }),
   },
 };
 
