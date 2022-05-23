@@ -2,6 +2,8 @@ const fs = require('fs');
 const fetch = require('node-fetch');
 const { ErrorWithProps } = require('mercurius');
 const { GraphQLUpload } = require('graphql-upload');
+const XLSX = require('xlsx');
+const { format } = require('date-fns');
 const { Op } = require('sequelize');
 const sequelize = require('../../config/db');
 const { pssUrl, pssAuth } = require('../../config');
@@ -400,7 +402,134 @@ const resolvers = {
       return id;
     }),
     importMpr: isAuthenticated(async (_, { input }) => {
-      console.log(input);
+      const { idWo, idMpr, file } = input;
+
+      const { filename, createReadStream } = await file;
+      const stream = createReadStream();
+
+      const tmp = `/tmp/${filename}`;
+
+      return new Promise((resolve, reject) => {
+        stream
+          .on('error', (error) => {
+            if (stream.truncated) fs.unlinkSync(tmp);
+            reject(error);
+          })
+          .pipe(fs.createWriteStream(tmp))
+          .on('finish', async () => {
+            try {
+              const wb = XLSX.readFile(tmp);
+              const ws = wb.Sheets[wb.SheetNames[0]];
+
+              const range = XLSX.utils.decode_range(ws['!ref']);
+
+              let idModule = null;
+              /* eslint-disable no-await-in-loop */
+              for (let R = 9; R <= range.e.r; R += 1) {
+                if (ws[`A${R}`] && ws[`A${R}`].v === 'MRP BOM  IN-CHARGE : ') break;
+                else if (ws[`A${R}`] && ws[`C${R}`] && ws[`I${R}`] && ws[`I${R}`].v === 0) {
+                  const newModule = new MPRMODULE({
+                    moduleChar: ws[`A${R}`].v,
+                    moduleName: ws[`C${R}`].v,
+                    idMpr,
+                  });
+                  const save = await newModule.save();
+                  idModule = save.id;
+                } else if (ws[`A${R}`] && ws[`C${R}`] && ws[`I${R}`] && ws[`I${R}`].v > 0) {
+                  let poZone = null;
+                  let poNo = null;
+
+                  if (ws[`Y${R}`] && ws[`Y${R}`].v) {
+                    poZone = (ws[`Y${R}`].v).split('.')[0].trim();
+                    poNo = (ws[`Y${R}`].v).split('.')[1].trim();
+                  }
+
+                  const newItem = new MPRITEM({
+                    bomDescription: ws[`A${R}`] ? ws[`C${R}`].v : null,
+                    bomSpecification: ws[`D${R}`] ? ws[`D${R}`].v : '',
+                    bomModel: ws[`E${R}`] ? ws[`E${R}`].v : null,
+                    bomBrand: ws[`F${R}`] ? ws[`F${R}`].v : null,
+                    bomQty: ws[`G${R}`] ? ws[`G${R}`].v : null,
+                    bomUnit: ws[`H${R}`] ? ws[`H${R}`].v : null,
+                    bomQtyStock: ws[`L${R}`] ? ws[`L${R}`].v : null,
+                    bomEta: ws[`M${R}`] ? format(new Date(ws[`M${R}`].w), 'yyyy-MM-dd') : null,
+                    bomQtyRec: ws[`N${R}`] ? ws[`N${R}`].v : null,
+                    bomDateRec: ws[`O${R}`] ? format(new Date(ws[`O${R}`].w), 'yyyy-MM-dd') : null,
+                    bomCurrSizeC: ws[`P${R}`] ? ws[`P${R}`].v : null,
+                    bomCurrSizeV: ws[`Q${R}`] ? ws[`Q${R}`].v : null,
+                    bomCurrEaC: ws[`P${R}`] ? ws[`P${R}`].v : null,
+                    bomCurrEaV: ws[`S${R}`] ? ws[`S${R}`].v : null,
+                    bomUsdEa: ws[`T${R}`] ? ws[`T${R}`].v : null,
+                    bomSupplier: ws[`W${R}`] ? ws[`W${R}`].v : null,
+                    bomPoDate: ws[`X${R}`] ? format(new Date(ws[`X${R}`].w), 'yyyy-MM-dd') : null,
+                    bomPoNo: ws[`Y${R}`] ? ws[`Y${R}`].v : null,
+                    poZone,
+                    poNo,
+                    bomRemarks: ws[`Z${R}`] ? ws[`Z${R}`].v : null,
+                    idMpr,
+                    idWo,
+                    idModule,
+                    timestamp: Date.now(),
+                  });
+                  await newItem.save();
+                }
+              }
+
+              const mpr = await MPR.findOne({
+                attributes: [
+                  'id', 'no', 'woNo', 'model', 'product', 'projectName',
+                  'unit', 'category', 'dor', 'idWo', 'requestorName',
+                  'packing', 'hold', 'cancel',
+                ],
+                where: { id: idMpr },
+                required: false,
+                include: [{
+                  model: WO,
+                  attributes: ['id', 'euro', 'gbp', 'myr', 'idr', 'sgd'],
+                }, {
+                  model: MPRMODULE,
+                  attributes: ['id', 'moduleChar', 'moduleName'],
+                  required: false,
+                  include: [{
+                    model: MPRITEM,
+                    attributes: itemAttributes,
+                    required: false,
+                    include: [{
+                      model: WOMODULE,
+                      attributes: ['id', 'hid', 'header'],
+                      required: false,
+                    }],
+                  }],
+                }, {
+                  model: MPRITEM,
+                  attributes: itemAttributes,
+                  where: {
+                    [Op.and]: [
+                      { cancel: 0 },
+                      { idModule: { [Op.or]: [{ [Op.is]: null }, { [Op.eq]: 0 }] } },
+                    ],
+                  },
+                  required: false,
+                  include: [{
+                    model: WOMODULE,
+                    attributes: ['id', 'hid', 'header'],
+                    required: false,
+                  }],
+                }],
+              });
+
+              return resolve(mpr);
+            } catch (err) {
+              if (typeof err === 'string') {
+                reject(new ErrorWithProps(err));
+              } else {
+                reject(new ErrorWithProps(err.message));
+              }
+            }
+
+            return true;
+          });
+      });
     }),
   },
 };

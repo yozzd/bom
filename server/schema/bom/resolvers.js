@@ -1,9 +1,9 @@
 const fs = require('fs');
-const { Op } = require('sequelize');
 const { GraphQLUpload } = require('graphql-upload');
 const { ErrorWithProps } = require('mercurius');
 const XLSX = require('xlsx');
 const { format } = require('date-fns');
+const { Op } = require('sequelize');
 const sequelize = require('../../config/db');
 const {
   LT, WO, WOMODULE, WOITEM, MPR, MPRMODULE, MPRITEM, OUTSTANDINGPO,
