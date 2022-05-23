@@ -215,3 +215,11 @@ export const CloneWo = gql`
     }
   }
 `;
+
+export const DeleteWo = gql`
+  mutation deleteWo($id: Int) {
+    deleteWo(id: $id) {
+      id
+    }
+  }
+`;

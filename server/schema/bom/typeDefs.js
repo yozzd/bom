@@ -21,6 +21,7 @@ const typeDefs = `
     importWo(input: ImportWoInput): LT
     deleteLt(id: Int): LT
     cloneWo(input: CloneWoInput): LT
+    deleteWo(id: Int): WO
   }
 
   type WODetail {

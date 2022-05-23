@@ -948,6 +948,13 @@ const resolvers = {
 
       return Lt;
     }),
+    deleteWo: isAuthenticated(async (_, { id }) => {
+      await WO.destroy({
+        where: { id },
+      });
+
+      return id;
+    }),
   },
 };
 

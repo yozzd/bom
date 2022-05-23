@@ -103,6 +103,16 @@
                     </client-only>
                   </a>
                 </el-tooltip>
+                <el-tooltip effect="dark" content="Delete" placement="top">
+                  <a
+                    v-if="$auth.$state.user.section === 211"
+                    @click="deleteWo(scope.row)"
+                  >
+                    <client-only>
+                      <v-icon name="ri-delete-bin-2-line" class="remixicons w-4 h-4" />
+                    </client-only>
+                  </a>
+                </el-tooltip>
               </div>
             </template>
           </el-table-column>
@@ -416,9 +426,11 @@
 </template>
 
 <script>
+import pullAllBy from 'lodash/pullAllBy';
 import MiniSearch from 'minisearch';
 import table from '../../../../mixins/table';
 import { GetOneLT } from '../../../../apollo/bom/query';
+import { DeleteWo } from '../../../../apollo/bom/mutation';
 
 export default {
   mixins: [table],
@@ -447,6 +459,53 @@ export default {
     cloneWo(id) {
       this.idWo = id;
       this.showCloneDialog = true;
+    },
+    deleteWo(row) {
+      this.$confirm('This will permanently delete the data. Continue?', 'Warning', {
+        confirmButtonText: 'Yes',
+        cancelButtonText: 'Cancel',
+        type: 'warning',
+      }).then(async () => {
+        await this.$apollo.mutate({
+          mutation: DeleteWo,
+          variables: {
+            id: parseInt(row.id, 10),
+          },
+          update: (store, { data: { deleteWo } }) => {
+            const cdata = store.readQuery({
+              query: GetOneLT,
+              variables: {
+                id: parseInt(this.$route.params.id, 10),
+                status: parseInt(this.$route.params.status, 10),
+              },
+            });
+
+            if (deleteWo.id) {
+              pullAllBy(cdata.getOneLT.wos, [deleteWo], 'id');
+            } else {
+              pullAllBy(cdata.getOneLT.wos, [row], 'id');
+            }
+
+            store.writeQuery({
+              query: GetOneLT,
+              variables: {
+                id: parseInt(this.$route.params.id, 10),
+                status: parseInt(this.$route.params.status, 10),
+              },
+              data: cdata,
+            });
+          },
+          optimisticResponse: {
+            __typename: 'Mutation',
+            deleteWo: row,
+          },
+        });
+
+        this.$message({
+          type: 'success',
+          message: 'Data has been delete successfully',
+        });
+      }).catch(() => {});
     },
   },
   apollo: {
