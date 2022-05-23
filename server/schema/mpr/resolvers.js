@@ -401,8 +401,17 @@ const resolvers = {
 
       return id;
     }),
-    importMpr: isAuthenticated(async (_, { input }) => {
+    importMpr: isAuthenticated(async (_, { input }, ctx) => {
+      const { section } = ctx.req.user;
       const { idWo, idMpr, file } = input;
+
+      const mpr = await MPR.findOne({
+        attributes: [
+          'id', 'unit',
+        ],
+        where: { id: idMpr },
+        raw: true,
+      });
 
       const { filename, createReadStream } = await file;
       const stream = createReadStream();
@@ -436,8 +445,22 @@ const resolvers = {
                   const save = await newModule.save();
                   idModule = save.id;
                 } else if (ws[`A${R}`] && ws[`C${R}`] && ws[`I${R}`] && ws[`I${R}`].v > 0) {
+                  const bomQty = ws[`G${R}`] ? ws[`G${R}`].v : 0;
+                  let bomQtyStock = 0;
+                  let bomQtyBalance = 0;
+
                   let poZone = null;
                   let poNo = null;
+
+                  if (ws[`L${R}`] && section === 513) {
+                    bomQtyBalance = (ws[`L${R}`].v * mpr.unit) - (bomQty * mpr.unit);
+                    bomQtyStock = ws[`L${R}`].v * mpr.unit;
+                  } else if (ws[`L${R}`] && section !== 513) {
+                    bomQtyBalance = ws[`L${R}`].v - (mpr.unit * bomQty);
+                    bomQtyStock = ws[`L${R}`].v;
+                  } else {
+                    bomQtyBalance = 0 - (mpr.unit * bomQty);
+                  }
 
                   if (ws[`Y${R}`] && ws[`Y${R}`].v) {
                     poZone = (ws[`Y${R}`].v).split('.')[0].trim();
@@ -449,9 +472,10 @@ const resolvers = {
                     bomSpecification: ws[`D${R}`] ? ws[`D${R}`].v : '',
                     bomModel: ws[`E${R}`] ? ws[`E${R}`].v : null,
                     bomBrand: ws[`F${R}`] ? ws[`F${R}`].v : null,
-                    bomQty: ws[`G${R}`] ? ws[`G${R}`].v : null,
+                    bomQty,
+                    bomQtyBalance,
                     bomUnit: ws[`H${R}`] ? ws[`H${R}`].v : null,
-                    bomQtyStock: ws[`L${R}`] ? ws[`L${R}`].v : null,
+                    bomQtyStock,
                     bomEta: ws[`M${R}`] ? format(new Date(ws[`M${R}`].w), 'yyyy-MM-dd') : null,
                     bomQtyRec: ws[`N${R}`] ? ws[`N${R}`].v : null,
                     bomDateRec: ws[`O${R}`] ? format(new Date(ws[`O${R}`].w), 'yyyy-MM-dd') : null,
@@ -475,7 +499,7 @@ const resolvers = {
                 }
               }
 
-              const mpr = await MPR.findOne({
+              const rmpr = await MPR.findOne({
                 attributes: [
                   'id', 'no', 'woNo', 'model', 'product', 'projectName',
                   'unit', 'category', 'dor', 'idWo', 'requestorName',
@@ -518,7 +542,7 @@ const resolvers = {
                 }],
               });
 
-              return resolve(mpr);
+              return resolve(rmpr);
             } catch (err) {
               if (typeof err === 'string') {
                 reject(new ErrorWithProps(err));
