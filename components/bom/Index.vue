@@ -5,7 +5,12 @@
       :errors="errors"
     />
 
-    <div class="flex flex-col divide-y divide-gray-400 divide-dashed">
+    <div
+      v-loading.fullscreen.lock="loading"
+      class="flex flex-col divide-y divide-gray-400 divide-dashed"
+      element-loading-text="Loading..."
+      element-loading-spinner="el-icon-loading"
+    >
       <el-breadcrumb separator="/" class="mb-4">
         <el-breadcrumb-item :to="{ name: 'index' }" title="Home">
           <client-only>
@@ -56,7 +61,7 @@
         </div>
       </div>
 
-      <div v-if="tableData.length">
+      <div>
         <div class="flex flex-col space-y-4 my-4">
           <div class="font-bold text-xl">
             {{ header }}
@@ -140,18 +145,6 @@
               </template>
             </el-pagination>
           </div>
-        </div>
-      </div>
-
-      <div v-else>
-        <div class="my-4">
-          <el-alert
-            title="Please select Filter first!"
-            type="info"
-            :closable="false"
-            class="border border-gray-200"
-          >
-          </el-alert>
         </div>
       </div>
     </div>
