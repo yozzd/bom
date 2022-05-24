@@ -355,14 +355,22 @@
                 <div class="font-bold text-xs my-4">
                   {{ mod.moduleChar }} {{ mod.moduleName }}
                 </div>
-                <index-data-table :data="module.items" :wo="wo" :mpr="mpr" />
+                <index-data-table
+                  ref="ptable"
+                  :data="mod.items"
+                  :wo="wo"
+                  :mpr="mpr"
+                  @selection-change="handleSelectionChange"
+                />
                 <div></div>
               </div>
               <index-data-table
                 v-if="mpr.items.length"
+                ref="ptable"
                 :data="mpr.items"
                 :wo="wo"
                 :mpr="mpr"
+                @selection-change="handleSelectionChange"
               />
               <div></div>
             </div>
@@ -479,6 +487,12 @@ export default {
     handleSelectionChange() {
       this.multipleSelection = flatten(this.$refs.ptable.map((v) => [...v.$refs.ctable.selection]));
     },
+    clearSelection() {
+      this.$refs.ptable.map((v) => {
+        v.$refs.ctable.clearSelection();
+        return true;
+      });
+    },
     handleValidate() {
       const arr = this.multipleSelection.map((v) => ({
         id: v.id,
@@ -495,11 +509,48 @@ export default {
           variables: {
             input: arr,
           },
+          update: (store, { data: { validateWoItem } }) => {
+            const cdata = store.readQuery({
+              query: GetOneWO,
+              variables: {
+                idLt: parseInt(this.$route.params.idLt, 10),
+                id: parseInt(this.$route.params.id, 10),
+              },
+            });
+
+            validateWoItem.map((v) => {
+              if (v.isMpr && v.idModule) {
+                const idx1 = cdata.getOneWO
+                  .mpr.mprs[0].modules.findIndex((e) => e.id === v.idModule);
+                const idx2 = cdata.getOneWO
+                  .mpr.mprs[0].modules[idx1].items.findIndex((e) => e.id === v.id);
+                cdata.getOneWO.mpr.mprs[0].modules[idx1].items[idx2].colorClass = v.colorClass;
+                cdata.getOneWO.mpr.mprs[0].modules[idx1].items[idx2].__typename = 'MPRITEM';
+              } else if (v.isMpr && !v.idModule) {
+                const idx1 = cdata.getOneWO
+                  .mpr.mprs[0].items.findIndex((e) => e.id === v.id);
+                cdata.getOneWO.mpr.mprs[0].items[idx1].colorClass = v.colorClass;
+                cdata.getOneWO.mpr.mprs[0].items[idx1].__typename = 'MPRITEM';
+              }
+
+              this.clearSelection();
+              return true;
+            });
+
+            store.writeQuery({
+              query: GetOneWO,
+              variables: {
+                idLt: parseInt(this.$route.params.idLt, 10),
+                id: parseInt(this.$route.params.id, 10),
+              },
+              data: cdata,
+            });
+          },
         });
 
         this.$message({
           type: 'success',
-          message: 'Data has been delete successfully',
+          message: 'Data has been validate successfully',
         });
       }).catch(() => {});
     },
