@@ -91,33 +91,70 @@ const whereUser = async ({
 
   if ((group === 11 && section === 211) || (group === 11 && section === 212)) {
     where = {
-      [Op.and]: [
-        { id: { [Op.in]: ids } },
-        { cancel: 0 },
-        { hold: 0 },
-        { managerApproved: 1 },
-        { whApproved: 1 },
+      [Op.or]: [
+        {
+          [Op.and]: [
+            { id: { [Op.in]: ids } },
+            { cancel: 0 },
+            { hold: 0 },
+            { managerApproved: 1 },
+            { whApproved: 1 },
+          ],
+        },
+        {
+          [Op.and]: [
+            { cancel: 0 },
+            { hold: 0 },
+            { no: { [Op.is]: null } },
+            { requestorId: group },
+            { requestorSection: section },
+          ],
+        },
       ],
     };
   } else if (group === 11 && section === 213 && status === 0) {
     where = {
-      [Op.and]: [
-        { id: { [Op.in]: ids } },
-        { cancel: 0 },
-        { hold: 0 },
-        { managerApproved: 1 },
-        { whApproved: 0 },
+      [Op.or]: [
+        {
+          [Op.and]: [
+            { id: { [Op.in]: ids } },
+            { cancel: 0 },
+            { hold: 0 },
+            { managerApproved: 1 },
+            { whApproved: 0 },
+          ],
+        },
+        {
+          [Op.and]: [
+            { cancel: 0 },
+            { hold: 0 },
+            { no: { [Op.is]: null } },
+            { requestorSection: { [Op.in]: inSection } },
+          ],
+        },
       ],
     };
   } else if (isManager) {
     if (status === 0) {
       where = {
-        [Op.and]: [
-          { id: { [Op.in]: ids } },
-          { cancel: 0 },
-          { hold: 0 },
-          { managerApproved: 0 },
-          { requestorSection: { [Op.in]: inSection } },
+        [Op.or]: [
+          {
+            [Op.and]: [
+              { id: { [Op.in]: ids } },
+              { cancel: 0 },
+              { hold: 0 },
+              { managerApproved: 0 },
+              { requestorSection: { [Op.in]: inSection } },
+            ],
+          },
+          {
+            [Op.and]: [
+              { cancel: 0 },
+              { hold: 0 },
+              { no: { [Op.is]: null } },
+              { requestorSection: { [Op.in]: inSection } },
+            ],
+          },
         ],
       };
     } else {
