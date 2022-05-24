@@ -955,6 +955,35 @@ const resolvers = {
 
       return id;
     }),
+    validateWoItem: isAuthenticated(async (_, { input }) => {
+      const saved = [];
+
+      await Promise.all(
+        input.map(async (v) => {
+          let item = {};
+          const where = { id: v.id };
+
+          if (v.isMpr) {
+            item = await MPRITEM.findOne({
+              attributes: itemAttributes,
+              where,
+            });
+          } else {
+            item = await WOITEM.findOne({
+              attributes: itemAttributes,
+              where,
+            });
+          }
+
+          item.validasi = 1;
+
+          const save = await item.save();
+          saved.push(save);
+        }),
+      );
+
+      return saved;
+    }),
   },
 };
 

@@ -223,3 +223,51 @@ export const DeleteWo = gql`
     }
   }
 `;
+
+export const ValidateWoItem = gql`
+  mutation validateWoItem($input: [ValidateWoItemInput]) {
+    validateWoItem(input: $input) {
+      id
+      idMaterial
+      bomDescription
+      bomSpecification
+      bomModel
+      bomBrand
+      bomQty
+      bomUnit
+      bomQtyRqd
+      bomQtyBalance
+      bomQtyStock
+      bomEta
+      bomQtyRec
+      bomDateRec
+      bomCurrSizeC
+      bomCurrSizeV
+      bomCurrEaC
+      bomCurrEaV
+      bomUsdEa
+      bomUsdUnit
+      bomUsdTotal
+      materialsProcessed
+      yetToPurchase
+      bomSupplier
+      bomPoDate
+      bomPoNo
+      bomRemarks
+      priority
+      bomEtaStatus
+      sr
+      isMpr
+      packing
+      hold
+      cancel
+      idHeader
+      idModule
+      colorClass
+      mpr {
+        id
+        no
+      }
+    }
+  }
+`;

@@ -1,6 +1,7 @@
 <template>
   <div>
     <el-table
+      ref="ctable"
       :data="data"
       size="mini"
       border

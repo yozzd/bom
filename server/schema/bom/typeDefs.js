@@ -22,6 +22,7 @@ const typeDefs = `
     deleteLt(id: Int): LT
     cloneWo(input: CloneWoInput): LT
     deleteWo(id: Int): WO
+    validateWoItem(input: [ValidateWoItemInput]): [WOITEM]
   }
 
   type WODetail {
@@ -233,6 +234,10 @@ const typeDefs = `
     complete: Int
   }
 
+  input ValidateWoItemInput {
+    id: Int
+    isMpr: Int
+  }
 `;
 
 module.exports = { typeDefs };

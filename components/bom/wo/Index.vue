@@ -248,6 +248,22 @@
       </div>
 
       <div>
+        <div class="flex my-4 space-x-4 items-center">
+          <el-button
+            type="primary"
+            :disabled="!multipleSelection.length"
+            @click="handleValidate"
+          >
+            <client-only>
+              <v-icon name="ri-check-line" class="remixicons w-4 h-4" />
+            </client-only>
+            Validate
+          </el-button>
+          <div class="flex-1"></div>
+        </div>
+      </div>
+
+      <div>
         <el-tabs type="border-card" tab-position="top" class="my-4">
           <el-tab-pane label="BOM">
             <div
@@ -286,8 +302,10 @@
               </div>
               <index-data-table
                 v-if="h.items.length"
+                ref="ptable"
                 :data="h.items"
                 :wo="wo"
+                @selection-change="handleSelectionChange"
               />
               <div></div>
             </div>
@@ -370,8 +388,9 @@
 
 <script>
 import pullAllBy from 'lodash/pullAllBy';
+import flatten from 'lodash/flatten';
 import { GetOneWO } from '../../../apollo/bom/query';
-import { DeleteWoModule } from '../../../apollo/bom/mutation';
+import { DeleteWoModule, ValidateWoItem } from '../../../apollo/bom/mutation';
 import bom from '../../../mixins/bom';
 
 export default {
@@ -388,6 +407,7 @@ export default {
       module: {},
       showKeywordDialog: false,
       showEditModuleDialog: false,
+      multipleSelection: [],
     };
   },
   methods: {
@@ -447,6 +467,33 @@ export default {
           optimisticResponse: {
             __typename: 'Mutation',
             deleteWoModule: selectedModule,
+          },
+        });
+
+        this.$message({
+          type: 'success',
+          message: 'Data has been delete successfully',
+        });
+      }).catch(() => {});
+    },
+    handleSelectionChange() {
+      this.multipleSelection = flatten(this.$refs.ptable.map((v) => [...v.$refs.ctable.selection]));
+    },
+    handleValidate() {
+      const arr = this.multipleSelection.map((v) => ({
+        id: v.id,
+        isMpr: v.isMpr,
+      }));
+
+      this.$confirm('You are about to validate the item(s), are you sure?', 'Validation Confirmation', {
+        confirmButtonText: 'Yes',
+        cancelButtonText: 'Cancel',
+        type: 'warning',
+      }).then(async () => {
+        await this.$apollo.mutate({
+          mutation: ValidateWoItem,
+          variables: {
+            input: arr,
           },
         });
 
