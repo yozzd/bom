@@ -36,7 +36,7 @@
     "graphql-tag": "^2.12.6",
     "graphql-upload": "^13.0.0",
     "lodash": "^4.17.21",
-    "mercurius": "^9.5.0",
+    "mercurius": "^9.6.0",
     "mercurius-upload": "^4.0.0",
     "minisearch": "^4.0.3",
     "mysql2": "^2.3.3",
@@ -45,7 +45,7 @@
     "oh-vue-icons": "^1.0.0-rc3",
     "passport": "^0.6.0",
     "passport-local": "^1.0.0",
-    "sequelize": "^6.19.2",
+    "sequelize": "^6.20.0",
     "view-design": "^4.7.0",
     "vue": "^2.6.14",
     "vue-currency-filter": "^5.2.0",
@@ -66,7 +66,7 @@
     "less": "^4.1.2",
     "less-loader": "7.3.0",
     "nodemon": "^2.0.16",
-    "nuxt-windicss": "^2.3.1",
+    "nuxt-windicss": "^2.3.2",
     "sass": "1.32.13",
     "sass-loader": "10.1.1"
   }
