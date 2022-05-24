@@ -1,4 +1,8 @@
 const { Op } = require('sequelize');
+const {
+  WO, WOMODULE, MPR, MPRMODULE, MPRITEM,
+} = require('../relations');
+const { itemAttributes } = require('../bom/resolvers');
 
 const whereStatus = (status) => {
   let where = null;
@@ -154,4 +158,51 @@ const whereUser = async ({
   return where;
 };
 
-module.exports = { whereStatus, whereUser };
+const oneMpr = async (id) => {
+  const mpr = await MPR.findOne({
+    attributes: [
+      'id', 'no', 'woNo', 'model', 'product', 'projectName',
+      'unit', 'category', 'dor', 'idWo', 'requestorName',
+      'packing', 'hold', 'cancel',
+    ],
+    where: { id },
+    required: false,
+    include: [{
+      model: WO,
+      attributes: ['id', 'euro', 'gbp', 'myr', 'idr', 'sgd'],
+    }, {
+      model: MPRMODULE,
+      attributes: ['id', 'moduleChar', 'moduleName'],
+      required: false,
+      include: [{
+        model: MPRITEM,
+        attributes: itemAttributes,
+        required: false,
+        include: [{
+          model: WOMODULE,
+          attributes: ['id', 'hid', 'header'],
+          required: false,
+        }],
+      }],
+    }, {
+      model: MPRITEM,
+      attributes: itemAttributes,
+      where: {
+        [Op.and]: [
+          { cancel: 0 },
+          { idModule: { [Op.or]: [{ [Op.is]: null }, { [Op.eq]: 0 }] } },
+        ],
+      },
+      required: false,
+      include: [{
+        model: WOMODULE,
+        attributes: ['id', 'hid', 'header'],
+        required: false,
+      }],
+    }],
+  });
+
+  return mpr;
+};
+
+module.exports = { whereStatus, whereUser, oneMpr };

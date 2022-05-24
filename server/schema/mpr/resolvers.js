@@ -4,14 +4,13 @@ const { ErrorWithProps } = require('mercurius');
 const { GraphQLUpload } = require('graphql-upload');
 const XLSX = require('xlsx');
 const { format } = require('date-fns');
-const { Op } = require('sequelize');
 const sequelize = require('../../config/db');
 const { pssUrl, pssAuth } = require('../../config');
 const {
   WO, WOMODULE, WOITEM, MPR, MPRMODULE, MPRITEM, OUTSTANDINGPO,
 } = require('../relations');
 const { isAuthenticated } = require('../auth/service');
-const { whereStatus, whereUser } = require('./methods');
+const { whereStatus, whereUser, oneMpr } = require('./methods');
 const { itemAttributes } = require('../bom/resolvers');
 
 const mprAttributes = [
@@ -78,49 +77,7 @@ const resolvers = {
       return mpr;
     }),
     getOneMPR: isAuthenticated(async (_, { id }) => {
-      const mpr = await MPR.findOne({
-        attributes: [
-          'id', 'no', 'woNo', 'model', 'product', 'projectName',
-          'unit', 'category', 'dor', 'idWo', 'requestorName',
-          'packing', 'hold', 'cancel',
-        ],
-        where: { id },
-        required: false,
-        include: [{
-          model: WO,
-          attributes: ['id', 'euro', 'gbp', 'myr', 'idr', 'sgd'],
-        }, {
-          model: MPRMODULE,
-          attributes: ['id', 'moduleChar', 'moduleName'],
-          required: false,
-          include: [{
-            model: MPRITEM,
-            attributes: itemAttributes,
-            required: false,
-            include: [{
-              model: WOMODULE,
-              attributes: ['id', 'hid', 'header'],
-              required: false,
-            }],
-          }],
-        }, {
-          model: MPRITEM,
-          attributes: itemAttributes,
-          where: {
-            [Op.and]: [
-              { cancel: 0 },
-              { idModule: { [Op.or]: [{ [Op.is]: null }, { [Op.eq]: 0 }] } },
-            ],
-          },
-          required: false,
-          include: [{
-            model: WOMODULE,
-            attributes: ['id', 'hid', 'header'],
-            required: false,
-          }],
-        }],
-      });
-
+      const mpr = await oneMpr(id);
       return mpr;
     }),
     getMprModules: isAuthenticated(async (_, { idMpr }) => {
@@ -499,48 +456,7 @@ const resolvers = {
                 }
               }
 
-              const rmpr = await MPR.findOne({
-                attributes: [
-                  'id', 'no', 'woNo', 'model', 'product', 'projectName',
-                  'unit', 'category', 'dor', 'idWo', 'requestorName',
-                  'packing', 'hold', 'cancel',
-                ],
-                where: { id: idMpr },
-                required: false,
-                include: [{
-                  model: WO,
-                  attributes: ['id', 'euro', 'gbp', 'myr', 'idr', 'sgd'],
-                }, {
-                  model: MPRMODULE,
-                  attributes: ['id', 'moduleChar', 'moduleName'],
-                  required: false,
-                  include: [{
-                    model: MPRITEM,
-                    attributes: itemAttributes,
-                    required: false,
-                    include: [{
-                      model: WOMODULE,
-                      attributes: ['id', 'hid', 'header'],
-                      required: false,
-                    }],
-                  }],
-                }, {
-                  model: MPRITEM,
-                  attributes: itemAttributes,
-                  where: {
-                    [Op.and]: [
-                      { cancel: 0 },
-                      { idModule: { [Op.or]: [{ [Op.is]: null }, { [Op.eq]: 0 }] } },
-                    ],
-                  },
-                  required: false,
-                  include: [{
-                    model: WOMODULE,
-                    attributes: ['id', 'hid', 'header'],
-                    required: false,
-                  }],
-                }],
-              });
+              const rmpr = await oneMpr(idMpr);
 
               return resolve(rmpr);
             } catch (err) {
