@@ -967,6 +967,11 @@ const resolvers = {
             item = await MPRITEM.findOne({
               attributes: itemAttributes,
               where,
+              include: [{
+                model: MPR,
+                attributes: ['id', 'no'],
+                required: false,
+              }],
             });
           } else {
             item = await WOITEM.findOne({

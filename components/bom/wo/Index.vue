@@ -521,16 +521,20 @@ export default {
             validateWoItem.map((v) => {
               if (v.isMpr && v.idModule) {
                 const idx1 = cdata.getOneWO
-                  .mpr.mprs[0].modules.findIndex((e) => e.id === v.idModule);
+                  .mpr.mprs.findIndex((e) => e.id === v.mpr.id);
                 const idx2 = cdata.getOneWO
-                  .mpr.mprs[0].modules[idx1].items.findIndex((e) => e.id === v.id);
-                cdata.getOneWO.mpr.mprs[0].modules[idx1].items[idx2].colorClass = v.colorClass;
-                cdata.getOneWO.mpr.mprs[0].modules[idx1].items[idx2].__typename = 'MPRITEM';
+                  .mpr.mprs[idx1].modules.findIndex((e) => e.id === v.idModule);
+                const idx3 = cdata.getOneWO
+                  .mpr.mprs[idx1].modules[idx2].items.findIndex((e) => e.id === v.id);
+                cdata.getOneWO.mpr.mprs[idx1].modules[idx2].items[idx3].colorClass = v.colorClass;
+                cdata.getOneWO.mpr.mprs[idx1].modules[idx2].items[idx3].__typename = 'MPRITEM';
               } else if (v.isMpr && !v.idModule) {
                 const idx1 = cdata.getOneWO
-                  .mpr.mprs[0].items.findIndex((e) => e.id === v.id);
-                cdata.getOneWO.mpr.mprs[0].items[idx1].colorClass = v.colorClass;
-                cdata.getOneWO.mpr.mprs[0].items[idx1].__typename = 'MPRITEM';
+                  .mpr.mprs.findIndex((e) => e.id === v.mpr.id);
+                const idx2 = cdata.getOneWO
+                  .mpr.mprs[idx1].items.findIndex((e) => e.id === v.id);
+                cdata.getOneWO.mpr.mprs[idx1].items[idx2].colorClass = v.colorClass;
+                cdata.getOneWO.mpr.mprs[idx1].items[idx2].__typename = 'MPRITEM';
               }
 
               this.clearSelection();
