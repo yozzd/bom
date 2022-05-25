@@ -101,6 +101,7 @@ const typeDefs = `
     idMpr: Int
     idHeader: Int
     idModule: Int
+    oIdModule: Int
     colorClass: String
     module: WOMODULE
     mpr: MPR
@@ -165,9 +166,10 @@ const typeDefs = `
   }
 
   input MoveToModuleInput {
-    idModule: Int
     id: Int
     isMpr: Int
+    idModule: Int
+    oIdModule: Int
   }
 
   input ApproveMprInput {

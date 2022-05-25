@@ -276,6 +276,7 @@ export const MoveToModule = gql`
       idMpr
       idHeader
       idModule
+      oIdModule
       colorClass
       module {
         id

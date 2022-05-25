@@ -79,10 +79,6 @@ export default {
       type: Array,
       default: () => ([]),
     },
-    oIdModule: {
-      type: Number,
-      default: 0,
-    },
   },
   data() {
     return {
@@ -114,7 +110,9 @@ export default {
 
             const items = await Promise.all(
               this.items.map((v) => ({
-                ...v,
+                id: v.id,
+                isMpr: v.isMpr,
+                oIdModule: v.idModule,
                 idModule: this.form.nIdModule,
               })),
             );
@@ -133,15 +131,21 @@ export default {
                 });
 
                 const { nIdModule } = this.form;
-                const nIndex = cdata.getOneMPR.modules.findIndex((e) => e.id === nIdModule);
-                const oitems = [...cdata.getOneMPR.modules[nIndex].items];
-                cdata.getOneMPR.modules[nIndex].items = [...oitems, ...moveToModule];
-                if (this.oIdModule) {
-                  const oIndex = cdata.getOneMPR.modules.findIndex((e) => e.id === this.oIdModule);
-                  pullAllBy(cdata.getOneMPR.modules[oIndex].items, moveToModule, 'id');
-                } else {
-                  pullAllBy(cdata.getOneMPR.items, moveToModule, 'id');
-                }
+
+                moveToModule.map((v) => {
+                  const nIndex = cdata.getOneMPR.modules.findIndex((e) => e.id === nIdModule);
+                  const oItems = [...cdata.getOneMPR.modules[nIndex].items];
+                  cdata.getOneMPR.modules[nIndex].items = [...oItems, v];
+                  if (v.oIdModule) {
+                    const oIndex = cdata.getOneMPR
+                      .modules.findIndex((e) => e.id === v.oIdModule);
+                    pullAllBy(cdata.getOneMPR.modules[oIndex].items, [v], 'id');
+                  } else {
+                    pullAllBy(cdata.getOneMPR.items, [v], 'id');
+                  }
+
+                  return true;
+                });
 
                 store.writeQuery({
                   query: GetOneMPR,

@@ -303,6 +303,7 @@ const resolvers = {
 
           Object.assign(item, v);
           const save = await item.save();
+          save.oIdModule = v.oIdModule;
           saved.push(save);
         }),
       );

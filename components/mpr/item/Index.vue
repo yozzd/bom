@@ -321,7 +321,6 @@
       :show="showMoveToModuleDialog"
       :modules="modules"
       :items="multipleSelection"
-      :o-id-module="idModule"
       @close="closeMoveToModuleDialog"
     />
 
