@@ -41,9 +41,9 @@
           >
             {{ scope.row.bomDescription }}
           </a>
-          <div v-else>
+          <span v-else>
             {{ scope.row.bomDescription }}
-          </div>
+          </span>
         </template>
       </el-table-column>
       <el-table-column
