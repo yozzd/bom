@@ -276,6 +276,7 @@
             </div>
           </div>
           <index-data-table
+            ref="ptable"
             :data="h.items"
             :wo="wo"
             :mpr="mpr"
@@ -285,16 +286,16 @@
           <div></div>
         </div>
       </div>
-      <div v-if="items.length">
-        <index-data-table
-          :data="items"
-          :wo="wo"
-          :mpr="mpr"
-          from-mpr
-          class="my-4"
-          @selection-change="handleSelectionChange"
-        />
-      </div>
+      <index-data-table
+        v-if="items.length"
+        ref="mtable"
+        :data="items"
+        :wo="wo"
+        :mpr="mpr"
+        from-mpr
+        class="my-4"
+        @selection-change="handleSelectionChange"
+      />
       <div></div>
     </div>
 
@@ -388,6 +389,7 @@
 
 <script>
 import pullAllBy from 'lodash/pullAllBy';
+import flatten from 'lodash/flatten';
 import { GetOneMPR } from '../../../apollo/mpr/query';
 import { DeleteModule, ImportMpr } from '../../../apollo/mpr/mutation';
 import { DeleteItem } from '../../../apollo/bom/mutation';
@@ -409,7 +411,6 @@ export default {
       showMoveToModuleDialog: false,
       showEditModuleDialog: false,
       multipleSelection: [],
-      cachedArr: [],
       showImportDialog: false,
       loading: false,
       fileList: [],
@@ -443,15 +444,11 @@ export default {
     closeEditModuleDialog(value) {
       this.showEditModuleDialog = value;
     },
-    handleSelectionChange(arr) {
-      this.multipleSelection = arr.map((v) => {
-        this.idModule = v.idModule;
-        return {
-          id: v.id,
-          isMpr: v.isMpr,
-        };
-      });
-      this.cachedArr = arr;
+    handleSelectionChange() {
+      const t1 = flatten(this.$refs.ptable.map((v) => [...v.$refs.ctable.selection]));
+      const t2 = this.$refs.mtable.$refs.ctable.selection;
+      this.multipleSelection = [];
+      this.multipleSelection = flatten([...t1, ...t2]);
     },
     addNewItem(id) {
       this.idModule = 0;
@@ -463,6 +460,12 @@ export default {
       this.showEditModuleDialog = true;
     },
     handleDelete() {
+      const arr = this.multipleSelection.map((v) => ({
+        id: v.id,
+        isMpr: v.isMpr,
+        idModule: v.idModule,
+      }));
+
       this.$confirm('This will permanently delete the data. Continue?', 'Warning', {
         confirmButtonText: 'Yes',
         cancelButtonText: 'Cancel',
@@ -471,7 +474,7 @@ export default {
         await this.$apollo.mutate({
           mutation: DeleteItem,
           variables: {
-            input: this.multipleSelection,
+            input: arr,
           },
           update: (store, { data: { deleteItem } }) => {
             const cdata = store.readQuery({
@@ -481,12 +484,16 @@ export default {
               },
             });
 
-            if (this.idModule) {
-              const index = cdata.getOneMPR.modules.findIndex((e) => e.id === this.idModule);
-              pullAllBy(cdata.getOneMPR.modules[index].items, deleteItem, 'id');
-            } else {
-              pullAllBy(cdata.getOneMPR.items, deleteItem, 'id');
-            }
+            deleteItem.map((v) => {
+              if (v.idModule) {
+                const index = cdata.getOneMPR.modules.findIndex((e) => e.id === v.idModule);
+                pullAllBy(cdata.getOneMPR.modules[index].items, [v], 'id');
+              } else {
+                pullAllBy(cdata.getOneMPR.items, [v], 'id');
+              }
+
+              return true;
+            });
 
             store.writeQuery({
               query: GetOneMPR,
@@ -498,7 +505,7 @@ export default {
           },
           optimisticResponse: {
             __typename: 'Mutation',
-            deleteItem: this.cachedArr,
+            deleteItem: this.multipleSelection,
           },
         });
 

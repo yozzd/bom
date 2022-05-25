@@ -57,6 +57,8 @@ export const DeleteItem = gql`
   mutation deleteItem($input: [DeleteItemInput]) {
     deleteItem(input: $input) {
       id
+      isMpr
+      idModule
     }
   }
 `;
