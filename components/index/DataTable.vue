@@ -10,7 +10,6 @@
       @selection-change="selection => $emit('selection-change', selection)"
     >
       <el-table-column
-        v-if="$auth.$state.user.section === 211 || $auth.$state.user.section === 212 || fromMpr"
         type="selection"
         width="40"
         align="center"
