@@ -444,8 +444,16 @@ export default {
       this.showEditModuleDialog = value;
     },
     handleSelectionChange() {
-      const t1 = flatten(this.$refs.ptable.map((v) => [...v.$refs.ctable.selection]));
-      const t2 = this.$refs.mtable.$refs.ctable.selection;
+      let t1 = [];
+      let t2 = [];
+
+      if (this.$refs.ptable) {
+        t1 = flatten(this.$refs.ptable.map((v) => [...v.$refs.ctable.selection]));
+      }
+      if (this.$refs.mtable) {
+        t2 = this.$refs.mtable.$refs.ctable.selection;
+      }
+
       this.multipleSelection = [];
       this.multipleSelection = flatten([...t1, ...t2]);
     },
