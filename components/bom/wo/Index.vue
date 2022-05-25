@@ -249,16 +249,28 @@
 
       <div>
         <div class="flex my-4 space-x-4 items-center">
-          <el-button
-            type="primary"
-            :disabled="!multipleSelection.length"
-            @click="handleValidate"
-          >
-            <client-only>
-              <v-icon name="ri-check-line" class="remixicons w-4 h-4" />
-            </client-only>
-            Validate
-          </el-button>
+          <el-button-group>
+            <el-button
+              type="primary"
+              :disabled="!multipleSelection.length"
+              @click="handleValidate(1)"
+            >
+              <client-only>
+                <v-icon name="ri-check-line" class="remixicons w-4 h-4" />
+              </client-only>
+              Validate
+            </el-button>
+            <el-button
+              type="primary"
+              :disabled="!multipleSelection.length"
+              @click="handleValidate(0)"
+            >
+              <client-only>
+                <v-icon name="ri-close-line" class="remixicons w-4 h-4" />
+              </client-only>
+              Invalidate
+            </el-button>
+          </el-button-group>
           <div class="flex-1"></div>
         </div>
       </div>
@@ -493,10 +505,11 @@ export default {
         return true;
       });
     },
-    handleValidate() {
+    handleValidate(val) {
       const arr = this.multipleSelection.map((v) => ({
         id: v.id,
         isMpr: v.isMpr,
+        validasi: parseInt(val, 10),
       }));
 
       this.$confirm('You are about to validate the item(s), are you sure?', 'Validation Confirmation', {

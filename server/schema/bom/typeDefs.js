@@ -238,6 +238,7 @@ const typeDefs = `
   input ValidateWoItemInput {
     id: Int
     isMpr: Int
+    validasi: Int
   }
 `;
 

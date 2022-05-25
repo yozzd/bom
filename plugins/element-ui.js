@@ -5,6 +5,7 @@ import {
   Breadcrumb,
   BreadcrumbItem,
   Button,
+  ButtonGroup,
   Checkbox,
   DatePicker,
   Dialog,
@@ -49,6 +50,7 @@ Vue.use(Badge);
 Vue.use(Breadcrumb);
 Vue.use(BreadcrumbItem);
 Vue.use(Button);
+Vue.use(ButtonGroup);
 Vue.use(Checkbox);
 Vue.use(DatePicker);
 Vue.use(Dialog);

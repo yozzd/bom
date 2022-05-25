@@ -980,7 +980,7 @@ const resolvers = {
             });
           }
 
-          item.validasi = 1;
+          item.validasi = v.validasi;
 
           const save = await item.save();
           saved.push(save);
