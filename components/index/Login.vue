@@ -78,6 +78,7 @@ export default {
             return true;
           } catch ({ graphQLErrors, networkError }) {
             this.errors = graphQLErrors || networkError.result.errors;
+            this.loading = false;
             return false;
           }
         } else {
