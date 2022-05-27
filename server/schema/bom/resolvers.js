@@ -1006,7 +1006,7 @@ const resolvers = {
     updateWo: isAuthenticated(async (_, { input }) => {
       const wo = await WO.findOne({
         attributes: [
-          'id', 'cat', 'model', 'product', 'unit', 'pic', 'picName',
+          'id', 'woNo', 'cat', 'model', 'product', 'unit', 'pic', 'picName',
           'rndic', 'budget', 'refer', 'stage', 'status', 'issued',
         ],
         where: { id: input.id },
