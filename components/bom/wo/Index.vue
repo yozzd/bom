@@ -249,52 +249,56 @@
 
       <div>
         <div class="flex my-4 space-x-4 items-center">
-          <el-button-group
-            v-if="$auth.$state.user.isManager === 1"
+          <div
+            v-if="$auth.$state.user.isManager"
           >
-            <el-button
-              type="primary"
-              :disabled="!multipleSelection.length"
-              @click="handleValidate(1)"
-            >
-              <client-only>
-                <v-icon name="ri-check-line" class="remixicons w-4 h-4" />
-              </client-only>
-              Validate
-            </el-button>
-            <el-button
-              type="primary"
-              :disabled="total.totalValidation !== total.totalItems"
-              @click="handleValidateManager(0)"
-            >
-              <client-only>
-                <v-icon name="ri-close-line" class="remixicons w-4 h-4" />
-              </client-only>
-              Invalidate
-            </el-button>
-          </el-button-group>
-          <el-button-group v-else>
-            <el-button
-              type="primary"
-              :disabled="total.totalValidation !== total.totalItems"
-              @click="handleValidateManager(1)"
-            >
-              <client-only>
-                <v-icon name="ri-check-line" class="remixicons w-4 h-4" />
-              </client-only>
-              Validate
-            </el-button>
-            <el-button
-              type="primary"
-              :disabled="!multipleSelection.length"
-              @click="handleValidate(0)"
-            >
-              <client-only>
-                <v-icon name="ri-close-line" class="remixicons w-4 h-4" />
-              </client-only>
-              Invalidate
-            </el-button>
-          </el-button-group>
+            <el-button-group>
+              <el-button
+                type="primary"
+                :disabled="total.totalValidation !== total.totalItems"
+                @click="handleValidateManager(1)"
+              >
+                <client-only>
+                  <v-icon name="ri-check-line" class="remixicons w-4 h-4" />
+                </client-only>
+                Validate
+              </el-button>
+              <el-button
+                type="primary"
+                :disabled="total.totalValidation !== total.totalItems"
+                @click="handleValidateManager(0)"
+              >
+                <client-only>
+                  <v-icon name="ri-close-line" class="remixicons w-4 h-4" />
+                </client-only>
+                Invalidate
+              </el-button>
+            </el-button-group>
+          </div>
+          <div v-else>
+            <el-button-group>
+              <el-button
+                type="primary"
+                :disabled="!multipleSelection.length"
+                @click="handleValidate(1)"
+              >
+                <client-only>
+                  <v-icon name="ri-check-line" class="remixicons w-4 h-4" />
+                </client-only>
+                Validate
+              </el-button>
+              <el-button
+                type="primary"
+                :disabled="!multipleSelection.length"
+                @click="handleValidate(0)"
+              >
+                <client-only>
+                  <v-icon name="ri-close-line" class="remixicons w-4 h-4" />
+                </client-only>
+                Invalidate
+              </el-button>
+            </el-button-group>
+          </div>
           <div class="flex-1"></div>
         </div>
       </div>
