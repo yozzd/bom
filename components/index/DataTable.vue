@@ -35,7 +35,7 @@
       >
         <template slot-scope="scope">
           <a
-            v-if="$auth.$state.user.section === 211 || $auth.$state.user.section === 212 || fromMpr"
+            v-if="$auth.$state.user.department === 210 || fromMpr"
             @click="showEditItem(scope.row)"
           >
             {{ scope.row.bomDescription }}
