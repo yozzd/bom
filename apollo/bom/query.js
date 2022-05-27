@@ -87,6 +87,8 @@ export const GetOneWO = gql`
           totalDeviation
           totalPackingPerUnit
           totalPackingPerWO
+          totalValidation
+          totalItems
         }
       }
       wo {

@@ -178,6 +178,8 @@ const resolvers = {
             [sequelize.literal('SUM(`wos->modules->items`.yet_to_purchase)'), 'totalYetToPurchase'],
             [sequelize.literal('SUM(CASE WHEN `wos->modules`.header LIKE ("%deviation%") THEN `wos->modules->items`.bom_usd_total ELSE 0 END)'), 'totalDeviation'],
             [sequelize.literal('SUM(CASE WHEN `wos->modules->items`.packing THEN `wos->modules->items`.bom_usd_total ELSE 0 END)'), 'totalPackingPerWO'],
+            [sequelize.literal('COUNT(CASE WHEN `wos->modules->items`.validasi AND `wos->modules`.header NOT LIKE ("%deviation%") THEN 1 ELSE NULL END)'), 'totalValidation'],
+            [sequelize.literal('COUNT(CASE WHEN `wos->modules`.header NOT LIKE ("%deviation%") THEN 1 ELSE NULL END)'), 'totalItems'],
           ],
           where: { id },
           include: [{
@@ -258,6 +260,8 @@ const resolvers = {
             [sequelize.literal('IFNULL(SUM(`wos->mprs->items`.materials_processed), 0)'), 'totalMaterialsProcessed'],
             [sequelize.literal('IFNULL(SUM(`wos->mprs->items`.yet_to_purchase), 0)'), 'totalYetToPurchase'],
             [sequelize.literal('SUM(CASE WHEN `wos->mprs->items`.packing THEN `wos->mprs->items`.bom_usd_total ELSE 0 END)'), 'totalPackingPerWO'],
+            [sequelize.literal('COUNT(CASE WHEN `wos->mprs->items`.validasi THEN 1 ELSE NULL END)'), 'totalValidation'],
+            [sequelize.literal('COUNT(`wos->mprs->items`.id)'), 'totalItems'],
           ],
           where: { id },
           required: false,
@@ -290,6 +294,8 @@ const resolvers = {
       lt.wos[0].totalPackingPerWO += ltMpr.wos[0].totalPackingPerWO;
       lt.wos[0].totalPackingPerUnit += ltMpr.wos[0].totalPackingPerUnit;
       lt.wos[0].difference -= ltMpr.wos[0].totalPricePerWO;
+      lt.wos[0].totalItems += ltMpr.wos[0].totalItems;
+      lt.wos[0].totalValidation += ltMpr.wos[0].totalValidation;
 
       const mpr = await WO.findOne({
         attributes: ['id', 'woNo'],
