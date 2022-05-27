@@ -285,3 +285,11 @@ export const UpdateWo = gql`
     }
   }
 `;
+
+export const ValidateWo = gql`
+  mutation validateWo($id: Int, $validated: Int) {
+    validateWo(id: $id, validated: $validated) {
+      id
+    }
+  }
+`;

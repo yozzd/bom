@@ -24,6 +24,7 @@ const typeDefs = `
     deleteWo(id: Int): WO
     validateWoItem(input: [ValidateWoItemInput]): [WOITEM]
     updateWo(input: UpdateWoInput): WO
+    validateWo(id: Int, validated: Int): WO
   }
 
   type WODetail {

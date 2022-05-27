@@ -1055,6 +1055,22 @@ const resolvers = {
       const save = await wo.save();
       return save;
     }),
+    validateWo: isAuthenticated(async (_, { id, validated }) => {
+      const wo = await WO.findOne({
+        attributes: ['id', 'status', 'validated'],
+        where: { id },
+      });
+
+      if (validated === 1) {
+        wo.status = 1;
+      } else {
+        wo.status = 0;
+      }
+      wo.validated = validated;
+
+      const save = await wo.save();
+      return save;
+    }),
   },
 };
 

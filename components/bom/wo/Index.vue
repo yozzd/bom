@@ -438,7 +438,7 @@
 import pullAllBy from 'lodash/pullAllBy';
 import flatten from 'lodash/flatten';
 import { GetOneWO } from '../../../apollo/bom/query';
-import { DeleteWoModule, ValidateWoItem } from '../../../apollo/bom/mutation';
+import { DeleteWoModule, ValidateWo, ValidateWoItem } from '../../../apollo/bom/mutation';
 import bom from '../../../mixins/bom';
 
 export default {
@@ -600,8 +600,24 @@ export default {
       }).catch(() => {});
     },
     handleValidateManager(val) {
-      console.log(val);
-      console.log('manager');
+      this.$confirm('You are about to validate this WO, are you sure?', 'Validation Confirmation', {
+        confirmButtonText: 'Yes',
+        cancelButtonText: 'Cancel',
+        type: 'warning',
+      }).then(async () => {
+        await this.$apollo.mutate({
+          mutation: ValidateWo,
+          variables: {
+            id: parseInt(this.$route.params.id, 10),
+            validated: parseInt(val, 10),
+          },
+        });
+
+        this.$message({
+          type: 'success',
+          message: 'Data has been validate successfully',
+        });
+      }).catch(() => {});
     },
   },
   apollo: {
