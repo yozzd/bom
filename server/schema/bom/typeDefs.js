@@ -49,6 +49,7 @@ const typeDefs = `
     cat: String
     model: String
     product: String
+    pic: Int
     picName: String
     rndic: String
     stage: Int

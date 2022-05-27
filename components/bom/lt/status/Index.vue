@@ -93,6 +93,16 @@
                     </client-only>
                   </a>
                 </el-tooltip>
+                <el-tooltip effect="dark" content="Edit" placement="top">
+                  <a
+                    v-if="$auth.$state.user.section === 211"
+                    @click="editWo(scope.row)"
+                  >
+                    <client-only>
+                      <v-icon name="ri-edit-2-line" class="remixicons w-3.5 h-3.5" />
+                    </client-only>
+                  </a>
+                </el-tooltip>
                 <el-tooltip effect="dark" content="Clone" placement="top">
                   <a
                     v-if="$auth.$state.user.section === 211"
@@ -444,6 +454,7 @@ export default {
         fields: ['woNo', 'model', 'product'],
         storeFields: [
           'id', 'woNo', 'model', 'product', 'issued', 'unit', 'budget', 'stage',
+          'cat', 'pic', 'rndic', 'refer', 'status',
           'totalIncoming', 'totalValidation', 'totalItems', 'percentIncoming',
           'percentValidation', 'totalPricePerUnit', 'totalPricePerWO',
           'difference', 'totalYetToPurchase', 'totalDeviation',
@@ -455,6 +466,9 @@ export default {
   methods: {
     closeCloneDialog(value) {
       this.showCloneDialog = value;
+    },
+    editWo(row) {
+      console.log(row);
     },
     cloneWo(id) {
       this.idWo = id;

@@ -40,6 +40,11 @@ export const GetOneLT = gql`
         unit
         budget
         stage
+        cat
+        pic
+        rndic
+        refer
+        status
         totalIncoming
         totalIncomingItems
         totalValidation

@@ -54,6 +54,7 @@ const resolvers = {
           model: WO,
           attributes: [
             'id', 'woNo', 'model', 'product', 'issued', 'unit', 'budget', 'difference', 'stage',
+            'cat', 'pic', 'rndic', 'refer', 'status',
             [sequelize.literal('COUNT(CASE WHEN `wos->modules->items`.bom_qty_balance >= 0 AND `wos->modules->items`.packing = 0 AND `wos->modules`.header NOT LIKE ("%deviation%") THEN 1 ELSE NULL END)'), 'totalIncoming'],
             [sequelize.literal('COUNT(CASE WHEN `wos->modules->items`.validasi AND `wos->modules`.header NOT LIKE ("%deviation%") THEN 1 ELSE NULL END)'), 'totalValidation'],
             [sequelize.literal('COUNT(CASE WHEN `wos->modules->items`.packing = 0 AND `wos->modules`.header NOT LIKE ("%deviation%") THEN 1 ELSE NULL END)'), 'totalIncomingItems'],
