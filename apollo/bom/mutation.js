@@ -273,3 +273,15 @@ export const ValidateWoItem = gql`
     }
   }
 `;
+
+export const UpdateWo = gql`
+  mutation updateWo($input: UpdateWoInput) {
+    updateWo(input: $input) {
+      id
+      woNo
+      unit
+      budget
+      status
+    }
+  }
+`;

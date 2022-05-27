@@ -996,6 +996,9 @@ const resolvers = {
 
       return saved;
     }),
+    updateWo: isAuthenticated(async (_, { input }) => {
+      console.log(input);
+    }),
   },
 };
 

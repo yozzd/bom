@@ -23,6 +23,7 @@ const typeDefs = `
     cloneWo(input: CloneWoInput): LT
     deleteWo(id: Int): WO
     validateWoItem(input: [ValidateWoItemInput]): [WOITEM]
+    updateWo(input: UpdateWoInput): WO
   }
 
   type WODetail {
@@ -240,6 +241,21 @@ const typeDefs = `
     id: Int
     isMpr: Int
     validasi: Int
+  }
+  
+  input UpdateWoInput {
+    id: Int
+    issued: String
+    cat: String
+    model: String
+    product: String
+    pic: Int
+    rndic: String
+    unit: Int
+    budget: Int
+    refer: String
+    stage: Int
+    status: Int
   }
 `;
 

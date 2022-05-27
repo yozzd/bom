@@ -432,6 +432,12 @@
       :show="showCloneDialog"
       @close="closeCloneDialog"
     />
+
+    <BomLtStatusEdit
+      :data="wo"
+      :show="showEditDialog"
+      @close="closeEditDialog"
+    />
   </div>
 </template>
 
@@ -448,7 +454,9 @@ export default {
     return {
       lt: { customer: {} },
       showCloneDialog: false,
+      showEditDialog: false,
       idWo: null,
+      wo: {},
       miniSearch: new MiniSearch({
         idField: 'id',
         fields: ['woNo', 'model', 'product'],
@@ -464,11 +472,15 @@ export default {
     };
   },
   methods: {
+    closeEditDialog(value) {
+      this.showEditDialog = value;
+    },
     closeCloneDialog(value) {
       this.showCloneDialog = value;
     },
     editWo(row) {
-      console.log(row);
+      this.wo = row;
+      this.showEditDialog = true;
     },
     cloneWo(id) {
       this.idWo = id;
