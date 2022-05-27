@@ -1057,7 +1057,7 @@ const resolvers = {
     }),
     validateWo: isAuthenticated(async (_, { id, validated }) => {
       const wo = await WO.findOne({
-        attributes: ['id', 'status', 'validated'],
+        attributes: ['id', 'woNo', 'status', 'validated'],
         where: { id },
       });
 
