@@ -1,3 +1,6 @@
+require('dotenv').config();
+const nodemailer = require('nodemailer');
+const { ErrorWithProps } = require('mercurius');
 const { Op } = require('sequelize');
 
 const wherePic = (status, ctx) => {
@@ -80,4 +83,39 @@ const getCurrency = (curr, val, currObj) => {
   return val;
 };
 
-module.exports = { wherePic, getCurrency };
+const sendApprovedEmail = async (wo) => {
+  try {
+    const transporter = nodemailer.createTransport({
+      host: process.env.SMTP_HOST,
+      port: process.env.SMTP_PORT,
+      secure: true,
+      auth: {
+        user: process.env.SMTP_USER,
+        pass: process.env.SMTP_PASS,
+      },
+      tls: { rejectUnauthorized: false },
+    });
+
+    let html = '';
+    html = '<div>Test</div>';
+
+    const message = {
+      from: `"BOM Mailer System" <${process.env.SMTP_SENDER}>`,
+      to: 'yossie@labtech.org',
+      subject: 'Validated WO',
+      html,
+    };
+
+    const info = await transporter.sendMail(message);
+
+    return info;
+  } catch (err) {
+    if (typeof err === 'string') {
+      throw new ErrorWithProps(err);
+    } else {
+      throw new ErrorWithProps(err.message);
+    }
+  }
+};
+
+module.exports = { wherePic, getCurrency, sendApprovedEmail };

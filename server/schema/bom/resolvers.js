@@ -10,7 +10,7 @@ const {
   Material,
 } = require('../relations');
 const { isAuthenticated } = require('../auth/service');
-const { wherePic, getCurrency } = require('./method');
+const { wherePic, getCurrency, sendApprovedEmail } = require('./method');
 
 const itemAttributes = [
   'id', 'idMaterial', 'bomDescription', 'bomSpecification',
@@ -1069,6 +1069,9 @@ const resolvers = {
       wo.validated = validated;
 
       const save = await wo.save();
+
+      if (validated === 1) await sendApprovedEmail(wo.woNo);
+
       return save;
     }),
   },
