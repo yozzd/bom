@@ -24,6 +24,13 @@ const itemAttributes = [
   'idHeader', 'idModule', 'colorClass',
 ];
 
+const pics = [
+  '', 'Electronic', 'HVAC', ' Mechanical', 'Information Technology',
+  'Sales Marketing & Support', 'Customer Sevice & Installation Training Support',
+  'Ennovation', '[Electronic, HVAC, Mechanical]',
+  'General Affair & Human Resource Management', 'R & D',
+];
+
 const resolvers = {
   Upload: GraphQLUpload,
   Query: {
@@ -997,7 +1004,56 @@ const resolvers = {
       return saved;
     }),
     updateWo: isAuthenticated(async (_, { input }) => {
-      console.log(input);
+      const wo = await WO.findOne({
+        attributes: [
+          'id', 'cat', 'model', 'product', 'unit', 'pic', 'picName',
+          'rndic', 'budget', 'refer', 'stage', 'status', 'issued',
+        ],
+        where: { id: input.id },
+      });
+
+      if (wo.unit !== input.unit) {
+        const items = await WOITEM.findAll({
+          attributes: [
+            ...itemAttributes, 'idWo',
+          ],
+          where: { idWo: wo.id },
+        });
+
+        const currObj = {
+          euro: wo.euro,
+          gbp: wo.gbp,
+          myr: wo.myr,
+          idr: wo.idr,
+          sgd: wo.sgd,
+        };
+
+        await Promise.all(
+          items.map(async (v) => {
+            const item = v;
+            const value = getCurrency(v.bomCurrEaC, v.bomCurrEaV, currObj);
+            const qtyBalance = v.bomQtyStock - ((input.unit * v.bomQty) - v.bomQtyRec);
+            const usdTotal = input.unit * value * v.bomQty;
+
+            item.bomQtyBalance = qtyBalance;
+            item.bomQtyRqd = input.unit * v.bomQty;
+            item.bomUsdEa = value;
+            item.bomUsdUnit = value * v.bomQty;
+            item.bomUsdTotal = usdTotal;
+            item.materialsProcessed = qtyBalance === 0 ? usdTotal : 0;
+            item.yetToPurchase = qtyBalance < 0 ? usdTotal : 0;
+
+            Object.assign(v, item);
+            await v.save();
+          }),
+        );
+      }
+
+      Object.assign(wo, input);
+      wo.picName = pics[input.pic];
+
+      const save = await wo.save();
+      return save;
     }),
   },
 };
