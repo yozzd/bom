@@ -10,7 +10,9 @@ const {
   Material,
 } = require('../relations');
 const { isAuthenticated } = require('../auth/service');
-const { wherePic, getCurrency, sendApprovedEmail, sendValidatedEmail } = require('./method');
+const {
+  wherePic, getCurrency, sendApprovedEmail, sendValidatedEmail,
+} = require('./method');
 
 const itemAttributes = [
   'id', 'idMaterial', 'bomDescription', 'bomSpecification',
@@ -1055,7 +1057,7 @@ const resolvers = {
 
       Object.assign(wo, input);
       wo.picName = pics[input.pic];
-      
+
       if (input.status === 2) await sendValidatedEmail(wo, input.pic);
 
       const save = await wo.save();
@@ -1085,6 +1087,42 @@ const resolvers = {
       if (validated === 1) await sendApprovedEmail(wo);
 
       return save;
+    }),
+    stockItem: isAuthenticated(async (_, { input }) => {
+      const saved = [];
+      
+      await Promise.all(
+        input.map(async (v) => {
+          let item = {};
+          const where = { id: v.id };
+          
+          if (v.isMpr) {
+            item = await MPRITEM.findOne({
+              attributes: itemAttributes,
+              where,
+            });
+          } else {
+            item = await WOITEM.findOne({
+              attributes: itemAttributes,
+              where,
+            });
+          }
+
+          if (v.type === 0) {
+            item.bomQtyBalance = -1 * v.bomQtyRqd;
+            item.bomQtyStock = 0;
+          } else {
+            item.bomQtyBalance = 0;
+            item.bomQtyStock = v.bomQtyRqd;
+            item.bomQtyRec = 0;
+          }
+          
+          const save = await item.save();
+          saved.push(save);
+        }),
+      );
+
+      return saved;
     }),
   },
 };

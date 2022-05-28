@@ -25,6 +25,7 @@ const typeDefs = `
     validateWoItem(input: [ValidateWoItemInput]): [WOITEM]
     updateWo(input: UpdateWoInput): WO
     validateWo(id: Int, validated: Int): WO
+    stockItem(input: [StockItemInput]): [WOITEM]
   }
 
   type WODetail {
@@ -257,6 +258,13 @@ const typeDefs = `
     refer: String
     stage: Int
     status: Int
+  }
+  
+  input StockItemInput {
+    id: Int
+    isMpr: Int
+    bomQtyRqd: Float
+    type: Int
   }
 `;
 

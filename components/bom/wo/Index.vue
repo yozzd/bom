@@ -299,6 +299,32 @@
               </el-button>
             </el-button-group>
           </div>
+          <div
+            v-if="$auth.$state.user.section === 213"
+          >
+            <el-button-group>
+              <el-button
+                type="primary"
+                :disabled="!multipleSelection.length"
+                @click="handleStock(1)"
+              >
+                <client-only>
+                  <v-icon name="ri-check-line" class="remixicons w-4 h-4" />
+                </client-only>
+                Stock
+              </el-button>
+              <el-button
+                type="primary"
+                :disabled="!multipleSelection.length"
+                @click="handleStock(0)"
+              >
+                <client-only>
+                  <v-icon name="ri-close-line" class="remixicons w-4 h-4" />
+                </client-only>
+                Unstock
+              </el-button>
+            </el-button-group>
+          </div>
           <div class="flex-1"></div>
         </div>
       </div>
@@ -438,7 +464,9 @@
 import pullAllBy from 'lodash/pullAllBy';
 import flatten from 'lodash/flatten';
 import { GetOneWO } from '../../../apollo/bom/query';
-import { DeleteWoModule, ValidateWo, ValidateWoItem } from '../../../apollo/bom/mutation';
+import {
+  DeleteWoModule, ValidateWo, ValidateWoItem, StockItem,
+} from '../../../apollo/bom/mutation';
 import bom from '../../../mixins/bom';
 
 export default {
@@ -540,7 +568,7 @@ export default {
         validasi: parseInt(val, 10),
       }));
 
-      this.$confirm('You are about to validate the item(s), are you sure?', 'Validation Confirmation', {
+      this.$confirm('You are about to validate the item(s), are you sure?', 'Confirmation', {
         confirmButtonText: 'Yes',
         cancelButtonText: 'Cancel',
         type: 'warning',
@@ -600,7 +628,7 @@ export default {
       }).catch(() => {});
     },
     handleValidateManager(val) {
-      this.$confirm('You are about to validate this WO, are you sure?', 'Validation Confirmation', {
+      this.$confirm('You are about to validate this WO, are you sure?', 'Confirmation', {
         confirmButtonText: 'Yes',
         cancelButtonText: 'Cancel',
         type: 'warning',
@@ -610,6 +638,32 @@ export default {
           variables: {
             id: parseInt(this.$route.params.id, 10),
             validated: parseInt(val, 10),
+          },
+        });
+
+        this.$message({
+          type: 'success',
+          message: 'Data has been validate successfully',
+        });
+      }).catch(() => {});
+    },
+    handleStock(val) {
+      const arr = this.multipleSelection.map((v) => ({
+        id: v.id,
+        isMpr: v.isMpr,
+        bomQtyRqd: v.bomQtyRqd,
+        type: parseInt(val, 10),
+      }));
+
+      this.$confirm('You are about to stock/unstock item(s), are you sure?', 'Confirmation', {
+        confirmButtonText: 'Yes',
+        cancelButtonText: 'Cancel',
+        type: 'warning',
+      }).then(async () => {
+        await this.$apollo.mutate({
+          mutation: StockItem,
+          variables: {
+            input: arr,
           },
         });
 

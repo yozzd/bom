@@ -203,7 +203,7 @@ const sendValidatedEmail = async (wo, pic) => {
     } else if (pic === 8) {
       to = process.env.TO9;
     }
-    
+
     const message = {
       from: process.env.FROM,
       to,
@@ -223,4 +223,6 @@ const sendValidatedEmail = async (wo, pic) => {
     }
   }
 };
-module.exports = { wherePic, getCurrency, sendApprovedEmail, sendValidatedEmail };
+module.exports = {
+  wherePic, getCurrency, sendApprovedEmail, sendValidatedEmail,
+};
