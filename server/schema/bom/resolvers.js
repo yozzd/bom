@@ -10,7 +10,7 @@ const {
   Material,
 } = require('../relations');
 const { isAuthenticated } = require('../auth/service');
-const { wherePic, getCurrency, sendApprovedEmail } = require('./method');
+const { wherePic, getCurrency, sendApprovedEmail, sendValidatedEmail } = require('./method');
 
 const itemAttributes = [
   'id', 'idMaterial', 'bomDescription', 'bomSpecification',
@@ -1010,6 +1010,10 @@ const resolvers = {
           'rndic', 'budget', 'refer', 'stage', 'status', 'issued',
         ],
         where: { id: input.id },
+        include: [{
+          model: LT,
+          attributes: ['id', 'ltNo'],
+        }],
       });
 
       if (wo.unit !== input.unit) {
@@ -1051,6 +1055,8 @@ const resolvers = {
 
       Object.assign(wo, input);
       wo.picName = pics[input.pic];
+      
+      if (input.status === 2) await sendValidatedEmail(wo, input.pic);
 
       const save = await wo.save();
       return save;

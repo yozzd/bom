@@ -101,7 +101,7 @@ const sendApprovedEmail = async (wo) => {
 
     let html = '';
     html += '<div>Dear All,</div>';
-    html += '<div>Berikut ini adalah informasi BOM Work Order di online pada Web System (WDS > BOM > Filter > Close):</div>';
+    html += '<div>Berikut ini adalah informasi BOM Work Order Web System (BOM > Filter > Close):</div>';
     html += '<table style="font-family: \'courier new\';">';
     html += '<tr>';
     html += `<td>Project</td><td style="padding-left: 20px; padding-right: 5px;">:</td><td style="color: rgb(0, 0, 255);">${wo.lt.ltNo} - ${customer.name}</td>`;
@@ -147,4 +147,80 @@ const sendApprovedEmail = async (wo) => {
   }
 };
 
-module.exports = { wherePic, getCurrency, sendApprovedEmail };
+const sendValidatedEmail = async (wo, pic) => {
+  try {
+    const str = wo.woNo.split('-')[0];
+    const customer = await wo.lt.customer;
+
+    const transporter = nodemailer.createTransport({
+      host: process.env.SMTP_HOST,
+      port: process.env.SMTP_PORT,
+      secure: true,
+      auth: {
+        user: process.env.SMTP_USER,
+        pass: process.env.SMTP_PASS,
+      },
+      tls: { rejectUnauthorized: false },
+    });
+
+    let html = '';
+    html += '<div>Dear All,</div>';
+    html += '<div>Berikut ini adalah informasi BOM Work Order di Web System (BOM > Filter > Validasi Approval):</div>';
+    html += '<table style="font-family: \'courier new\';">';
+    html += '<tr>';
+    html += `<td>Project</td><td style="padding-left: 20px; padding-right: 5px;">:</td><td style="color: rgb(0, 0, 255);">${wo.lt.ltNo} - ${customer.name}</td>`;
+    html += '</tr>';
+    html += '<tr>';
+    html += `<td>WO</td><td style="padding-left: 20px; padding-right: 5px;">:</td><td style="color: rgb(0, 0, 255);">${wo.woNo}</td>`;
+    html += '</tr>';
+    html += '<tr>';
+    html += `<td>Product Name</td><td style="padding-left: 20px; padding-right: 5px;">:</td><td style="color: rgb(0, 0, 255);">${wo.product}</td>`;
+    html += '</tr>';
+    html += '<tr>';
+    html += `<td>Model</td><td style="padding-left: 20px; padding-right: 5px;">:</td><td style="color: rgb(0, 0, 255);">${wo.model}</td>`;
+    html += '</tr>';
+    html += '</table>';
+    html += '<div>Bahwa BOM sudah dapat direview untuk Validasi Approval oleh Production Incharge Manager</div>';
+
+    let to = null;
+    let cc = process.env.CC3;
+
+    if (str === 'WB') {
+      to = process.env.TO3;
+      cc = process.env.CC2;
+    }
+
+    if (pic === 1) {
+      to = process.env.TO4;
+    } else if (pic === 2) {
+      to = process.env.TO5;
+    } else if (pic === 3) {
+      to = process.env.TO6;
+    } else if (pic === 4 || pic === 7) {
+      to = process.env.TO7;
+    } else if (pic === 5 || pic === 6) {
+      to = process.env.TO8;
+    } else if (pic === 8) {
+      to = process.env.TO9;
+    }
+    
+    const message = {
+      from: process.env.FROM,
+      to,
+      cc,
+      subject: 'Validated WO',
+      html,
+    };
+
+    const info = await transporter.sendMail(message);
+
+    return info;
+  } catch (err) {
+    if (typeof err === 'string') {
+      throw new ErrorWithProps(err);
+    } else {
+      throw new ErrorWithProps(err.message);
+    }
+  }
+};
+module.exports = { wherePic, getCurrency, sendApprovedEmail, sendValidatedEmail };
