@@ -85,6 +85,9 @@ const getCurrency = (curr, val, currObj) => {
 
 const sendApprovedEmail = async (wo) => {
   try {
+    const str = wo.woNo.split('-')[0];
+    const customer = await wo.lt.customer;
+
     const transporter = nodemailer.createTransport({
       host: process.env.SMTP_HOST,
       port: process.env.SMTP_PORT,
@@ -97,11 +100,37 @@ const sendApprovedEmail = async (wo) => {
     });
 
     let html = '';
-    html = '<div>Test</div>';
+    html += '<div>Dear All,</div>';
+    html += '<div>Berikut ini adalah informasi BOM Work Order di online pada Web System (WDS > BOM > Filter > Close):</div>';
+    html += '<table style="font-family: \'courier new\';">';
+    html += '<tr>';
+    html += `<td>Project</td><td style="padding-left: 20px; padding-right: 5px;">:</td><td style="color: rgb(0, 0, 255);">${wo.lt.ltNo} - ${customer.name}</td>`;
+    html += '</tr>';
+    html += '<tr>';
+    html += `<td>WO</td><td style="padding-left: 20px; padding-right: 5px;">:</td><td style="color: rgb(0, 0, 255);">${wo.woNo}</td>`;
+    html += '</tr>';
+    html += '<tr>';
+    html += `<td>Product Name</td><td style="padding-left: 20px; padding-right: 5px;">:</td><td style="color: rgb(0, 0, 255);">${wo.product}</td>`;
+    html += '</tr>';
+    html += '<tr>';
+    html += `<td>Model</td><td style="padding-left: 20px; padding-right: 5px;">:</td><td style="color: rgb(0, 0, 255);">${wo.model}</td>`;
+    html += '</tr>';
+    html += '</table>';
+    html += '<div>BOM sudah valid (Approved by Incharge Manager)</div>';
+    html += '<div>Silahkan digunakan sebagai referensi</div>';
+
+    let to = process.env.TO2;
+    let cc = [];
+
+    if (str === 'WB') {
+      to = process.env.TO1;
+      cc = process.env.CC1;
+    }
 
     const message = {
-      from: `"BOM Mailer System" <${process.env.SMTP_SENDER}>`,
-      to: 'yossie@labtech.org',
+      from: process.env.FROM,
+      to,
+      cc,
       subject: 'Validated WO',
       html,
     };

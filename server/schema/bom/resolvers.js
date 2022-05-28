@@ -1057,8 +1057,14 @@ const resolvers = {
     }),
     validateWo: isAuthenticated(async (_, { id, validated }) => {
       const wo = await WO.findOne({
-        attributes: ['id', 'woNo', 'status', 'validated'],
+        attributes: [
+          'id', 'woNo', 'status', 'validated', 'product', 'model',
+        ],
         where: { id },
+        include: [{
+          model: LT,
+          attributes: ['id', 'ltNo'],
+        }],
       });
 
       if (validated === 1) {
@@ -1070,7 +1076,7 @@ const resolvers = {
 
       const save = await wo.save();
 
-      if (validated === 1) await sendApprovedEmail(wo.woNo);
+      if (validated === 1) await sendApprovedEmail(wo);
 
       return save;
     }),
