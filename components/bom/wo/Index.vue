@@ -325,6 +325,24 @@
               </el-button>
             </el-button-group>
           </div>
+          <Dropdown trigger="click" placement="bottom-start" @on-click="handleExport">
+            <VButton type="primary" size="large">
+              <client-only>
+                <v-icon name="ri-share-forward-box-line" class="remixicons w-4 h-4" />
+              </client-only>
+              Export
+              <client-only>
+                <v-icon name="ri-arrow-down-s-line" class="remixicons w-4 h-4" />
+              </client-only>
+            </VButton>
+            <DropdownMenu slot="list">
+              <Dropdown placement="right-start">
+                <DropdownItem name="a">
+                  XLS
+                </DropdownItem>
+              </Dropdown>
+            </DropdownMenu>
+          </Dropdown>
           <div class="flex-1"></div>
         </div>
       </div>
@@ -673,6 +691,10 @@ export default {
         });
       }).catch(() => {});
     },
+    handleExport(command) {
+      if (command === 'a') this.genWoXLS();
+    },
+    genWoXLS() {},
   },
   apollo: {
     getOneWO: {

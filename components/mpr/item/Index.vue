@@ -426,7 +426,7 @@ export default {
       this.idModule = 0;
       if (command === 'a') this.showKeywordDialog = true;
       else if (command === 'b') this.showModuleDialog = true;
-      else this.showTitleDialog = true;
+      else if (command === 'c') this.showTitleDialog = true;
     },
     closeKeywordDialog(value) {
       this.showKeywordDialog = value;
