@@ -255,6 +255,9 @@ const genWo = async (wo, mpr) => {
           J8: { t: 's', v: 'Qty Balance' },
           L8: { t: 's', v: 'Stock Qty W/H' },
           M8: { t: 's', v: 'ETA' },
+          N8: { t: 's', v: 'W/H Received' },
+          N9: { t: 's', v: 'Qty' },
+          O9: { t: 's', v: 'Date' },
           '!merges': [
             { s: { r: 0, c: 0 }, e: { r: 0, c: 3 } }, //A1
             { s: { r: 0, c: 4 }, e: { r: 0, c: 7 } }, //E1
@@ -274,11 +277,15 @@ const genWo = async (wo, mpr) => {
             { s: { r: 7, c: 9 }, e: { r: 8, c: 9 } }, //J8
             { s: { r: 7, c: 11 }, e: { r: 8, c: 11 } }, //L8
             { s: { r: 7, c: 12 }, e: { r: 8, c: 12 } }, //M8
+            { s: { r: 7, c: 13 }, e: { r: 7, c: 14 } }, //N8
+            { s: { r: 8, c: 13 }, e: { r: 8, c: 13 } }, //N9
+            { s: { r: 8, c: 14 }, e: { r: 8, c: 14 } }, //O9
           ],
           '!cols': [
             { wpx: 30 }, { wpx: 100, hidden: true }, { wpx: 100 }, { wpx: 100 },
             { wpx: 100 }, { wpx: 100 }, { wpx: 40 }, { wpx: 40 }, { wpx: 40 },
-            { wpx: 40 }, { wpx: 10 }, { wpx: 40 }, { wpx: 80 },
+            { wpx: 40 }, { wpx: 10 }, { wpx: 40 }, { wpx: 80 }, { wpx: 40 },
+            { wpx: 80 },
           ],
         },
       },
