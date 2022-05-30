@@ -223,6 +223,7 @@ const sendValidatedEmail = async (wo, pic) => {
     }
   }
 };
+
 module.exports = {
   wherePic, getCurrency, sendApprovedEmail, sendValidatedEmail,
 };

@@ -24,7 +24,10 @@ WOMODULE.hasMany(WOITEM, {
   foreignKey: 'idHeader',
   targetKey: 'id',
 });
-WOITEM.belongsTo(WOMODULE);
+WOITEM.belongsTo(WOMODULE, {
+  foreignKey: 'idHeader',
+  targetKey: 'id',
+});
 
 MPR.hasMany(MPRMODULE, {
   foreignKey: 'idMpr',
@@ -36,7 +39,10 @@ MPRMODULE.hasMany(MPRITEM, {
   foreignKey: 'idModule',
   targetKey: 'id',
 });
-MPRITEM.belongsTo(MPRMODULE);
+MPRITEM.belongsTo(MPRMODULE, {
+  foreignKey: 'idModule',
+  targetKey: 'id',
+});
 
 OUTSTANDINGPO.hasMany(WOITEM, {
   foreignKey: 'poNo',

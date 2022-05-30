@@ -10,6 +10,7 @@ const {
   Material,
 } = require('../relations');
 const { isAuthenticated } = require('../auth/service');
+const { queryWo } = require('./query');
 const {
   wherePic, getCurrency, sendApprovedEmail, sendValidatedEmail,
 } = require('./method');
@@ -428,7 +429,8 @@ const resolvers = {
       return items;
     }),
     genWoXLS: isAuthenticated(async (_, { id }) => {
-      console.log(id);
+      const wo = await queryWo(id);
+      console.log(wo);
     }),
   },
   Mutation: {
@@ -1093,12 +1095,12 @@ const resolvers = {
     }),
     stockItem: isAuthenticated(async (_, { input }) => {
       const saved = [];
-      
+
       await Promise.all(
         input.map(async (v) => {
           let item = {};
           const where = { id: v.id };
-          
+
           if (v.isMpr) {
             item = await MPRITEM.findOne({
               attributes: itemAttributes,
@@ -1119,7 +1121,7 @@ const resolvers = {
             item.bomQtyStock = v.bomQtyRqd;
             item.bomQtyRec = 0;
           }
-          
+
           const save = await item.save();
           saved.push(save);
         }),
