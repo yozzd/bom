@@ -239,9 +239,11 @@ const genWo = async (wo, mpr) => {
           '!ref': 'A1:Z10',
           A1: { t: 's', v: 'BILL OF MATERIAL' },
           A2: { t: 's', v: `Cat: ${wo.cat}` },
+          A3: { t: 's', v: `Model: ${wo.model}` },
           '!merges': [
             { s: { r: 0, c: 0 }, e: { r: 0, c: 3 } }, //A1
             { s: { r: 1, c: 0 }, e: { r: 1, c: 3 } }, //A2
+            { s: { r: 2, c: 0 }, e: { r: 2, c: 3 } }, //A3
           ],
           '!cols': [
             { wpx: 30 }, { wpx: 100 }, { wpx: 100 }, { wpx: 100 },
