@@ -230,6 +230,31 @@
             Move
           </el-button>
 
+          <el-button-group
+            v-if="$auth.$state.user.section === 213"
+          >
+            <el-button
+              type="primary"
+              :disabled="!multipleSelection.length"
+              @click="handleStock(1)"
+            >
+              <client-only>
+                <v-icon name="ri-check-line" class="remixicons w-4 h-4" />
+              </client-only>
+              Stock
+            </el-button>
+            <el-button
+              type="primary"
+              :disabled="!multipleSelection.length"
+              @click="handleStock(0)"
+            >
+              <client-only>
+                <v-icon name="ri-close-line" class="remixicons w-4 h-4" />
+              </client-only>
+              Unstock
+            </el-button>
+          </el-button-group>
+
           <el-button
             type="danger"
             :disabled="!multipleSelection.length"
@@ -391,7 +416,7 @@ import pullAllBy from 'lodash/pullAllBy';
 import flatten from 'lodash/flatten';
 import { GetOneMPR } from '../../../apollo/mpr/query';
 import { DeleteModule, ImportMpr } from '../../../apollo/mpr/mutation';
-import { DeleteItem } from '../../../apollo/bom/mutation';
+import { DeleteItem, StockItem } from '../../../apollo/bom/mutation';
 
 export default {
   data() {
@@ -613,6 +638,87 @@ export default {
           return false;
         }
       });
+    },
+    clearSelection() {
+      if (this.$refs.ptable) {
+        this.$refs.ptable.map((v) => {
+          v.$refs.ctable.clearSelection();
+          return true;
+        });
+      }
+
+      if (this.$refs.mtable) {
+        this.$refs.mtable.map((v) => {
+          v.$refs.ctable.clearSelection();
+          return true;
+        });
+      }
+    },
+    handleStock(val) {
+      const arr = this.multipleSelection.map((v) => ({
+        id: v.id,
+        isMpr: v.isMpr,
+        bomQtyRqd: v.bomQtyRqd,
+        type: parseInt(val, 10),
+      }));
+
+      this.$confirm('You are about to stock/unstock item(s), are you sure?', 'Confirmation', {
+        confirmButtonText: 'Yes',
+        cancelButtonText: 'Cancel',
+        type: 'warning',
+      }).then(async () => {
+        await this.$apollo.mutate({
+          mutation: StockItem,
+          variables: {
+            input: arr,
+          },
+          update: (store, { data: { stockItem } }) => {
+            const cdata = store.readQuery({
+              query: GetOneMPR,
+              variables: {
+                id: parseInt(this.$route.params.id, 10),
+              },
+            });
+
+            stockItem.map((v) => {
+              if (v.isMpr && v.idModule) {
+                const idx1 = cdata.getOneMPR
+                  .modules.findIndex((e) => e.id === v.idModule);
+                const idx2 = cdata.getOneMPR
+                  .modules[idx1].items.findIndex((e) => e.id === v.id);
+                cdata.getOneMPR.modules[idx1].items[idx2] = v;
+                cdata.getOneMPR.modules[idx1].items[idx2].module = {
+                  id: null, hid: null, header: null, __typename: 'WOMODULE',
+                };
+                cdata.getOneMPR.modules[idx1].items[idx2].__typename = 'MPRITEM';
+              } else if (v.isMpr && !v.idModule) {
+                const idx1 = cdata.getOneMPR.items.findIndex((e) => e.id === v.id);
+                cdata.getOneMPR.items[idx1] = v;
+                cdata.getOneMPR.items[idx1].module = {
+                  id: null, hid: null, header: null, __typename: 'WOMODULE',
+                };
+                cdata.getOneMPR.items[idx1].__typename = 'MPRITEM';
+              }
+
+              this.clearSelection();
+              return true;
+            });
+
+            store.writeQuery({
+              query: GetOneMPR,
+              variables: {
+                id: parseInt(this.$route.params.id, 10),
+              },
+              data: cdata,
+            });
+          },
+        });
+
+        this.$message({
+          type: 'success',
+          message: 'Data has been validate successfully',
+        });
+      }).catch(() => {});
     },
   },
   apollo: {
