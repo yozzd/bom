@@ -2,6 +2,7 @@ require('dotenv').config();
 const fs = require('fs');
 const nodemailer = require('nodemailer');
 const XLSX = require('xlsx');
+const isInteger = require('lodash/isInteger');
 const { ErrorWithProps } = require('mercurius');
 const { Op } = require('sequelize');
 
@@ -226,10 +227,15 @@ const sendValidatedEmail = async (wo, pic) => {
   }
 };
 
+const formatCurr = (v) => {
+  if (isInteger(v)) return '#,##0';
+  return '0.00';
+};
+
 const genWo = async (wo, mpr) => {
   try {
     const dir = 'static/report';
-    let len = 100;
+    const len = 100;
 
     if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
 
@@ -320,24 +326,51 @@ const genWo = async (wo, mpr) => {
     for (let i = 0; i < wo.modules.length; i += 1) {
       wb.Sheets.Master[`A${row}`] = { t: 's', v: wo.modules[i].hid };
       wb.Sheets.Master[`C${row}`] = { t: 's', v: wo.modules[i].header };
-     
+
       row += 1;
 
       for (let j = 0; j < wo.modules[i].items.length; j += 1) {
+        const {
+          bomDescription,
+          bomSpecification,
+          bomModel,
+          bomBrand,
+          bomQty,
+          bomUnit,
+          bomQtyRqd,
+          bomQtyBalance,
+          bomQtyStock,
+          bomEta,
+          bomQtyRec,
+          bomDateRec,
+          bomCurrSizeC,
+          bomCurrSizeV,
+          bomCurrEaC,
+          bomCurrEaV,
+          bomUsdEa,
+          bomUsdUnit,
+        } = wo.modules[i].items[j];
+
         wb.Sheets.Master[`A${row}`] = { t: 'n', v: j + 1 };
-        wb.Sheets.Master[`C${row}`] = { t: 's', v: wo.modules[i].items[j].bomDescription };
-        wb.Sheets.Master[`D${row}`] = { t: 's', v: wo.modules[i].items[j].bomSpecification };
-        wb.Sheets.Master[`E${row}`] = { t: 's', v: wo.modules[i].items[j].bomModel || '' };
-        wb.Sheets.Master[`F${row}`] = { t: 's', v: wo.modules[i].items[j].bomBrand || '' };
-        wb.Sheets.Master[`G${row}`] = { t: 'n', v: wo.modules[i].items[j].bomQty };
-        wb.Sheets.Master[`H${row}`] = { t: 's', v: wo.modules[i].items[j].bomUnit };
-        wb.Sheets.Master[`I${row}`] = { t: 'n', v: wo.modules[i].items[j].bomQtyRqd };
-        wb.Sheets.Master[`J${row}`] = { t: 'n', v: wo.modules[i].items[j].bomQtyBalance };
-        wb.Sheets.Master[`L${row}`] = { t: 'n', v: wo.modules[i].items[j].bomQtyStock };
-        wb.Sheets.Master[`M${row}`] = { t: 's', v: wo.modules[i].items[j].bomEta };
-        wb.Sheets.Master[`N${row}`] = { t: 'n', v: wo.modules[i].items[j].bomQtyRec };
-        wb.Sheets.Master[`O${row}`] = { t: 's', v: wo.modules[i].items[j].bomDateRec };
-        
+        wb.Sheets.Master[`C${row}`] = { t: 's', v: bomDescription };
+        wb.Sheets.Master[`D${row}`] = { t: 's', v: bomSpecification };
+        wb.Sheets.Master[`E${row}`] = { t: 's', v: bomModel || '' };
+        wb.Sheets.Master[`F${row}`] = { t: 's', v: bomBrand || '' };
+        wb.Sheets.Master[`G${row}`] = { t: 'n', v: bomQty, z: formatCurr(bomQty) };
+        wb.Sheets.Master[`H${row}`] = { t: 's', v: bomUnit };
+        wb.Sheets.Master[`I${row}`] = { t: 'n', v: bomQtyRqd, z: formatCurr(bomQtyRqd) };
+        wb.Sheets.Master[`J${row}`] = { t: 'n', v: bomQtyBalance, z: formatCurr(bomQtyBalance) };
+        wb.Sheets.Master[`L${row}`] = { t: 'n', v: bomQtyStock, z: formatCurr(bomQtyStock) };
+        wb.Sheets.Master[`M${row}`] = { t: 's', v: bomEta };
+        wb.Sheets.Master[`N${row}`] = { t: 'n', v: bomQtyRec, z: formatCurr(bomQtyRec) };
+        wb.Sheets.Master[`O${row}`] = { t: 's', v: bomDateRec };
+        wb.Sheets.Master[`P${row}`] = { t: 's', v: bomCurrSizeC };
+        wb.Sheets.Master[`Q${row}`] = { t: 'n', v: bomCurrSizeV, z: formatCurr(bomCurrSizeV) };
+        wb.Sheets.Master[`R${row}`] = { t: 's', v: bomCurrEaC };
+        wb.Sheets.Master[`S${row}`] = { t: 'n', v: bomCurrEaV, z: formatCurr(bomCurrEaV) };
+        wb.Sheets.Master[`T${row}`] = { t: 'n', v: bomUsdEa, z: formatCurr(bomUsdEa) };
+        wb.Sheets.Master[`U${row}`] = { t: 'n', v: bomUsdUnit, z: formatCurr(bomUsdUnit) };
+
         row += 1;
       }
     }
