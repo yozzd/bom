@@ -232,7 +232,7 @@ const formatCurr = (v) => {
   return '0.00';
 };
 
-const genWo = async (wo, mpr) => {
+const genWo = async (wo) => {
   try {
     const dir = 'static/report';
     const len = 100;

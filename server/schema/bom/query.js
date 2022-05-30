@@ -1,6 +1,5 @@
-const { Op } = require('sequelize');
 const {
-  LT, WO, WOMODULE, WOITEM, MPR, MPRMODULE, MPRITEM, OUTSTANDINGPO,
+  LT, WO, WOMODULE, WOITEM, MPR, MPRITEM, OUTSTANDINGPO,
 } = require('../relations');
 const { itemAttributes } = require('./resolvers');
 
@@ -59,51 +58,7 @@ const queryWo = async (id) => {
 
   wo.modules = merge;
 
-  const mpr = await WO.findOne({
-    attributes: ['id', 'woNo'],
-    where: { id },
-    include: [{
-      model: MPR,
-      attributes: [
-        'id', 'no', 'unit', 'requestorName', 'bomTimestamp',
-      ],
-      where: { no: { [Op.not]: null } },
-      required: false,
-      include: [{
-        model: MPRMODULE,
-        attributes: ['id', 'moduleChar', 'moduleName'],
-        required: false,
-        include: [{
-          model: MPRITEM,
-          attributes: itemAttributes,
-          where: { idHeader: { [Op.is]: null } },
-          required: false,
-          include: [{
-            model: MPR,
-            attributes: ['id', 'no'],
-            required: false,
-          }],
-        }],
-      }, {
-        model: MPRITEM,
-        attributes: itemAttributes,
-        where: {
-          [Op.and]: [
-            { idModule: { [Op.or]: [{ [Op.is]: null }, { [Op.eq]: 0 }] } },
-            { idHeader: { [Op.is]: null } },
-          ],
-        },
-        required: false,
-        include: [{
-          model: MPR,
-          attributes: ['id', 'no'],
-          required: false,
-        }],
-      }],
-    }],
-  });
-
-  return { wo, mpr };
+  return wo;
 };
 
 module.exports = {

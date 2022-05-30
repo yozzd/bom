@@ -430,8 +430,8 @@ const resolvers = {
       return items;
     }),
     genWoXLS: isAuthenticated(async (_, { id }) => {
-      const { wo, mpr } = await queryWo(id);
-      const gen = await genWo(wo, mpr);
+      const wo = await queryWo(id);
+      const gen = await genWo(wo);
 
       return gen;
     }),
