@@ -13,6 +13,7 @@ const { isAuthenticated } = require('../auth/service');
 const { queryWo } = require('./query');
 const {
   wherePic, getCurrency, sendApprovedEmail, sendValidatedEmail,
+  genWo,
 } = require('./method');
 
 const itemAttributes = [
@@ -430,8 +431,9 @@ const resolvers = {
     }),
     genWoXLS: isAuthenticated(async (_, { id }) => {
       const { wo, mpr } = await queryWo(id);
-      console.log(wo);
-      console.log(mpr);
+      const gen = await genWo(wo, mpr);
+
+      return gen;
     }),
   },
   Mutation: {

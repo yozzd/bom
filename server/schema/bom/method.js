@@ -1,5 +1,7 @@
 require('dotenv').config();
+const fs = require('fs');
 const nodemailer = require('nodemailer');
+const XLSX = require('xlsx');
 const { ErrorWithProps } = require('mercurius');
 const { Op } = require('sequelize');
 
@@ -224,6 +226,43 @@ const sendValidatedEmail = async (wo, pic) => {
   }
 };
 
+const genWo = async (wo, mpr) => {
+  try {
+    const dir = 'static/report';
+
+    if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+
+    const wb = {
+      SheetNames: ['Master'],
+      Sheets: {
+        Master: {
+          '!ref': 'A1:Z10',
+          A1: { t: 's', v: 'BILL OF MATERIAL' },
+          '!merges': [
+            { s: { r: 0, c: 0 }, e: { r: 0, c: 3 } },
+          ],
+          '!cols': [
+            { wpx: 30 }, { wpx: 100 }, { wpx: 100 }, { wpx: 100 },
+            { wpx: 100 },
+          ],
+        },
+      },
+    };
+
+    const fn = `static/report/${wo.woNo}.xlsx`;
+    const content = XLSX.write(wb, { type: 'buffer', bookType: 'xlsx', bookSST: false });
+    fs.writeFileSync(fn, content);
+
+    return { status: 1 };
+  } catch (err) {
+    if (typeof err === 'string') {
+      throw new ErrorWithProps(err);
+    } else {
+      throw new ErrorWithProps(err.message);
+    }
+  }
+};
+
 module.exports = {
-  wherePic, getCurrency, sendApprovedEmail, sendValidatedEmail,
+  wherePic, getCurrency, sendApprovedEmail, sendValidatedEmail, genWo,
 };

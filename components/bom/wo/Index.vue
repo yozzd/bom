@@ -6,7 +6,7 @@
     />
 
     <div
-      v-loading.fullscreen.lock="$apollo.loading"
+      v-loading.fullscreen.lock="$apollo.loading || loading"
       class="flex flex-col divide-y divide-gray-400 divide-dashed"
       element-loading-text="Loading..."
       element-loading-spinner="el-icon-loading"
@@ -502,6 +502,7 @@ export default {
       showKeywordDialog: false,
       showEditModuleDialog: false,
       multipleSelection: [],
+      loading: false,
     };
   },
   methods: {
@@ -696,13 +697,19 @@ export default {
     },
     async genWoXLS() {
       try {
+        this.loading = true;
         const { data: { genWoXLS: { status } } } = await this.$apollo.mutate({
           mutation: GenWoXLS,
           variables: {
             id: parseInt(this.$route.params.id, 10),
           },
         });
-        console.log(status);
+
+        if (status) {
+          this.loading = false;
+          window.open(`/report/${this.wo.woNo}.xlsx`);
+        }
+
         return true;
       } catch ({ graphQLErrors, networkError }) {
         this.errors = graphQLErrors || networkError.result.errors;
