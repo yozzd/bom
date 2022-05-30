@@ -263,6 +263,7 @@ const genWo = async (wo, mpr) => {
           R9: { t: 's', v: 'PO.Curr / ea' },
           T9: { t: 's', v: 'USD / ea' },
           U9: { t: 's', v: 'USD / unit' },
+          V8: { t: 's', v: 'Total (USD)' },
           '!merges': [
             { s: { r: 0, c: 0 }, e: { r: 0, c: 3 } }, //A1
             { s: { r: 0, c: 4 }, e: { r: 0, c: 7 } }, //E1
@@ -290,13 +291,14 @@ const genWo = async (wo, mpr) => {
             { s: { r: 8, c: 17 }, e: { r: 8, c: 18 } }, //R9
             { s: { r: 8, c: 19 }, e: { r: 8, c: 19 } }, //T9
             { s: { r: 8, c: 20 }, e: { r: 8, c: 20 } }, //U9
+            { s: { r: 7, c: 21 }, e: { r: 8, c: 21 } }, //V8
           ],
           '!cols': [
             { wpx: 30 }, { wpx: 100, hidden: true }, { wpx: 100 }, { wpx: 100 },
             { wpx: 100 }, { wpx: 100 }, { wpx: 40 }, { wpx: 40 }, { wpx: 40 },
             { wpx: 40 }, { wpx: 10 }, { wpx: 40 }, { wpx: 80 }, { wpx: 40 },
             { wpx: 80 }, { wpx: 30 }, { wpx: 60 }, { wpx: 30 }, { wpx: 60 },
-            { wpx: 60 }, { wpx: 60 },
+            { wpx: 60 }, { wpx: 60 }, { wpx: 60 },
           ],
         },
       },
