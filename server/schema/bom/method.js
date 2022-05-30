@@ -258,6 +258,11 @@ const genWo = async (wo, mpr) => {
           N8: { t: 's', v: 'W/H Received' },
           N9: { t: 's', v: 'Qty' },
           O9: { t: 's', v: 'Date' },
+          P8: { t: 's', v: 'Price' },
+          P9: { t: 's', v: 'PO.Curr / size' },
+          R9: { t: 's', v: 'PO.Curr / ea' },
+          T9: { t: 's', v: 'USD / ea' },
+          U9: { t: 's', v: 'USD / unit' },
           '!merges': [
             { s: { r: 0, c: 0 }, e: { r: 0, c: 3 } }, //A1
             { s: { r: 0, c: 4 }, e: { r: 0, c: 7 } }, //E1
@@ -280,12 +285,18 @@ const genWo = async (wo, mpr) => {
             { s: { r: 7, c: 13 }, e: { r: 7, c: 14 } }, //N8
             { s: { r: 8, c: 13 }, e: { r: 8, c: 13 } }, //N9
             { s: { r: 8, c: 14 }, e: { r: 8, c: 14 } }, //O9
+            { s: { r: 7, c: 15 }, e: { r: 7, c: 20 } }, //P8
+            { s: { r: 8, c: 15 }, e: { r: 8, c: 16 } }, //P9
+            { s: { r: 8, c: 17 }, e: { r: 8, c: 18 } }, //R9
+            { s: { r: 8, c: 19 }, e: { r: 8, c: 19 } }, //T9
+            { s: { r: 8, c: 20 }, e: { r: 8, c: 20 } }, //U9
           ],
           '!cols': [
             { wpx: 30 }, { wpx: 100, hidden: true }, { wpx: 100 }, { wpx: 100 },
             { wpx: 100 }, { wpx: 100 }, { wpx: 40 }, { wpx: 40 }, { wpx: 40 },
             { wpx: 40 }, { wpx: 10 }, { wpx: 40 }, { wpx: 80 }, { wpx: 40 },
-            { wpx: 80 },
+            { wpx: 80 }, { wpx: 30 }, { wpx: 60 }, { wpx: 30 }, { wpx: 60 },
+            { wpx: 60 }, { wpx: 60 },
           ],
         },
       },
