@@ -334,3 +334,10 @@ export const GetSearchModules = gql`
     }
   }
 `;
+export const GenWoXLS = gql`
+  query genWoXLS($id: Int) {
+    genWoXLS(id: $id) {
+      status
+    }
+  }
+`;

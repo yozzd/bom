@@ -10,6 +10,7 @@ const typeDefs = `
     getAllWoModules(key: String): [WO]
     getSearchItems(key: String): [WOITEM]
     getSearchModules(idHeader: Int): [WOITEM]
+    genWoXLS(id: Int): GenStatus
   }
 
   extend type Mutation {
@@ -165,6 +166,10 @@ const typeDefs = `
     totalPackingPerWO: Float
     totalMpr: Int
     mprs: [MPR]
+  }
+
+  type GenStatus {
+    status: Int
   }
 
   input UpdateItemInput {

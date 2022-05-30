@@ -481,7 +481,7 @@
 <script>
 import pullAllBy from 'lodash/pullAllBy';
 import flatten from 'lodash/flatten';
-import { GetOneWO } from '../../../apollo/bom/query';
+import { GetOneWO, GenWoXLS } from '../../../apollo/bom/query';
 import {
   DeleteWoModule, ValidateWo, ValidateWoItem, StockItem,
 } from '../../../apollo/bom/mutation';
@@ -694,7 +694,21 @@ export default {
     handleExport(command) {
       if (command === 'a') this.genWoXLS();
     },
-    genWoXLS() {},
+    async genWoXLS() {
+      try {
+        const { data: { genWoXLS: { status } } } = await this.$apollo.mutate({
+          mutation: GenWoXLS,
+          variables: {
+            id: parseInt(this.$route.params.id, 10),
+          },
+        });
+        console.log(status);
+        return true;
+      } catch ({ graphQLErrors, networkError }) {
+        this.errors = graphQLErrors || networkError.result.errors;
+        return true;
+      }
+    },
   },
   apollo: {
     getOneWO: {
@@ -710,13 +724,14 @@ export default {
         if (!loading) {
           const {
             getOneWO: {
-              lt: { customer, wos: [wos] },
+              lt: { customer, wos: [wos], ...lt },
               wo: { modules, ...wo },
               mpr: { mprs },
             },
           } = data;
           this.customer = customer;
           this.total = wos;
+          this.lt = lt;
           this.wo = wo;
           this.modules = modules;
 

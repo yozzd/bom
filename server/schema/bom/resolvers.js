@@ -427,6 +427,9 @@ const resolvers = {
 
       return items;
     }),
+    genWoXLS: isAuthenticated(async (_, { id }) => {
+      console.log(id);
+    }),
   },
   Mutation: {
     updateItem: isAuthenticated(async (_, { input }) => {
