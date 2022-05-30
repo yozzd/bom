@@ -253,6 +253,7 @@ const genWo = async (wo, mpr) => {
           G8: { t: 's', v: 'Qty / Unit' },
           I8: { t: 's', v: 'Qty Rqd' },
           J8: { t: 's', v: 'Qty Balance' },
+          L8: { t: 's', v: 'Stock Qty W/H' },
           '!merges': [
             { s: { r: 0, c: 0 }, e: { r: 0, c: 3 } }, //A1
             { s: { r: 0, c: 4 }, e: { r: 0, c: 7 } }, //E1
@@ -270,11 +271,12 @@ const genWo = async (wo, mpr) => {
             { s: { r: 7, c: 6 }, e: { r: 8, c: 7 } }, //G8
             { s: { r: 7, c: 8 }, e: { r: 8, c: 8 } }, //I8
             { s: { r: 7, c: 9 }, e: { r: 8, c: 9 } }, //J8
+            { s: { r: 7, c: 11 }, e: { r: 8, c: 11 } }, //L8
           ],
           '!cols': [
             { wpx: 30 }, { wpx: 100, hidden: true }, { wpx: 100 }, { wpx: 100 },
             { wpx: 100 }, { wpx: 100 }, { wpx: 40 }, { wpx: 40 }, { wpx: 40 },
-            { wpx: 40 }, { wpx: 20 },
+            { wpx: 40 }, { wpx: 10 }, { wpx: 40 },
           ],
         },
       },
