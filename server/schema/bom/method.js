@@ -249,6 +249,7 @@ const genWo = async (wo, mpr) => {
           C9: { t: 's', v: 'Description' },
           D9: { t: 's', v: 'Specification' },
           E9: { t: 's', v: 'Model' },
+          F9: { t: 's', v: 'Brand' },
           '!merges': [
             { s: { r: 0, c: 0 }, e: { r: 0, c: 3 } }, //A1
             { s: { r: 0, c: 4 }, e: { r: 0, c: 7 } }, //E1
@@ -262,10 +263,11 @@ const genWo = async (wo, mpr) => {
             { s: { r: 8, c: 2 }, e: { r: 8, c: 2 } }, //C9
             { s: { r: 8, c: 3 }, e: { r: 8, c: 3 } }, //D9
             { s: { r: 8, c: 4 }, e: { r: 8, c: 4 } }, //E9
+            { s: { r: 8, c: 5 }, e: { r: 8, c: 5 } }, //F9
           ],
           '!cols': [
             { wpx: 30 }, { wpx: 100, hidden: true }, { wpx: 100 }, { wpx: 100 },
-            { wpx: 100 },
+            { wpx: 100 }, { wpx: 100 },
           ],
         },
       },
