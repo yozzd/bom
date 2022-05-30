@@ -353,6 +353,7 @@ const genWo = async (wo, mpr) => {
           bomSupplier,
           bomPoDate,
           bomPoNo,
+          bomRemarks,
         } = wo.modules[i].items[j];
 
         wb.Sheets.Master[`A${row}`] = { t: 'n', v: j + 1 };
@@ -378,6 +379,7 @@ const genWo = async (wo, mpr) => {
         wb.Sheets.Master[`W${row}`] = { t: 's', v: bomSupplier || '' };
         wb.Sheets.Master[`X${row}`] = { t: 's', v: bomPoDate };
         wb.Sheets.Master[`Y${row}`] = { t: 's', v: bomPoNo || '' };
+        wb.Sheets.Master[`Z${row}`] = { t: 's', v: bomRemarks || '' };
 
         row += 1;
       }
