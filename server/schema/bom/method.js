@@ -349,6 +349,7 @@ const genWo = async (wo, mpr) => {
           bomCurrEaV,
           bomUsdEa,
           bomUsdUnit,
+          bomUsdTotal,
         } = wo.modules[i].items[j];
 
         wb.Sheets.Master[`A${row}`] = { t: 'n', v: j + 1 };
@@ -370,6 +371,7 @@ const genWo = async (wo, mpr) => {
         wb.Sheets.Master[`S${row}`] = { t: 'n', v: bomCurrEaV, z: formatCurr(bomCurrEaV) };
         wb.Sheets.Master[`T${row}`] = { t: 'n', v: bomUsdEa, z: formatCurr(bomUsdEa) };
         wb.Sheets.Master[`U${row}`] = { t: 'n', v: bomUsdUnit, z: formatCurr(bomUsdUnit) };
+        wb.Sheets.Master[`V${row}`] = { t: 'n', v: bomUsdTotal, z: formatCurr(bomUsdTotal) };
 
         row += 1;
       }
