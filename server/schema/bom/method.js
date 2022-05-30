@@ -247,6 +247,7 @@ const genWo = async (wo, mpr) => {
           A8: { t: 's', v: 'No' },
           C8: { t: 's', v: 'Material' },
           C9: { t: 's', v: 'Description' },
+          D9: { t: 's', v: 'Specification' },
           '!merges': [
             { s: { r: 0, c: 0 }, e: { r: 0, c: 3 } }, //A1
             { s: { r: 0, c: 4 }, e: { r: 0, c: 7 } }, //E1
@@ -258,6 +259,7 @@ const genWo = async (wo, mpr) => {
             { s: { r: 7, c: 0 }, e: { r: 8, c: 0 } }, //A8
             { s: { r: 7, c: 2 }, e: { r: 7, c: 5 } }, //C8
             { s: { r: 8, c: 2 }, e: { r: 8, c: 2 } }, //C9
+            { s: { r: 8, c: 3 }, e: { r: 8, c: 3 } }, //D9
           ],
           '!cols': [
             { wpx: 30 }, { wpx: 100, hidden: true }, { wpx: 100 }, { wpx: 100 },
