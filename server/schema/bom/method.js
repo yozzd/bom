@@ -244,6 +244,7 @@ const genWo = async (wo, mpr) => {
           A3: { t: 's', v: `Model: ${wo.model}` },
           E3: { t: 's', v: `Total: ${wo.unit} Units` },
           A4: { t: 's', v: `Product Name: ${wo.product}` },
+          A8: { t: 's', v: 'No' },
           '!merges': [
             { s: { r: 0, c: 0 }, e: { r: 0, c: 3 } }, //A1
             { s: { r: 0, c: 4 }, e: { r: 0, c: 7 } }, //E1
@@ -252,6 +253,7 @@ const genWo = async (wo, mpr) => {
             { s: { r: 2, c: 0 }, e: { r: 2, c: 3 } }, //A3
             { s: { r: 2, c: 4 }, e: { r: 2, c: 7 } }, //E3
             { s: { r: 3, c: 0 }, e: { r: 3, c: 7 } }, //A4
+            { s: { r: 7, c: 0 }, e: { r: 8, c: 0 } }, //A8
           ],
           '!cols': [
             { wpx: 30 }, { wpx: 100 }, { wpx: 100 }, { wpx: 100 },
