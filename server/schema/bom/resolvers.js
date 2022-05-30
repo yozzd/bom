@@ -429,8 +429,9 @@ const resolvers = {
       return items;
     }),
     genWoXLS: isAuthenticated(async (_, { id }) => {
-      const wo = await queryWo(id);
+      const { wo, mpr } = await queryWo(id);
       console.log(wo);
+      console.log(mpr);
     }),
   },
   Mutation: {

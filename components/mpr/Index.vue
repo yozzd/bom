@@ -673,7 +673,7 @@ export default {
 
         this.$message({
           type: 'success',
-          message: 'Data has been delete successfully',
+          message: 'Data has been approve successfully',
         });
       }).catch(() => {});
     },
