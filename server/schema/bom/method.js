@@ -229,6 +229,7 @@ const sendValidatedEmail = async (wo, pic) => {
 const genWo = async (wo, mpr) => {
   try {
     const dir = 'static/report';
+    let len = 100;
 
     if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
 
@@ -236,7 +237,7 @@ const genWo = async (wo, mpr) => {
       SheetNames: ['Master'],
       Sheets: {
         Master: {
-          '!ref': 'A1:Z10',
+          '!ref': `A1:Z${len}`,
           A1: { t: 's', v: 'BILL OF MATERIAL' },
           E1: { t: 's', v: `${wo.lt.ltNo}` },
           A2: { t: 's', v: `Cat: ${wo.cat}` },
@@ -270,38 +271,38 @@ const genWo = async (wo, mpr) => {
           Y9: { t: 's', v: 'No' },
           Z8: { t: 's', v: 'Remark' },
           '!merges': [
-            { s: { r: 0, c: 0 }, e: { r: 0, c: 3 } }, //A1
-            { s: { r: 0, c: 4 }, e: { r: 0, c: 7 } }, //E1
-            { s: { r: 1, c: 0 }, e: { r: 1, c: 3 } }, //A2
-            { s: { r: 1, c: 4 }, e: { r: 1, c: 7 } }, //E2
-            { s: { r: 2, c: 0 }, e: { r: 2, c: 3 } }, //A3
-            { s: { r: 2, c: 4 }, e: { r: 2, c: 7 } }, //E3
-            { s: { r: 3, c: 0 }, e: { r: 3, c: 7 } }, //A4
-            { s: { r: 7, c: 0 }, e: { r: 8, c: 0 } }, //A8
-            { s: { r: 7, c: 2 }, e: { r: 7, c: 5 } }, //C8
-            { s: { r: 8, c: 2 }, e: { r: 8, c: 2 } }, //C9
-            { s: { r: 8, c: 3 }, e: { r: 8, c: 3 } }, //D9
-            { s: { r: 8, c: 4 }, e: { r: 8, c: 4 } }, //E9
-            { s: { r: 8, c: 5 }, e: { r: 8, c: 5 } }, //F9
-            { s: { r: 7, c: 6 }, e: { r: 8, c: 7 } }, //G8
-            { s: { r: 7, c: 8 }, e: { r: 8, c: 8 } }, //I8
-            { s: { r: 7, c: 9 }, e: { r: 8, c: 9 } }, //J8
-            { s: { r: 7, c: 11 }, e: { r: 8, c: 11 } }, //L8
-            { s: { r: 7, c: 12 }, e: { r: 8, c: 12 } }, //M8
-            { s: { r: 7, c: 13 }, e: { r: 7, c: 14 } }, //N8
-            { s: { r: 8, c: 13 }, e: { r: 8, c: 13 } }, //N9
-            { s: { r: 8, c: 14 }, e: { r: 8, c: 14 } }, //O9
-            { s: { r: 7, c: 15 }, e: { r: 7, c: 20 } }, //P8
-            { s: { r: 8, c: 15 }, e: { r: 8, c: 16 } }, //P9
-            { s: { r: 8, c: 17 }, e: { r: 8, c: 18 } }, //R9
-            { s: { r: 8, c: 19 }, e: { r: 8, c: 19 } }, //T9
-            { s: { r: 8, c: 20 }, e: { r: 8, c: 20 } }, //U9
-            { s: { r: 7, c: 21 }, e: { r: 8, c: 21 } }, //V8
-            { s: { r: 7, c: 22 }, e: { r: 8, c: 22 } }, //W8
-            { s: { r: 7, c: 23 }, e: { r: 7, c: 24 } }, //X8
-            { s: { r: 8, c: 23 }, e: { r: 8, c: 23 } }, //X9
-            { s: { r: 8, c: 24 }, e: { r: 8, c: 24 } }, //Y9
-            { s: { r: 7, c: 25 }, e: { r: 8, c: 25 } }, //Z8
+            { s: { r: 0, c: 0 }, e: { r: 0, c: 3 } }, // A1
+            { s: { r: 0, c: 4 }, e: { r: 0, c: 7 } }, // E1
+            { s: { r: 1, c: 0 }, e: { r: 1, c: 3 } }, // A2
+            { s: { r: 1, c: 4 }, e: { r: 1, c: 7 } }, // E2
+            { s: { r: 2, c: 0 }, e: { r: 2, c: 3 } }, // A3
+            { s: { r: 2, c: 4 }, e: { r: 2, c: 7 } }, // E3
+            { s: { r: 3, c: 0 }, e: { r: 3, c: 7 } }, // A4
+            { s: { r: 7, c: 0 }, e: { r: 8, c: 0 } }, // A8
+            { s: { r: 7, c: 2 }, e: { r: 7, c: 5 } }, // C8
+            { s: { r: 8, c: 2 }, e: { r: 8, c: 2 } }, // C9
+            { s: { r: 8, c: 3 }, e: { r: 8, c: 3 } }, // D9
+            { s: { r: 8, c: 4 }, e: { r: 8, c: 4 } }, // E9
+            { s: { r: 8, c: 5 }, e: { r: 8, c: 5 } }, // F9
+            { s: { r: 7, c: 6 }, e: { r: 8, c: 7 } }, // G8
+            { s: { r: 7, c: 8 }, e: { r: 8, c: 8 } }, // I8
+            { s: { r: 7, c: 9 }, e: { r: 8, c: 9 } }, // J8
+            { s: { r: 7, c: 11 }, e: { r: 8, c: 11 } }, // L8
+            { s: { r: 7, c: 12 }, e: { r: 8, c: 12 } }, // M8
+            { s: { r: 7, c: 13 }, e: { r: 7, c: 14 } }, // N8
+            { s: { r: 8, c: 13 }, e: { r: 8, c: 13 } }, // N9
+            { s: { r: 8, c: 14 }, e: { r: 8, c: 14 } }, // O9
+            { s: { r: 7, c: 15 }, e: { r: 7, c: 20 } }, // P8
+            { s: { r: 8, c: 15 }, e: { r: 8, c: 16 } }, // P9
+            { s: { r: 8, c: 17 }, e: { r: 8, c: 18 } }, // R9
+            { s: { r: 8, c: 19 }, e: { r: 8, c: 19 } }, // T9
+            { s: { r: 8, c: 20 }, e: { r: 8, c: 20 } }, // U9
+            { s: { r: 7, c: 21 }, e: { r: 8, c: 21 } }, // V8
+            { s: { r: 7, c: 22 }, e: { r: 8, c: 22 } }, // W8
+            { s: { r: 7, c: 23 }, e: { r: 7, c: 24 } }, // X8
+            { s: { r: 8, c: 23 }, e: { r: 8, c: 23 } }, // X9
+            { s: { r: 8, c: 24 }, e: { r: 8, c: 24 } }, // Y9
+            { s: { r: 7, c: 25 }, e: { r: 8, c: 25 } }, // Z8
           ],
           '!cols': [
             { wpx: 30 }, { wpx: 100, hidden: true }, { wpx: 100 }, { wpx: 100 },
@@ -314,6 +315,21 @@ const genWo = async (wo, mpr) => {
         },
       },
     };
+
+    let row = 10;
+    for (let i = 0; i < wo.modules.length; i += 1) {
+      wb.Sheets.Master[`A${row}`] = { t: 's', v: wo.modules[i].hid };
+      wb.Sheets.Master[`C${row}`] = { t: 's', v: wo.modules[i].header };
+     
+      row += 1;
+
+      for (let j = 0; j < wo.modules[i].items.length; j += 1) {
+        wb.Sheets.Master[`A${row}`] = { t: 'n', v: j + 1 };
+        wb.Sheets.Master[`C${row}`] = { t: 's', v: wo.modules[i].items[j].bomDescription };
+        
+        row += 1;
+      }
+    }
 
     const fn = `static/report/${wo.woNo}.xlsx`;
     const content = XLSX.write(wb, { type: 'buffer', bookType: 'xlsx', bookSST: false });
