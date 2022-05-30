@@ -331,6 +331,7 @@ const genWo = async (wo, mpr) => {
         wb.Sheets.Master[`F${row}`] = { t: 's', v: wo.modules[i].items[j].bomBrand || '' };
         wb.Sheets.Master[`G${row}`] = { t: 'n', v: wo.modules[i].items[j].bomQty };
         wb.Sheets.Master[`H${row}`] = { t: 's', v: wo.modules[i].items[j].bomUnit };
+        wb.Sheets.Master[`I${row}`] = { t: 'n', v: wo.modules[i].items[j].bomQtyRqd };
         
         row += 1;
       }
