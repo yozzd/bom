@@ -1,4 +1,3 @@
-const { format } = require('date-fns');
 const { Op } = require('sequelize');
 const {
   WO, WOMODULE, MPR, MPRMODULE, MPRITEM,
@@ -250,7 +249,9 @@ const oneMpr = async (id) => {
 
 const getNotif = async (date, ctx) => {
   const { isManager, department } = ctx.req.user;
-  const fdate = format(new Date(date), 'yyyy-MM-dd HH:mm:ss');
+
+  const tzoffset = (new Date()).getTimezoneOffset() * 60000;
+  const fdate = new Date(new Date(date) - tzoffset).toISOString();
 
   let where = {};
 

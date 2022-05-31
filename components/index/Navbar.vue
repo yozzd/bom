@@ -73,6 +73,7 @@
 <script>
 import { format } from 'date-fns';
 import maxBy from 'lodash/maxBy';
+import Cookies from 'js-cookie';
 import { GetMprNotifications } from '../../apollo/mpr/query';
 
 export default {
@@ -89,9 +90,10 @@ export default {
       else this.$router.push({ name });
     },
     handleVisibleChange(v) {
-      console.log(maxBy(this.mpr, 'requestorTimestamp'));
-      if (v) {
+      if (v && this.$auth.$state.user.isManager) {
         this.len = 0;
+        const { requestorTimestamp } = maxBy(this.mpr, 'requestorTimestamp');
+        Cookies.set('timestamp', requestorTimestamp, { sameSite: 'strict' });
       }
     },
     handleToMpr(id) {
@@ -103,7 +105,7 @@ export default {
       query: GetMprNotifications,
       variables() {
         return {
-          date: format(new Date(), 'yyyy-MM-dd'),
+          date: Cookies.get('timestamp') || format(new Date(new Date().setHours(0, 1, 0)), 'yyyy-MM-dd HH:mm:ss'),
         };
       },
       pollInterval: 15000,
