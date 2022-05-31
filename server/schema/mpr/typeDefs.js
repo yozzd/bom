@@ -5,6 +5,7 @@ const typeDefs = `
     getAllMPR(status: Int): [MPR]
     getOneMPR(id: Int): MPR
     getMprModules(idMpr: Int): [MPRMODULE]
+    getMprNotifications(date: String): [MPR]
   }
 
   extend type Mutation {

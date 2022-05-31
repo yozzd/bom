@@ -1,3 +1,4 @@
+const { format } = require('date-fns');
 const { Op } = require('sequelize');
 const {
   WO, WOMODULE, MPR, MPRMODULE, MPRITEM,
@@ -242,4 +243,19 @@ const oneMpr = async (id) => {
   return mpr;
 };
 
-module.exports = { whereStatus, whereUser, oneMpr };
+const getNotif = async (date) => {
+  const fdate = format(new Date(date), 'yyyy-MM-dd HH:mm:ss');
+
+  const where = {
+    requestorTimestamp: { [Op.gt]: fdate },
+  };
+  
+  const mpr = await MPR.findAll({
+    attributes: ['id'],
+    where,
+  });
+
+  return mpr;
+};
+
+module.exports = { whereStatus, whereUser, oneMpr, getNotif };

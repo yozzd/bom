@@ -10,7 +10,12 @@
         BOM
       </nuxt-link>
       <nuxt-link :to="{ name: 'mpr' }">
-        MPR
+        <el-badge v-if="len" :value="len" class="item">
+          MPR
+        </el-badge>
+        <span v-else>
+          MPR
+        </span>
       </nuxt-link>
       <nuxt-link :to="{ name: 'outstanding-po' }">
         OUTSTANDING PO
@@ -37,11 +42,40 @@
 </template>
 
 <script>
+import { format } from 'date-fns';
+import { GetMprNotifications } from '../../apollo/mpr/query';
+
 export default {
+  data() {
+    return {
+      len: 0,
+    };
+  },
   methods: {
     async handleCommand(name) {
       if (name === 'logout') await this.$auth.logout();
       else this.$router.push({ name });
+    },
+  },
+  apollo: {
+    getMprNotifications: {
+      query: GetMprNotifications,
+      variables() {
+        return {
+          date: format(new Date(), 'yyyy-MM-dd'),
+        };
+      },
+      // pollInterval: 15000,
+      prefetch: false,
+      result({ data, loading }) {
+        if (!loading) {
+          const { getMprNotifications } = data;
+          this.len = getMprNotifications.length;
+        }
+      },
+      error({ graphQLErrors, networkError }) {
+        this.errors = graphQLErrors || networkError.result.errors;
+      },
     },
   },
 };

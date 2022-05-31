@@ -10,7 +10,7 @@ const {
   WO, WOMODULE, WOITEM, MPR, MPRMODULE, MPRITEM, OUTSTANDINGPO,
 } = require('../relations');
 const { isAuthenticated } = require('../auth/service');
-const { whereStatus, whereUser, oneMpr } = require('./methods');
+const { whereStatus, whereUser, oneMpr, getNotif } = require('./methods');
 const { itemAttributes } = require('../bom/resolvers');
 
 const mprAttributes = [
@@ -87,6 +87,11 @@ const resolvers = {
       });
 
       return modules;
+    }),
+    getMprNotifications: isAuthenticated(async (_, { date }) => {
+      const notif = await getNotif(date);
+
+      return notif;
     }),
   },
   Mutation: {

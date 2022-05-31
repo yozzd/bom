@@ -289,3 +289,11 @@ table.plain {
 .ivu-dropdown-menu {
   @apply min-w-[140px];
 }
+
+.el-badge__content {
+  @apply bg-red-600 leading-[17px] border-0;
+}
+
+.el-badge__content.is-fixed {
+  @apply right-0;
+}
