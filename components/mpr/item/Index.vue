@@ -648,10 +648,7 @@ export default {
       }
 
       if (this.$refs.mtable) {
-        this.$refs.mtable.map((v) => {
-          v.$refs.ctable.clearSelection();
-          return true;
-        });
+        this.$refs.mtable.$refs.ctable.clearSelection();
       }
     },
     handleStock(val) {
@@ -693,6 +690,7 @@ export default {
                 cdata.getOneMPR.modules[idx1].items[idx2].__typename = 'MPRITEM';
               } else if (v.isMpr && !v.idModule) {
                 const idx1 = cdata.getOneMPR.items.findIndex((e) => e.id === v.id);
+                console.log(idx1);
                 cdata.getOneMPR.items[idx1] = v;
                 cdata.getOneMPR.items[idx1].module = {
                   id: null, hid: null, header: null, __typename: 'WOMODULE',
@@ -716,7 +714,7 @@ export default {
 
         this.$message({
           type: 'success',
-          message: 'Data has been validate successfully',
+          message: 'Item(s) has been stock/unstock successfully',
         });
       }).catch(() => {});
     },

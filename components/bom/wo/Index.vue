@@ -688,7 +688,7 @@ export default {
 
         this.$message({
           type: 'success',
-          message: 'Data has been validate successfully',
+          message: 'Item(s) has been stock/unstock successfully',
         });
       }).catch(() => {});
     },

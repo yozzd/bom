@@ -1,7 +1,18 @@
 const {
   LT, WO, WOMODULE, WOITEM, MPR, MPRITEM, OUTSTANDINGPO,
 } = require('../relations');
-const { itemAttributes } = require('./resolvers');
+
+const itemAttributes = [
+  'id', 'idMaterial', 'bomDescription', 'bomSpecification',
+  'bomModel', 'bomBrand', 'bomQty', 'bomUnit', 'bomQtyRqd',
+  'bomQtyBalance', 'bomQtyStock', 'bomEta', 'bomQtyRec',
+  'bomDateRec', 'bomCurrSizeC', 'bomCurrSizeV', 'bomCurrEaC',
+  'bomCurrEaV', 'bomUsdEa', 'bomUsdUnit', 'bomUsdTotal',
+  'materialsProcessed', 'yetToPurchase', 'bomSupplier',
+  'bomPoDate', 'bomPoNo', 'poNo', 'bomRemarks', 'priority', 'bomEtaStatus',
+  'sr', 'isMpr', 'validasi', 'packing', 'hold', 'cancel',
+  'idHeader', 'idModule', 'colorClass',
+];
 
 const queryWo = async (id) => {
   const wo = await WO.findOne({
