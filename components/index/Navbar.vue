@@ -31,9 +31,11 @@
             v-for="item in mpr"
             :key="item.id"
             :command="item.id"
-           >
+          >
             <div v-if="$auth.$state.user.isManager" class="flex items-center space-x-4">
-              <el-tag size="mini" type="danger">New</el-tag>
+              <el-tag size="mini" type="danger">
+                New
+              </el-tag>
               <div>Created MPR with id {{ item.id }}</div>
             </div>
           </el-dropdown-item>
@@ -82,6 +84,7 @@ export default {
     },
     handleToMpr(id) {
       console.log(id);
+      this.$router.push({ name: 'mpr-id', params: { id } });
     },
   },
   apollo: {
@@ -93,7 +96,7 @@ export default {
         };
       },
       pollInterval: 15000,
-      prefetch: false,
+      fetchPolicy: 'no-cache',
       result({ data, loading }) {
         if (!loading) {
           const { getMprNotifications } = data;

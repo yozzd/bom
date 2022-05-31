@@ -6,21 +6,21 @@ const {
 const { itemAttributes } = require('../bom/resolvers');
 
 const inSection = (department) => {
-  let inSection = [];
-  
-  if (department === 110) inSection = [111, 113];
-  else if (department === 120) inSection = [121, 122, 129];
-  else if (department === 130) inSection = [131, 132, 133, 134, 135, 136, 139];
-  else if (department === 140) inSection = [142, 143, 561];
-  else if (department === 150) inSection = [151, 152, 153, 154, 159];
-  else if (department === 170) inSection = [171, 179];
-  else if (department === 210) inSection = [211, 212, 213, 219];
-  else if (department === 220) inSection = [221, 229];
-  else if (department === 320) inSection = [321, 322, 323, 324];
-  else if (department === 330) inSection = [331];
-  else if (department === 510) inSection = [161, 511, 513];
+  let sections = [];
 
-  return inSection;
+  if (department === 110) sections = [111, 113];
+  else if (department === 120) sections = [121, 122, 129];
+  else if (department === 130) sections = [131, 132, 133, 134, 135, 136, 139];
+  else if (department === 140) sections = [142, 143, 561];
+  else if (department === 150) sections = [151, 152, 153, 154, 159];
+  else if (department === 170) sections = [171, 179];
+  else if (department === 210) sections = [211, 212, 213, 219];
+  else if (department === 220) sections = [221, 229];
+  else if (department === 320) sections = [321, 322, 323, 324];
+  else if (department === 330) sections = [331];
+  else if (department === 510) sections = [161, 511, 513];
+
+  return sections;
 };
 
 const whereStatus = (status) => {
@@ -263,7 +263,7 @@ const getNotif = async (date, ctx) => {
       ],
     };
   }
-  
+
   const mpr = await MPR.findAll({
     attributes: ['id'],
     where,
@@ -272,4 +272,6 @@ const getNotif = async (date, ctx) => {
   return mpr;
 };
 
-module.exports = { whereStatus, whereUser, oneMpr, getNotif };
+module.exports = {
+  whereStatus, whereUser, oneMpr, getNotif,
+};

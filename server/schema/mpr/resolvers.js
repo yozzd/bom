@@ -10,7 +10,9 @@ const {
   WO, WOMODULE, WOITEM, MPR, MPRMODULE, MPRITEM, OUTSTANDINGPO,
 } = require('../relations');
 const { isAuthenticated } = require('../auth/service');
-const { whereStatus, whereUser, oneMpr, getNotif } = require('./methods');
+const {
+  whereStatus, whereUser, oneMpr, getNotif,
+} = require('./methods');
 const { itemAttributes } = require('../bom/resolvers');
 
 const mprAttributes = [
