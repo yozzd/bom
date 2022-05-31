@@ -171,6 +171,7 @@ export const GetMprNotifications = gql`
   query getMprNotifications($date: String) {
     getMprNotifications(date: $date) {
       id
+      requestorTimestamp
     }
   }
 `;

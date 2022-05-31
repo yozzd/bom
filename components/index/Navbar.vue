@@ -72,6 +72,7 @@
 
 <script>
 import { format } from 'date-fns';
+import maxBy from 'lodash/maxBy';
 import { GetMprNotifications } from '../../apollo/mpr/query';
 
 export default {
@@ -88,6 +89,7 @@ export default {
       else this.$router.push({ name });
     },
     handleVisibleChange(v) {
+      console.log(maxBy(this.mpr, 'requestorTimestamp'));
       if (v) {
         this.len = 0;
       }
