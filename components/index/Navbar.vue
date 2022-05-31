@@ -84,6 +84,12 @@ export default {
       errors: [],
     };
   },
+  mounted() {
+    if (!Cookies.get('timestamps')) {
+      const now = format(new Date(new Date().setHours(0, 1, 0)), 'yyyy-MM-dd HH:mm:ss');
+      Cookies.set('timestamps', now, { sameSite: 'strict' });
+    }
+  },
   methods: {
     async handleCommand(name) {
       if (name === 'logout') await this.$auth.logout();
@@ -93,7 +99,7 @@ export default {
       if (v && this.$auth.$state.user.isManager) {
         this.len = 0;
         const { requestorTimestamp } = maxBy(this.mpr, 'requestorTimestamp');
-        Cookies.set('timestamp', requestorTimestamp, { sameSite: 'strict' });
+        Cookies.set('timestamps', requestorTimestamp, { sameSite: 'strict' });
       }
     },
     handleToMpr(id) {
@@ -105,8 +111,11 @@ export default {
       query: GetMprNotifications,
       variables() {
         return {
-          date: Cookies.get('timestamp') || format(new Date(new Date().setHours(0, 1, 0)), 'yyyy-MM-dd HH:mm:ss'),
+          date: Cookies.get('timestamps'),
         };
+      },
+      skip() {
+        return !Cookies.get('timestamps');
       },
       pollInterval: 15000,
       fetchPolicy: 'no-cache',
