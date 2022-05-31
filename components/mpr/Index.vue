@@ -634,7 +634,7 @@ export default {
       }).catch(() => {});
     },
     approve(mpr, type) {
-      this.$confirm('You are about to approve this MPR, are you sure?', 'Approval Confirmation', {
+      this.$confirm('You are about to approve this MPR, are you sure?', 'Confirmation', {
         confirmButtonText: 'Yes',
         cancelButtonText: 'Cancel',
         type: 'warning',
