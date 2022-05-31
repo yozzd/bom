@@ -690,7 +690,6 @@ export default {
                 cdata.getOneMPR.modules[idx1].items[idx2].__typename = 'MPRITEM';
               } else if (v.isMpr && !v.idModule) {
                 const idx1 = cdata.getOneMPR.items.findIndex((e) => e.id === v.id);
-                console.log(idx1);
                 cdata.getOneMPR.items[idx1] = v;
                 cdata.getOneMPR.items[idx1].module = {
                   id: null, hid: null, header: null, __typename: 'WOMODULE',

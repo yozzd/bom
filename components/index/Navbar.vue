@@ -17,7 +17,12 @@
           MPR
         </span>
       </nuxt-link>
-      <el-dropdown v-if="len" trigger="click" @command="handleToMpr">
+      <el-dropdown
+        v-if="mpr.length"
+        trigger="click"
+        @command="handleToMpr"
+        @visible-change="handleVisibleChange"
+      >
         <el-link
           type="primary"
           :underline="false"
@@ -82,8 +87,12 @@ export default {
       if (name === 'logout') await this.$auth.logout();
       else this.$router.push({ name });
     },
+    handleVisibleChange(v) {
+      if (v) {
+        this.len = 0;
+      }
+    },
     handleToMpr(id) {
-      console.log(id);
       this.$router.push({ name: 'mpr-id', params: { id } });
     },
   },
