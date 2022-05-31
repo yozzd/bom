@@ -287,7 +287,7 @@ const getNotif = async (date, ctx) => {
     where = {
       [Op.and]: [
         { bomTimestamp: { [Op.gt]: fdate } },
-        { requestorSection: { [Op.in]: inSection(department) } },
+        { requestorSection: section },
         { managerApproved: 1 },
         { whApproved: 1 },
         { bomApproved: 1 },
