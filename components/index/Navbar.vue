@@ -32,7 +32,10 @@
             :key="item.id"
             :command="item.id"
            >
-            {{ item.id }}
+            <div v-if="$auth.$state.user.isManager" class="flex items-center space-x-4">
+              <el-tag size="mini" type="danger">New</el-tag>
+              <div>Created MPR with id {{ item.id }}</div>
+            </div>
           </el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
