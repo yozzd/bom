@@ -174,6 +174,7 @@ export const GetMprNotifications = gql`
       requestorTimestamp
       managerTimestamp
       whTimestamp
+      bomTimestamp
     }
   }
 `;

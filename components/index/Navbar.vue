@@ -113,6 +113,9 @@ export default {
       } else if (v && this.$auth.$state.user.section === 211) {
         const { whTimestamp } = maxBy(this.mpr, 'whTimestamp');
         Cookies.set('timestamps', whTimestamp, { sameSite: 'strict' });
+      } else {
+        const { bomTimestamp } = maxBy(this.mpr, 'bomTimestamp');
+        Cookies.set('timestamps', bomTimestamp, { sameSite: 'strict' });
       }
     },
     handleToMpr(id) {

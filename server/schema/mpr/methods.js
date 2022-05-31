@@ -262,6 +262,7 @@ const getNotif = async (date, ctx) => {
         { requestorSection: { [Op.in]: inSection(department) } },
         { managerApproved: 0 },
         { whApproved: 0 },
+        { bomApproved: 0 },
       ],
     };
   } else if (section === 213) {
@@ -270,6 +271,7 @@ const getNotif = async (date, ctx) => {
         { managerTimestamp: { [Op.gt]: fdate } },
         { managerApproved: 1 },
         { whApproved: 0 },
+        { bomApproved: 0 },
       ],
     };
   } else if (section === 211) {
@@ -278,6 +280,17 @@ const getNotif = async (date, ctx) => {
         { whTimestamp: { [Op.gt]: fdate } },
         { managerApproved: 1 },
         { whApproved: 1 },
+        { bomApproved: 0 },
+      ],
+    };
+  } else {
+    where = {
+      [Op.and]: [
+        { bomTimestamp: { [Op.gt]: fdate } },
+        { requestorSection: { [Op.in]: inSection(department) } },
+        { managerApproved: 1 },
+        { whApproved: 1 },
+        { bomApproved: 1 },
       ],
     };
   }
