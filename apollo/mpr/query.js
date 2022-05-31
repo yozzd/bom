@@ -173,6 +173,7 @@ export const GetMprNotifications = gql`
       id
       requestorTimestamp
       managerTimestamp
+      whTimestamp
     }
   }
 `;
