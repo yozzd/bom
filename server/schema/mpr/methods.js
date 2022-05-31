@@ -249,9 +249,7 @@ const oneMpr = async (id) => {
 };
 
 const getNotif = async (date, ctx) => {
-  const { isManager, department, section } = ctx.req.user;
-  console.log(department);
-  console.log(section);
+  const { isManager, department } = ctx.req.user;
   const fdate = format(new Date(date), 'yyyy-MM-dd HH:mm:ss');
 
   let where = {};

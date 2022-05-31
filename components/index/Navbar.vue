@@ -17,6 +17,25 @@
           MPR
         </span>
       </nuxt-link>
+      <el-dropdown v-if="len" trigger="click" @command="handleToMpr">
+        <el-link
+          type="primary"
+          :underline="false"
+        >
+          <client-only>
+            <v-icon name="ri-arrow-down-s-line" class="remixicons w-4 h-4" />
+          </client-only>
+        </el-link>
+        <el-dropdown-menu slot="dropdown">
+          <el-dropdown-item
+            v-for="item in mpr"
+            :key="item.id"
+            :command="item.id"
+           >
+            {{ item.id }}
+          </el-dropdown-item>
+        </el-dropdown-menu>
+      </el-dropdown>
       <nuxt-link :to="{ name: 'outstanding-po' }">
         OUTSTANDING PO
       </nuxt-link>
@@ -49,6 +68,7 @@ export default {
   data() {
     return {
       len: 0,
+      mpr: [],
       errors: [],
     };
   },
@@ -56,6 +76,9 @@ export default {
     async handleCommand(name) {
       if (name === 'logout') await this.$auth.logout();
       else this.$router.push({ name });
+    },
+    handleToMpr(id) {
+      console.log(id);
     },
   },
   apollo: {
@@ -72,6 +95,7 @@ export default {
         if (!loading) {
           const { getMprNotifications } = data;
           this.len = getMprNotifications.length;
+          this.mpr = getMprNotifications;
         }
       },
       error({ graphQLErrors, networkError }) {
