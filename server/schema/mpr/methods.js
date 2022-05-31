@@ -5,6 +5,24 @@ const {
 } = require('../relations');
 const { itemAttributes } = require('../bom/resolvers');
 
+const inSection = (department) => {
+  let inSection = [];
+  
+  if (department === 110) inSection = [111, 113];
+  else if (department === 120) inSection = [121, 122, 129];
+  else if (department === 130) inSection = [131, 132, 133, 134, 135, 136, 139];
+  else if (department === 140) inSection = [142, 143, 561];
+  else if (department === 150) inSection = [151, 152, 153, 154, 159];
+  else if (department === 170) inSection = [171, 179];
+  else if (department === 210) inSection = [211, 212, 213, 219];
+  else if (department === 220) inSection = [221, 229];
+  else if (department === 320) inSection = [321, 322, 323, 324];
+  else if (department === 330) inSection = [331];
+  else if (department === 510) inSection = [161, 511, 513];
+
+  return inSection;
+};
+
 const whereStatus = (status) => {
   let where = null;
 
@@ -77,19 +95,6 @@ const whereUser = async ({
   const ids = await Promise.all(items.reduce((prev, curr) => [...prev, curr.idMpr], []));
   let where = null;
 
-  let inSection = [];
-  if (department === 110) inSection = [111, 113];
-  else if (department === 120) inSection = [121, 122, 129];
-  else if (department === 130) inSection = [131, 132, 133, 134, 135, 136, 139];
-  else if (department === 140) inSection = [142, 143, 561];
-  else if (department === 150) inSection = [151, 152, 153, 154, 159];
-  else if (department === 170) inSection = [171, 179];
-  else if (department === 210) inSection = [211, 212, 213, 219];
-  else if (department === 220) inSection = [221, 229];
-  else if (department === 320) inSection = [321, 322, 323, 324];
-  else if (department === 330) inSection = [331];
-  else if (department === 510) inSection = [161, 511, 513];
-
   if ((group === 11 && section === 211) || (group === 11 && section === 212)) {
     where = {
       [Op.or]: [
@@ -130,7 +135,7 @@ const whereUser = async ({
             { cancel: 0 },
             { hold: 0 },
             { no: { [Op.is]: null } },
-            { requestorSection: { [Op.in]: inSection } },
+            { requestorSection: { [Op.in]: inSection(department) } },
           ],
         },
       ],
@@ -145,7 +150,7 @@ const whereUser = async ({
               { cancel: 0 },
               { hold: 0 },
               { managerApproved: 0 },
-              { requestorSection: { [Op.in]: inSection } },
+              { requestorSection: { [Op.in]: inSection(department) } },
             ],
           },
           {
@@ -153,7 +158,7 @@ const whereUser = async ({
               { cancel: 0 },
               { hold: 0 },
               { no: { [Op.is]: null } },
-              { requestorSection: { [Op.in]: inSection } },
+              { requestorSection: { [Op.in]: inSection(department) } },
             ],
           },
         ],
@@ -164,7 +169,7 @@ const whereUser = async ({
           { id: { [Op.in]: ids } },
           { cancel: 0 },
           { hold: 0 },
-          { requestorSection: { [Op.in]: inSection } },
+          { requestorSection: { [Op.in]: inSection(department) } },
         ],
       };
     }
@@ -243,12 +248,23 @@ const oneMpr = async (id) => {
   return mpr;
 };
 
-const getNotif = async (date) => {
+const getNotif = async (date, ctx) => {
+  const { isManager, department, section } = ctx.req.user;
+  console.log(department);
+  console.log(section);
   const fdate = format(new Date(date), 'yyyy-MM-dd HH:mm:ss');
 
-  const where = {
-    requestorTimestamp: { [Op.gt]: fdate },
-  };
+  let where = {};
+
+  if (isManager) {
+    where = {
+      [Op.and]: [
+        { requestorTimestamp: { [Op.gt]: fdate } },
+        { requestorSection: { [Op.in]: inSection(department) } },
+        { managerApproved: 0 },
+      ],
+    };
+  }
   
   const mpr = await MPR.findAll({
     attributes: ['id'],

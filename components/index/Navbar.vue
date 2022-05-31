@@ -49,6 +49,7 @@ export default {
   data() {
     return {
       len: 0,
+      errors: [],
     };
   },
   methods: {
@@ -65,7 +66,7 @@ export default {
           date: format(new Date(), 'yyyy-MM-dd'),
         };
       },
-      // pollInterval: 15000,
+      pollInterval: 15000,
       prefetch: false,
       result({ data, loading }) {
         if (!loading) {

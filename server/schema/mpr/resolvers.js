@@ -88,8 +88,8 @@ const resolvers = {
 
       return modules;
     }),
-    getMprNotifications: isAuthenticated(async (_, { date }) => {
-      const notif = await getNotif(date);
+    getMprNotifications: isAuthenticated(async (_, { date }, ctx) => {
+      const notif = await getNotif(date, ctx);
 
       return notif;
     }),
