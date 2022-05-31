@@ -41,7 +41,13 @@
               <el-tag size="mini" type="danger">
                 New
               </el-tag>
-              <div>Created MPR with id {{ item.id }}</div>
+              <div>Created MPR with an id {{ item.id }}</div>
+            </div>
+            <div v-else class="flex items-center space-x-4">
+              <el-tag size="mini" type="success">
+                Approved
+              </el-tag>
+              <div>Approved MPR with an id {{ item.id }}</div>
             </div>
           </el-dropdown-item>
         </el-dropdown-menu>
@@ -96,10 +102,14 @@ export default {
       else this.$router.push({ name });
     },
     handleVisibleChange(v) {
+      this.len = 0;
+
       if (v && this.$auth.$state.user.isManager) {
-        this.len = 0;
         const { requestorTimestamp } = maxBy(this.mpr, 'requestorTimestamp');
         Cookies.set('timestamps', requestorTimestamp, { sameSite: 'strict' });
+      } else if (v && this.$auth.$state.user.section === 213) {
+        const { managerTimestamp } = maxBy(this.mpr, 'managerTimestamp');
+        Cookies.set('timestamps', managerTimestamp, { sameSite: 'strict' });
       }
     },
     handleToMpr(id) {

@@ -248,7 +248,7 @@ const oneMpr = async (id) => {
 };
 
 const getNotif = async (date, ctx) => {
-  const { isManager, department } = ctx.req.user;
+  const { isManager, department, section } = ctx.req.user;
 
   const tzoffset = (new Date()).getTimezoneOffset() * 60000;
   const fdate = new Date(new Date(date) - tzoffset).toISOString();
@@ -261,6 +261,13 @@ const getNotif = async (date, ctx) => {
         { requestorTimestamp: { [Op.gt]: fdate } },
         { requestorSection: { [Op.in]: inSection(department) } },
         { managerApproved: 0 },
+      ],
+    };
+  } else if (section === 213) {
+    where = {
+      [Op.and]: [
+        { managerTimestamp: { [Op.gt]: fdate } },
+        { managerApproved: 1 },
       ],
     };
   }
