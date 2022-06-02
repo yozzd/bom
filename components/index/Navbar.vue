@@ -133,7 +133,7 @@ export default {
       skip() {
         return !Cookies.get('timestamps');
       },
-      pollInterval: 15000,
+      pollInterval: 120000,
       fetchPolicy: 'no-cache',
       result({ data, loading }) {
         if (!loading) {
