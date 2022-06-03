@@ -1,7 +1,7 @@
 <template>
   <div class="min-h-screen grid grid-cols-5 items-center">
     <div class="flex flex-col space-y-8 col-start-3">
-      <div class="text-2xl text-center font-bold press-start text-blue-600">
+      <div class="text-2xl text-center font-bold text-blue-600">
         BOM
       </div>
 
@@ -36,7 +36,7 @@
         <div class="flex-1">
           &copy; 2022
         </div>
-        <div class="press-start text-xs">
+        <div class="text-xs">
           <a href="https://github.com/yozzd/bom" target="_blank">DB</a>
         </div>
       </div>
