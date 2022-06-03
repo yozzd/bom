@@ -1196,6 +1196,11 @@
   resolved "https://registry.yarnpkg.com/@fastify/error/-/error-2.0.0.tgz#a9f94af56eb934f0ab1ce4ef9f0ced6ebf2319dc"
   integrity sha512-wI3fpfDT0t7p8E6dA2eTECzzOd+bZsZCJ2Hcv+Onn2b7ZwK3RwD27uW2QDaMtQhAfWQQP+WNK7nKf0twLsBf9w==
 
+"@fastify/error@^3.0.0":
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/@fastify/error/-/error-3.0.0.tgz#bfcb7b33cec0196413083a91ef2edc7b2c88455b"
+  integrity sha512-dPRyT40GiHRzSCll3/Jn2nPe25+E1VXc9tDwRAIKwFCxd5Np5wzgz1tmooWG3sV0qKgrBibihVoCna2ru4SEFg==
+
 "@fastify/jwt@^5.0.1":
   version "5.0.1"
   resolved "https://registry.yarnpkg.com/@fastify/jwt/-/jwt-5.0.1.tgz#9c44bc994c372019a23cb6dd8a3bd7f93e7ab88b"
@@ -5338,10 +5343,10 @@ core-js@^3.0.1:
   resolved "https://registry.yarnpkg.com/core-js/-/core-js-3.22.6.tgz#294dd824b4cae2c24725a36baa4a791ed00bb0de"
   integrity sha512-2IGcGH00z9I4twgNWU4uGCNEsBFG1s2JudVQrgSCoVhOfwoTwQjxC8aMo9exrpTMOxvobggEpaHnGMmQY4cfBQ==
 
-core-js@^3.22.7:
-  version "3.22.7"
-  resolved "https://registry.yarnpkg.com/core-js/-/core-js-3.22.7.tgz#8d6c37f630f6139b8732d10f2c114c3f1d00024f"
-  integrity sha512-Jt8SReuDKVNZnZEzyEQT5eK6T2RRCXkfTq7Lo09kpm+fHjgGewSbNjV+Wt4yZMhPDdzz2x1ulI5z/w4nxpBseg==
+core-js@^3.22.8:
+  version "3.22.8"
+  resolved "https://registry.yarnpkg.com/core-js/-/core-js-3.22.8.tgz#23f860b1fe60797cc4f704d76c93fea8a2f60631"
+  integrity sha512-UoGQ/cfzGYIuiq6Z7vWL1HfkE9U9IZ4Ub+0XSiJTCzvbZzgPA69oDF2f+lgJ6dFFLEdjW5O6svvoKzXX23xFkA==
 
 core-util-is@~1.0.0:
   version "1.0.3"
@@ -6474,10 +6479,10 @@ eslint-plugin-vue@^8.5.0, eslint-plugin-vue@^8.7.1:
     semver "^7.3.5"
     vue-eslint-parser "^8.0.1"
 
-eslint-plugin-vue@^9.0.1:
-  version "9.0.1"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-vue/-/eslint-plugin-vue-9.0.1.tgz#66ba4a6e4085a26a724adcde06eaf72b178285c9"
-  integrity sha512-/w/9/vzz+4bSYtp5UqXgJ0CfycXTMtpp6lkz7/fMp0CcJxPWyRP6Pr88ihhrsNEcVt2ZweMupWRNYa+5Md41LQ==
+eslint-plugin-vue@^9.1.0:
+  version "9.1.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-vue/-/eslint-plugin-vue-9.1.0.tgz#b528941325e26a24bc5d5c5030c0a8996c36659c"
+  integrity sha512-EPCeInPicQ/YyfOWJDr1yfEeSNoFCMzUus107lZyYi37xejdOolNzS5MXGXp8+9bkoKZMdv/1AcZzQebME6r+g==
   dependencies:
     eslint-utils "^3.0.0"
     natural-compare "^1.4.0"
@@ -9482,12 +9487,12 @@ mercurius-upload@^4.0.0:
     fastify-plugin "^3.0.0"
     graphql-upload "^13.0.0"
 
-mercurius@^9.6.0:
-  version "9.6.0"
-  resolved "https://registry.yarnpkg.com/mercurius/-/mercurius-9.6.0.tgz#e3fe589b282eaf8c43c1b63a672f8a2609055e44"
-  integrity sha512-lU2xfc34CZhmZZ/E8QlicUJSktgYZ/VyeufbxI89SbVJy5/OEdzwZLRn5VBPMY+2DoZIFBsTwoUfw6WE2owrvQ==
+mercurius@^9.8.0:
+  version "9.8.0"
+  resolved "https://registry.yarnpkg.com/mercurius/-/mercurius-9.8.0.tgz#506dd7da07b3e67cd1fd83e923d1352d69447853"
+  integrity sha512-BNZItAUpEbHrnvMYBXyCzTeftPxubN8iJLr4SFKo0vDMZ0ZQUhPONuF6XAmKr+JcEYXMn3/V2J/FUixqVOnAqw==
   dependencies:
-    "@fastify/error" "^2.0.0"
+    "@fastify/error" "^3.0.0"
     "@fastify/static" "^5.0.0"
     "@fastify/websocket" "^5.0.0"
     "@types/isomorphic-form-data" "^2.0.0"
@@ -9495,7 +9500,7 @@ mercurius@^9.6.0:
     fastify-plugin "^3.0.1"
     graphql "^16.0.0"
     graphql-jit "^0.7.3"
-    mqemitter "^4.4.1"
+    mqemitter "^5.0.0"
     p-map "^4.0.0"
     readable-stream "^3.6.0"
     safe-stable-stringify "^2.3.0"
@@ -9791,13 +9796,13 @@ move-concurrently@^1.0.1:
     rimraf "^2.5.4"
     run-queue "^1.0.3"
 
-mqemitter@^4.4.1:
-  version "4.5.0"
-  resolved "https://registry.yarnpkg.com/mqemitter/-/mqemitter-4.5.0.tgz#ffe74cdf0e3e88b6f37a9dfe4bb7546ac5ae7aa8"
-  integrity sha512-Mp/zytFeIv6piJQkEKnncHcP4R/ErJc5C7dfonkhkNUT2LA/nTayrfNxbipp3M5iCJUTQSUtzfQAQA3XVcKz6w==
+mqemitter@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/mqemitter/-/mqemitter-5.0.0.tgz#ab7a14c92cf30493c5ca4714cc4ce6c56434cbf5"
+  integrity sha512-rqNRQhGgl0W/NV+Zrx0rpAUTZcSlAtivCVUmXBUPcFYt+AeDEpoJgy5eKlFWJP6xnatONL59WIFdV0W6niOMhw==
   dependencies:
     fastparallel "^2.3.0"
-    qlobber "^5.0.0"
+    qlobber "^7.0.0"
 
 mrmime@^1.0.0:
   version "1.0.0"
@@ -10127,10 +10132,10 @@ number-is-nan@^1.0.0:
   resolved "https://registry.yarnpkg.com/number-is-nan/-/number-is-nan-1.0.1.tgz#097b602b53422a522c1afb8790318336941a011d"
   integrity sha1-CXtgK1NCKlIsGvuHkDGDNpQaAR0=
 
-nuxt-windicss@^2.3.2:
-  version "2.3.2"
-  resolved "https://registry.yarnpkg.com/nuxt-windicss/-/nuxt-windicss-2.3.2.tgz#0f86a4e7383f437c084c820bb2ba91e6d6480e9a"
-  integrity sha512-nyFGK55W6NrfXQ7PkIGtDJO7zsSAMVmZThJCRjhtkJjLv+/a5WDMb/HS70k12Pwtkl0Y/kRHdr0CrJMM94Sm4A==
+nuxt-windicss@^2.4.1:
+  version "2.4.1"
+  resolved "https://registry.yarnpkg.com/nuxt-windicss/-/nuxt-windicss-2.4.1.tgz#28c9954e9487c78b72e2c888e3bbd01b3b7e55eb"
+  integrity sha512-I4DhTO+UBHArQBfZLEoKBlGKzX2p8JjWNSI6bdJ9UNY4AXGWx5G/8BOSxe3c3jmHgLMzNAwOJ3x8o5BeZvEDHQ==
   dependencies:
     "@nuxt/kit" "3.0.0-rc.3"
     "@windicss/plugin-utils" "^1.8.4"
@@ -11695,10 +11700,10 @@ q@^1.1.2:
   resolved "https://registry.yarnpkg.com/q/-/q-1.5.1.tgz#7e32f75b41381291d04611f1bf14109ac00651d7"
   integrity sha1-fjL3W0E4EpHQRhHxvxQQmsAGUdc=
 
-qlobber@^5.0.0:
-  version "5.0.3"
-  resolved "https://registry.yarnpkg.com/qlobber/-/qlobber-5.0.3.tgz#24728d6ba5382d502c7e09f6860b95a9c71615cd"
-  integrity sha512-wW4GTZPePyh0RgOsM18oDyOUlXfurVRgoNyJfS+y7VWPyd0GYhQp5T2tycZFZjonH+hngxIfklGJhTP/ghidgQ==
+qlobber@^7.0.0:
+  version "7.0.0"
+  resolved "https://registry.yarnpkg.com/qlobber/-/qlobber-7.0.0.tgz#ff53fcefae543b1b9d2c01e46ecdc2e6e6c8cddf"
+  integrity sha512-hQbAIJbrCMLWpjr8ozRmYDdMmU2tMu1bumL3LNxdFaF2Duq5EqcLD59+/F6hyO4ykJMccKhd65wkMRgr7UhgHw==
 
 qs@6.10.3, qs@^6.9.4:
   version "6.10.3"
