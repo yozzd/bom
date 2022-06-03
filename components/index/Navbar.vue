@@ -42,12 +42,25 @@
                 New
               </el-tag>
               <div>Created MPR with an id {{ item.id }}</div>
+              <div class="text-xs">{{ ago(item.requestorTimestamp) }}</div>
             </div>
             <div v-else class="flex items-center space-x-4">
               <el-tag size="mini" type="success">
                 Approved
               </el-tag>
               <div>Approved MPR with an id {{ item.id }}</div>
+              <div
+                v-if="$auth.$state.user.section === 213"
+                class="text-xs"
+              >{{ ago(item.managerTimestamp) }}</div>
+              <div
+                v-else-if="$auth.$state.user.section === 211"
+                class="text-xs"
+              >{{ ago(item.whTimestamp) }}</div>
+              <div
+                v-else
+                class="text-xs"
+              >{{ ago(item.bomTimestamp) }}</div>
             </div>
           </el-dropdown-item>
         </el-dropdown-menu>
@@ -77,7 +90,7 @@
 </template>
 
 <script>
-import { format } from 'date-fns';
+import { format, formatDistance } from 'date-fns';
 import maxBy from 'lodash/maxBy';
 import Cookies from 'js-cookie';
 import { GetMprNotifications } from '../../apollo/mpr/query';
@@ -121,6 +134,9 @@ export default {
     handleToMpr(id) {
       this.$router.push({ name: 'mpr-id', params: { id } });
     },
+    ago(v) {
+      return formatDistance(new Date(v), new Date(), { addSuffix: true });
+    },
   },
   apollo: {
     getMprNotifications: {
@@ -139,7 +155,9 @@ export default {
         if (!loading) {
           const { getMprNotifications } = data;
           this.len = getMprNotifications.length;
-          this.mpr = getMprNotifications;
+          if (this.len) {
+            this.mpr.push(...getMprNotifications);
+          }
         }
       },
       error({ graphQLErrors, networkError }) {

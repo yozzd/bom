@@ -33,6 +33,11 @@ const attributes = [
   'idModule', 'colorClass',
 ];
 
+const dateNow = () => {
+  const tzoffset = (new Date()).getTimezoneOffset() * 60000;
+  return new Date(new Date() - tzoffset).toISOString();
+};
+
 const resolvers = {
   Upload: GraphQLUpload,
   MPR: {
@@ -110,7 +115,7 @@ const resolvers = {
       obj.requestorId = group;
       obj.requestorSection = section;
       obj.requestorName = fullname;
-      obj.requestorTimestamp = Date.now();
+      obj.requestorTimestamp = dateNow();
 
       const newMpr = new MPR(obj);
       const save = await newMpr.save();
@@ -260,7 +265,7 @@ const resolvers = {
           item.poCurr = null;
           item.poVal = null;
           item.poRemarks = null;
-          item.timestamp = Date.now();
+          item.timestamp = dateNow();
 
           const newItem = new MPRITEM(item);
           const save = await newItem.save();
@@ -329,13 +334,13 @@ const resolvers = {
 
       if (input.type === 'manager') {
         mpr.managerApproved = 1;
-        mpr.managerTimestamp = Date.now();
+        mpr.managerTimestamp = dateNow();
       } else if (input.type === 'wh') {
         mpr.whApproved = 1;
-        mpr.whTimestamp = Date.now();
+        mpr.whTimestamp = dateNow();
       } else {
         mpr.bomApproved = 1;
-        mpr.bomTimestamp = Date.now();
+        mpr.bomTimestamp = dateNow();
 
         if (mpr.no === '######') {
           const no = await MPR.findAll({
@@ -458,7 +463,7 @@ const resolvers = {
                     idMpr,
                     idWo,
                     idModule,
-                    timestamp: Date.now(),
+                    timestamp: dateNow(),
                   });
                   await newItem.save();
                 }

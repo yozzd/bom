@@ -650,12 +650,8 @@ export default {
               variables: this.variables,
             });
 
-            if (type === 'bom') {
-              const index = cdata[this.sdata].findIndex((e) => e.id === mpr.id);
-              cdata[this.sdata][index] = approveMpr;
-            } else {
-              pullAllBy(cdata[this.sdata], [approveMpr], 'id');
-            }
+            const index = cdata[this.sdata].findIndex((e) => e.id === mpr.id);
+            cdata[this.sdata][index] = approveMpr;
 
             this.updateList(cdata[this.sdata]);
 

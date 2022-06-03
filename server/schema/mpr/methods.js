@@ -296,7 +296,9 @@ const getNotif = async (date, ctx) => {
   }
 
   const mpr = await MPR.findAll({
-    attributes: ['id', 'requestorTimestamp'],
+    attributes: [
+      'id', 'requestorTimestamp', 'managerTimestamp', 'whTimestamp', 'bomTimestamp',
+    ],
     where,
   });
 
