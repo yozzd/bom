@@ -278,7 +278,7 @@ const genLt = async (lt) => {
             { wpx: 60 }, { wpx: 60 }, { wpx: 60 }, { wpx: 60 }, { wpx: 40 },
             { wpx: 40 }, { wpx: 60 }, { wpx: 60 }, { wpx: 60 }, { wpx: 60 },
             { wpx: 60 }, { wpx: 60 }, { wpx: 60 }, { wpx: 60 },
-           ],
+          ],
         },
       },
     };

@@ -92,6 +92,14 @@ const resolvers = {
 
       return poNum;
     }),
+    checkPo: isAuthenticated(async (_, { poNo }) => {
+      const count = await OUTSTANDINGPO.count({ where: { poNo } });
+
+      if (count > 0) {
+        return { status: 0 };
+      }
+      return { status: 1 };
+    }),
   },
   Mutation: {
     createOutPo: isAuthenticated(async (_, { input }) => {

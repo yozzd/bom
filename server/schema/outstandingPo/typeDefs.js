@@ -5,6 +5,7 @@ const typeDefs = `
     getAllOutstandingPoByStatus(status: Int): outstandingPo
     getAllOutstandingPoByZones(zone: String): outstandingPo
     getProposedPoNo: [poNum]
+    checkPo(poNo: String): GenStatus
   }
 
   extend type Mutation {

@@ -53,7 +53,7 @@
               label="Po No."
               prop="poNo"
             >
-              <el-input v-model="form.poNo"></el-input>
+              <el-input v-model="form.poNo" @blur="checkPo"></el-input>
             </el-form-item>
             <el-form-item
               label="Proposed Po No."
@@ -176,6 +176,7 @@
 <script>
 import orderBy from 'lodash/orderBy';
 import { CreateOutPo } from '../../apollo/outstandingPo/mutation';
+import { CheckPo } from '../../apollo/outstandingPo/query';
 import outp from '../../mixins/outstanding.po';
 
 export default {
@@ -224,6 +225,22 @@ export default {
       this.loading = false;
       this.errors = [];
       this.$emit('close', false);
+    },
+    async checkPo() {
+      const { data: { checkPo: { status } } } = await this.$apollo.query({
+        query: CheckPo,
+        variables: { poNo: this.form.poNo },
+        prefetch: false,
+        error({ graphQLErrors, networkError }) {
+          this.errors = graphQLErrors || networkError.result.errors;
+        },
+      });
+
+      if (!status) {
+        this.errors = [{ message: `This Po No '${this.form.poNo}' has been registered, please choose another number` }];
+      } else {
+        this.errors = [];
+      }
     },
     handleCreate() {
       this.$refs.form.validate(async (valid) => {

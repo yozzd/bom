@@ -84,3 +84,11 @@ export const GetProposedPoNo = gql`
     }
   }
 `;
+
+export const CheckPo = gql`
+  query checkPo($poNo: String) {
+    checkPo(poNo: $poNo) {
+      status
+    }
+  }
+`;
