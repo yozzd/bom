@@ -394,7 +394,8 @@
               <div></div>
             </div>
           </el-tab-pane>
-          <el-tab-pane label="MPR">
+          <el-tab-pane>
+            <span slot="label">MPR ({{mprs.length}})</span>
             <div
               v-for="mpr in mprs"
               :key="mpr.id"
