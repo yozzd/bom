@@ -2,7 +2,7 @@
   <div class="min-h-screen grid grid-cols-5 items-center">
     <div class="flex flex-col space-y-8 col-start-3">
       <div class="text-2xl text-center font-bold text-blue-600">
-        BOM
+        MRP System
       </div>
 
       <IndexErrorHandler
