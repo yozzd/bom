@@ -334,6 +334,15 @@ export const GetSearchModules = gql`
     }
   }
 `;
+
+export const GenLtXLS = gql`
+  query genLtXLS($id: Int, $status: Int) {
+    genLtXLS(id: $id, status: $status) {
+      status
+    }
+  }
+`;
+
 export const GenWoXLS = gql`
   query genWoXLS($id: Int) {
     genWoXLS(id: $id) {

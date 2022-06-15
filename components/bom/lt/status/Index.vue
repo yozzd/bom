@@ -22,6 +22,29 @@
 
       <div>
         <div class="flex space-x-4 items-center my-4">
+          <Dropdown trigger="click" placement="bottom-start" @on-click="handleExport">
+            <VButton type="primary" size="large">
+              <client-only>
+                <v-icon name="ri-share-forward-box-line" class="remixicons w-4 h-4" />
+              </client-only>
+              Export
+              <client-only>
+                <v-icon name="ri-arrow-down-s-line" class="remixicons w-4 h-4" />
+              </client-only>
+            </VButton>
+            <DropdownMenu slot="list">
+              <Dropdown placement="right-start">
+                <DropdownItem name="a">
+                  XLS
+                </DropdownItem>
+              </Dropdown>
+            </DropdownMenu>
+          </Dropdown>
+        </div>
+      </div>
+
+      <div>
+        <div class="flex space-x-4 items-center my-4">
           <div class="font-bold text-xl">
             {{ lt.ltNo }} &bull; {{ lt.customer.name }}
           </div>
@@ -445,7 +468,7 @@
 import pullAllBy from 'lodash/pullAllBy';
 import MiniSearch from 'minisearch';
 import table from '../../../../mixins/table';
-import { GetOneLT } from '../../../../apollo/bom/query';
+import { GetOneLT, GenLtXLS } from '../../../../apollo/bom/query';
 import { DeleteWo } from '../../../../apollo/bom/mutation';
 
 export default {
@@ -532,6 +555,31 @@ export default {
           message: 'Data has been delete successfully',
         });
       }).catch(() => {});
+    },
+    handleExport(command) {
+      if (command === 'a') this.genLtXLS();
+    },
+    async genLtXLS() {
+      try {
+        this.loading = true;
+        const { data: { genLtXLS: { status } } } = await this.$apollo.mutate({
+          mutation: GenLtXLS,
+          variables: {
+            id: parseInt(this.$route.params.id, 10),
+            status: parseInt(this.$route.params.status, 10),
+          },
+        });
+
+        if (status) {
+          this.loading = false;
+          window.open(`/report/${this.lt.ltNo}.xlsx`);
+        }
+
+        return true;
+      } catch ({ graphQLErrors, networkError }) {
+        this.errors = graphQLErrors || networkError.result.errors;
+        return true;
+      }
     },
   },
   apollo: {

@@ -42,7 +42,9 @@
                 New
               </el-tag>
               <div>Created MPR with an id {{ item.id }}</div>
-              <div class="text-xs">{{ ago(item.requestorTimestamp) }}</div>
+              <div class="text-xs">
+                {{ ago(item.requestorTimestamp) }}
+              </div>
             </div>
             <div v-else class="flex items-center space-x-4">
               <el-tag size="mini" type="success">
@@ -52,15 +54,21 @@
               <div
                 v-if="$auth.$state.user.section === 213"
                 class="text-xs"
-              >{{ ago(item.managerTimestamp) }}</div>
+              >
+                {{ ago(item.managerTimestamp) }}
+              </div>
               <div
                 v-else-if="$auth.$state.user.section === 211"
                 class="text-xs"
-              >{{ ago(item.whTimestamp) }}</div>
+              >
+                {{ ago(item.whTimestamp) }}
+              </div>
               <div
                 v-else
                 class="text-xs"
-              >{{ ago(item.bomTimestamp) }}</div>
+              >
+                {{ ago(item.bomTimestamp) }}
+              </div>
             </div>
           </el-dropdown-item>
         </el-dropdown-menu>

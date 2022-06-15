@@ -10,6 +10,7 @@ const typeDefs = `
     getAllWoModules(key: String): [WO]
     getSearchItems(key: String): [WOITEM]
     getSearchModules(idHeader: Int): [WOITEM]
+    genLtXLS(id: Int, status: Int): GenStatus
     genWoXLS(id: Int): GenStatus
   }
 

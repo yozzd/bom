@@ -232,6 +232,63 @@ const formatCurr = (v) => {
   return '0.00';
 };
 
+const genLt = async (lt) => {
+  try {
+    const dir = 'static/report';
+    const len = 100;
+    const customer = await lt.customer;
+
+    if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+
+    const wb = {
+      SheetNames: ['Master'],
+      Sheets: {
+        Master: {
+          '!ref': `A1:Z${len}`,
+          A1: { t: 's', v: `${lt.ltNo} - ${customer.name}` },
+          A2: { t: 's', v: 'Total Budget' },
+          B2: { t: 's', v: `USD ${lt.totalBudget}` },
+          A3: { t: 's', v: 'Total Price / WO' },
+          B3: { t: 's', v: `USD ${lt.totalPrice}` },
+          A5: { t: 's', v: 'No' },
+          B5: { t: 's', v: 'WO' },
+          C5: { t: 's', v: 'Model' },
+          D5: { t: 's', v: 'Product' },
+          '!cols': [
+            { wpx: 50 }, { wpx: 100 }, { wpx: 100 }, { wpx: 100 },
+          ],
+        },
+      },
+    };
+
+    let row = 6;
+    for (let i = 0; i < lt.wos.length; i += 1) {
+      wb.Sheets.Master[`A${row}`] = { t: 's', v: i + 1 };
+      if (lt.wos[i].stage) {
+        wb.Sheets.Master[`B${row}`] = { t: 's', v: `${lt.wos[i].woNo} [STAGE-${lt.wos[i].stage}]` };
+      } else {
+        wb.Sheets.Master[`B${row}`] = { t: 's', v: lt.wos[i].woNo };
+      }
+      wb.Sheets.Master[`C${row}`] = { t: 's', v: lt.wos[i].model };
+      wb.Sheets.Master[`D${row}`] = { t: 's', v: lt.wos[i].product };
+
+      row += 1;
+    }
+
+    const fn = `static/report/${lt.ltNo}.xlsx`;
+    const content = XLSX.write(wb, { type: 'buffer', bookType: 'xlsx', bookSST: false });
+    fs.writeFileSync(fn, content);
+
+    return { status: 1 };
+  } catch (err) {
+    if (typeof err === 'string') {
+      throw new ErrorWithProps(err);
+    } else {
+      throw new ErrorWithProps(err.message);
+    }
+  }
+};
+
 const genWo = async (wo) => {
   try {
     const dir = 'static/report';
@@ -400,5 +457,5 @@ const genWo = async (wo) => {
 };
 
 module.exports = {
-  wherePic, getCurrency, sendApprovedEmail, sendValidatedEmail, genWo,
+  wherePic, getCurrency, sendApprovedEmail, sendValidatedEmail, genLt, genWo,
 };

@@ -10,10 +10,10 @@ const {
   Material,
 } = require('../relations');
 const { isAuthenticated } = require('../auth/service');
-const { queryWo } = require('./query');
+const { queryLt, queryWo } = require('./query');
 const {
   wherePic, getCurrency, sendApprovedEmail, sendValidatedEmail,
-  genWo,
+  genLt, genWo,
 } = require('./method');
 
 const itemAttributes = [
@@ -53,128 +53,7 @@ const resolvers = {
       return lt;
     }),
     getOneLT: isAuthenticated(async (_, { id, status }) => {
-      const lt = await LT.findOne({
-        attributes: ['id', 'ltNo', 'customer', 'totalBudget', 'totalPriceWO'],
-        group: ['wos.id'],
-        where: { id },
-        order: [
-          [sequelize.literal('LENGTH(wos.wo_no), wos.wo_no')],
-        ],
-        required: false,
-        include: [{
-          model: WO,
-          attributes: [
-            'id', 'woNo', 'model', 'product', 'issued', 'unit', 'budget', 'difference', 'stage',
-            'cat', 'pic', 'rndic', 'refer', 'status',
-            [sequelize.literal('COUNT(CASE WHEN `wos->modules->items`.bom_qty_balance >= 0 AND `wos->modules->items`.packing = 0 AND `wos->modules`.header NOT LIKE ("%deviation%") THEN 1 ELSE NULL END)'), 'totalIncoming'],
-            [sequelize.literal('COUNT(CASE WHEN `wos->modules->items`.validasi AND `wos->modules`.header NOT LIKE ("%deviation%") THEN 1 ELSE NULL END)'), 'totalValidation'],
-            [sequelize.literal('COUNT(CASE WHEN `wos->modules->items`.packing = 0 AND `wos->modules`.header NOT LIKE ("%deviation%") THEN 1 ELSE NULL END)'), 'totalIncomingItems'],
-            [sequelize.literal('COUNT(CASE WHEN `wos->modules`.header NOT LIKE ("%deviation%") THEN 1 ELSE NULL END)'), 'totalItems'],
-            [sequelize.literal('SUM(CASE WHEN `wos->modules->items`.packing = 0 AND `wos->modules`.header NOT LIKE ("%deviation%") THEN `wos->modules->items`.bom_usd_total ELSE 0 END)'), 'totalPricePerWO'],
-            [sequelize.literal('SUM(`wos->modules->items`.yet_to_purchase)'), 'totalYetToPurchase'],
-            [sequelize.literal('SUM(CASE WHEN `wos->modules`.header LIKE ("%deviation%") THEN `wos->modules->items`.bom_usd_total ELSE 0 END)'), 'totalDeviation'],
-            [sequelize.literal('SUM(CASE WHEN `wos->modules->items`.packing THEN `wos->modules->items`.bom_usd_total ELSE 0 END)'), 'totalPackingPerWO'],
-          ],
-          where: { status },
-          required: false,
-          include: [{
-            model: WOMODULE,
-            attributes: [],
-            include: [{
-              model: WOITEM,
-              attributes: [],
-              where: {
-                [Op.and]: [
-                  { cancel: 0 },
-                  { idHeader: { [Op.not]: null } },
-                ],
-              },
-              required: false,
-            }],
-          }],
-        }],
-      });
-
-      const ltMpr = await LT.findOne({
-        attributes: ['id', 'ltNo', 'totalBudget', 'totalPriceWO'],
-        group: ['wos.id'],
-        where: { id },
-        order: [
-          [sequelize.literal('LENGTH(wos.wo_no), wos.wo_no')],
-        ],
-        required: false,
-        include: [{
-          model: WO,
-          attributes: [
-            'id', 'woNo', 'unit',
-            [sequelize.literal('COUNT(CASE WHEN `wos->mprs->items`.bom_qty_balance >= 0 AND `wos->mprs->items`.packing = 0 THEN 1 ELSE NULL END)'), 'totalIncoming'],
-            [sequelize.literal('COUNT(CASE WHEN `wos->mprs->items`.validasi THEN 1 ELSE NULL END)'), 'totalValidation'],
-            [sequelize.literal('COUNT(CASE WHEN `wos->mprs->items`.packing = 0 THEN 1 ELSE NULL END)'), 'totalIncomingItems'],
-            [sequelize.literal('COUNT(`wos->mprs->items`.id)'), 'totalItems'],
-            [sequelize.literal('SUM(CASE WHEN `wos->mprs->items`.packing = 0 THEN `wos->mprs->items`.bom_usd_total ELSE 0 END)'), 'totalPricePerWO'],
-            [sequelize.literal('SUM(`wos->mprs->items`.yet_to_purchase)'), 'totalYetToPurchase'],
-            [sequelize.literal('SUM(CASE WHEN `wos->mprs->items`.packing THEN `wos->mprs->items`.bom_usd_total ELSE 0 END)'), 'totalPackingPerWO'],
-            [sequelize.literal('COUNT(DISTINCT `wos->mprs`.id)'), 'totalMpr'],
-          ],
-          where: { status },
-          required: false,
-          include: [{
-            model: MPR,
-            attributes: [],
-            where: {
-              [Op.and]: [
-                { cancel: 0 },
-                { whApproved: 1 },
-                { managerApproved: 1 },
-                { bomApproved: 1 },
-              ],
-            },
-            required: false,
-            include: [{
-              model: MPRITEM,
-              attributes: [],
-              where: {
-                [Op.and]: [
-                  { cancel: 0 },
-                ],
-              },
-              required: false,
-            }],
-          }],
-        }],
-      });
-
-      const total = await Promise.all(lt.wos.map((v, i) => {
-        const item = v;
-        item.bomIncoming = item.totalIncoming;
-        item.mprIncoming = ltMpr.wos[i].totalIncoming;
-        item.bomPercentIncoming = item.percentIncoming;
-        item.mprPercentIncoming = ltMpr.wos[i].percentIncoming;
-        item.bomValidation = item.totalValidation;
-        item.mprValidation = ltMpr.wos[i].totalValidation;
-        item.bomPercentValidation = item.percentValidation;
-        item.mprPercentValidation = ltMpr.wos[i].percentValidation;
-
-        item.totalIncoming += ltMpr.wos[i].totalIncoming;
-        item.totalIncomingItems += ltMpr.wos[i].totalIncomingItems;
-        item.totalItems += ltMpr.wos[i].totalItems;
-        item.totalValidation += ltMpr.wos[i].totalValidation;
-        item.totalMpr = ltMpr.wos[i].totalMpr;
-        item.totalPricePerUnit += ltMpr.wos[i].totalPricePerUnit;
-        item.totalPricePerWO += ltMpr.wos[i].totalPricePerWO;
-        item.difference -= ltMpr.wos[i].totalPricePerWO;
-        item.totalYetToPurchase += ltMpr.wos[i].totalYetToPurchase;
-        item.totalPackingPerUnit += ltMpr.wos[i].totalPackingPerUnit;
-        item.totalPackingPerWO += ltMpr.wos[i].totalPackingPerWO;
-
-        item.percentIncoming = (item.totalIncoming / item.totalIncomingItems) * 100;
-        item.percentValidation = (item.totalValidation / item.totalItems) * 100;
-
-        return item;
-      }));
-      lt.wos = total;
-      lt.totalPrice = lt.totalPriceWO + ltMpr.totalPriceWO;
-
+      const lt = await queryLt(id, status);
       return lt;
     }),
     getOneWO: isAuthenticated(async (_, { idLt, id }) => {
@@ -428,6 +307,12 @@ const resolvers = {
       });
 
       return items;
+    }),
+    genLtXLS: isAuthenticated(async (_, { id, status }) => {
+      const lt = await queryLt(id, status);
+      const gen = await genLt(lt);
+
+      return gen;
     }),
     genWoXLS: isAuthenticated(async (_, { id }) => {
       const wo = await queryWo(id);
