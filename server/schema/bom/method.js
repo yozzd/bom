@@ -5,6 +5,7 @@ const XLSX = require('xlsx');
 const isInteger = require('lodash/isInteger');
 const { ErrorWithProps } = require('mercurius');
 const { Op } = require('sequelize');
+const { float2 } = require('../scalar/number');
 
 const wherePic = (status, ctx) => {
   const { group, department, isManager } = ctx.req.user;
@@ -235,7 +236,7 @@ const formatCurr = (v) => {
 const genLt = async (lt) => {
   try {
     const dir = 'static/report';
-    const len = 100;
+    const len = 6 + lt.wos.length;
     const customer = await lt.customer;
 
     if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
@@ -246,17 +247,38 @@ const genLt = async (lt) => {
         Master: {
           '!ref': `A1:Z${len}`,
           A1: { t: 's', v: `${lt.ltNo} - ${customer.name}` },
-          A2: { t: 's', v: 'Total Budget' },
-          B2: { t: 's', v: `USD ${lt.totalBudget}` },
-          A3: { t: 's', v: 'Total Price / WO' },
-          B3: { t: 's', v: `USD ${lt.totalPrice}` },
+          A2: { t: 's', v: `Total Budget: USD ${float2(lt.totalBudget).format()}` },
+          A3: { t: 's', v: `Total Price / WO: USD ${float2(lt.totalPrice).format()}` },
           A5: { t: 's', v: 'No' },
           B5: { t: 's', v: 'WO' },
           C5: { t: 's', v: 'Model' },
           D5: { t: 's', v: 'Product' },
-          '!cols': [
-            { wpx: 50 }, { wpx: 100 }, { wpx: 100 }, { wpx: 100 },
+          E5: { t: 's', v: 'Issued' },
+          F5: { t: 's', v: 'Incoming' },
+          G5: { t: 's', v: '% Incoming' },
+          H5: { t: 's', v: 'Validation' },
+          I5: { t: 's', v: '% Validation' },
+          J5: { t: 's', v: 'Unit' },
+          K5: { t: 's', v: 'MPR' },
+          L5: { t: 's', v: 'Budget (USD)' },
+          M5: { t: 's', v: 'Price / Unit (USD)' },
+          N5: { t: 's', v: 'Price / WO (USD)' },
+          O5: { t: 's', v: 'Difference (USD)' },
+          P5: { t: 's', v: 'Yet To Purchase (USD)' },
+          Q5: { t: 's', v: 'Deviation (USD)' },
+          R5: { t: 's', v: 'Packing / Unit (USD)' },
+          S5: { t: 's', v: 'Packing / WO (USD)' },
+          '!merges': [
+            { s: { r: 0, c: 0 }, e: { r: 0, c: 2 } },
+            { s: { r: 1, c: 0 }, e: { r: 1, c: 2 } },
+            { s: { r: 2, c: 0 }, e: { r: 2, c: 2 } },
           ],
+          '!cols': [
+            { wpx: 30 }, { wpx: 100 }, { wpx: 100 }, { wpx: 100 }, { wpx: 70 },
+            { wpx: 60 }, { wpx: 60 }, { wpx: 60 }, { wpx: 60 }, { wpx: 40 },
+            { wpx: 40 }, { wpx: 60 }, { wpx: 60 }, { wpx: 60 }, { wpx: 60 },
+            { wpx: 60 }, { wpx: 60 }, { wpx: 60 }, { wpx: 60 },
+           ],
         },
       },
     };
@@ -271,6 +293,21 @@ const genLt = async (lt) => {
       }
       wb.Sheets.Master[`C${row}`] = { t: 's', v: lt.wos[i].model };
       wb.Sheets.Master[`D${row}`] = { t: 's', v: lt.wos[i].product };
+      wb.Sheets.Master[`E${row}`] = { t: 's', v: lt.wos[i].issued };
+      wb.Sheets.Master[`F${row}`] = { t: 's', v: `${lt.wos[i].totalIncoming} / ${lt.wos[i].totalIncomingItems}` };
+      wb.Sheets.Master[`G${row}`] = { t: 's', v: `${float2(lt.wos[i].percentIncoming).format()}%` };
+      wb.Sheets.Master[`H${row}`] = { t: 's', v: `${lt.wos[i].totalValidation} / ${lt.wos[i].totalItems}` };
+      wb.Sheets.Master[`I${row}`] = { t: 's', v: `${float2(lt.wos[i].percentValidation).format()}%` };
+      wb.Sheets.Master[`J${row}`] = { t: 'n', v: lt.wos[i].unit };
+      wb.Sheets.Master[`K${row}`] = { t: 'n', v: lt.wos[i].totalMpr };
+      wb.Sheets.Master[`L${row}`] = { t: 'f', v: float2(lt.wos[i].budget).format() };
+      wb.Sheets.Master[`M${row}`] = { t: 'f', v: float2(lt.wos[i].totalPricePerUnit).format() };
+      wb.Sheets.Master[`N${row}`] = { t: 'f', v: float2(lt.wos[i].totalPricePerWO).format() };
+      wb.Sheets.Master[`O${row}`] = { t: 'f', v: float2(lt.wos[i].difference).format() };
+      wb.Sheets.Master[`P${row}`] = { t: 'f', v: float2(lt.wos[i].totalYetToPurchase).format() };
+      wb.Sheets.Master[`Q${row}`] = { t: 'f', v: float2(lt.wos[i].totalDeviation).format() };
+      wb.Sheets.Master[`R${row}`] = { t: 'f', v: float2(lt.wos[i].totalPackingPerUnit).format() };
+      wb.Sheets.Master[`S${row}`] = { t: 'f', v: float2(lt.wos[i].totalPackingPerWO).format() };
 
       row += 1;
     }
