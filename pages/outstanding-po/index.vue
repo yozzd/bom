@@ -8,7 +8,7 @@ export default {
   middleware: ['auth'],
   head() {
     return {
-      title: 'OUTSTANDING PO',
+      title: 'MRP System - OUTSTANDING PO',
     };
   },
 };

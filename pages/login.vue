@@ -6,7 +6,7 @@
 export default {
   head() {
     return {
-      title: 'LOGIN',
+      title: 'MRP System - LOGIN',
     };
   },
 };

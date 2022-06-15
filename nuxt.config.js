@@ -2,7 +2,7 @@ export default {
   server: { host: '0.0.0.0', port: 5000 },
 
   head: {
-    title: 'BOM',
+    title: 'MRP System',
     htmlAttrs: {
       lang: 'en',
     },

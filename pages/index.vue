@@ -8,7 +8,7 @@ export default {
   middleware: ['auth'],
   head() {
     return {
-      title: 'HOME',
+      title: 'MRP System - HOME',
     };
   },
 };
