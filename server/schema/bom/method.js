@@ -245,7 +245,7 @@ const genLt = async (lt) => {
       SheetNames: ['Master'],
       Sheets: {
         Master: {
-          '!ref': `A1:Z${len}`,
+          '!ref': `A1:S${len}`,
           A1: { t: 's', v: `${lt.ltNo} - ${customer.name}` },
           A2: { t: 's', v: `Total Budget: USD ${float2(lt.totalBudget).format()}` },
           A3: { t: 's', v: `Total Price / WO: USD ${float2(lt.totalPrice).format()}` },
@@ -329,7 +329,12 @@ const genLt = async (lt) => {
 const genWo = async (wo) => {
   try {
     const dir = 'static/report';
-    const len = 100;
+
+    let ilen = 0;
+    for (let i = 0; i < wo.modules.length; i += 1) {
+      ilen += wo.modules[i].items.length;
+    }
+    const len = 10 + wo.modules.length + ilen;
 
     if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
 
