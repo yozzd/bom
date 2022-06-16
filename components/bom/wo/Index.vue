@@ -275,7 +275,9 @@
               </el-button>
             </el-button-group>
           </div>
-          <div>
+          <div
+            v-if="production.includes($auth.$state.user.department)"
+          >
             <el-button-group>
               <el-button
                 type="primary"
@@ -504,6 +506,7 @@ export default {
       showEditModuleDialog: false,
       multipleSelection: [],
       loading: false,
+      production: [110, 120, 10, 170],
     };
   },
   methods: {

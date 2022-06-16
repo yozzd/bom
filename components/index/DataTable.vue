@@ -10,6 +10,7 @@
       @selection-change="selection => $emit('selection-change', selection)"
     >
       <el-table-column
+        v-if="production.includes($auth.$state.user.department)"
         type="selection"
         width="40"
         align="center"
@@ -306,6 +307,7 @@ export default {
     return {
       dataEditItem: {},
       showEditItemDialog: false,
+      production: [110, 120, 10, 170],
     };
   },
   methods: {
