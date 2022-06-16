@@ -285,8 +285,9 @@ export default {
       },
       miniSearch: new MiniSearch({
         idField: 'id',
-        fields: ['ltNo', 'customer'],
+        fields: ['ltNo', 'customer.name'],
         storeFields: ['id', 'ltNo', 'customer', 'wos'],
+        extractField: (document, fieldName) => fieldName.split('.').reduce((doc, key) => doc && doc[key], document),
       }),
     };
   },
