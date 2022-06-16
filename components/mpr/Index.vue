@@ -513,9 +513,9 @@ export default {
       },
       miniSearch: new MiniSearch({
         idField: 'id',
-        fields: ['id', 'no', 'woNo', 'model', 'product'],
+        fields: ['id', 'no', 'woNo', 'model', 'product', 'projectName'],
         storeFields: [
-          'id', 'no', 'woNo', 'model', 'product', 'projectName',
+          'id', 'no', 'woNo', 'model', 'product', 'projectName', 'status',
           'unit', 'category', 'dor', 'idWo', 'packing', 'requestorSection',
           'requestorName', 'requestorTimestamp', 'managerApproved',
           'managerTimestamp', 'whApproved', 'whTimestamp', 'bomApproved',
