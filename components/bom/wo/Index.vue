@@ -254,7 +254,7 @@
           >
             <el-button-group>
               <el-button
-                type="primary"
+                type="success"
                 :disabled="total.totalValidation !== total.totalItems"
                 @click="handleValidateManager(1)"
               >
@@ -264,7 +264,7 @@
                 Validate
               </el-button>
               <el-button
-                type="primary"
+                type="success"
                 :disabled="total.totalValidation !== total.totalItems"
                 @click="handleValidateManager(0)"
               >
@@ -275,7 +275,7 @@
               </el-button>
             </el-button-group>
           </div>
-          <div v-else>
+          <div>
             <el-button-group>
               <el-button
                 type="primary"
