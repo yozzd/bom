@@ -31,7 +31,10 @@
             <v-icon name="ri-arrow-down-s-line" class="remixicons w-4 h-4" />
           </client-only>
         </el-link>
-        <el-dropdown-menu slot="dropdown">
+        <el-dropdown-menu
+          slot="dropdown"
+          class="notification"
+        >
           <el-dropdown-item
             v-for="item in mpr"
             :key="item.id"
