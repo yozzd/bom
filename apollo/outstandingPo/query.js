@@ -92,3 +92,11 @@ export const CheckPo = gql`
     }
   }
 `;
+
+export const GenOutXLS = gql`
+  query genOutXLS($input: GenOutXLSInput) {
+    genOutXLS(input: $input) {
+      status
+    }
+  }
+`;

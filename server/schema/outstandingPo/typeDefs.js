@@ -6,6 +6,7 @@ const typeDefs = `
     getAllOutstandingPoByZones(zone: String): outstandingPo
     getProposedPoNo: [poNum]
     checkPo(poNo: String): GenStatus
+    genOutXLS(input: GenOutXLSInput): GenStatus
   }
 
   extend type Mutation {
@@ -112,6 +113,14 @@ const typeDefs = `
 
   input DeleteOutPoInput {
     id: Int
+  }
+  
+  input GenOutXLSInput {
+    mode: Int
+    category: Int
+    status: Int
+    zone: String
+    header: String
   }
 `;
 

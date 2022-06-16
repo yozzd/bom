@@ -5,7 +5,12 @@
       :errors="errors"
     />
 
-    <div class="flex flex-col divide-y divide-gray-400 divide-dashed">
+    <div
+      v-loading.fullscreen.lock="loading"
+      class="flex flex-col divide-y divide-gray-400 divide-dashed"
+      element-loading-text="Loading..."
+      element-loading-spinner="el-icon-loading"
+    >
       <el-breadcrumb separator="/" class="mb-4">
         <el-breadcrumb-item :to="{ name: 'index' }" title="Home">
           <client-only>
@@ -63,6 +68,28 @@
             </client-only>
             Delete
           </el-button>
+          <Dropdown trigger="click" placement="bottom-start" @on-click="handleExport">
+            <VButton
+              type="primary"
+              size="large"
+              :disabled="!tableData.length"
+            >
+              <client-only>
+                <v-icon name="ri-share-forward-box-line" class="remixicons w-4 h-4" />
+              </client-only>
+              Export
+              <client-only>
+                <v-icon name="ri-arrow-down-s-line" class="remixicons w-4 h-4" />
+              </client-only>
+            </VButton>
+            <DropdownMenu slot="list">
+              <Dropdown placement="right-start">
+                <DropdownItem name="a">
+                  XLS
+                </DropdownItem>
+              </Dropdown>
+            </DropdownMenu>
+          </Dropdown>
           <div class="flex-1"></div>
           <div>
             <el-popover
@@ -620,6 +647,7 @@ import {
   GetAllOutstandingPoByStatus,
   GetAllOutstandingPoByZones,
   GetProposedPoNo,
+  GenOutXLS,
 } from '../../apollo/outstandingPo/query';
 import { DeleteOutPo } from '../../apollo/outstandingPo/mutation';
 
@@ -635,6 +663,7 @@ export default {
       form: {},
       header: '',
       totals: {},
+      mode: 0,
       rules: {
         category: [
           { required: true, message: 'This field is required', trigger: 'change' },
@@ -713,6 +742,7 @@ export default {
 
           this.loading = false;
           this.showFilterByCategoryDialog = false;
+          this.mode = 1;
         }
       });
     },
@@ -754,6 +784,7 @@ export default {
 
           this.loading = false;
           this.showFilterByStatusDialog = false;
+          this.mode = 2;
         }
       });
     },
@@ -791,6 +822,7 @@ export default {
 
           this.loading = false;
           this.showFilterByZonesDialog = false;
+          this.mode = 3;
         }
       });
     },
@@ -860,6 +892,36 @@ export default {
       const { items, totals: [totals] } = value;
       this.items = items;
       this.totals = totals;
+    },
+    handleExport(command) {
+      if (command === 'a') this.genOutXLS();
+    },
+    async genOutXLS() {
+      try {
+        this.loading = true;
+        const { data: { genOutXLS: { status } } } = await this.$apollo.mutate({
+          mutation: GenOutXLS,
+          variables: {
+            input: {
+              mode: parseInt(this.mode, 10),
+              category: this.variables.category ? parseInt(this.variables.category, 10) : 0,
+              status: this.variables.status ? parseInt(this.variables.status, 10) : 0,
+              zone: this.variables.zone ? this.variables.zone : '',
+              header: this.header,
+            },
+          },
+        });
+
+        if (status) {
+          this.loading = false;
+          window.open(`/report/${this.header}.xlsx`);
+        }
+
+        return true;
+      } catch ({ graphQLErrors, networkError }) {
+        this.errors = graphQLErrors || networkError.result.errors;
+        return true;
+      }
     },
   },
   apollo: {

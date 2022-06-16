@@ -4,7 +4,10 @@ const {
   OUTSTANDINGPO,
 } = require('../relations');
 const { isAuthenticated } = require('../auth/service');
-const { whereCategory, whereStatus, whereZones } = require('./methods');
+const {
+  whereCategory, whereStatus, whereZones, genOut,
+} = require('./methods');
+const { byCategory, byStatus, byZone } = require('./query');
 
 const itemAttributes = [
   'id', 'poIssue', 'poZone', 'poNo', 'poSupplier', 'poDescription',
@@ -28,60 +31,21 @@ const resolvers = {
     }),
     getAllOutstandingPoByCategory: isAuthenticated(async (_, { category }) => {
       const where = whereCategory(category);
+      const result = await byCategory(where);
 
-      const items = await OUTSTANDINGPO.findAll({
-        attributes: itemAttributes,
-        where,
-        order: [['poIssue', 'DESC']],
-      });
-
-      const totals = await OUTSTANDINGPO.findAll({
-        attributes: [
-          [sequelize.literal('SUM(po_value_usd)'), 'totalPoValueUsd'],
-          [sequelize.literal('SUM(po_paid_usd)'), 'totalPoPaidUsd'],
-        ],
-        where,
-      });
-
-      return { items, totals };
+      return result;
     }),
     getAllOutstandingPoByStatus: isAuthenticated(async (_, { status }) => {
       const where = whereStatus(status);
+      const result = await byStatus(where);
 
-      const items = await OUTSTANDINGPO.findAll({
-        attributes: itemAttributes,
-        where,
-        order: [['poIssue', 'DESC']],
-      });
-
-      const totals = await OUTSTANDINGPO.findAll({
-        attributes: [
-          [sequelize.literal('SUM(po_value_usd)'), 'totalPoValueUsd'],
-          [sequelize.literal('SUM(po_paid_usd)'), 'totalPoPaidUsd'],
-        ],
-        where,
-      });
-
-      return { items, totals };
+      return result;
     }),
     getAllOutstandingPoByZones: isAuthenticated(async (_, { zone }) => {
       const where = whereZones(zone);
+      const result = await byZone(where);
 
-      const items = await OUTSTANDINGPO.findAll({
-        attributes: itemAttributes,
-        where,
-        order: [['poIssue', 'DESC']],
-      });
-
-      const totals = await OUTSTANDINGPO.findAll({
-        attributes: [
-          [sequelize.literal('SUM(po_value_usd)'), 'totalPoValueUsd'],
-          [sequelize.literal('SUM(po_paid_usd)'), 'totalPoPaidUsd'],
-        ],
-        where,
-      });
-
-      return { items, totals };
+      return result;
     }),
     getProposedPoNo: isAuthenticated(async () => {
       const poNum = await OUTSTANDINGPO.findAll({
@@ -99,6 +63,27 @@ const resolvers = {
         return { status: 0 };
       }
       return { status: 1 };
+    }),
+    genOutXLS: isAuthenticated(async (_, { input }) => {
+      const {
+        mode, category, status, zone, header,
+      } = input;
+      let result = null;
+
+      if (mode === 1) {
+        const where = whereCategory(category);
+        result = await byCategory(where);
+      } else if (mode === 2) {
+        const where = whereStatus(status);
+        result = await byStatus(where);
+      } else if (mode === 3) {
+        const where = whereZones(zone);
+        result = await byZone(where);
+      }
+
+      const gen = await genOut(result, header);
+
+      return gen;
     }),
   },
   Mutation: {

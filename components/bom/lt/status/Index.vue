@@ -5,7 +5,12 @@
       :errors="errors"
     />
 
-    <div class="flex flex-col divide-y divide-gray-400 divide-dashed">
+    <div
+      v-loading.fullscreen.lock="loading"
+      class="flex flex-col divide-y divide-gray-400 divide-dashed"
+      element-loading-text="Loading..."
+      element-loading-spinner="el-icon-loading"
+    >
       <el-breadcrumb separator="/" class="mb-4">
         <el-breadcrumb-item :to="{ name: 'index' }" title="Home">
           <client-only>
