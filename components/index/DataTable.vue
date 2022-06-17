@@ -11,7 +11,9 @@
     >
       <el-table-column
         v-if="production.includes($auth.$state.user.department)
-          || $auth.$state.user.section === 213 || fromMpr"
+          || $auth.$state.user.section === 213
+          || $auth.$state.user.department === 130
+          || fromMpr"
         type="selection"
         width="40"
         align="center"
