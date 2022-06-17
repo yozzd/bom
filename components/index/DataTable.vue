@@ -12,7 +12,6 @@
       <el-table-column
         v-if="production.includes($auth.$state.user.department)
           || $auth.$state.user.section === 213
-          || $auth.$state.user.department === 130
           || fromMpr"
         type="selection"
         width="40"
@@ -310,7 +309,7 @@ export default {
     return {
       dataEditItem: {},
       showEditItemDialog: false,
-      production: [110, 120, 10, 170],
+      production: [110, 120, 130, 150, 170],
     };
   },
   methods: {
