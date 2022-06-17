@@ -198,6 +198,7 @@ export default {
         { label: 'Ennovation', value: 7 },
         { label: 'General Affair & Human Resource Management', value: 9 },
         { label: 'R & D', value: 10 },
+        { label: 'Finance', value: 11 },
       ],
       stages: [
         { label: '0', value: 0 },

@@ -67,6 +67,13 @@ const wherePic = (status, ctx) => {
         { pic: 10 },
       ],
     };
+  } else if (group === 13 || (department === 330 && isManager)) {
+    where = {
+      [Op.and]: [
+        { status },
+        { pic: 11 },
+      ],
+    };
   } else {
     where = { status };
   }
