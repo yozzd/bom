@@ -137,6 +137,36 @@
               </el-option>
             </el-select>
           </el-form-item>
+          <el-form-item
+            label="EURO"
+            prop="euro"
+          >
+            <el-input v-model="form.euro"></el-input>
+          </el-form-item>
+          <el-form-item
+            label="GBP"
+            prop="gbp"
+          >
+            <el-input v-model="form.gbp"></el-input>
+          </el-form-item>
+          <el-form-item
+            label="MYR"
+            prop="myr"
+          >
+            <el-input v-model="form.myr"></el-input>
+          </el-form-item>
+          <el-form-item
+            label="IDR"
+            prop="idr"
+          >
+            <el-input v-model="form.idr"></el-input>
+          </el-form-item>
+          <el-form-item
+            label="SGD"
+            prop="sgd"
+          >
+            <el-input v-model="form.sgd"></el-input>
+          </el-form-item>
         </div>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -252,6 +282,11 @@ export default {
                   refer: this.form.refer,
                   stage: parseInt(this.form.stage, 10),
                   status: parseInt(this.form.status, 10),
+                  euro: parseFloat(this.form.euro),
+                  gbp: parseFloat(this.form.gbp),
+                  myr: parseFloat(this.form.myr),
+                  idr: parseInt(this.form.idr, 10),
+                  sgd: parseFloat(this.form.sgd),
                 },
               },
             });

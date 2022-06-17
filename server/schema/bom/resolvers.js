@@ -903,6 +903,7 @@ const resolvers = {
         attributes: [
           'id', 'woNo', 'cat', 'model', 'product', 'unit', 'pic', 'picName',
           'rndic', 'budget', 'refer', 'stage', 'status', 'issued',
+          'euro', 'gbp', 'myr', 'idr', 'sgd',
         ],
         where: { id: input.id },
         include: [{
@@ -911,7 +912,13 @@ const resolvers = {
         }],
       });
 
-      if (wo.unit !== input.unit) {
+      if (wo.unit !== input.unit
+          || wo.euro !== input.euro
+          || wo.gbp !== input.gbp
+          || wo.myr !== input.myr
+          || wo.idr !== input.idr
+          || wo.sgd !== input.sgd) {
+
         const items = await WOITEM.findAll({
           attributes: [
             ...itemAttributes, 'idWo',
@@ -920,11 +927,11 @@ const resolvers = {
         });
 
         const currObj = {
-          euro: wo.euro,
-          gbp: wo.gbp,
-          myr: wo.myr,
-          idr: wo.idr,
-          sgd: wo.sgd,
+          euro: input.euro,
+          gbp: input.gbp,
+          myr: input.myr,
+          idr: input.idr,
+          sgd: input.sgd,
         };
 
         await Promise.all(

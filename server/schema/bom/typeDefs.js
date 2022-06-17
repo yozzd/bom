@@ -264,6 +264,11 @@ const typeDefs = `
     refer: String
     stage: Int
     status: Int
+    euro: Float
+    gbp: Float
+    myr: Float
+    idr: Int
+    sgd: Float
   }
   
   input StockItemInput {

@@ -67,6 +67,11 @@ export const GetOneLT = gql`
         bomPercentValidation
         mprPercentValidation
         totalMpr
+        euro
+        gbp
+        myr
+        idr
+        sgd
       }
     }
   }
