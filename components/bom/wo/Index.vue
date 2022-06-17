@@ -506,7 +506,7 @@ export default {
       showEditModuleDialog: false,
       multipleSelection: [],
       loading: false,
-      production: [110, 120, 10, 170],
+      production: [110, 120, 130, 150, 170],
     };
   },
   methods: {
