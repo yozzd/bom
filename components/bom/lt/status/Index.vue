@@ -102,6 +102,16 @@
             class-name="relative group"
           >
             <template slot-scope="scope">
+              <el-tooltip effect="dark" content="PIC not set!" placement="top">
+                <client-only>
+                  <v-icon
+                    v-if="scope.row.pic===0 && $auth.$state.user.section === 211"
+                    name="ri-error-warning-line"
+                    fill="#fbbf24"
+                    class="remixicons w-4 h-4"
+                  />
+                </client-only>
+              </el-tooltip>
               <nuxt-link
                 :to="{
                   name: 'bom-wo-idLt-id', params: { idLt: $route.params.id, id: scope.row.id }

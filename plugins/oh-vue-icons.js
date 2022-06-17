@@ -34,6 +34,7 @@ import {
   RiTimeLine,
   RiUnderline,
   RiUpload2Line,
+  RiErrorWarningLine,
 } from 'oh-vue-icons/icons';
 
 addIcons(
@@ -69,6 +70,7 @@ addIcons(
   RiTimeLine,
   RiUnderline,
   RiUpload2Line,
+  RiErrorWarningLine,
 );
 
 Vue.component('VIcon', OhVueIcon);
