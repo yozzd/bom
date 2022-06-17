@@ -495,6 +495,7 @@ export default {
       showEditDialog: false,
       idWo: null,
       wo: {},
+      loading: false,
       miniSearch: new MiniSearch({
         idField: 'id',
         fields: ['woNo', 'model', 'product'],
