@@ -170,9 +170,19 @@ export default {
     },
   },
   data() {
+    const validatePic = (rule, value, callback) => {
+      if (value === 0) {
+        callback(new Error('Please select the PIC'));
+      } else {
+        callback();
+      }
+    };
+
     return {
       form: {},
-      rules: {},
+      rules: {
+        pic: [{ validator: validatePic, trigger: 'change' }],
+      },
       visible: false,
       loading: false,
       errors: [],
