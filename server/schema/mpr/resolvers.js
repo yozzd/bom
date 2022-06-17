@@ -360,6 +360,32 @@ const resolvers = {
       const save = await mpr.save();
       return save;
     }),
+    disapproveMpr: isAuthenticated(async (_, { input }) => {
+      const mpr = await MPR.findOne({
+        attributes: mprAttributes,
+        where: { id: input.id },
+        include: [{
+          model: WO,
+          attributes: ['idLt'],
+        }],
+      });
+
+      if (input.type === 'manager') {
+        mpr.managerApproved = 0;
+        mpr.managerTimestamp = '0000-00-00 00:00:00';
+      } else if (input.type === 'wh') {
+        mpr.whApproved = 0;
+        mpr.whTimestamp = '0000-00-00 00:00:00';
+      } else {
+        mpr.bomApproved = 0;
+        mpr.bomTimestamp = '0000-00-00 00:00:00';
+
+        mpr.no = '######';
+      }
+
+      const save = await mpr.save();
+      return save;
+    }),
     deleteModule: isAuthenticated(async (_, { id }) => {
       await MPRMODULE.destroy({
         where: { id },

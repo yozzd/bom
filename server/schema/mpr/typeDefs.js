@@ -13,6 +13,7 @@ const typeDefs = `
     updateMpr(input: UpdateMprInput): MPR
     deleteMpr(input: [DeleteMprInput]): [MPR]
     approveMpr(input: ApproveMprInput): MPR
+    disapproveMpr(input: ApproveMprInput): MPR
     addMprItems(input: [AddMprItemsInput]): [MPRITEM]
     addMprModule(input: AddMprModuleInput): MPRMODULE
     updateMprModule(input: UpdateMprModuleInput): MPRMODULE

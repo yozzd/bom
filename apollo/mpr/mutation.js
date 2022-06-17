@@ -322,6 +322,41 @@ export const ApproveMpr = gql`
   }
 `;
 
+export const DisapproveMpr = gql`
+  mutation disapproveMpr($input: ApproveMprInput) {
+    disapproveMpr(input: $input) {
+      id
+      status
+      no
+      woNo
+      model
+      product
+      projectName
+      unit
+      category
+      dor
+      idWo
+      requestorName
+      requestorTimestamp
+      managerApproved
+      managerTimestamp
+      whApproved
+      whTimestamp
+      bomApproved
+      bomTimestamp
+      attachment
+      attachmentCheck
+      remark
+      packing
+      hold
+      cancel
+      wo {
+        idLt
+      }
+    }
+  }
+`;
+
 export const DeleteModule = gql`
   mutation deleteModule($id: Int) {
     deleteModule(id: $id) {

@@ -253,7 +253,16 @@
                     v-else-if="scope.row.managerApproved"
                     class="flex space-x-1"
                   >
-                    <el-tag type="success" size="mini">
+                    <div v-if="$auth.$state.user.isManager === 1">
+                      <el-tooltip effect="dark" content="Disapprove?" placement="top">
+                        <a @click="disapprove(scope.row, 'manager')">
+                          <el-tag type="success" size="mini">
+                            Approved
+                          </el-tag>
+                        </a>
+                      </el-tooltip>
+                    </div>
+                    <el-tag v-else type="success" size="mini">
                       Approved
                     </el-tag>
                     <el-popover
@@ -287,7 +296,16 @@
                     </el-tooltip>
                   </div>
                   <div v-else-if="scope.row.whApproved" class="flex space-x-1">
-                    <el-tag type="success" size="mini">
+                    <div v-if="$auth.$state.user.section === 213">
+                      <el-tooltip effect="dark" content="Disapprove?" placement="top">
+                        <a @click="disapprove(scope.row, 'wh')">
+                          <el-tag type="success" size="mini">
+                            Approved
+                          </el-tag>
+                        </a>
+                      </el-tooltip>
+                    </div>
+                    <el-tag v-else type="success" size="mini">
                       Approved
                     </el-tag>
                     <el-popover
@@ -321,7 +339,16 @@
                     </el-tooltip>
                   </div>
                   <div v-else-if="scope.row.bomApproved" class="flex space-x-1">
-                    <el-tag type="success" size="mini">
+                    <div v-if="$auth.$state.user.section === 211">
+                      <el-tooltip effect="dark" content="Disapprove?" placement="top">
+                        <a @click="disapprove(scope.row, 'bom')">
+                          <el-tag type="success" size="mini">
+                            Approved
+                          </el-tag>
+                        </a>
+                      </el-tooltip>
+                    </div>
+                    <el-tag v-else type="success" size="mini">
                       Approved
                     </el-tag>
                     <el-popover
@@ -495,7 +522,7 @@ import MiniSearch from 'minisearch';
 import table from '../../mixins/table';
 import mprStatus from '../../mixins/mpr';
 import { GetAllMPR } from '../../apollo/mpr/query';
-import { ApproveMpr, DeleteMpr } from '../../apollo/mpr/mutation';
+import { ApproveMpr, DisapproveMpr, DeleteMpr } from '../../apollo/mpr/mutation';
 
 export default {
   mixins: [table, mprStatus],
@@ -663,6 +690,46 @@ export default {
           optimisticResponse: {
             __typename: 'Mutation',
             approveMpr: mpr,
+          },
+        });
+
+        this.$message({
+          type: 'success',
+          message: 'Data has been approve successfully',
+        });
+      }).catch(() => {});
+    },
+    disapprove(mpr, type) {
+      this.$confirm('You are about to disapprove this MPR, are you sure?', 'Confirmation', {
+        confirmButtonText: 'Yes',
+        cancelButtonText: 'Cancel',
+        type: 'warning',
+      }).then(async () => {
+        await this.$apollo.mutate({
+          mutation: DisapproveMpr,
+          variables: {
+            input: { id: mpr.id, type },
+          },
+          update: (store, { data: { disapproveMpr } }) => {
+            const cdata = store.readQuery({
+              query: this.query,
+              variables: this.variables,
+            });
+
+            const index = cdata[this.sdata].findIndex((e) => e.id === mpr.id);
+            cdata[this.sdata][index] = disapproveMpr;
+
+            this.updateList(cdata[this.sdata]);
+
+            store.writeQuery({
+              query: this.query,
+              variables: this.variables,
+              data: cdata,
+            });
+          },
+          optimisticResponse: {
+            __typename: 'Mutation',
+            disapproveMpr: mpr,
           },
         });
 
