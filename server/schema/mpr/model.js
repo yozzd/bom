@@ -389,11 +389,13 @@ const MPRITEM = sequelize.define('item', {
     type: DataTypes.VIRTUAL,
     get() {
       const outPoNo = this.outstandingPo ? this.outstandingPo.poNo : null;
+      const outPoStatus = this.outstandingPo ? this.outstandingPo.poStatus : null;
+      const outPoArrival = this.outstandingPo ? this.outstandingPo.poArrival : null;
 
       if (this.validasi && !this.cancel) return 'validated-row';
       if (this.bomQty > 0 && this.bomQtyStock > 0 && this.bomQtyBalance >= 0) return 'stock-row';
-      if (this.bomQtyRec > 0 && this.bomPoNo && !this.cancel) return 'coming-row';
-      if (outPoNo && this.bomQtyRec <= 0 && this.bomPoNo && this.poStatus !== 'Complete' && !this.bomDateRec) return 'issued-row';
+      if ((this.bomQtyRec > 0 && this.bomPoNo && !this.cancel) || (outPoNo && this.bomQtyRec <= 0 && this.bomPoNo && outPoStatus === 'Complete' && outPoArrival)) return 'coming-row';
+      if (outPoNo && this.bomQtyRec <= 0 && this.bomPoNo && outPoStatus !== 'Complete' && !this.bomDateRec) return 'issued-row';
       if (!outPoNo && this.bomQtyRec <= 0 && this.poNo && !this.hold && !this.cancel) return 'draft-row';
       if (this.hold) return 'hold-row';
       if (this.cancel) return 'cancel-row';
