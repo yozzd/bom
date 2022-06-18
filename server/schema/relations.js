@@ -4,6 +4,8 @@ const {
 const { MPR, MPRMODULE, MPRITEM } = require('./mpr/model');
 const { OUTSTANDINGPO } = require('./outstandingPo/model');
 const { Material } = require('./material/model');
+const { Employer } = require('./employer/model');
+const { Wmr } = require('./wmr/model');
 
 LT.hasMany(WO, {
   foreignKey: 'idLt',
@@ -94,6 +96,30 @@ WOITEM.belongsTo(WO, {
   targetKey: 'id',
 });
 
+WO.hasMany(Wmr, {
+  foreignKey: 'idWo',
+});
+Wmr.belongsTo(WO, {
+  foreignKey: 'idWo',
+  targetKey: 'id',
+});
+
+Wmr.hasMany(WOITEM, {
+  foreignKey: 'idWmr',
+});
+WOITEM.belongsTo(Wmr, {
+  foreignKey: 'idWmr',
+  targetKey: 'id',
+});
+
+Wmr.hasMany(MPRITEM, {
+  foreignKey: 'idWmr',
+});
+MPRITEM.belongsTo(Wmr, {
+  foreignKey: 'idWmr',
+  targetKey: 'id',
+});
+
 module.exports = {
   LT,
   WO,
@@ -104,4 +130,6 @@ module.exports = {
   MPRITEM,
   OUTSTANDINGPO,
   Material,
+  Employer,
+  Wmr,
 };

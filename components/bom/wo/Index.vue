@@ -327,6 +327,37 @@
               </el-button>
             </el-button-group>
           </div>
+          <div
+            v-if="production.includes($auth.$state.user.department)"
+          >
+            <Dropdown
+              trigger="custom"
+              :visible="visible"
+              placement="bottom-start"
+              @on-click="handleAddToWmr"
+              @on-clickoutside="visible = false"
+            >
+              <VButtonGroup>
+                <VButton type="primary" size="large" @click="handleAddWmr">
+                  WMR
+                </VButton>
+                <VButton
+                  type="primary"
+                  size="large"
+                  icon="ios-arrow-down"
+                  @click="visible = true"
+                >
+                </VButton>
+              </VButtonGroup>
+              <DropdownMenu slot="list">
+                <Dropdown placement="right-start">
+                  <DropdownItem name="a">
+                    Add to
+                  </DropdownItem>
+                </Dropdown>
+              </DropdownMenu>
+            </Dropdown>
+          </div>
           <Dropdown trigger="click" placement="bottom-start" @on-click="handleExport">
             <VButton type="primary" size="large">
               <client-only>
@@ -478,6 +509,11 @@
       :data="module"
       @close="closeEditModuleDialog"
     />
+
+    <BomWmrAdd
+      :show="showWmrAddDialog"
+      @close="closeWmrAddDialog"
+    />
   </div>
 </template>
 
@@ -504,9 +540,11 @@ export default {
       module: {},
       showKeywordDialog: false,
       showEditModuleDialog: false,
+      showWmrAddDialog: false,
       multipleSelection: [],
       loading: false,
       production: [110, 120, 130, 150, 170],
+      visible: false,
     };
   },
   methods: {
@@ -518,6 +556,9 @@ export default {
     },
     closeEditModuleDialog(value) {
       this.showEditModuleDialog = value;
+    },
+    closeWmrAddDialog(value) {
+      this.showWmrAddDialog = value;
     },
     addNewItem(id) {
       this.idHeader = 0;
@@ -719,6 +760,13 @@ export default {
         this.errors = graphQLErrors || networkError.result.errors;
         return true;
       }
+    },
+    handleAddWmr() {
+      this.visible = false;
+      this.showWmrAddDialog = true;
+    },
+    handleAddToWmr(command) {
+      console.log(command);
     },
   },
   apollo: {

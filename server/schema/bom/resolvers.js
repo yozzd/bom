@@ -7,7 +7,7 @@ const { Op } = require('sequelize');
 const sequelize = require('../../config/db');
 const {
   LT, WO, WOMODULE, WOITEM, MPR, MPRMODULE, MPRITEM, OUTSTANDINGPO,
-  Material,
+  Material, Employer,
 } = require('../relations');
 const { isAuthenticated } = require('../auth/service');
 const { queryLt, queryWo } = require('./query');
@@ -255,6 +255,18 @@ const resolvers = {
       });
 
       return wo;
+    }),
+    getPersonDept: isAuthenticated(async (_, { key }) => {
+      const persons = await Employer.findAll({
+        attributes: ['nk', 'nama'],
+        where: {
+          [Op.and]: [
+            { nama: { [Op.substring]: key } },
+          ],
+        },
+      });
+
+      return persons;
     }),
     getAllWoModules: isAuthenticated(async (_, { key }) => {
       const wo = await WO.findAll({

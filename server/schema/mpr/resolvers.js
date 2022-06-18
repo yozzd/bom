@@ -11,7 +11,7 @@ const {
 } = require('../relations');
 const { isAuthenticated } = require('../auth/service');
 const {
-  whereStatus, whereUser, oneMpr, getNotif, deptName,
+  whereStatus, whereUser, oneMpr, getNotif, secName,
 } = require('./methods');
 const { itemAttributes } = require('../bom/resolvers');
 
@@ -114,7 +114,7 @@ const resolvers = {
       const { group, section } = ctx.req.user;
       obj.requestorId = group;
       obj.requestorSection = section;
-      obj.requestorName = deptName(section);
+      obj.requestorName = secName(section);
       obj.requestorTimestamp = dateNow();
 
       const newMpr = new MPR(obj);
@@ -513,4 +513,4 @@ const resolvers = {
   },
 };
 
-module.exports = { resolvers };
+module.exports = { resolvers, dateNow };

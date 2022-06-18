@@ -12,6 +12,7 @@ const typeDefs = `
     getSearchModules(idHeader: Int): [WOITEM]
     genLtXLS(id: Int, status: Int): GenStatus
     genWoXLS(id: Int): GenStatus
+    getPersonDept(key: String): [Employer]
   }
 
   extend type Mutation {
@@ -173,6 +174,13 @@ const typeDefs = `
     status: Int
   }
 
+  type Employer {
+    nk: String
+    nama: String
+    section: Int
+    level: Int
+  }
+  
   input UpdateItemInput {
     id: Int
     idMaterial: Int

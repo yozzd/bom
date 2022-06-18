@@ -298,6 +298,15 @@ export const GetAllWoRunning = gql`
   }
 `;
 
+export const GetPersonDept = gql`
+  query getPersonDept($key: String) {
+    getPersonDept(key: $key) {
+      nk
+      nama
+    }
+  }
+`;
+
 export const GetAllWoModules = gql`
   query getAllWoModules($key: String) {
     getAllWoModules(key: $key) {

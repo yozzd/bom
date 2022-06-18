@@ -33,6 +33,10 @@ a {
   @apply rounded-lg;
 }
 
+.ivu-btn-group:not(.ivu-btn-group-vertical) > .ivu-btn:last-child:not(:first-child) {
+  @apply rounded-r-lg;
+}
+
 .el-pagination .el-select .el-input .el-input__inner {
   @apply rounded-md;
 }
