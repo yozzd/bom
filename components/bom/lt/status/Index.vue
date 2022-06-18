@@ -164,7 +164,7 @@
               </div>
             </template>
           </el-table-column>
-          <el-table-column label="PIC" width="140">
+          <el-table-column label="PIC" width="120">
             <template slot-scope="scope">
               <p :title="pics[scope.row.pic]" class="truncate">
                 {{ pics[scope.row.pic] }}
