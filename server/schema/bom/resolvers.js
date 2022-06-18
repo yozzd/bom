@@ -918,7 +918,6 @@ const resolvers = {
           || wo.myr !== input.myr
           || wo.idr !== input.idr
           || wo.sgd !== input.sgd) {
-
         const items = await WOITEM.findAll({
           attributes: [
             ...itemAttributes, 'idWo',

@@ -22,6 +22,38 @@ const inSection = (department) => {
   return sections;
 };
 
+const secName = (section) => {
+  if (section === 111) return 'ELECTRONIC';
+  if (section === 113) return 'PCB/PRINTING';
+  if (section === 121) return 'MECHANIC';
+  if (section === 122) return 'MAINTENANCE & FACILITY';
+  if (section === 131) return 'R&D HVAC / ELECTRICAL';
+  if (section === 132) return 'R&D ELECTRONIC';
+  if (section === 133) return 'R&D MECHATRONIC & AUTOMATION';
+  if (section === 134) return 'R&D MECHANICAL';
+  if (section === 136) return 'QUALITY CONTROL';
+  if (section === 139) return 'R&D ADMIN';
+  if (section === 142) return 'IT INFRASTRUCTURE';
+  if (section === 561) return 'ENNOVATION';
+  if (section === 151) return 'FABRICATION';
+  if (section === 152) return 'MACHINING & TOOL ROOM';
+  if (section === 153) return 'PAINTING';
+  if (section === 154) return 'CARPENTRY';
+  if (section === 171) return 'HVAC';
+  if (section === 211) return 'MRP BOM';
+  if (section === 212) return 'MRP PURCHASING';
+  if (section === 213) return 'MRP WAREHOUSE';
+  if (section === 221) return 'ISO TEAM';
+  if (section === 322) return 'GENERAL AFFAIR';
+  if (section === 323) return 'SECURITY';
+  if (section === 324) return 'SAFETY';
+  if (section === 331) return 'GENERAL ACCOUNTING';
+  if (section === 161) return 'CUSTOMER SERVICE & INSTALLATION';
+  if (section === 511) return 'BIDDING';
+  if (section === 513) return 'CONTRACT & DELIVERY PREPARATION';
+  return '';
+};
+
 const whereStatus = (status) => {
   let where = null;
 
@@ -306,5 +338,5 @@ const getNotif = async (date, ctx) => {
 };
 
 module.exports = {
-  whereStatus, whereUser, oneMpr, getNotif,
+  whereStatus, whereUser, oneMpr, getNotif, secName,
 };

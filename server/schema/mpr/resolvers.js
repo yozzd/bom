@@ -11,7 +11,7 @@ const {
 } = require('../relations');
 const { isAuthenticated } = require('../auth/service');
 const {
-  whereStatus, whereUser, oneMpr, getNotif,
+  whereStatus, whereUser, oneMpr, getNotif, deptName,
 } = require('./methods');
 const { itemAttributes } = require('../bom/resolvers');
 
@@ -111,10 +111,10 @@ const resolvers = {
       const t = await info.json();
       obj.projectName = t.customer_name || 'PT. LABTECH PENTA INTERNATIONAL';
 
-      const { group, section, fullname } = ctx.req.user;
+      const { group, section } = ctx.req.user;
       obj.requestorId = group;
       obj.requestorSection = section;
-      obj.requestorName = fullname;
+      obj.requestorName = deptName(section);
       obj.requestorTimestamp = dateNow();
 
       const newMpr = new MPR(obj);
@@ -193,7 +193,7 @@ const resolvers = {
     addMprItems: isAuthenticated(async (_, { input }) => {
       const saved = [];
       const cAttributes = [
-        ...attributes, 'idWo', 'idLt', 'poZone', 'whRemarks', 'prRemarks',
+        ...attributes, 'idWo', 'poZone', 'whRemarks', 'prRemarks',
         'rndRemarks', 'hvacRemarks', 'mechanicalRemarks', 'electronicRemarks',
         'fabricationRemarks',
       ];

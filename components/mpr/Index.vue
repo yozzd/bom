@@ -43,7 +43,6 @@
           <el-button
             v-if="$auth.$state.user.isManager === 0"
             type="primary"
-            :disabled="!tableData.length"
             @click="showAdd"
           >
             <client-only>

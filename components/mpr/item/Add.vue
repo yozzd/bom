@@ -142,7 +142,9 @@ export default {
   },
   data() {
     return {
-      form: {},
+      form: {
+        keyword: '',
+      },
       rules: {
         keyword: [{ required: true, message: 'This field is required' }],
       },
