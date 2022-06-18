@@ -164,6 +164,13 @@
               </div>
             </template>
           </el-table-column>
+          <el-table-column label="PIC" width="140">
+            <template slot-scope="scope">
+              <p :title="pics[scope.row.pic]" class="truncate">
+                {{ pics[scope.row.pic] }}
+              </p>
+            </template>
+          </el-table-column>
           <el-table-column label="Model" width="140">
             <template slot-scope="scope">
               <p :title="scope.row.model" class="truncate">
@@ -496,6 +503,12 @@ export default {
       idWo: null,
       wo: {},
       loading: false,
+      pics: [
+        'No PIC', 'Electronic', 'HVAC', 'Mechanical', 'Information Technology',
+        'Sales Marketing & Support', 'Customer Sevice & Installation Training Support',
+        'Ennovation', '[Electronic, HVAC, Mechanical]', 'General Affair & Human Resource Management',
+        'R & D', 'Finance',
+      ],
       miniSearch: new MiniSearch({
         idField: 'id',
         fields: ['woNo', 'model', 'product'],
