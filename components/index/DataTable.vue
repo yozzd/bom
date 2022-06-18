@@ -50,7 +50,7 @@
       </el-table-column>
       <el-table-column
         label="Specification"
-        width="140"
+        width="260"
         :show-overflow-tooltip="true"
         fixed
       >
