@@ -228,6 +228,10 @@ export const GetOneWO = gql`
                 id
                 no
               }
+              wmr3 {
+                id
+                no
+              }
             }
           }
           items {
@@ -269,6 +273,10 @@ export const GetOneWO = gql`
             idModule
             colorClass
             mpr {
+              id
+              no
+            }
+            wmr3 {
               id
               no
             }

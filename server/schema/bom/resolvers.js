@@ -233,6 +233,9 @@ const resolvers = {
               model: MPR,
               attributes: ['id', 'no'],
               required: false,
+            }, {
+              model: Wmr,
+              attributes: ['id', 'no'],
             }],
           }],
         }],
@@ -357,12 +360,15 @@ const resolvers = {
         ...Object.keys(obj), 'bomQtyRqd', 'bomQtyBalance', 'bomUsdEa',
         'bomUsdUnit', 'bomUsdTotal', 'materialsProcessed', 'yetToPurchase',
         'bomEtaStatus', 'validasi', 'poZone', 'poNo', 'idHeader', 'idModule',
-        'colorClass',
+        'idWmr', 'colorClass',
       ];
       const include = [{
         model: MPR,
         attributes: ['id', 'no'],
         required: false,
+      }, {
+        model: Wmr,
+        attributes: ['id', 'no'],
       }];
 
       if (obj.isMpr) {
@@ -375,6 +381,10 @@ const resolvers = {
         item = await WOITEM.findOne({
           attributes,
           where: { id: obj.id },
+          include: [{
+            model: Wmr,
+            attributes: ['id', 'no'],
+          }],
         });
       }
 

@@ -49,6 +49,10 @@ export const UpdateItem = gql`
         id
         no
       }
+      wmr3 {
+        id
+        no
+      }
     }
   }
 `;
@@ -107,6 +111,10 @@ export const AddWoItems = gql`
         id
         no
       }
+      wmr3 {
+        id
+        no
+      }
     }
   }
 `;
@@ -156,6 +164,10 @@ export const UpdateWoModule = gql`
         idModule
         colorClass
         mpr {
+          id
+          no
+        }
+        wmr3 {
           id
           no
         }
@@ -270,6 +282,10 @@ export const ValidateWoItem = gql`
         id
         no
       }
+      wmr3 {
+        id
+        no
+      }
     }
   }
 `;
@@ -335,6 +351,10 @@ export const StockItem = gql`
       idModule
       colorClass
       mpr {
+        id
+        no
+      }
+      wmr3 {
         id
         no
       }
