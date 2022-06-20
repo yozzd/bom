@@ -1,6 +1,7 @@
 const typeDefs = `
   extend type Query {
     getAllWmr(department: Int): [Wmr]
+    getWmrByWo(idWo: Int): [Wmr]
   }
 
   extend type Mutation {

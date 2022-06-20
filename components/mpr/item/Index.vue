@@ -201,7 +201,7 @@
                 <DropdownItem>
                   Item
                   <client-only>
-                    <v-icon name="ri-arrow-right-s-line" class="remixicons w-4 h-4" />
+                    <v-icon name="ri-arrow-right-s-line" class="remixicons w-4 h-4 float-right" />
                   </client-only>
                 </DropdownItem>
                 <DropdownMenu slot="list">

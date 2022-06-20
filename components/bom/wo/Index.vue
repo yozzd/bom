@@ -351,9 +351,22 @@
               </VButtonGroup>
               <DropdownMenu slot="list">
                 <Dropdown placement="right-start">
-                  <DropdownItem name="a">
+                  <DropdownItem>
                     Add to
+                    <client-only>
+                      <v-icon name="ri-arrow-right-s-line" class="remixicons w-4 h-4 float-right" />
+                    </client-only>
                   </DropdownItem>
+                  <DropdownMenu slot="list">
+                    <div v-if="wmr.length">
+                      <DropdownItem v-for="item in wmr" :key="item.id" :name="item.id">
+                        {{ item.no }}
+                      </DropdownItem>
+                    </div>
+                    <DropdownItem v-else>
+                      No Data
+                    </DropdownItem>
+                  </DropdownMenu>
                 </Dropdown>
               </DropdownMenu>
             </Dropdown>
@@ -524,6 +537,7 @@ import { GetOneWO, GenWoXLS } from '../../../apollo/bom/query';
 import {
   DeleteWoModule, ValidateWo, ValidateWoItem, StockItem,
 } from '../../../apollo/bom/mutation';
+import { GetWmrByWo } from '../../../apollo/wmr/query';
 import bom from '../../../mixins/bom';
 
 export default {
@@ -542,6 +556,7 @@ export default {
       showEditModuleDialog: false,
       showWmrAddDialog: false,
       multipleSelection: [],
+      wmr: [],
       loading: false,
       production: [110, 120, 130, 150, 170],
       visible: false,
@@ -798,6 +813,24 @@ export default {
             const { modules: m, items } = v;
             return (m.filter((n) => n.items.length).length) || items.length;
           });
+        }
+      },
+      error({ graphQLErrors, networkError }) {
+        this.errors = graphQLErrors || networkError.result.errors;
+      },
+    },
+    getWmrByWo: {
+      query: GetWmrByWo,
+      variables() {
+        return {
+          idWo: parseInt(this.$route.params.id, 10),
+        };
+      },
+      prefetch: false,
+      result({ data, loading }) {
+        if (!loading) {
+          const { getWmrByWo } = data;
+          this.wmr = getWmrByWo;
         }
       },
       error({ graphQLErrors, networkError }) {

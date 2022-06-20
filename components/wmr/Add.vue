@@ -92,6 +92,7 @@
 <script>
 import { GetPersonDept } from '../../apollo/bom/query';
 import { AddWmr } from '../../apollo/wmr/mutation';
+import { GetWmrByWo } from '../../apollo/wmr/query';
 
 export default {
   props: {
@@ -161,6 +162,24 @@ export default {
                   authorizedBy: this.form.authorizedBy.nama,
                   idWo: parseInt(this.$route.params.id, 10),
                 },
+              },
+              update: (store, { data: { addWmr } }) => {
+                const cdata = store.readQuery({
+                  query: GetWmrByWo,
+                  variables: {
+                    idWo: parseInt(this.$route.params.id, 10),
+                  },
+                });
+
+                cdata.getWmrByWo.push(addWmr);
+
+                store.writeQuery({
+                  query: GetWmrByWo,
+                  variables: {
+                    idWo: parseInt(this.$route.params.id, 10),
+                  },
+                  data: cdata,
+                });
               },
             });
 

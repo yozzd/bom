@@ -8,6 +8,14 @@ const resolvers = {
     getAllWmr: isAuthenticated(async (_, { department }) => {
       console.log(department);
     }),
+    getWmrByWo: isAuthenticated(async (_, { idWo }) => {
+      const wmr = await Wmr.findAll({
+        attributes: ['id', 'no'],
+        where: { idWo },
+      });
+
+      return wmr;
+    }),
   },
   Mutation: {
     addWmr: isAuthenticated(async (_, { input }, ctx) => {
