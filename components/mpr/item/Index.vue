@@ -43,6 +43,12 @@
                   <table class="plain">
                     <tbody>
                       <tr>
+                        <td class="w-6 bg-[#22d3ee]"></td>
+                        <td class="pl-2">
+                          WMR
+                        </td>
+                      </tr>
+                      <tr>
                         <td class="w-6 bg-[#e1bee7]"></td>
                         <td class="pl-2">
                           Validated

@@ -36,7 +36,6 @@ const resolvers = {
       return save;
     }),
     addItemsToWmr: isAuthenticated(async (_, { input }) => {
-      console.log(input);
       const saved = [];
 
       await Promise.all(
