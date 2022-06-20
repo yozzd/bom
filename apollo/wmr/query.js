@@ -14,6 +14,7 @@ export const GetAllWmr = gql`
       wo {
         id
         woNo
+        idLt
       }
     }
   }

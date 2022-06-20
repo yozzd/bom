@@ -52,10 +52,34 @@
                 label="WO"
                 :show-overflow-tooltip="true"
                 width="100"
+                class-name="relative group"
                 fixed
               >
                 <template slot-scope="scope">
-                  {{ scope.row.wo.woNo }}
+                  <nuxt-link
+                    :to="{
+                      name: 'bom-wo-idLt-id', params: {
+                        idLt: scope.row.wo.idLt, id: scope.row.wo.id,
+                      }
+                    }"
+                  >
+                    {{ scope.row.wo.woNo }}
+                  </nuxt-link>
+                  <div class="hidden group-hover:inline-block absolute top-1 right-0">
+                    <el-tooltip effect="dark" content="Open in new tab" placement="top">
+                      <a
+                        :href="`/bom/wo/${scope.row.wo.idLt}/${scope.row.wo.id}`"
+                        target="_blank"
+                      >
+                        <client-only>
+                          <v-icon
+                            name="ri-external-link-line"
+                            class="remixicons w-4 h-4"
+                          />
+                        </client-only>
+                      </a>
+                    </el-tooltip>
+                  </div>
                 </template>
               </el-table-column>
               <el-table-column

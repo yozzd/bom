@@ -21,7 +21,7 @@ const resolvers = {
         where,
         include: [{
           model: WO,
-          attributes: ['id', 'woNo'],
+          attributes: ['id', 'woNo', 'idLt'],
         }],
       });
 
