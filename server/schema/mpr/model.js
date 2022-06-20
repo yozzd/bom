@@ -385,6 +385,9 @@ const MPRITEM = sequelize.define('item', {
   priority: {
     type: DataTypes.STRING,
   },
+  idWmr: {
+    type: DataTypes.INTEGER,
+  },
   colorClass: {
     type: DataTypes.VIRTUAL,
     get() {

@@ -7,7 +7,7 @@ const { Op } = require('sequelize');
 const sequelize = require('../../config/db');
 const {
   LT, WO, WOMODULE, WOITEM, MPR, MPRMODULE, MPRITEM, OUTSTANDINGPO,
-  Material, Employer,
+  Material, Employer, Wmr,
 } = require('../relations');
 const { isAuthenticated } = require('../auth/service');
 const { queryLt, queryWo } = require('./query');
@@ -25,7 +25,7 @@ const itemAttributes = [
   'materialsProcessed', 'yetToPurchase', 'bomSupplier',
   'bomPoDate', 'bomPoNo', 'poNo', 'bomRemarks', 'priority', 'bomEtaStatus',
   'sr', 'isMpr', 'validasi', 'packing', 'hold', 'cancel',
-  'idHeader', 'idModule', 'colorClass',
+  'idHeader', 'idModule', 'idWmr', 'colorClass',
 ];
 
 const pics = [
@@ -104,6 +104,9 @@ const resolvers = {
               model: OUTSTANDINGPO,
               attributes: ['poStatus', 'poArrival', 'poNo'],
               required: false,
+            }, {
+              model: Wmr,
+              attributes: ['id', 'no'],
             }],
           }],
         }],

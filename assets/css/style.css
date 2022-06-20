@@ -188,6 +188,10 @@ table.plain {
   @apply w-full text-xs;
 }
 
+.el-table .wmr-row {
+  background: #22d3ee;
+}
+
 .el-table .validated-row {
   background: #e1bee7;
 }

@@ -334,7 +334,7 @@
               trigger="custom"
               :visible="visible"
               placement="bottom-start"
-              @on-click="handleAddToWmr"
+              @on-click="handleWmrCommand"
               @on-clickoutside="visible = false"
             >
               <VButtonGroup>
@@ -352,14 +352,41 @@
               <DropdownMenu slot="list">
                 <Dropdown placement="right-start">
                   <DropdownItem>
-                    Add to
+                    List
                     <client-only>
                       <v-icon name="ri-arrow-right-s-line" class="remixicons w-4 h-4 float-right" />
                     </client-only>
                   </DropdownItem>
                   <DropdownMenu slot="list">
                     <div v-if="wmr.length">
-                      <DropdownItem v-for="item in wmr" :key="item.id" :name="item.id">
+                      <DropdownItem
+                        v-for="item in wmr"
+                        :key="item.id"
+                        :name="`lst-${item.id}`"
+                      >
+                        {{ item.no }}
+                      </DropdownItem>
+                    </div>
+                    <DropdownItem v-else>
+                      No Data
+                    </DropdownItem>
+                  </DropdownMenu>
+                </Dropdown>
+                <Dropdown placement="right-start">
+                  <DropdownItem>
+                    Add/Remove to
+                    <client-only>
+                      <v-icon name="ri-arrow-right-s-line" class="remixicons w-4 h-4 float-right" />
+                    </client-only>
+                  </DropdownItem>
+                  <DropdownMenu slot="list">
+                    <div v-if="wmr.length">
+                      <DropdownItem
+                        v-for="item in wmr"
+                        :key="item.id"
+                        :name="`add-${item.id}`"
+                        :disabled="!multipleSelection.length"
+                      >
                         {{ item.no }}
                       </DropdownItem>
                     </div>
@@ -538,6 +565,7 @@ import {
   DeleteWoModule, ValidateWo, ValidateWoItem, StockItem,
 } from '../../../apollo/bom/mutation';
 import { GetWmrByWo } from '../../../apollo/wmr/query';
+import { AddItemsToWmr } from '../../../apollo/wmr/mutation';
 import bom from '../../../mixins/bom';
 
 export default {
@@ -780,8 +808,79 @@ export default {
       this.visible = false;
       this.showWmrAddDialog = true;
     },
-    handleAddToWmr(command) {
-      console.log(command);
+    handleWmrCommand(command) {
+      this.visible = false;
+
+      const cmd = command.split('-')[0];
+      const idWmr = parseInt(command.split('-')[1], 10);
+
+      if (cmd === 'add') this.addItemsToWmr(idWmr);
+    },
+    async addItemsToWmr(idWmr) {
+      const arr = this.multipleSelection.map((v) => ({
+        id: v.id,
+        isMpr: v.isMpr,
+        idWmr,
+      }));
+
+      this.$confirm('You are about to add item(s) to this WMR, are you sure?', 'Confirmation', {
+        confirmButtonText: 'Yes',
+        cancelButtonText: 'Cancel',
+        type: 'warning',
+      }).then(async () => {
+        await this.$apollo.mutate({
+          mutation: AddItemsToWmr,
+          variables: {
+            input: arr,
+          },
+          update: (store, { data: { addItemsToWmr } }) => {
+            const cdata = store.readQuery({
+              query: GetOneWO,
+              variables: {
+                idLt: parseInt(this.$route.params.idLt, 10),
+                id: parseInt(this.$route.params.id, 10),
+              },
+            });
+
+            addItemsToWmr.map((v) => {
+              if (v.isMpr && v.idModule) {
+                const idx1 = cdata.getOneWO
+                  .mpr.mprs.findIndex((e) => e.id === v.mpr.id);
+                const idx2 = cdata.getOneWO
+                  .mpr.mprs[idx1].modules.findIndex((e) => e.id === v.idModule);
+                const idx3 = cdata.getOneWO
+                  .mpr.mprs[idx1].modules[idx2].items.findIndex((e) => e.id === v.id);
+                cdata.getOneWO.mpr.mprs[idx1].modules[idx2].items[idx3].colorClass = v.colorClass;
+                cdata.getOneWO.mpr.mprs[idx1].modules[idx2].items[idx3].__typename = 'MPRITEM';
+              } else if (v.isMpr && !v.idModule) {
+                const idx1 = cdata.getOneWO
+                  .mpr.mprs.findIndex((e) => e.id === v.mpr.id);
+                const idx2 = cdata.getOneWO
+                  .mpr.mprs[idx1].items.findIndex((e) => e.id === v.id);
+                cdata.getOneWO.mpr.mprs[idx1].items[idx2].colorClass = v.colorClass;
+                cdata.getOneWO.mpr.mprs[idx1].items[idx2].__typename = 'MPRITEM';
+              }
+
+              this.clearSelection();
+              return true;
+            });
+
+            store.writeQuery({
+              query: GetOneWO,
+              variables: {
+                idLt: parseInt(this.$route.params.idLt, 10),
+                id: parseInt(this.$route.params.id, 10),
+              },
+              data: cdata,
+            });
+          },
+        });
+
+        this.$message({
+          type: 'success',
+          message: 'Item(s) has been stock/unstock successfully',
+        });
+      }).catch(() => {});
     },
   },
   apollo: {

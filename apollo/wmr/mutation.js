@@ -9,4 +9,54 @@ export const AddWmr = gql`
   }
 `;
 
-export const empty = null;
+export const AddItemsToWmr = gql`
+  mutation addItemsToWmr($input: [AddItemsToWmrInput]) {
+    addItemsToWmr(input: $input) {
+      id
+      idMaterial
+      bomDescription
+      bomSpecification
+      bomModel
+      bomBrand
+      bomQty
+      bomUnit
+      bomQtyRqd
+      bomQtyBalance
+      bomQtyStock
+      bomEta
+      bomQtyRec
+      bomDateRec
+      bomCurrSizeC
+      bomCurrSizeV
+      bomCurrEaC
+      bomCurrEaV
+      bomUsdEa
+      bomUsdUnit
+      bomUsdTotal
+      materialsProcessed
+      yetToPurchase
+      bomSupplier
+      bomPoDate
+      bomPoNo
+      bomRemarks
+      priority
+      bomEtaStatus
+      sr
+      isMpr
+      packing
+      hold
+      cancel
+      idHeader
+      idModule
+      colorClass
+      mpr {
+        id
+        no
+      }
+      wmr {
+        id
+        no
+      }
+    }
+  }
+`;

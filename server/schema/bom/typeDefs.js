@@ -143,6 +143,7 @@ const typeDefs = `
     mpr: MPR
     wo: WO
     module: WOMODULE
+    wmr: Wmr
   }
 
   type customerType {
