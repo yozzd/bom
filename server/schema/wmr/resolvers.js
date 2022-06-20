@@ -15,7 +15,7 @@ const resolvers = {
 
       const wmr = await Wmr.findAll({
         attributes: [
-          'id', 'no', 'requestById', 'requestBy', 'requestByTimestamp',
+          'id', 'no', 'requestedById', 'requestedBy', 'requestedByTimestamp',
           'authorizedById', 'authorizedBy', 'authorizedByTimestamp', 'idWo',
         ],
         where,
@@ -65,7 +65,7 @@ const resolvers = {
       const count = await Wmr.count() + 1;
 
       obj.no = `WMR1-${wmrSerial(count)}`;
-      obj.requestByTimestamp = dateNow();
+      obj.requestedByTimestamp = dateNow();
       obj.authorizedByTimestamp = '0000-00-00 00:00:00';
       obj.department = ctx.req.user.department;
       obj.section = ctx.req.user.section;

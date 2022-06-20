@@ -23,11 +23,11 @@
       >
         <div class="xl:col-span-3 xl:col-start-2">
           <el-form-item
-            label="Request By"
-            prop="requestBy"
+            label="Requested By"
+            prop="requestedBy"
           >
             <el-select
-              v-model="form.requestBy"
+              v-model="form.requestedBy"
               value-key="nk"
               remote
               :remote-method="getPersonDept"
@@ -104,11 +104,11 @@ export default {
   data() {
     return {
       form: {
-        requestBy: this.$auth.$state.user.fullname,
+        requestedBy: this.$auth.$state.user.fullname,
         authorizedBy: '',
       },
       rules: {
-        requestBy: [{ required: true, message: 'This field is required', trigger: 'change' }],
+        requestedBy: [{ required: true, message: 'This field is required', trigger: 'change' }],
         authorizedBy: [{ required: true, message: 'This field is required', trigger: 'change' }],
       },
       loadingSave: false,
@@ -156,8 +156,8 @@ export default {
               mutation: AddWmr,
               variables: {
                 input: {
-                  requestById: this.form.requestBy.nk,
-                  requestBy: this.form.requestBy.nama || this.$auth.$state.user.fullname,
+                  requestedById: this.form.requestedBy.nk,
+                  requestedBy: this.form.requestedBy.nama || this.$auth.$state.user.fullname,
                   authorizedById: this.form.authorizedBy.nk,
                   authorizedBy: this.form.authorizedBy.nama,
                   idWo: parseInt(this.$route.params.id, 10),

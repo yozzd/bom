@@ -107,13 +107,13 @@
                 </template>
               </el-table-column>
               <el-table-column
-                label="Request By"
+                label="Requested By"
                 :show-overflow-tooltip="true"
                 width="100"
                 fixed
               >
                 <template slot-scope="scope">
-                  {{ scope.row.requestBy }}
+                  {{ scope.row.requestedBy }}
                 </template>
               </el-table-column>
               <el-table-column
@@ -151,7 +151,7 @@ export default {
         idField: 'id',
         fields: ['id', 'no'],
         storeFields: [
-          'id', 'no', 'requestById', 'requestBy', 'requestByTimestamp',
+          'id', 'no', 'requestedById', 'requestedBy', 'requestedByTimestamp',
           'authorizedById', 'authorizedBy', 'authorizedByTimestamp',
         ],
       }),

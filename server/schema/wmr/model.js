@@ -13,18 +13,18 @@ const Wmr = sequelize.define('wmr3', {
     type: DataTypes.STRING,
     allowNull: false,
   },
-  requestById: {
+  requestedById: {
     type: DataTypes.STRING,
   },
-  requestBy: {
+  requestedBy: {
     type: DataTypes.STRING,
     allowNull: false,
   },
-  requestByTimestamp: {
+  requestedByTimestamp: {
     type: DataTypes.DATE,
     allowNull: false,
     get() {
-      if (isValidDate(this.getDataValue('requestByTimestamp'))) return uDateFormat(this.getDataValue('requestByTimestamp'), 'yyyy-MM-dd HH:mm:ss');
+      if (isValidDate(this.getDataValue('requestedByTimestamp'))) return uDateFormat(this.getDataValue('requestedByTimestamp'), 'yyyy-MM-dd HH:mm:ss');
       return '';
     },
   },

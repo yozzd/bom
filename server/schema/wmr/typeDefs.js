@@ -13,9 +13,9 @@ const typeDefs = `
   type Wmr {
     id: Int
     no: String
-    requestById: String
-    requestBy: String
-    requestByTimestamp: String
+    requestedById: String
+    requestedBy: String
+    requestedByTimestamp: String
     authorizedById: String
     authorizedBy: String
     authorizedByTimestamp: String
@@ -27,8 +27,8 @@ const typeDefs = `
   }
   
   input AddWmrInput {
-    requestById: String
-    requestBy: String
+    requestedById: String
+    requestedBy: String
     authorizedById: String
     authorizedBy: String
     idWo: Int

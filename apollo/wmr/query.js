@@ -5,9 +5,9 @@ export const GetAllWmr = gql`
     getAllWmr {
       id
       no
-      requestById
-      requestBy
-      requestByTimestamp
+      requestedById
+      requestedBy
+      requestedByTimestamp
       authorizedById
       authorizedBy
       authorizedByTimestamp

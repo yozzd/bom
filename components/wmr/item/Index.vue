@@ -11,6 +11,15 @@
       element-loading-text="Loading..."
       element-loading-spinner="el-icon-loading"
     >
+      <div>
+        <index-data-table
+          v-if="items.length"
+          ref="mtable"
+          :data="items"
+          class="my-4"
+          @selection-change="handleSelectionChange"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -21,6 +30,8 @@ import { GetOneWmr } from '../../../apollo/wmr/query';
 export default {
   data() {
     return {
+      wmr: {},
+      items: [],
       errors: [],
     };
   },
@@ -35,7 +46,9 @@ export default {
       prefetch: false,
       result({ data, loading }) {
         if (!loading) {
-          console.log(data);
+          const { getOneWmr: { items, ...wmr } } = data;
+          this.wmr = wmr;
+          this.items = items;
         }
       },
       error({ graphQLErrors, networkError }) {
