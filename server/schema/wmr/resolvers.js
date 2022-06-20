@@ -34,6 +34,10 @@ const resolvers = {
         include: [{
           model: WOITEM,
           attributes: itemAttributes,
+          include: [{
+            model: Wmr,
+            attributes: ['id', 'no'],
+          }],
         }],
       });
 
@@ -43,6 +47,10 @@ const resolvers = {
         include: [{
           model: MPRITEM,
           attributes: itemAttributes,
+          include: [{
+            model: Wmr,
+            attributes: ['id', 'no'],
+          }],
         }],
       });
 

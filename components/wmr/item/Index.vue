@@ -35,6 +35,9 @@ export default {
       errors: [],
     };
   },
+  methods: {
+    handleSelectionChange() {},
+  },
   apollo: {
     getOneWmr: {
       query: GetOneWmr,
