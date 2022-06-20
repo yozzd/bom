@@ -51,12 +51,19 @@ const resolvers = {
                 model: MPR,
                 attributes: ['id', 'no'],
                 required: false,
+              }, {
+                model: Wmr,
+                attributes: ['id', 'no'],
               }],
             });
           } else {
             item = await WOITEM.findOne({
               attributes: itemAttributes,
               where,
+              include: [{
+                model: Wmr,
+                attributes: ['id', 'no'],
+              }],
             });
           }
 

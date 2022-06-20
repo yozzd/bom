@@ -16,12 +16,20 @@
         MPR
       </div>
     </nuxt-link>
-    <nuxt-link :to="{ name: 'outstanding-po'}" class="card-button col-span-2">
+    <nuxt-link :to="{ name: 'outstanding-po'}" class="card-button">
       <div>
         03
       </div>
       <div class="text-3xl">
         OUTSTANDING PO
+      </div>
+    </nuxt-link>
+    <nuxt-link :to="{ name: 'wmr'}" class="card-button">
+      <div>
+        04
+      </div>
+      <div class="text-3xl">
+        WMR
       </div>
     </nuxt-link>
   </div>
