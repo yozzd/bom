@@ -338,7 +338,7 @@
               @on-clickoutside="visible = false"
             >
               <VButtonGroup>
-                <VButton type="primary" size="large" @click="handleAddWmr">
+                <VButton type="primary" size="large" icon="md-add" @click="handleAddWmr">
                   WMR
                 </VButton>
                 <VButton
@@ -510,7 +510,7 @@
       @close="closeEditModuleDialog"
     />
 
-    <BomWmrAdd
+    <WmrAdd
       :show="showWmrAddDialog"
       @close="closeWmrAddDialog"
     />

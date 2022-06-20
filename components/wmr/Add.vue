@@ -40,6 +40,8 @@
                 :label="person.nama"
                 :value="person"
               >
+                <span>{{ person.nama }}</span>
+                <span class="float-right text-gray-400">{{ person.nk }}</span>
               </el-option>
             </el-select>
           </el-form-item>
@@ -61,6 +63,8 @@
                 :label="person.nama"
                 :value="person"
               >
+                <span>{{ person.nama }}</span>
+                <span class="float-right text-gray-400">{{ person.nk }}</span>
               </el-option>
             </el-select>
           </el-form-item>
@@ -86,8 +90,8 @@
 </template>
 
 <script>
-import { GetPersonDept } from '../../../apollo/bom/query';
-import { AddWmr } from '../../../apollo/wmr/mutation';
+import { GetPersonDept } from '../../apollo/bom/query';
+import { AddWmr } from '../../apollo/wmr/mutation';
 
 export default {
   props: {
