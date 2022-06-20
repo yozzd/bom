@@ -1,6 +1,6 @@
 const typeDefs = `
   extend type Query {
-    getAllWmr(department: Int): [Wmr]
+    getAllWmr: [Wmr]
     getWmrByWo(idWo: Int): [Wmr]
   }
 
@@ -17,6 +17,7 @@ const typeDefs = `
     requestByTimestamp: String
     authorizedById: String
     authorizedBy: String
+    authorizedTimestamp: String
     department: Int
     section: Int
     idWo: Int

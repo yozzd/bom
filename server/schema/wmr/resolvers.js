@@ -8,8 +8,8 @@ const { itemAttributes } = require('../bom/resolvers');
 
 const resolvers = {
   Query: {
-    getAllWmr: isAuthenticated(async (_, { department }) => {
-      console.log(department);
+    getAllWmr: isAuthenticated(async () => {
+      console.log('test');
     }),
     getWmrByWo: isAuthenticated(async (_, { idWo }) => {
       const wmr = await Wmr.findAll({
