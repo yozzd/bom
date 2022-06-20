@@ -39,14 +39,18 @@
               ></el-table-column>
               <el-table-column type="index" align="center" width="50" fixed></el-table-column>
               <el-table-column
-                prop="no"
                 label="WMR No."
-                align="center"
+                :show-overflow-tooltip="true"
                 width="100"
                 fixed
-              ></el-table-column>
+              >
+                <template slot-scope="scope">
+                  {{ scope.row.no }}
+                </template>
+              </el-table-column>
               <el-table-column
                 label="WO"
+                :show-overflow-tooltip="true"
                 width="100"
                 fixed
               >
@@ -54,6 +58,27 @@
                   {{ scope.row.wo.woNo }}
                 </template>
               </el-table-column>
+              <el-table-column
+                label="Request By"
+                :show-overflow-tooltip="true"
+                width="100"
+                fixed
+              >
+                <template slot-scope="scope">
+                  {{ scope.row.requestBy }}
+                </template>
+              </el-table-column>
+              <el-table-column
+                label="Authorized By"
+                :show-overflow-tooltip="true"
+                width="100"
+                fixed
+              >
+                <template slot-scope="scope">
+                  {{ scope.row.authorizedBy }}
+                </template>
+              </el-table-column>
+              <el-table-column label="" min-width="50"></el-table-column>
             </el-table>
           </div>
         </div>
