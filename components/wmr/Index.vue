@@ -43,9 +43,33 @@
                 :show-overflow-tooltip="true"
                 width="100"
                 fixed
+                class-name="relative group"
               >
                 <template slot-scope="scope">
-                  {{ scope.row.no }}
+                  <nuxt-link
+                    :to="{
+                      name: 'wmr-id', params: {
+                        id: scope.row.id,
+                      }
+                    }"
+                  >
+                    {{ scope.row.no }}
+                  </nuxt-link>
+                  <div class="hidden group-hover:inline-block absolute top-1 right-0">
+                    <el-tooltip effect="dark" content="Open in new tab" placement="top">
+                      <a
+                        :href="`/wmr/${scope.row.id}`"
+                        target="_blank"
+                      >
+                        <client-only>
+                          <v-icon
+                            name="ri-external-link-line"
+                            class="remixicons w-4 h-4"
+                          />
+                        </client-only>
+                      </a>
+                    </el-tooltip>
+                  </div>
                 </template>
               </el-table-column>
               <el-table-column
