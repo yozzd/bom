@@ -8,8 +8,20 @@ const { itemAttributes } = require('../bom/resolvers');
 
 const resolvers = {
   Query: {
-    getAllWmr: isAuthenticated(async () => {
-      console.log('test');
+    getAllWmr: isAuthenticated(async (_, {}, ctx) => {
+      const where = {
+        department: ctx.req.user.department,
+      };
+      
+      const wmr = await Wmr.findAll({
+        attributes: [
+          'id', 'no', 'requestById', 'requestBy', 'requestByTimestamp',
+          'authorizedById', 'authorizedBy', 'authorizedByTimestamp',
+        ],
+        where,
+      });
+
+      return wmr;
     }),
     getWmrByWo: isAuthenticated(async (_, { idWo }) => {
       const wmr = await Wmr.findAll({
@@ -27,6 +39,7 @@ const resolvers = {
 
       obj.no = `WMR1-${wmrSerial(count)}`;
       obj.requestByTimestamp = dateNow();
+      obj.authorizedByTimestamp = '0000-00-00 00:00:00';
       obj.department = ctx.req.user.department;
       obj.section = ctx.req.user.section;
 

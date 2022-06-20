@@ -24,7 +24,7 @@ const Wmr = sequelize.define('wmr3', {
     type: DataTypes.DATE,
     allowNull: false,
     get() {
-      if (isValidDate(this.getDataValue('requestorTimestamp'))) return uDateFormat(this.getDataValue('requestorTimestamp'), 'yyyy-MM-dd HH:mm:ss');
+      if (isValidDate(this.getDataValue('requestByTimestamp'))) return uDateFormat(this.getDataValue('requestByTimestamp'), 'yyyy-MM-dd HH:mm:ss');
       return '';
     },
   },
@@ -34,6 +34,14 @@ const Wmr = sequelize.define('wmr3', {
   authorizedBy: {
     type: DataTypes.STRING,
     allowNull: false,
+  },
+  authorizedByTimestamp: {
+    type: DataTypes.DATE,
+    allowNull: false,
+    get() {
+      if (isValidDate(this.getDataValue('authorizedByTimestamp'))) return uDateFormat(this.getDataValue('authorizedByTimestamp'), 'yyyy-MM-dd HH:mm:ss');
+      return '';
+    },
   },
   department: {
     type: DataTypes.INTEGER,

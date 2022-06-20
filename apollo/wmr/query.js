@@ -10,7 +10,7 @@ export const GetAllWmr = gql`
       requestByTimestamp
       authorizedById
       authorizedBy
-      authorizedTimestamp
+      authorizedByTimestamp
     }
   }
 `;

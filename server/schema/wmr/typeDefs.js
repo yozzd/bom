@@ -17,7 +17,7 @@ const typeDefs = `
     requestByTimestamp: String
     authorizedById: String
     authorizedBy: String
-    authorizedTimestamp: String
+    authorizedByTimestamp: String
     department: Int
     section: Int
     idWo: Int
