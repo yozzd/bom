@@ -11,6 +11,10 @@ export const GetAllWmr = gql`
       authorizedById
       authorizedBy
       authorizedByTimestamp
+      wo {
+        id
+        woNo
+      }
     }
   }
 `;

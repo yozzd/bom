@@ -1,5 +1,5 @@
 const {
-  Wmr, WOITEM, MPR, MPRITEM,
+  Wmr, WO, WOITEM, MPR, MPRITEM,
 } = require('../relations');
 const { wmrSerial } = require('./method');
 const { dateNow } = require('../mpr/resolvers');
@@ -16,9 +16,13 @@ const resolvers = {
       const wmr = await Wmr.findAll({
         attributes: [
           'id', 'no', 'requestById', 'requestBy', 'requestByTimestamp',
-          'authorizedById', 'authorizedBy', 'authorizedByTimestamp',
+          'authorizedById', 'authorizedBy', 'authorizedByTimestamp', 'idWo',
         ],
         where,
+        include: [{
+          model: WO,
+          attributes: ['id', 'woNo'],
+        }],
       });
 
       return wmr;

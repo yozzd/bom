@@ -45,6 +45,15 @@
                 width="100"
                 fixed
               ></el-table-column>
+              <el-table-column
+                label="WO"
+                width="100"
+                fixed
+              >
+                <template slot-scope="scope">
+                  {{ scope.row.wo.woNo }}
+                </template>
+              </el-table-column>
             </el-table>
           </div>
         </div>

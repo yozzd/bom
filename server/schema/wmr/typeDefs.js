@@ -21,6 +21,7 @@ const typeDefs = `
     department: Int
     section: Int
     idWo: Int
+    wo: WO
   }
   
   input AddWmrInput {
