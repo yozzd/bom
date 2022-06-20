@@ -1,6 +1,6 @@
 const { Op } = require('sequelize');
 const {
-  WO, WOMODULE, MPR, MPRMODULE, MPRITEM,
+  WO, WOMODULE, MPR, MPRMODULE, MPRITEM, Wmr,
 } = require('../relations');
 const { itemAttributes } = require('../bom/resolvers');
 
@@ -256,6 +256,9 @@ const oneMpr = async (id) => {
           model: WOMODULE,
           attributes: ['id', 'hid', 'header'],
           required: false,
+        }, {
+          model: Wmr,
+          attributes: ['id', 'no'],
         }],
       }],
     }, {
@@ -272,6 +275,9 @@ const oneMpr = async (id) => {
         model: WOMODULE,
         attributes: ['id', 'hid', 'header'],
         required: false,
+      }, {
+        model: Wmr,
+        attributes: ['id', 'no'],
       }],
     }],
   });

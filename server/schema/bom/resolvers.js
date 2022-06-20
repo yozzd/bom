@@ -455,6 +455,11 @@ const resolvers = {
         'fabricationRemarks',
       ];
 
+      const include = [{
+        model: Wmr,
+        attributes: ['id', 'no'],
+      }];
+
       await Promise.all(
         input.map(async (v) => {
           let item = {};
@@ -464,12 +469,14 @@ const resolvers = {
             item = await MPRITEM.findOne({
               attributes: cAttributes,
               where,
+              include,
               raw: true,
             });
           } else {
             item = await WOITEM.findOne({
               attributes: cAttributes,
               where,
+              include,
               raw: true,
             });
           }
@@ -524,6 +531,7 @@ const resolvers = {
           item.poVal = null;
           item.poRemarks = null;
           item.idModule = null;
+          item.idWmr = null;
 
           const newItem = new WOITEM(item);
           const save = await newItem.save();
@@ -540,6 +548,10 @@ const resolvers = {
         include: [{
           model: WOITEM,
           attributes: itemAttributes,
+          include: [{
+            model: Wmr,
+            attributes: ['id', 'no'],
+          }],
           required: false,
         }],
       });
@@ -908,12 +920,19 @@ const resolvers = {
                 model: MPR,
                 attributes: ['id', 'no'],
                 required: false,
+              }, {
+                model: Wmr,
+                attributes: ['id', 'no'],
               }],
             });
           } else {
             item = await WOITEM.findOne({
               attributes: itemAttributes,
               where,
+              include: [{
+                model: Wmr,
+                attributes: ['id', 'no'],
+              }],
             });
           }
 
@@ -1022,16 +1041,22 @@ const resolvers = {
         input.map(async (v) => {
           let item = {};
           const where = { id: v.id };
+          const include = [{
+            model: Wmr,
+            attributes: ['id', 'no'],
+          }];
 
           if (v.isMpr) {
             item = await MPRITEM.findOne({
               attributes: itemAttributes,
               where,
+              include,
             });
           } else {
             item = await WOITEM.findOne({
               attributes: itemAttributes,
               where,
+              include,
             });
           }
 

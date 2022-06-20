@@ -107,6 +107,10 @@ export const GetOneMPR = gql`
             hid
             header
           }
+          wmr3 {
+            id
+            no
+          }
         }
       }
       items {
@@ -151,6 +155,10 @@ export const GetOneMPR = gql`
           id
           hid
           header
+        }
+        wmr3 {
+          id
+          no
         }
       }
     }

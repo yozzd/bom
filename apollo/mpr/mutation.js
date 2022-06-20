@@ -124,6 +124,10 @@ export const AddMprItems = gql`
         hid
         header
       }
+      wmr3 {
+        id
+        no
+      }
     }
   }
 `;
@@ -176,6 +180,10 @@ export const AddMprModule = gql`
           id
           hid
           header
+        }
+        wmr3 {
+          id
+          no
         }
       }
     }
@@ -231,6 +239,10 @@ export const UpdateMprModule = gql`
           hid
           header
         }
+        wmr3 {
+          id
+          no
+        }
       }
     }
   }
@@ -282,6 +294,10 @@ export const MoveToModule = gql`
         id
         hid
         header
+      }
+      wmr3 {
+        id
+        no
       }
     }
   }
@@ -437,6 +453,10 @@ export const ImportMpr = gql`
             hid
             header
           }
+          wmr3 {
+            id
+            no
+          }
         }
       }
       items {
@@ -481,6 +501,10 @@ export const ImportMpr = gql`
           id
           hid
           header
+        }
+        wmr3 {
+          id
+          no
         }
       }
     }

@@ -8,6 +8,7 @@ const sequelize = require('../../config/db');
 const { pssUrl, pssAuth } = require('../../config');
 const {
   WO, WOMODULE, WOITEM, MPR, MPRMODULE, MPRITEM, OUTSTANDINGPO,
+  Wmr,
 } = require('../relations');
 const { isAuthenticated } = require('../auth/service');
 const {
@@ -198,6 +199,11 @@ const resolvers = {
         'fabricationRemarks',
       ];
 
+      const include = [{
+        model: Wmr,
+        attributes: ['id', 'no'],
+      }];
+
       await Promise.all(
         input.map(async (v) => {
           let item = {};
@@ -207,12 +213,14 @@ const resolvers = {
             item = await MPRITEM.findOne({
               attributes: cAttributes,
               where,
+              include,
               raw: true,
             });
           } else {
             item = await WOITEM.findOne({
               attributes: cAttributes,
               where,
+              include,
               raw: true,
             });
           }
@@ -265,6 +273,7 @@ const resolvers = {
           item.poCurr = null;
           item.poVal = null;
           item.poRemarks = null;
+          item.idWmr = null;
           item.timestamp = dateNow();
 
           const newItem = new MPRITEM(item);
@@ -294,6 +303,9 @@ const resolvers = {
             model: WOMODULE,
             attributes: ['id', 'hid', 'header'],
             required: false,
+          }, {
+            model: Wmr,
+            attributes: ['id', 'no'],
           }],
         }],
       });
@@ -489,6 +501,7 @@ const resolvers = {
                     idMpr,
                     idWo,
                     idModule,
+                    idWmr: null,
                     timestamp: dateNow(),
                   });
                   await newItem.save();
