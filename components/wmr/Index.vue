@@ -21,19 +21,62 @@
           WMR
         </el-breadcrumb-item>
       </el-breadcrumb>
+
+      <div>
+        <div class="flex flex-col space-y-4 my-4">
+          <div>
+            <el-table
+              :data="tableData"
+              size="mini"
+              border
+              @selection-change="handleSelectionChange"
+            >
+              <el-table-column
+                type="selection"
+                width="40"
+                align="center"
+                fixed
+              ></el-table-column>
+              <el-table-column type="index" align="center" width="50" fixed></el-table-column>
+              <el-table-column
+                prop="no"
+                label="WMR No."
+                align="center"
+                width="100"
+                fixed
+              ></el-table-column>
+            </el-table>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import MiniSearch from 'minisearch';
 import { GetAllWmr } from '../../apollo/wmr/query';
+import table from '../../mixins/table';
 
 export default {
+  mixins: [table],
   data() {
     return {
       loading: false,
+      multipleSelection: [],
       errors: [],
+      miniSearch: new MiniSearch({
+        idField: 'id',
+        fields: ['id', 'no'],
+        storeFields: [
+          'id', 'no', 'requestById', 'requestBy', 'requestByTimestamp',
+          'authorizedById', 'authorizedBy', 'authorizedByTimestamp',
+        ],
+      }),
     };
+  },
+  methods: {
+    handleSelectionChange() {},
   },
   apollo: {
     getAllWmr: {
@@ -41,7 +84,10 @@ export default {
       prefetch: false,
       result({ data, loading }) {
         if (!loading) {
-          console.log(data);
+          const { getAllWmr } = data;
+          this.items = getAllWmr;
+          this.miniSearch.removeAll();
+          this.miniSearch.addAll(this.items);
         }
       },
       error({ graphQLErrors, networkError }) {

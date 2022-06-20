@@ -8,11 +8,11 @@ const { itemAttributes } = require('../bom/resolvers');
 
 const resolvers = {
   Query: {
-    getAllWmr: isAuthenticated(async (_, {}, ctx) => {
+    getAllWmr: isAuthenticated(async (_, args, ctx) => {
       const where = {
         department: ctx.req.user.department,
       };
-      
+
       const wmr = await Wmr.findAll({
         attributes: [
           'id', 'no', 'requestById', 'requestBy', 'requestByTimestamp',
