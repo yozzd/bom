@@ -884,7 +884,7 @@ export default {
 
         this.$message({
           type: 'success',
-          message: 'Item(s) has been stock/unstock successfully',
+          message: 'Item(s) has been added/removed from WMR successfully',
         });
       }).catch(() => {});
     },
