@@ -1,6 +1,7 @@
 const typeDefs = `
   extend type Query {
     getAllWmr: [Wmr]
+    getOneWmr(id: Int): Wmr
     getWmrByWo(idWo: Int): [Wmr]
   }
 
@@ -22,6 +23,7 @@ const typeDefs = `
     section: Int
     idWo: Int
     wo: WO
+    items: [WOITEM]
   }
   
   input AddWmrInput {

@@ -27,6 +27,29 @@ const resolvers = {
 
       return wmr;
     }),
+    getOneWmr: isAuthenticated(async (_, { id }) => {
+      const wmr = await Wmr.findOne({
+        attributes: ['id', 'no'],
+        where: { id },
+        include: [{
+          model: WOITEM,
+          attributes: itemAttributes,
+        }],
+      });
+
+      const wmrMpr = await Wmr.findOne({
+        attributes: ['id', 'no'],
+        where: { id },
+        include: [{
+          model: MPRITEM,
+          attributes: itemAttributes,
+        }],
+      });
+
+      wmr.items.push(...wmrMpr.items);
+
+      return wmr;
+    }),
     getWmrByWo: isAuthenticated(async (_, { idWo }) => {
       const wmr = await Wmr.findAll({
         attributes: ['id', 'no'],
