@@ -229,6 +229,11 @@
         align="center"
         width="100"
       ></el-table-column>
+      <el-table-column label="WMR" align="center" width="100">
+        <template slot-scope="scope">
+          {{ scope.row.wmr3 ? scope.row.wmr3.no : null }}
+        </template>
+      </el-table-column>
       <el-table-column label="Note" align="center" width="70">
         <template slot-scope="scope">
           <el-popover

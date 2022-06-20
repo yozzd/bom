@@ -53,7 +53,7 @@ export const AddItemsToWmr = gql`
         id
         no
       }
-      wmr {
+      wmr3 {
         id
         no
       }

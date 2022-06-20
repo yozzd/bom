@@ -166,6 +166,10 @@ export const GetOneWO = gql`
               id
               no
             }
+            wmr3 {
+              id
+              no
+            }
           }
         }
       }

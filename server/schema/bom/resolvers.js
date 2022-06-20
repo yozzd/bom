@@ -131,6 +131,9 @@ const resolvers = {
               model: MPR,
               attributes: ['id', 'no'],
               required: false,
+            }, {
+              model: Wmr,
+              attributes: ['id', 'no'],
             }],
           }],
         }],

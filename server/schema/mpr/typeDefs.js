@@ -107,6 +107,7 @@ const typeDefs = `
     colorClass: String
     module: WOMODULE
     mpr: MPR
+    wmr3: Wmr
   }
 
   input CreateMprInput {
