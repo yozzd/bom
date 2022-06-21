@@ -35,6 +35,11 @@ const Wmr = sequelize.define('wmr3', {
     type: DataTypes.STRING,
     allowNull: false,
   },
+  authorizedByApproved: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    defaultValue: 0,
+  },
   authorizedByTimestamp: {
     type: DataTypes.DATE,
     allowNull: false,

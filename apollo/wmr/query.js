@@ -10,6 +10,7 @@ export const GetAllWmr = gql`
       requestedByTimestamp
       authorizedById
       authorizedBy
+      authorizedByApproved
       authorizedByTimestamp
       wo {
         id

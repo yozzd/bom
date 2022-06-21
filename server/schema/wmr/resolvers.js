@@ -16,7 +16,8 @@ const resolvers = {
       const wmr = await Wmr.findAll({
         attributes: [
           'id', 'no', 'requestedById', 'requestedBy', 'requestedByTimestamp',
-          'authorizedById', 'authorizedBy', 'authorizedByTimestamp', 'idWo',
+          'authorizedById', 'authorizedBy', 'authorizedByApproved', 'authorizedByTimestamp',
+          'idWo',
         ],
         where,
         include: [{
