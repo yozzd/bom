@@ -212,6 +212,8 @@ const typeDefs = `
     idHeader: Int
     idModule: Int
     unit: Int
+    materialsProcessed: Float
+    yetToPurchase: Float
     sgd: Float
     idr: Float
     euro: Float

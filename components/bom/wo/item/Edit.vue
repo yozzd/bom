@@ -181,13 +181,13 @@
             label="Materials Processed (USD)"
             prop="materialsProcessed"
           >
-            <el-input v-model="form.materialsProcessed" :disabled="true"></el-input>
+            <el-input v-model="form.materialsProcessed"></el-input>
           </el-form-item>
           <el-form-item
             label="Yet to Purchase (USD)"
             prop="yetToPurchase"
           >
-            <el-input v-model="form.yetToPurchase" :disabled="true"></el-input>
+            <el-input v-model="form.yetToPurchase"></el-input>
           </el-form-item>
           <el-form-item
             label="Remarks"
@@ -417,6 +417,8 @@ export default {
                   idModule: parseInt(this.form.idModule, 10),
                   isMpr: parseInt(this.form.isMpr, 10),
                   unit: parseInt(unit, 10),
+                  materialsProcessed: parseFloat(this.form.materialsProcessed),
+                  yetToPurchase: parseFloat(this.form.yetToPurchase),
                   euro: parseFloat(this.wo.euro),
                   gbp: parseFloat(this.wo.gbp),
                   myr: parseFloat(this.wo.myr),

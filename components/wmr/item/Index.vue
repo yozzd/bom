@@ -57,13 +57,99 @@
       </div>
 
       <div>
-        <index-data-table
+        <!--<index-data-table
           v-if="items.length"
           ref="mtable"
           :data="items"
           class="my-4"
           @selection-change="handleSelectionChange"
-        />
+        />-->
+        <el-table
+          v-if="items.length"
+          :data="items"
+          size="mini"
+          border
+          class="my-4"
+          :row-class-name="highlighter"
+          @selection-change="handleSelectionChange"
+        >
+          <el-table-column
+            v-if="$auth.$state.user.section === 213"
+            type="selection"
+            width="40"
+            align="center"
+            fixed
+          ></el-table-column>
+          <el-table-column
+            type="index"
+            label="No"
+            align="center"
+            width="50"
+            fixed
+          ></el-table-column>
+          <el-table-column label="CD" align="center" width="60" fixed>
+            <template slot-scope="scope">
+              {{ scope.row.idMaterial }}
+            </template>
+          </el-table-column>
+          <el-table-column
+            label="Description"
+            width="140"
+            :show-overflow-tooltip="true"
+            fixed
+          >
+            <template slot-scope="scope">
+              <a
+                v-if="$auth.$state.user.department === 210 || fromMpr"
+                @click="showEditItem(scope.row)"
+              >
+                {{ scope.row.bomDescription }}
+              </a>
+              <span v-else>
+                {{ scope.row.bomDescription }}
+              </span>
+            </template>
+          </el-table-column>
+          <el-table-column
+            label="Specification"
+            width="260"
+            :show-overflow-tooltip="true"
+            fixed
+          >
+            <template slot-scope="scope">
+              {{ scope.row.bomSpecification }}
+            </template>
+          </el-table-column>
+          <el-table-column
+            label="Model"
+            width="140"
+            :show-overflow-tooltip="true"
+          >
+            <template slot-scope="scope">
+              {{ scope.row.bomModel }}
+            </template>
+          </el-table-column>
+          <el-table-column
+            label="Brand"
+            width="140"
+            :show-overflow-tooltip="true"
+          >
+            <template slot-scope="scope">
+              {{ scope.row.bomBrand }}
+            </template>
+          </el-table-column>
+          <el-table-column label="Qty / Unit" width="80">
+            <template slot-scope="scope">
+              {{ scope.row.bomQty }} {{ scope.row.bomUnit }}
+            </template>
+          </el-table-column>
+          <el-table-column label="Qty Rqd" align="center" width="60">
+            <template slot-scope="scope">
+              {{ scope.row.bomQtyRqd | currency }}
+            </template>
+          </el-table-column>
+          <el-table-column label="" min-width="50"></el-table-column>
+        </el-table>
       </div>
     </div>
   </div>
@@ -82,6 +168,9 @@ export default {
   },
   methods: {
     handleSelectionChange() {},
+    highlighter({ row }) {
+      return row.colorClass;
+    },
   },
   apollo: {
     getOneWmr: {

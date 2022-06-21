@@ -10,9 +10,9 @@
       @selection-change="selection => $emit('selection-change', selection)"
     >
       <el-table-column
-        v-if="$route.name!=='wmr-id' && (production.includes($auth.$state.user.department)
+        v-if="production.includes($auth.$state.user.department)
           || $auth.$state.user.section === 213
-          || fromMpr)"
+          || fromMpr"
         type="selection"
         width="40"
         align="center"
