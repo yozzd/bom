@@ -70,6 +70,7 @@ export const GetOneWmr = gql`
         cancel
         idHeader
         idModule
+        qtyIssued
         colorClass
         mpr {
           id

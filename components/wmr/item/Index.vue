@@ -130,15 +130,17 @@
               {{ scope.row.bomBrand }}
             </template>
           </el-table-column>
-          <el-table-column label="Qty / Unit" width="80">
-            <template slot-scope="scope">
-              {{ scope.row.bomQty }} {{ scope.row.bomUnit }}
-            </template>
-          </el-table-column>
-          <el-table-column label="Qty Rqd" align="center" width="60">
-            <template slot-scope="scope">
-              {{ scope.row.bomQtyRqd | currency }}
-            </template>
+          <el-table-column label="Quantity" align="center">
+            <el-table-column label="Request" align="center" width="80">
+              <template slot-scope="scope">
+                {{ scope.row.bomQty }} {{ scope.row.bomUnit }}
+              </template>
+            </el-table-column>
+            <el-table-column label="Issued" align="center" width="80">
+              <template slot-scope="scope">
+                {{ scope.row.qtyIssued | currency }}
+              </template>
+            </el-table-column>
           </el-table-column>
           <el-table-column label="" min-width="50"></el-table-column>
         </el-table>

@@ -455,6 +455,9 @@ const WOITEM = sequelize.define('item', {
   idWmr: {
     type: DataTypes.INTEGER,
   },
+  qtyIssued: {
+    type: DataTypes.DOUBLE(18, 2),
+  },
   colorClass: {
     type: DataTypes.VIRTUAL,
     get() {

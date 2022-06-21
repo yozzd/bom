@@ -104,6 +104,8 @@ const typeDefs = `
     idHeader: Int
     idModule: Int
     oIdModule: Int
+    idWmr: Int
+    qtyIssued: Float
     colorClass: String
     module: WOMODULE
     mpr: MPR

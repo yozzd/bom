@@ -48,6 +48,7 @@ export const AddItemsToWmr = gql`
       cancel
       idHeader
       idModule
+      qtyIssued
       colorClass
       mpr {
         id

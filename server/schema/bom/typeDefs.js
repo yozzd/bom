@@ -139,6 +139,8 @@ const typeDefs = `
     cancel: Int
     idHeader: Int
     idModule: Int
+    idWmr: Int
+    qtyIssued: Float
     colorClass: String
     mpr: MPR
     wo: WO
