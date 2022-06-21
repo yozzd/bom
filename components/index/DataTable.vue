@@ -229,11 +229,6 @@
         align="center"
         width="100"
       ></el-table-column>
-      <!--<el-table-column label="WMR" align="center" width="100">
-        <template slot-scope="scope">
-          {{ scope.row.wmr3 ? scope.row.wmr3.no : null }}
-        </template>
-      </el-table-column>-->
       <el-table-column
         label="WMR"
         :show-overflow-tooltip="true"
@@ -242,7 +237,7 @@
       >
         <template slot-scope="scope">
           <nuxt-link
-            v-if="scope.row.wmr3"
+            v-if="scope.row.wmr3 && $route.name!=='wmr-id'"
             :to="{
               name: 'wmr-id', params: {
                 id: scope.row.wmr3.id,
@@ -254,7 +249,7 @@
           <div class="hidden group-hover:inline-block absolute top-1 right-0">
             <el-tooltip effect="dark" content="Open in new tab" placement="top">
               <a
-                v-if="scope.row.wmr3"
+                v-if="scope.row.wmr3 && $route.name!=='wmr-id'"
                 :href="`/wmr/${scope.row.wmr3.id}`"
                 target="_blank"
               >
@@ -267,8 +262,11 @@
               </a>
             </el-tooltip>
           </div>
+          <span v-if="scope.row.wmr3 && $route.name==='wmr-id'">
+            {{scope.row.wmr3.no}}
+          </span>
         </template>
-      </el-table-column>
+      </el-table-column>-->
       <el-table-column label="Note" align="center" width="70">
         <template slot-scope="scope">
           <el-popover
