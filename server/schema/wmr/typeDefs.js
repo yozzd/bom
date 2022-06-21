@@ -11,6 +11,7 @@ const typeDefs = `
     approveWmr(input: ApproveWmrInput): Wmr
     disapproveWmr(input: ApproveWmrInput): Wmr
     deleteWmr(input: [DeleteWmrInput]): [Wmr]
+    stockWmrItem(input: [StockWmrItemInput]): [WOITEM]
   }
 
   type Wmr {
@@ -51,6 +52,12 @@ const typeDefs = `
   
   input DeleteWmrInput {
     id: Int
+  }
+  
+  input StockWmrItemInput {
+    id: Int
+    isMpr: Int
+    type: Int
   }
 `;
 

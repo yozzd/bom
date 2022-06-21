@@ -111,3 +111,56 @@ export const DeleteWmr = gql`
     }
   }
 `;
+
+export const StockWmrItem = gql`
+  mutation stockWmrItem($input: [StockWmrItemInput]) {
+    stockWmrItem(input: $input) {
+      id
+      idMaterial
+      bomDescription
+      bomSpecification
+      bomModel
+      bomBrand
+      bomQty
+      bomUnit
+      bomQtyRqd
+      bomQtyBalance
+      bomQtyStock
+      bomEta
+      bomQtyRec
+      bomDateRec
+      bomCurrSizeC
+      bomCurrSizeV
+      bomCurrEaC
+      bomCurrEaV
+      bomUsdEa
+      bomUsdUnit
+      bomUsdTotal
+      materialsProcessed
+      yetToPurchase
+      bomSupplier
+      bomPoDate
+      bomPoNo
+      bomRemarks
+      priority
+      bomEtaStatus
+      sr
+      isMpr
+      packing
+      hold
+      cancel
+      idHeader
+      idModule
+      qtyIssued
+      colorClass
+      mpr {
+        id
+        no
+      }
+      wmr3 {
+        id
+        no
+      }
+    }
+  }
+`;

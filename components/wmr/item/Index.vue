@@ -57,6 +57,35 @@
       </div>
 
       <div>
+        <div class="my-4">
+          <el-button-group
+            v-if="$auth.$state.user.section === 213"
+          >
+            <el-button
+              type="primary"
+              :disabled="!multipleSelection.length"
+              @click="handleStock(1)"
+            >
+              <client-only>
+                <v-icon name="ri-check-line" class="remixicons w-4 h-4" />
+              </client-only>
+              Stock
+            </el-button>
+            <el-button
+              type="primary"
+              :disabled="!multipleSelection.length"
+              @click="handleStock(0)"
+            >
+              <client-only>
+                <v-icon name="ri-close-line" class="remixicons w-4 h-4" />
+              </client-only>
+              Unstock
+            </el-button>
+          </el-button-group>
+        </div>
+      </div>
+
+      <div>
         <el-table
           v-if="items.length"
           :data="items"
@@ -127,7 +156,7 @@
             </el-table-column>
             <el-table-column label="Issued" align="center" width="80">
               <template slot-scope="scope">
-                {{ scope.row.qtyIssued | currency }}
+                {{ scope.row.qtyIssued | currency }} {{ scope.row.bomUnit }}
               </template>
             </el-table-column>
           </el-table-column>
@@ -140,19 +169,48 @@
 
 <script>
 import { GetOneWmr } from '../../../apollo/wmr/query';
+import { StockWmrItem } from '../../../apollo/wmr/mutation';
 
 export default {
   data() {
     return {
       wmr: {},
       items: [],
+      multipleSelection: [],
       errors: [],
     };
   },
   methods: {
-    handleSelectionChange() {},
+    handleSelectionChange(arr) {
+      this.multipleSelection = arr;
+    },
     highlighter({ row }) {
       return row.colorClass;
+    },
+    handleStock(val) {
+      const arr = this.multipleSelection.map((v) => ({
+        id: v.id,
+        isMpr: v.isMpr,
+        type: parseInt(val, 10),
+      }));
+
+      this.$confirm('You are about to stock/unstock item(s), are you sure?', 'Confirmation', {
+        confirmButtonText: 'Yes',
+        cancelButtonText: 'Cancel',
+        type: 'warning',
+      }).then(async () => {
+        await this.$apollo.mutate({
+          mutation: StockWmrItem,
+          variables: {
+            input: arr,
+          },
+        });
+
+        this.$message({
+          type: 'success',
+          message: 'Item(s) has been stock/unstock successfully',
+        });
+      }).catch(() => {});
     },
   },
   apollo: {

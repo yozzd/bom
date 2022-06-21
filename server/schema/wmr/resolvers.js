@@ -10,7 +10,7 @@ const resolvers = {
   Query: {
     getAllWmr: isAuthenticated(async (_, args, ctx) => {
       let where = {};
-      
+
       if (ctx.req.user.section !== 213) {
         where = {
           department: ctx.req.user.department,
@@ -200,6 +200,45 @@ const resolvers = {
       );
 
       return input;
+    }),
+    stockWmrItem: isAuthenticated(async (_, { input }) => {
+      const saved = [];
+
+      await Promise.all(
+        input.map(async (v) => {
+          let item = {};
+          const where = { id: v.id };
+          const include = [{
+            model: Wmr,
+            attributes: ['id', 'no'],
+          }];
+
+          if (v.isMpr) {
+            item = await MPRITEM.findOne({
+              attributes: itemAttributes,
+              where,
+              include,
+            });
+          } else {
+            item = await WOITEM.findOne({
+              attributes: itemAttributes,
+              where,
+              include,
+            });
+          }
+
+          if (v.type === 0) {
+            item.qtyIssued = 0;
+          } else {
+            item.qtyIssued = item.bomQty;
+          }
+
+          const save = await item.save();
+          saved.push(save);
+        }),
+      );
+
+      return saved;
     }),
   },
 };
