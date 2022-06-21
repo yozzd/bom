@@ -57,13 +57,6 @@
       </div>
 
       <div>
-        <!--<index-data-table
-          v-if="items.length"
-          ref="mtable"
-          :data="items"
-          class="my-4"
-          @selection-change="handleSelectionChange"
-        />-->
         <el-table
           v-if="items.length"
           :data="items"
@@ -78,14 +71,12 @@
             type="selection"
             width="40"
             align="center"
-            fixed
           ></el-table-column>
           <el-table-column
             type="index"
             label="No"
             align="center"
             width="50"
-            fixed
           ></el-table-column>
           <el-table-column label="CD" align="center" width="60" fixed>
             <template slot-scope="scope">
@@ -96,7 +87,6 @@
             label="Description"
             width="140"
             :show-overflow-tooltip="true"
-            fixed
           >
             <template slot-scope="scope">
               {{ scope.row.bomDescription }}
@@ -106,7 +96,6 @@
             label="Specification"
             width="260"
             :show-overflow-tooltip="true"
-            fixed
           >
             <template slot-scope="scope">
               {{ scope.row.bomSpecification }}
