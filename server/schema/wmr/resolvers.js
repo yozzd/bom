@@ -9,9 +9,13 @@ const { itemAttributes } = require('../bom/resolvers');
 const resolvers = {
   Query: {
     getAllWmr: isAuthenticated(async (_, args, ctx) => {
-      const where = {
-        department: ctx.req.user.department,
-      };
+      let where = {};
+      
+      if (ctx.req.user.section !== 213) {
+        where = {
+          department: ctx.req.user.department,
+        };
+      }
 
       const wmr = await Wmr.findAll({
         attributes: [
