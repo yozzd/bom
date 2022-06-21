@@ -99,15 +99,7 @@
             fixed
           >
             <template slot-scope="scope">
-              <a
-                v-if="$auth.$state.user.department === 210 || fromMpr"
-                @click="showEditItem(scope.row)"
-              >
-                {{ scope.row.bomDescription }}
-              </a>
-              <span v-else>
-                {{ scope.row.bomDescription }}
-              </span>
+              {{ scope.row.bomDescription }}
             </template>
           </el-table-column>
           <el-table-column
