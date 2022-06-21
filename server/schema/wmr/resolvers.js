@@ -131,6 +131,27 @@ const resolvers = {
 
       return saved;
     }),
+    deleteWmr: isAuthenticated(async (_, { input }) => {
+      await Promise.all(
+        input.map(async (v) => {
+          await WOITEM.update(
+            { idWmr: null },
+            { where: { idWmr: v.id } },
+          );
+
+          await MPRITEM.update(
+            { idWmr: null },
+            { where: { idWmr: v.id } },
+          );
+
+          await Wmr.destroy({
+            where: { id: v.id },
+          });
+        }),
+      );
+
+      return input;
+    }),
   },
 };
 

@@ -60,3 +60,11 @@ export const AddItemsToWmr = gql`
     }
   }
 `;
+
+export const DeleteWmr = gql`
+  mutation deleteWmr($input: [DeleteWmrInput]) {
+    deleteWmr(input: $input) {
+      id
+    }
+  }
+`;

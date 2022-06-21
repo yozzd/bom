@@ -23,6 +23,21 @@
       </el-breadcrumb>
 
       <div>
+        <div class="my-4">
+          <el-button
+            type="danger"
+            :disabled="!multipleSelection.length"
+            @click="handleDelete"
+          >
+            <client-only>
+              <v-icon name="ri-delete-bin-2-line" class="remixicons w-4 h-4" />
+            </client-only>
+            Delete
+          </el-button>
+        </div>
+      </div>
+
+      <div>
         <div class="flex flex-col space-y-4 my-4">
           <div>
             <el-table
@@ -136,8 +151,10 @@
 </template>
 
 <script>
+import pullAllBy from 'lodash/pullAllBy';
 import MiniSearch from 'minisearch';
 import { GetAllWmr } from '../../apollo/wmr/query';
+import { DeleteWmr } from '../../apollo/wmr/mutation';
 import table from '../../mixins/table';
 
 export default {
@@ -146,6 +163,7 @@ export default {
     return {
       loading: false,
       multipleSelection: [],
+      cachedArr: [],
       errors: [],
       miniSearch: new MiniSearch({
         idField: 'id',
@@ -158,7 +176,46 @@ export default {
     };
   },
   methods: {
-    handleSelectionChange() {},
+    handleSelectionChange(arr) {
+      this.multipleSelection = arr.map((v) => ({ id: v.id }));
+      this.cachedArr = arr;
+    },
+    handleDelete() {
+      this.$confirm('This will permanently delete the data. Continue?', 'Warning', {
+        confirmButtonText: 'Yes',
+        cancelButtonText: 'Cancel',
+        type: 'warning',
+      }).then(async () => {
+        await this.$apollo.mutate({
+          mutation: DeleteWmr,
+          variables: {
+            input: this.multipleSelection,
+          },
+          update: (store, { data: { deleteWmr } }) => {
+            const cdata = store.readQuery({
+              query: GetAllWmr,
+            });
+
+            pullAllBy(cdata.getAllWmr, deleteWmr, 'id');
+
+            store.writeQuery({
+              query: GetAllWmr,
+              data: cdata,
+            });
+          },
+          optimisticResponse: {
+            __typename: 'Mutation',
+            deleteWmr: this.cachedArr,
+          },
+        });
+
+        this.$message({
+          type: 'success',
+          message: 'Data has been delete successfully',
+        });
+        this.multipleSelection = [];
+      }).catch(() => {});
+    },
   },
   apollo: {
     getAllWmr: {
