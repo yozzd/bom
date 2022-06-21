@@ -820,7 +820,8 @@ export default {
       const cmd = command.split('-')[0];
       const idWmr = parseInt(command.split('-')[1], 10);
 
-      if (cmd === 'add') this.addItemsToWmr(idWmr);
+      if (cmd === 'lst') this.$router.push({ name: 'wmr-id', params: { id: idWmr } });
+      else if (cmd === 'add') this.addItemsToWmr(idWmr);
     },
     async addItemsToWmr(idWmr) {
       const arr = this.multipleSelection.map((v) => ({

@@ -263,7 +263,7 @@
             </el-tooltip>
           </div>
           <span v-if="scope.row.wmr3 && $route.name==='wmr-id'">
-            {{scope.row.wmr3.no}}
+            {{ scope.row.wmr3.no }}
           </span>
         </template>
       </el-table-column>-->
