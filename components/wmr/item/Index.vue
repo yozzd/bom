@@ -11,6 +11,20 @@
       element-loading-text="Loading..."
       element-loading-spinner="el-icon-loading"
     >
+      <el-breadcrumb separator="/" class="mb-4">
+        <el-breadcrumb-item :to="{ name: 'index' }" title="Home">
+          <client-only>
+            <v-icon name="ri-home-4-line" class="remixicons w-15px h-15px" />
+          </client-only>
+        </el-breadcrumb-item>
+        <el-breadcrumb-item :to="{ name: 'wmr'}">
+          WMR
+        </el-breadcrumb-item>
+        <el-breadcrumb-item>
+          ITEMS
+        </el-breadcrumb-item>
+      </el-breadcrumb>
+
       <div>
         <index-data-table
           v-if="items.length"
