@@ -243,7 +243,7 @@
                     <el-tooltip effect="dark" content="Approve?" placement="top">
                       <a @click="approve(scope.row, 'manager')">
                         <el-tag type="warning" size="mini">
-                          Waiting
+                          Waiting...
                         </el-tag>
                       </a>
                     </el-tooltip>
@@ -279,7 +279,7 @@
                     </el-popover>
                   </div>
                   <el-tag v-else type="warning" size="mini">
-                    Waiting
+                    Waiting...
                   </el-tag>
                 </template>
               </el-table-column>
@@ -289,7 +289,7 @@
                     <el-tooltip effect="dark" content="Approve?" placement="top">
                       <a @click="approve(scope.row, 'wh')">
                         <el-tag type="warning" size="mini">
-                          Waiting
+                          Waiting...
                         </el-tag>
                       </a>
                     </el-tooltip>
@@ -322,7 +322,7 @@
                     </el-popover>
                   </div>
                   <el-tag v-else type="warning" size="mini">
-                    Waiting
+                    Waiting...
                   </el-tag>
                 </template>
               </el-table-column>
@@ -332,7 +332,7 @@
                     <el-tooltip effect="dark" content="Approve?" placement="top">
                       <a @click="approve(scope.row, 'bom')">
                         <el-tag type="warning" size="mini">
-                          Waiting
+                          Waiting...
                         </el-tag>
                       </a>
                     </el-tooltip>
@@ -365,7 +365,7 @@
                     </el-popover>
                   </div>
                   <el-tag v-else type="warning" size="mini">
-                    Waiting
+                    Waiting...
                   </el-tag>
                 </template>
               </el-table-column>
