@@ -25,6 +25,13 @@ export const GetOneWmr = gql`
     getOneWmr(id: $id) {
       id
       no
+      requestedBy
+      authorizedBy
+      wo {
+        id
+        woNo
+        idLt
+      }
       items {
         id
         idMaterial

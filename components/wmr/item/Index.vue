@@ -26,6 +26,37 @@
       </el-breadcrumb>
 
       <div>
+        <div class="my-4">
+          <div class="font-bold text-xl mb-4">
+            WMR No. : {{ wmr.no }}
+          </div>
+          <table class="plain">
+            <tbody>
+              <tr>
+                <td class="w-22">
+                  WO
+                </td>
+                <td>:</td>
+                <td class="w-80">
+                  <span v-if="wmr.wo">{{ wmr.wo.woNo }}</span>
+                </td>
+                <td class="w-22">
+                  Requested By
+                </td>
+                <td>:</td>
+                <td>{{ wmr.requestedBy }}</td>
+                <td class="w-22">
+                  Authorized By
+                </td>
+                <td>:</td>
+                <td>{{ wmr.authorizedBy }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div>
         <index-data-table
           v-if="items.length"
           ref="mtable"

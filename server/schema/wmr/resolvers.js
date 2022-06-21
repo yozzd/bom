@@ -29,7 +29,9 @@ const resolvers = {
     }),
     getOneWmr: isAuthenticated(async (_, { id }) => {
       const wmr = await Wmr.findOne({
-        attributes: ['id', 'no'],
+        attributes: [
+          'id', 'no', 'requestedBy', 'authorizedBy',
+        ],
         where: { id },
         include: [{
           model: WOITEM,
@@ -38,11 +40,16 @@ const resolvers = {
             model: Wmr,
             attributes: ['id', 'no'],
           }],
+        }, {
+          model: WO,
+          attributes: ['id', 'woNo', 'idLt'],
         }],
       });
 
       const wmrMpr = await Wmr.findOne({
-        attributes: ['id', 'no'],
+        attributes: [
+          'id', 'no', 'requestedBy', 'authorizedBy',
+        ],
         where: { id },
         include: [{
           model: MPRITEM,
