@@ -141,6 +141,55 @@
                   {{ scope.row.authorizedBy }}
                 </template>
               </el-table-column>
+              <el-table-column label="Authorized By Status" align="center" width="140">
+                <template slot-scope="scope">
+                  <div
+                    v-if="!scope.row.authorizedByApproved
+                      && $auth.$state.user.fullname === scope.row.authorizedBy"
+                  >
+                    <el-tooltip effect="dark" content="Approve?" placement="top">
+                      <a @click="approve(scope.row, 'authorized')">
+                        <el-tag type="warning" size="mini">
+                          Waiting...
+                        </el-tag>
+                      </a>
+                    </el-tooltip>
+                  </div>
+                  <div
+                    v-else-if="scope.row.authorizedByApproved"
+                    class="flex space-x-1"
+                  >
+                    <div v-if="$auth.$state.user.fullname === scope.row.authorizedBy">
+                      <el-tooltip effect="dark" content="Disapprove?" placement="top">
+                        <a @click="disapprove(scope.row, 'authorized')">
+                          <el-tag type="success" size="mini">
+                            Approved
+                          </el-tag>
+                        </a>
+                      </el-tooltip>
+                    </div>
+                    <el-tag v-else type="success" size="mini">
+                      Approved
+                    </el-tag>
+                    <el-popover
+                      placement="top"
+                      trigger="hover"
+                    >
+                      <template #default>
+                        <div class="text-xs">
+                          {{ scope.row.authorizedByTimestamp }}
+                        </div>
+                      </template>
+                      <client-only slot="reference">
+                        <v-icon name="ri-time-line" class="remixicons w-4 h-4" />
+                      </client-only>
+                    </el-popover>
+                  </div>
+                  <el-tag v-else type="warning" size="mini">
+                    Waiting...
+                  </el-tag>
+                </template>
+              </el-table-column>
               <el-table-column label="" min-width="50"></el-table-column>
             </el-table>
           </div>
@@ -154,7 +203,7 @@
 import pullAllBy from 'lodash/pullAllBy';
 import MiniSearch from 'minisearch';
 import { GetAllWmr } from '../../apollo/wmr/query';
-import { DeleteWmr } from '../../apollo/wmr/mutation';
+import { ApproveWmr, DeleteWmr } from '../../apollo/wmr/mutation';
 import table from '../../mixins/table';
 
 export default {
@@ -215,6 +264,47 @@ export default {
         });
         this.multipleSelection = [];
       }).catch(() => {});
+    },
+    approve(row, type) {
+      this.$confirm('You are about to approve this WMR, are you sure?', 'Confirmation', {
+        confirmButtonText: 'Yes',
+        cancelButtonText: 'Cancel',
+        type: 'warning',
+      }).then(async () => {
+        await this.$apollo.mutate({
+          mutation: ApproveWmr,
+          variables: {
+            input: { id: row.id, type },
+          },
+          update: (store, { data: { approveWmr } }) => {
+            const cdata = store.readQuery({
+              query: GetAllWmr,
+            });
+
+            const index = cdata.getAllWmr.findIndex((e) => e.id === row.id);
+            cdata.getAllWmr[index] = approveWmr;
+
+            this.updateList(cdata[this.sdata]);
+
+            store.writeQuery({
+              query: GetAllWmr,
+              data: cdata,
+            });
+          },
+          optimisticResponse: {
+            __typename: 'Mutation',
+            approveWmr: row,
+          },
+        });
+
+        this.$message({
+          type: 'success',
+          message: 'Data has been approve successfully',
+        });
+      }).catch(() => {});
+    },
+    disapprove(row) {
+      console.log(row);
     },
   },
   apollo: {
