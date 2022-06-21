@@ -9,6 +9,7 @@ const typeDefs = `
     addWmr(input: AddWmrInput): Wmr
     addItemsToWmr(input: [AddItemsToWmrInput]): [WOITEM]
     approveWmr(input: ApproveWmrInput): Wmr
+    disapproveWmr(input: ApproveWmrInput): Wmr
     deleteWmr(input: [DeleteWmrInput]): [Wmr]
   }
 

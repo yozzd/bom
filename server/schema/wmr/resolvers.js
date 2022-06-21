@@ -154,6 +154,28 @@ const resolvers = {
       const save = await wmr.save();
       return save;
     }),
+    disapproveWmr: isAuthenticated(async (_, { input }) => {
+      const wmr = await Wmr.findOne({
+        attributes: [
+          'id', 'no', 'requestedById', 'requestedBy', 'requestedByTimestamp',
+          'authorizedById', 'authorizedBy', 'authorizedByApproved', 'authorizedByTimestamp',
+          'idWo',
+        ],
+        where: { id: input.id },
+        include: [{
+          model: WO,
+          attributes: ['id', 'woNo', 'idLt'],
+        }],
+      });
+
+      if (input.type === 'authorized') {
+        wmr.authorizedByApproved = 0;
+        wmr.authorizedByTimestamp = '0000-00-00 00:00:00';
+      }
+
+      const save = await wmr.save();
+      return save;
+    }),
     deleteWmr: isAuthenticated(async (_, { input }) => {
       await Promise.all(
         input.map(async (v) => {

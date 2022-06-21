@@ -81,6 +81,28 @@ export const ApproveWmr = gql`
     }
   }
 `;
+
+export const DisapproveWmr = gql`
+  mutation disapproveWmr($input: ApproveWmrInput) {
+    disapproveWmr(input: $input) {
+      id
+      no
+      requestedById
+      requestedBy
+      requestedByTimestamp
+      authorizedById
+      authorizedBy
+      authorizedByApproved
+      authorizedByTimestamp
+      wo {
+        id
+        woNo
+        idLt
+      }
+    }
+  }
+`;
+
 export const DeleteWmr = gql`
   mutation deleteWmr($input: [DeleteWmrInput]) {
     deleteWmr(input: $input) {

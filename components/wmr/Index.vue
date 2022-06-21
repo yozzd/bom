@@ -203,7 +203,7 @@
 import pullAllBy from 'lodash/pullAllBy';
 import MiniSearch from 'minisearch';
 import { GetAllWmr } from '../../apollo/wmr/query';
-import { ApproveWmr, DeleteWmr } from '../../apollo/wmr/mutation';
+import { ApproveWmr, DisapproveWmr, DeleteWmr } from '../../apollo/wmr/mutation';
 import table from '../../mixins/table';
 
 export default {
@@ -284,8 +284,6 @@ export default {
             const index = cdata.getAllWmr.findIndex((e) => e.id === row.id);
             cdata.getAllWmr[index] = approveWmr;
 
-            this.updateList(cdata[this.sdata]);
-
             store.writeQuery({
               query: GetAllWmr,
               data: cdata,
@@ -303,8 +301,41 @@ export default {
         });
       }).catch(() => {});
     },
-    disapprove(row) {
-      console.log(row);
+    disapprove(row, type) {
+      this.$confirm('You are about to disapprove this WMR, are you sure?', 'Confirmation', {
+        confirmButtonText: 'Yes',
+        cancelButtonText: 'Cancel',
+        type: 'warning',
+      }).then(async () => {
+        await this.$apollo.mutate({
+          mutation: DisapproveWmr,
+          variables: {
+            input: { id: row.id, type },
+          },
+          update: (store, { data: { disapproveWmr } }) => {
+            const cdata = store.readQuery({
+              query: GetAllWmr,
+            });
+
+            const index = cdata.getAllWmr.findIndex((e) => e.id === row.id);
+            cdata.getAllWmr[index] = disapproveWmr;
+
+            store.writeQuery({
+              query: GetAllWmr,
+              data: cdata,
+            });
+          },
+          optimisticResponse: {
+            __typename: 'Mutation',
+            disapproveWmr: row,
+          },
+        });
+
+        this.$message({
+          type: 'success',
+          message: 'Data has been disapprove successfully',
+        });
+      }).catch(() => {});
     },
   },
   apollo: {
