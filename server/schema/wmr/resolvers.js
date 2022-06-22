@@ -69,7 +69,12 @@ const resolvers = {
         where: { id },
         include: [{
           model: MPRITEM,
-          attributes: itemAttributes,
+          attributes: [
+            ...itemAttributes,
+            [sequelize.literal('(SELECT IFNULL(SUM(qty), 0) FROM MaterialStock WHERE MaterialCD = items.id_material)'), 'stock1'],
+            [sequelize.literal('(SELECT IFNULL(SUM(qty), 0) FROM lokasimaterial WHERE MaterialCD = items.id_material AND type_alokasi = \'stock\')'), 'stock2'],
+            [sequelize.literal('(SELECT IFNULL(SUM(request), 0) FROM wmr_detail_consumable WHERE MaterialCD = items.id_material)'), 'stock3'],
+          ],
           include: [{
             model: Wmr,
             attributes: ['id', 'no'],
