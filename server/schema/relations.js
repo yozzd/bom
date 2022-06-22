@@ -3,8 +3,8 @@ const {
 } = require('./bom/model');
 const { MPR, MPRMODULE, MPRITEM } = require('./mpr/model');
 const { OUTSTANDINGPO } = require('./outstandingPo/model');
-const { Material } = require('./material/model');
 const { Employer } = require('./employer/model');
+const { Material } = require('./material/model');
 const { Wmr } = require('./wmr/model');
 
 LT.hasMany(WO, {
@@ -129,7 +129,7 @@ module.exports = {
   MPRMODULE,
   MPRITEM,
   OUTSTANDINGPO,
-  Material,
   Employer,
+  Material,
   Wmr,
 };

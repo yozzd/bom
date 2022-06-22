@@ -470,6 +470,31 @@ const WOITEM = sequelize.define('item', {
       return remarkBlacklist.includes(this.getDataValue('wmrWhRemarks')) ? '' : this.getDataValue('wmrWhRemarks');
     },
   },
+  stock1: {
+    type: DataTypes.VIRTUAL,
+  },
+  stock2: {
+    type: DataTypes.VIRTUAL,
+  },
+  stock3: {
+    type: DataTypes.VIRTUAL,
+  },
+  stockReady: {
+    type: DataTypes.VIRTUAL,
+    get() {
+      if (this.idMaterial) {
+        const totalStock = this.stock1 - this.stock2;
+        let totalStock1 = 0;
+
+        if (totalStock > 0) {
+          totalStock1 = totalStock - this.stock3;
+        }
+
+        return totalStock1;
+      }
+      return 0;
+    },
+  },
   colorClass: {
     type: DataTypes.VIRTUAL,
     get() {

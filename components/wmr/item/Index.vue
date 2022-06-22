@@ -202,6 +202,17 @@
               </template>
             </el-table-column>
           </el-table-column>
+          <el-table-column
+            v-if="$auth.$state.user.section === 213"
+            label="Stock Ready"
+            align="center"
+            width="100"
+            :show-overflow-tooltip="true"
+          >
+            <template slot-scope="scope">
+              {{ scope.row.stockReady }}
+            </template>
+          </el-table-column>
           <el-table-column label="" min-width="50"></el-table-column>
         </el-table>
       </div>

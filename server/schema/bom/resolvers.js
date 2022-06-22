@@ -26,7 +26,7 @@ const itemAttributes = [
   'bomPoDate', 'bomPoNo', 'poNo', 'bomRemarks', 'priority', 'bomEtaStatus',
   'sr', 'isMpr', 'validasi', 'packing', 'hold', 'cancel',
   'idHeader', 'idModule', 'idWmr', 'qtyIssued', 'wmrPrRemarks', 'wmrWhRemarks',
-  'colorClass',
+  'stockReady', 'colorClass',
 ];
 
 const pics = [

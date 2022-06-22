@@ -143,6 +143,7 @@ const typeDefs = `
     qtyIssued: Float
     wmrPrRemarks: String
     wmrWhRemarks: String
+    stockReady: String
     colorClass: String
     mpr: MPR
     wo: WO

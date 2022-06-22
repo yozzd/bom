@@ -73,6 +73,7 @@ export const GetOneWmr = gql`
         qtyIssued
         wmrPrRemarks
         wmrWhRemarks
+        stockReady
         colorClass
         mpr {
           id

@@ -51,6 +51,7 @@ export const AddItemsToWmr = gql`
       qtyIssued
       wmrPrRemarks
       wmrWhRemarks
+      stockReady
       colorClass
       mpr {
         id
@@ -154,6 +155,9 @@ export const StockWmrItem = gql`
       idHeader
       idModule
       qtyIssued
+      wmrPrRemarks
+      wmrWhRemarks
+      stockReady
       colorClass
       mpr {
         id
@@ -209,6 +213,7 @@ export const UpdateWmrWhItem = gql`
       qtyIssued
       wmrPrRemarks
       wmrWhRemarks
+      stockReady
       colorClass
       mpr {
         id

@@ -403,6 +403,12 @@ const MPRITEM = sequelize.define('item', {
       return remarkBlacklist.includes(this.getDataValue('wmrWhRemarks')) ? '' : this.getDataValue('wmrWhRemarks');
     },
   },
+  stockReady: {
+    type: DataTypes.VIRTUAL,
+    get() {
+      return this.idMaterial;
+    },
+  },
   colorClass: {
     type: DataTypes.VIRTUAL,
     get() {
