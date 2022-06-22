@@ -11,7 +11,11 @@ const resolvers = {
     getAllWmr: isAuthenticated(async (_, args, ctx) => {
       let where = {};
 
-      if (ctx.req.user.section !== 213) {
+      if (ctx.req.user.section === 213) {
+        where = {
+          authorizedByApproved: 1,
+        };
+      } else {
         where = {
           department: ctx.req.user.department,
         };
