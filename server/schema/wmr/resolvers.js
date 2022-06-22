@@ -244,6 +244,34 @@ const resolvers = {
 
       return saved;
     }),
+    updateWmrWhItem: isAuthenticated(async (_, { input }) => {
+      let item = {};
+      const where = { id: input.id };
+      const include = [{
+        model: Wmr,
+        attributes: ['id', 'no'],
+      }];
+
+      if (input.isMpr) {
+        item = await MPRITEM.findOne({
+          attributes: itemAttributes,
+          where,
+          include,
+        });
+      } else {
+        item = await WOITEM.findOne({
+          attributes: itemAttributes,
+          where,
+          include,
+        });
+      }
+
+      item.qtyIssued = input.qtyIssued;
+      item.wmrWhRemarks = input.wmrWhRemarks;
+
+      const save = await item.save();
+      return save;
+    }),
   },
 };
 

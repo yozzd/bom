@@ -106,6 +106,8 @@ const typeDefs = `
     oIdModule: Int
     idWmr: Int
     qtyIssued: Float
+    wmrPrRemarks: String
+    wmrWhRemarks: String
     colorClass: String
     module: WOMODULE
     mpr: MPR

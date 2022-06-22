@@ -458,6 +458,18 @@ const WOITEM = sequelize.define('item', {
   qtyIssued: {
     type: DataTypes.DOUBLE(18, 2),
   },
+  wmrPrRemarks: {
+    type: DataTypes.TEXT,
+    get() {
+      return remarkBlacklist.includes(this.getDataValue('wmrPrRemarks')) ? '' : this.getDataValue('wmrPrRemarks');
+    },
+  },
+  wmrWhRemarks: {
+    type: DataTypes.TEXT,
+    get() {
+      return remarkBlacklist.includes(this.getDataValue('wmrWhRemarks')) ? '' : this.getDataValue('wmrWhRemarks');
+    },
+  },
   colorClass: {
     type: DataTypes.VIRTUAL,
     get() {

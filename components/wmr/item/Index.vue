@@ -156,7 +156,49 @@
             </el-table-column>
             <el-table-column label="Issued" align="center" width="80">
               <template slot-scope="scope">
-                {{ scope.row.qtyIssued | currency }} {{ scope.row.bomUnit }}
+                <a
+                  v-if="$auth.$state.user.section===213"
+                  @click="showWmrWhEdit(scope.row)"
+                >
+                  {{ scope.row.qtyIssued | currency }} {{ scope.row.bomUnit }}
+                </a>
+                <div v-else>
+                  {{ scope.row.qtyIssued | currency }} {{ scope.row.bomUnit }}
+                </div>
+              </template>
+            </el-table-column>
+          </el-table-column>
+          <el-table-column label="Remarks" align="center">
+            <el-table-column label="Production" align="center" width="80">
+              <template slot-scope="scope">
+                <el-popover
+                  v-if="scope.row.wmrPrRemarks"
+                  placement="top"
+                  trigger="hover"
+                >
+                  <template #default>
+                    <div class="text-xs" v-html="scope.row.wmrPrRemarks"></div>
+                  </template>
+                  <client-only slot="reference">
+                    <v-icon name="ri-message-2-line" class="remixicons w-4 h-4" />
+                  </client-only>
+                </el-popover>
+              </template>
+            </el-table-column>
+            <el-table-column label="Warehouse" align="center" width="80">
+              <template slot-scope="scope">
+                <el-popover
+                  v-if="scope.row.wmrWhRemarks"
+                  placement="top"
+                  trigger="hover"
+                >
+                  <template #default>
+                    <div class="text-xs" v-html="scope.row.wmrWhRemarks"></div>
+                  </template>
+                  <client-only slot="reference">
+                    <v-icon name="ri-message-2-line" class="remixicons w-4 h-4" />
+                  </client-only>
+                </el-popover>
               </template>
             </el-table-column>
           </el-table-column>
@@ -164,6 +206,12 @@
         </el-table>
       </div>
     </div>
+
+    <WmrItemWhEdit
+      :show="showWmrWhEditDialog"
+      :data="row"
+      @close="closeWmrWhEditDialog"
+    />
   </div>
 </template>
 
@@ -177,6 +225,8 @@ export default {
       wmr: {},
       items: [],
       multipleSelection: [],
+      row: {},
+      showWmrWhEditDialog: false,
       errors: [],
     };
   },
@@ -186,6 +236,13 @@ export default {
     },
     highlighter({ row }) {
       return row.colorClass;
+    },
+    showWmrWhEdit(row) {
+      this.row = row;
+      this.showWmrWhEditDialog = true;
+    },
+    closeWmrWhEditDialog(value) {
+      this.showWmrWhEditDialog = value;
     },
     handleStock(val) {
       const arr = this.multipleSelection.map((v) => ({

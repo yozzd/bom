@@ -71,6 +71,8 @@ export const GetOneWmr = gql`
         idHeader
         idModule
         qtyIssued
+        wmrPrRemarks
+        wmrWhRemarks
         colorClass
         mpr {
           id
