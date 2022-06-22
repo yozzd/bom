@@ -22,16 +22,21 @@
         label-position="top"
         class="grid grid-cols-5"
       >
-        <div class="xl:col-span-3 xl:col-start-2">
+        <div class="xl:col-span-3 xl:col-start-2 xl:grid xl:grid-cols-2 xl:gap-x-4">
           <el-form-item
             label="Quantity Issued"
             prop="qtyIssued"
+            class="col-span-1"
           >
             <el-input v-model="form.qtyIssued"></el-input>
+          </el-form-item>
+          <el-form-item label="Stock Ready">
+            {{ form.stockReady }}
           </el-form-item>
           <el-form-item
             label="Remark"
             prop="wmrWhRemarks"
+            class="col-span-2"
           >
             <client-only>
               <IndexEditor v-model="form.wmrWhRemarks" />

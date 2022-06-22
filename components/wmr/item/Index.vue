@@ -107,7 +107,7 @@
             align="center"
             width="50"
           ></el-table-column>
-          <el-table-column label="CD" align="center" width="60" fixed>
+          <el-table-column label="CD" align="center" width="60">
             <template slot-scope="scope">
               {{ scope.row.idMaterial }}
             </template>
