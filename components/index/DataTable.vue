@@ -324,7 +324,10 @@
 </template>
 
 <script>
+import utils from '../../mixins/utils';
+
 export default {
+  mixins: [utils],
   props: {
     data: {
       type: Array,
@@ -347,7 +350,6 @@ export default {
     return {
       dataEditItem: {},
       showEditItemDialog: false,
-      production: [110, 120, 130, 150, 170],
     };
   },
   methods: {

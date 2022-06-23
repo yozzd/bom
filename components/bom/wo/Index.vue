@@ -573,9 +573,10 @@ import {
 import { GetWmrByWo } from '../../../apollo/wmr/query';
 import { AddItemsToWmr } from '../../../apollo/wmr/mutation';
 import bom from '../../../mixins/bom';
+import utils from '../../../mixins/utils';
 
 export default {
-  mixins: [bom],
+  mixins: [bom, utils],
   data() {
     return {
       customer: {},
@@ -592,7 +593,6 @@ export default {
       multipleSelection: [],
       wmr: [],
       loading: false,
-      production: [110, 120, 130, 150, 170],
       visible: false,
     };
   },

@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-dialog
-      title="Edit WMR Item"
+      title="Edit"
       :visible.sync="visible"
       :close-on-click-modal="false"
       :close-on-press-escape="false"

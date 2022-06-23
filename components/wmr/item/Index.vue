@@ -165,7 +165,7 @@
             <el-table-column label="Issued" align="center" width="80">
               <template slot-scope="scope">
                 <a
-                  v-if="$auth.$state.user.section===213"
+                  v-if="production.includes($auth.$state.user.department)"
                   @click="showWmrWhEdit(scope.row)"
                 >
                   {{ scope.row.qtyIssued | currency }} {{ scope.row.bomUnit }}
@@ -243,8 +243,10 @@
 <script>
 import { GetOneWmr } from '../../../apollo/wmr/query';
 import { StockWmrItem } from '../../../apollo/wmr/mutation';
+import utils from '../../../mixins/utils';
 
 export default {
+  mixins: [utils],
   data() {
     return {
       wmr: {},
