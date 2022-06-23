@@ -6,7 +6,7 @@
     />
 
     <div
-      v-loading.fullscreen.lock="$apollo.loading"
+      v-loading.fullscreen.lock="$apollo.loading || loading"
       class="flex flex-col divide-y divide-gray-400 divide-dashed"
       element-loading-text="Loading..."
       element-loading-spinner="el-icon-loading"
@@ -250,7 +250,7 @@
 </template>
 
 <script>
-import { GetOneWmr } from '../../../apollo/wmr/query';
+import { GetOneWmr, PrintWmr } from '../../../apollo/wmr/query';
 import { StockWmrItem } from '../../../apollo/wmr/mutation';
 import utils from '../../../mixins/utils';
 
@@ -258,6 +258,7 @@ export default {
   mixins: [utils],
   data() {
     return {
+      loading: false,
       wmr: {},
       items: [],
       multipleSelection: [],
@@ -313,7 +314,19 @@ export default {
         });
       }).catch(() => {});
     },
-    handlePrint() {},
+    async handlePrint() {
+      this.loading = true;
+
+      const { data } = await this.$apollo.mutate({
+        mutation: PrintWmr,
+        variables: {
+          id: parseInt(this.$route.params.id, 10),
+        },
+      });
+
+      this.loading = false;
+      console.log(data);
+    },
   },
   apollo: {
     getOneWmr: {

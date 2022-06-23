@@ -3,6 +3,7 @@ const typeDefs = `
     getAllWmr: [Wmr]
     getOneWmr(id: Int): Wmr
     getWmrByWo(idWo: Int): [Wmr]
+    printWmr(id: Int): WmrStatus
   }
 
   extend type Mutation {
@@ -37,6 +38,10 @@ const typeDefs = `
     idWo: Int
     wo: WO
     items: [WOITEM]
+  }
+
+  type WmrStatus {
+    status: Int
   }
   
   input AddWmrInput {

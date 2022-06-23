@@ -2,7 +2,7 @@ const sequelize = require('../../config/db');
 const {
   Wmr, WO, WOITEM, MPR, MPRITEM,
 } = require('../relations');
-const { wmrSerial } = require('./method');
+const { wmrSerial, oneWmr } = require('./method');
 const { dateNow } = require('../mpr/resolvers');
 const { isAuthenticated } = require('../auth/service');
 const { itemAttributes } = require('../bom/resolvers');
@@ -45,52 +45,7 @@ const resolvers = {
       return wmr;
     }),
     getOneWmr: isAuthenticated(async (_, { id }) => {
-      const wmr = await Wmr.findOne({
-        attributes: [
-          'id', 'no', 'requestedBy', 'authorizedBy', 'issuedBy', 'receivedBy',
-        ],
-        where: { id },
-        include: [{
-          model: WOITEM,
-          attributes: [
-            ...itemAttributes,
-            [sequelize.literal('(SELECT IFNULL(SUM(qty), 0) FROM MaterialStock WHERE MaterialCD = items.id_material)'), 'stock1'],
-            [sequelize.literal('(SELECT IFNULL(SUM(qty), 0) FROM lokasimaterial WHERE MaterialCD = items.id_material AND type_alokasi = \'stock\')'), 'stock2'],
-            [sequelize.literal('(SELECT IFNULL(SUM(request), 0) FROM wmr_detail_consumable WHERE MaterialCD = items.id_material)'), 'stock3'],
-          ],
-          include: [{
-            model: Wmr,
-            attributes: ['id', 'no'],
-          }],
-        }, {
-          model: WO,
-          attributes: ['id', 'woNo', 'idLt'],
-        }],
-        group: ['items.id'],
-      });
-
-      const wmrMpr = await Wmr.findOne({
-        attributes: [
-          'id', 'no', 'requestedBy', 'authorizedBy',
-        ],
-        where: { id },
-        include: [{
-          model: MPRITEM,
-          attributes: [
-            ...itemAttributes,
-            [sequelize.literal('(SELECT IFNULL(SUM(qty), 0) FROM MaterialStock WHERE MaterialCD = items.id_material)'), 'stock1'],
-            [sequelize.literal('(SELECT IFNULL(SUM(qty), 0) FROM lokasimaterial WHERE MaterialCD = items.id_material AND type_alokasi = \'stock\')'), 'stock2'],
-            [sequelize.literal('(SELECT IFNULL(SUM(request), 0) FROM wmr_detail_consumable WHERE MaterialCD = items.id_material)'), 'stock3'],
-          ],
-          include: [{
-            model: Wmr,
-            attributes: ['id', 'no'],
-          }],
-        }],
-      });
-
-      wmr.items.push(...wmrMpr.items);
-
+      const wmr = await oneWmr(id);
       return wmr;
     }),
     getWmrByWo: isAuthenticated(async (_, { idWo }) => {
@@ -100,6 +55,9 @@ const resolvers = {
       });
 
       return wmr;
+    }),
+    printWmr: isAuthenticated(async (_, { id }) => {
+      console.log(id);
     }),
   },
   Mutation: {
