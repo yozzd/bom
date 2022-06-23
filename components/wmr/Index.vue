@@ -51,14 +51,12 @@
                 type="selection"
                 width="40"
                 align="center"
-                fixed
               ></el-table-column>
-              <el-table-column type="index" align="center" width="50" fixed></el-table-column>
+              <el-table-column type="index" align="center" width="50"></el-table-column>
               <el-table-column
                 label="WMR No."
                 :show-overflow-tooltip="true"
                 width="130"
-                fixed
                 class-name="relative group"
               >
                 <template slot-scope="scope">
@@ -104,7 +102,6 @@
                 :show-overflow-tooltip="true"
                 width="100"
                 class-name="relative group"
-                fixed
               >
                 <template slot-scope="scope">
                   <nuxt-link
@@ -137,7 +134,6 @@
                 label="Requested By"
                 :show-overflow-tooltip="true"
                 width="100"
-                fixed
               >
                 <template slot-scope="scope">
                   {{ scope.row.requestedBy }}
@@ -147,7 +143,6 @@
                 label="Authorized By"
                 :show-overflow-tooltip="true"
                 width="100"
-                fixed
               >
                 <template slot-scope="scope">
                   {{ scope.row.authorizedBy }}
@@ -200,6 +195,24 @@
                   <el-tag v-else type="warning" size="mini">
                     Waiting...
                   </el-tag>
+                </template>
+              </el-table-column>
+              <el-table-column
+                label="Issued By"
+                :show-overflow-tooltip="true"
+                width="100"
+              >
+                <template slot-scope="scope">
+                  {{ scope.row.issuedBy }}
+                </template>
+              </el-table-column>
+              <el-table-column
+                label="Received By"
+                :show-overflow-tooltip="true"
+                width="100"
+              >
+                <template slot-scope="scope">
+                  {{ scope.row.receivedBy }}
                 </template>
               </el-table-column>
               <el-table-column label="" min-width="50"></el-table-column>

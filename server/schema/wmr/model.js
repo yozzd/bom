@@ -48,6 +48,25 @@ const Wmr = sequelize.define('wmr3', {
       return '';
     },
   },
+  issuedById: {
+    type: DataTypes.STRING,
+  },
+  issuedBy: {
+    type: DataTypes.STRING,
+  },
+  issuedByTimestamp: {
+    type: DataTypes.DATE,
+    get() {
+      if (isValidDate(this.getDataValue('issuedByTimestamp'))) return uDateFormat(this.getDataValue('issuedByTimestamp'), 'yyyy-MM-dd HH:mm:ss');
+      return '';
+    },
+  },
+  receivedById: {
+    type: DataTypes.STRING,
+  },
+  receivedBy: {
+    type: DataTypes.STRING,
+  },
   department: {
     type: DataTypes.INTEGER,
     allowNull: false,

@@ -12,6 +12,11 @@ export const GetAllWmr = gql`
       authorizedBy
       authorizedByApproved
       authorizedByTimestamp
+      issuedById
+      issuedBy
+      issuedByTimestamp
+      receivedById
+      receivedBy
       wo {
         id
         woNo
@@ -28,6 +33,8 @@ export const GetOneWmr = gql`
       no
       requestedBy
       authorizedBy
+      issuedBy
+      receivedBy
       wo {
         id
         woNo

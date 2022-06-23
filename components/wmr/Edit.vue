@@ -70,6 +70,54 @@
               </el-option>
             </el-select>
           </el-form-item>
+          <el-form-item
+            label="Issued By"
+            prop="issuedBy"
+          >
+            <el-select
+              v-model="form.issuedBy"
+              value-key="nama"
+              remote
+              :remote-method="getPersonDept"
+              :loading="getPersonDeptLoading"
+              filterable
+              :disabled="production.includes($auth.$state.user.department)"
+            >
+              <el-option
+                v-for="person in persons"
+                :key="person.nk"
+                :label="person.nama"
+                :value="person"
+              >
+                <span>{{ person.nama }}</span>
+                <span class="float-right text-gray-400">{{ person.nk }}</span>
+              </el-option>
+            </el-select>
+          </el-form-item>
+          <el-form-item
+            label="Received By"
+            prop="receivedBy"
+          >
+            <el-select
+              v-model="form.receivedBy"
+              value-key="nama"
+              remote
+              :remote-method="getPersonDept"
+              :loading="getPersonDeptLoading"
+              filterable
+              :disabled="production.includes($auth.$state.user.department)"
+            >
+              <el-option
+                v-for="person in persons"
+                :key="person.nk"
+                :label="person.nama"
+                :value="person"
+              >
+                <span>{{ person.nama }}</span>
+                <span class="float-right text-gray-400">{{ person.nk }}</span>
+              </el-option>
+            </el-select>
+          </el-form-item>
         </div>
       </el-form>
       <span slot="footer" class="dialog-footer">
@@ -168,6 +216,10 @@ export default {
                   requestedBy: typeof this.form.requestedBy === 'object' ? this.form.requestedBy.nama : this.form.requestedBy,
                   authorizedById: typeof this.form.authorizedBy === 'object' ? this.form.authorizedBy.nk : this.form.authorizedById,
                   authorizedBy: typeof this.form.authorizedBy === 'object' ? this.form.authorizedBy.nama : this.form.authorizedBy,
+                  issuedById: typeof this.form.issuedBy === 'object' ? this.form.issuedBy.nk : this.form.issuedById,
+                  issuedBy: typeof this.form.issuedBy === 'object' ? this.form.issuedBy.nama : this.form.issuedBy,
+                  receivedById: typeof this.form.receivedBy === 'object' ? this.form.receivedBy.nk : this.form.receivedById,
+                  receivedBy: typeof this.form.receivedBy === 'object' ? this.form.receivedBy.nama : this.form.receivedBy,
                   idWo: parseInt(this.form.wo.id, 10),
                 },
               },

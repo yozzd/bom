@@ -7,6 +7,13 @@ const { dateNow } = require('../mpr/resolvers');
 const { isAuthenticated } = require('../auth/service');
 const { itemAttributes } = require('../bom/resolvers');
 
+const stockAttributes = [
+  ...itemAttributes,
+  [sequelize.literal('(SELECT IFNULL(SUM(qty), 0) FROM MaterialStock WHERE MaterialCD = id_material)'), 'stock1'],
+  [sequelize.literal('(SELECT IFNULL(SUM(qty), 0) FROM lokasimaterial WHERE MaterialCD = id_material AND type_alokasi = \'stock\')'), 'stock2'],
+  [sequelize.literal('(SELECT IFNULL(SUM(request), 0) FROM wmr_detail_consumable WHERE MaterialCD = id_material)'), 'stock3'],
+];
+
 const resolvers = {
   Query: {
     getAllWmr: isAuthenticated(async (_, args, ctx) => {
@@ -26,7 +33,7 @@ const resolvers = {
         attributes: [
           'id', 'no', 'requestedById', 'requestedBy', 'requestedByTimestamp',
           'authorizedById', 'authorizedBy', 'authorizedByApproved', 'authorizedByTimestamp',
-          'idWo',
+          'issuedById', 'issuedBy', 'issuedByTimestamp', 'receivedById', 'receivedBy', 'idWo',
         ],
         where,
         include: [{
@@ -40,7 +47,7 @@ const resolvers = {
     getOneWmr: isAuthenticated(async (_, { id }) => {
       const wmr = await Wmr.findOne({
         attributes: [
-          'id', 'no', 'requestedBy', 'authorizedBy',
+          'id', 'no', 'requestedBy', 'authorizedBy', 'issuedBy', 'receivedBy',
         ],
         where: { id },
         include: [{
@@ -111,12 +118,12 @@ const resolvers = {
 
       return save;
     }),
-    editWmr: isAuthenticated(async (_, { input }) => {
+    editWmr: isAuthenticated(async (_, { input }, ctx) => {
       const wmr = await Wmr.findOne({
         attributes: [
           'id', 'no', 'requestedById', 'requestedBy', 'requestedByTimestamp',
           'authorizedById', 'authorizedBy', 'authorizedByApproved', 'authorizedByTimestamp',
-          'idWo',
+          'issuedById', 'issuedBy', 'issuedByTimestamp', 'receivedById', 'receivedBy', 'idWo',
         ],
         where: { id: input.id },
         include: [{
@@ -125,6 +132,13 @@ const resolvers = {
         }],
       });
 
+      if (ctx.req.user.section === 213) {
+        wmr.issuedById = input.issuedById;
+        wmr.issuedBy = input.issuedBy;
+        wmr.issuedByTimestamp = dateNow();
+        wmr.receivedById = input.receivedById;
+        wmr.receivedBy = input.receivedBy;
+      }
       wmr.requestedById = input.requestedById;
       wmr.requestedBy = input.requestedBy;
       wmr.authorizedById = input.authorizedById;
@@ -179,7 +193,7 @@ const resolvers = {
         attributes: [
           'id', 'no', 'requestedById', 'requestedBy', 'requestedByTimestamp',
           'authorizedById', 'authorizedBy', 'authorizedByApproved', 'authorizedByTimestamp',
-          'idWo',
+          'issuedById', 'issuedBy', 'issuedByTimestamp', 'receivedById', 'receivedBy', 'idWo',
         ],
         where: { id: input.id },
         include: [{
@@ -201,7 +215,7 @@ const resolvers = {
         attributes: [
           'id', 'no', 'requestedById', 'requestedBy', 'requestedByTimestamp',
           'authorizedById', 'authorizedBy', 'authorizedByApproved', 'authorizedByTimestamp',
-          'idWo',
+          'issuedById', 'issuedBy', 'issuedByTimestamp', 'receivedById', 'receivedBy', 'idWo',
         ],
         where: { id: input.id },
         include: [{
@@ -253,13 +267,13 @@ const resolvers = {
 
           if (v.isMpr) {
             item = await MPRITEM.findOne({
-              attributes: itemAttributes,
+              attributes: stockAttributes,
               where,
               include,
             });
           } else {
             item = await WOITEM.findOne({
-              attributes: itemAttributes,
+              attributes: stockAttributes,
               where,
               include,
             });
@@ -288,13 +302,13 @@ const resolvers = {
 
       if (input.isMpr) {
         item = await MPRITEM.findOne({
-          attributes: itemAttributes,
+          attributes: stockAttributes,
           where,
           include,
         });
       } else {
         item = await WOITEM.findOne({
-          attributes: itemAttributes,
+          attributes: stockAttributes,
           where,
           include,
         });
@@ -316,13 +330,13 @@ const resolvers = {
 
       if (input.isMpr) {
         item = await MPRITEM.findOne({
-          attributes: itemAttributes,
+          attributes: stockAttributes,
           where,
           include,
         });
       } else {
         item = await WOITEM.findOne({
-          attributes: itemAttributes,
+          attributes: stockAttributes,
           where,
           include,
         });

@@ -27,6 +27,11 @@ const typeDefs = `
     authorizedBy: String
     authorizedByApproved: Int
     authorizedByTimestamp: String
+    issuedById: String
+    issuedBy: String
+    issuedByTimestamp: String
+    receivedById: String
+    receivedBy: String
     department: Int
     section: Int
     idWo: Int
@@ -48,6 +53,10 @@ const typeDefs = `
     requestedBy: String
     authorizedById: String
     authorizedBy: String
+    issuedById: String
+    issuedBy: String
+    receivedById: String
+    receivedBy: String
     idWo: Int
   }
   

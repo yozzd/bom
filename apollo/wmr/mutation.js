@@ -21,6 +21,11 @@ export const EditWmr = gql`
       authorizedBy
       authorizedByApproved
       authorizedByTimestamp
+      issuedById
+      issuedBy
+      issuedByTimestamp
+      receivedById
+      receivedBy
       wo {
         id
         woNo
@@ -98,6 +103,11 @@ export const ApproveWmr = gql`
       authorizedBy
       authorizedByApproved
       authorizedByTimestamp
+      issuedById
+      issuedBy
+      issuedByTimestamp
+      receivedById
+      receivedBy
       wo {
         id
         woNo
@@ -119,6 +129,11 @@ export const DisapproveWmr = gql`
       authorizedBy
       authorizedByApproved
       authorizedByTimestamp
+      issuedById
+      issuedBy
+      issuedByTimestamp
+      receivedById
+      receivedBy
       wo {
         id
         woNo
