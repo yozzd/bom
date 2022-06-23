@@ -88,6 +88,13 @@ const printWmrDocument = async (wmr) => {
       ['', '', '', '', '', { text: 'Request', alignment: 'center' }, { text: 'Issued', alignment: 'center' }, ''],
     ];
 
+    const woNo = await wmr.wo.woNo;
+
+    wmr.items.map(async (v, i) => {
+      arrTbl.push([{ text: `${i + 1}`, alignment: 'center' }, { text: v.idMaterial, alignment: 'center' }, v.bomDescription, v.bomSpecification, woNo, { text: `${v.bomQty} ${v.bomUnit}`, alignment: 'center' }, { text: `${v.qtyIssued} ${v.bomUnit}`, alignment: 'center' }, '']);
+      return true;
+    });
+
     const docDefinition = {
       content: [
         {
