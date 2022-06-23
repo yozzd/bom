@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-dialog
-      title="Add"
+      title="Edit"
       :visible.sync="visible"
       :close-on-click-modal="false"
       :close-on-press-escape="false"
@@ -28,7 +28,7 @@
           >
             <el-select
               v-model="form.requestedBy"
-              value-key="nk"
+              value-key="nama"
               remote
               :remote-method="getPersonDept"
               :loading="getPersonDeptLoading"
@@ -51,7 +51,7 @@
           >
             <el-select
               v-model="form.authorizedBy"
-              value-key="nk"
+              value-key="nama"
               remote
               :remote-method="getPersonDept"
               :loading="getPersonDeptLoading"
@@ -79,8 +79,8 @@
         </el-button>
         <el-button
           type="primary"
-          :loading="loadingSave"
-          @click="handleSave"
+          :loading="loading"
+          @click="handleUpdate"
         >
           Save
         </el-button>
@@ -91,11 +91,15 @@
 
 <script>
 import { GetPersonDept } from '../../apollo/bom/query';
-import { AddWmr } from '../../apollo/wmr/mutation';
-import { GetWmrByWo } from '../../apollo/wmr/query';
+import { EditWmr } from '../../apollo/wmr/mutation';
+// import { GetWmrByWo } from '../../apollo/wmr/query';
 
 export default {
   props: {
+    data: {
+      type: Object,
+      required: true,
+    },
     show: {
       type: Boolean,
       default: false,
@@ -103,15 +107,12 @@ export default {
   },
   data() {
     return {
-      form: {
-        requestedBy: '',
-        authorizedBy: '',
-      },
+      form: {},
       rules: {
         requestedBy: [{ required: true, message: 'This field is required', trigger: 'change' }],
         authorizedBy: [{ required: true, message: 'This field is required', trigger: 'change' }],
       },
-      loadingSave: false,
+      loading: false,
       visible: false,
       getPersonDeptLoading: false,
       persons: [],
@@ -121,6 +122,9 @@ export default {
   watch: {
     show(value) {
       this.visible = value;
+    },
+    data(value) {
+      this.form = { ...value };
     },
   },
   methods: {
@@ -146,41 +150,42 @@ export default {
         this.persons = [];
       }
     },
-    handleSave() {
+    handleUpdate() {
       this.$refs.form.validate(async (valid) => {
         if (valid) {
           try {
             this.loadingSave = false;
 
             await this.$apollo.mutate({
-              mutation: AddWmr,
+              mutation: EditWmr,
               variables: {
                 input: {
-                  requestedById: this.form.requestedBy.nk,
-                  requestedBy: this.form.requestedBy.nama,
-                  authorizedById: this.form.authorizedBy.nk,
-                  authorizedBy: this.form.authorizedBy.nama,
-                  idWo: parseInt(this.$route.params.id, 10),
+                  id: parseInt(this.form.id, 10),
+                  requestedById: typeof this.form.requestedBy === 'object' ? this.form.requestedBy.nk : this.form.requestedById,
+                  requestedBy: typeof this.form.requestedBy === 'object' ? this.form.requestedBy.nama : this.form.requestedBy,
+                  authorizedById: typeof this.form.authorizedBy === 'object' ? this.form.authorizedBy.nk : this.form.authorizedById,
+                  authorizedBy: typeof this.form.authorizedBy === 'object' ? this.form.authorizedBy.nama : this.form.authorizedBy,
+                  idWo: parseInt(this.form.wo.id, 10),
                 },
               },
-              update: (store, { data: { addWmr } }) => {
-                const cdata = store.readQuery({
-                  query: GetWmrByWo,
-                  variables: {
-                    idWo: parseInt(this.$route.params.id, 10),
-                  },
-                });
+              // update: (store, { data: { editWmr } }) => {
+              //   const cdata = store.readQuery({
+              //     query: GetWmrByWo,
+              //     variables: {
+              //       idWo: parseInt(this.$route.params.id, 10),
+              //     },
+              //   });
 
-                cdata.getWmrByWo.push(addWmr);
+              //   cdata.getWmrByWo.push(editWmr);
 
-                store.writeQuery({
-                  query: GetWmrByWo,
-                  variables: {
-                    idWo: parseInt(this.$route.params.id, 10),
-                  },
-                  data: cdata,
-                });
-              },
+              //   store.writeQuery({
+              //     query: GetWmrByWo,
+              //     variables: {
+              //       idWo: parseInt(this.$route.params.id, 10),
+              //     },
+              //     data: cdata,
+              //   });
+              // },
             });
 
             this.$message({

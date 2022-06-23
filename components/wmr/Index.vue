@@ -56,7 +56,7 @@
               <el-table-column
                 label="WMR No."
                 :show-overflow-tooltip="true"
-                width="100"
+                width="130"
                 fixed
                 class-name="relative group"
               >
@@ -81,6 +81,17 @@
                             name="ri-external-link-line"
                             class="remixicons w-4 h-4"
                           />
+                        </client-only>
+                      </a>
+                    </el-tooltip>
+                    <el-tooltip effect="dark" content="Edit" placement="top">
+                      <a
+                        v-if="production.includes($auth.$state.user.department)
+                          || $auth.$state.user.section===213"
+                        @click="showWmrEdit(scope.row)"
+                      >
+                        <client-only>
+                          <v-icon name="ri-edit-2-line" class="remixicons w-4 h-4" />
                         </client-only>
                       </a>
                     </el-tooltip>
@@ -196,6 +207,12 @@
         </div>
       </div>
     </div>
+
+    <WmrEdit
+      :show="showWmrEditDialog"
+      :data="row"
+      @close="closeWmrEditDialog"
+    />
   </div>
 </template>
 
@@ -205,13 +222,16 @@ import MiniSearch from 'minisearch';
 import { GetAllWmr } from '../../apollo/wmr/query';
 import { ApproveWmr, DisapproveWmr, DeleteWmr } from '../../apollo/wmr/mutation';
 import table from '../../mixins/table';
+import utils from '../../mixins/utils';
 
 export default {
-  mixins: [table],
+  mixins: [table, utils],
   data() {
     return {
       loading: false,
       multipleSelection: [],
+      showWmrEditDialog: false,
+      row: {},
       cachedArr: [],
       errors: [],
       miniSearch: new MiniSearch({
@@ -228,6 +248,13 @@ export default {
     handleSelectionChange(arr) {
       this.multipleSelection = arr.map((v) => ({ id: v.id }));
       this.cachedArr = arr;
+    },
+    showWmrEdit(row) {
+      this.row = row;
+      this.showWmrEditDialog = true;
+    },
+    closeWmrEditDialog(value) {
+      this.showWmrEditDialog = value;
     },
     handleDelete() {
       this.$confirm('This will permanently delete the data. Continue?', 'Warning', {

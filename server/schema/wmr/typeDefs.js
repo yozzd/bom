@@ -7,6 +7,7 @@ const typeDefs = `
 
   extend type Mutation {
     addWmr(input: AddWmrInput): Wmr
+    editWmr(input: EditWmrInput): Wmr
     addItemsToWmr(input: [AddItemsToWmrInput]): [WOITEM]
     approveWmr(input: ApproveWmrInput): Wmr
     disapproveWmr(input: ApproveWmrInput): Wmr
@@ -34,6 +35,15 @@ const typeDefs = `
   }
   
   input AddWmrInput {
+    requestedById: String
+    requestedBy: String
+    authorizedById: String
+    authorizedBy: String
+    idWo: Int
+  }
+  
+  input EditWmrInput {
+    id: Int
     requestedById: String
     requestedBy: String
     authorizedById: String

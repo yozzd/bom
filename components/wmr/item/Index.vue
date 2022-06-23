@@ -119,7 +119,7 @@
           >
             <template slot-scope="scope">
               <a
-                v-if="$auth.$state.user.section!==213"
+                v-if="production.includes($auth.$state.user.department)"
                 @click="showWmrPrEdit(scope.row)"
               >
                 {{ scope.row.bomDescription }}
@@ -165,7 +165,7 @@
             <el-table-column label="Issued" align="center" width="80">
               <template slot-scope="scope">
                 <a
-                  v-if="production.includes($auth.$state.user.department)"
+                  v-if="$auth.$state.user.section===213"
                   @click="showWmrWhEdit(scope.row)"
                 >
                   {{ scope.row.qtyIssued | currency }} {{ scope.row.bomUnit }}

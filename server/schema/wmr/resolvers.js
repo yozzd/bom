@@ -111,6 +111,28 @@ const resolvers = {
 
       return save;
     }),
+    editWmr: isAuthenticated(async (_, { input }) => {
+      const wmr = await Wmr.findOne({
+        attributes: [
+          'id', 'no', 'requestedById', 'requestedBy', 'requestedByTimestamp',
+          'authorizedById', 'authorizedBy', 'authorizedByApproved', 'authorizedByTimestamp',
+          'idWo',
+        ],
+        where: { id: input.id },
+        include: [{
+          model: WO,
+          attributes: ['id', 'woNo', 'idLt'],
+        }],
+      });
+
+      wmr.requestedById = input.requestedById;
+      wmr.requestedBy = input.requestedBy;
+      wmr.authorizedById = input.authorizedById;
+      wmr.authorizedBy = input.authorizedBy;
+
+      const save = wmr.save();
+      return save;
+    }),
     addItemsToWmr: isAuthenticated(async (_, { input }) => {
       const saved = [];
 

@@ -9,6 +9,27 @@ export const AddWmr = gql`
   }
 `;
 
+export const EditWmr = gql`
+  mutation editWmr($input: EditWmrInput) {
+    editWmr(input: $input) {
+      id
+      no
+      requestedById
+      requestedBy
+      requestedByTimestamp
+      authorizedById
+      authorizedBy
+      authorizedByApproved
+      authorizedByTimestamp
+      wo {
+        id
+        woNo
+        idLt
+      }
+    }
+  }
+`;
+
 export const AddItemsToWmr = gql`
   mutation addItemsToWmr($input: [AddItemsToWmrInput]) {
     addItemsToWmr(input: $input) {
