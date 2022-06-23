@@ -103,3 +103,11 @@ export const GetWmrByWo = gql`
     }
   }
 `;
+
+export const PrintWmr = gql`
+  query printWmr($id: Int) {
+    printWmr(id: $id) {
+      status
+    }
+  }
+`;

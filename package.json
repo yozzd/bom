@@ -47,6 +47,7 @@
     "oh-vue-icons": "^1.0.0-rc3",
     "passport": "^0.6.0",
     "passport-local": "^1.0.0",
+    "pdfmake": "^0.2.5",
     "sanitize-html": "^2.7.0",
     "sequelize": "^6.20.1",
     "view-design": "^4.7.0",
