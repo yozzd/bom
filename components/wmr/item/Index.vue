@@ -57,7 +57,7 @@
       </div>
 
       <div>
-        <div class="my-4">
+        <div class="flex space-x-4 my-4">
           <el-button-group
             v-if="$auth.$state.user.section === 213"
           >
@@ -82,6 +82,15 @@
               Unstock
             </el-button>
           </el-button-group>
+          <el-button
+            type="primary"
+            @click="handlePrint"
+          >
+            <client-only>
+              <v-icon name="ri-printer-line" class="remixicons w-4 h-4" />
+            </client-only>
+            Print
+          </el-button>
         </div>
       </div>
 
@@ -304,6 +313,7 @@ export default {
         });
       }).catch(() => {});
     },
+    handlePrint() {},
   },
   apollo: {
     getOneWmr: {
