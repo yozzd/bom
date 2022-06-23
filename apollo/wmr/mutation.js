@@ -226,3 +226,59 @@ export const UpdateWmrWhItem = gql`
     }
   }
 `;
+
+export const UpdateWmrPrItem = gql`
+  mutation updateWmrPrItem($input: UpdateWmrPrItemInput) {
+    updateWmrPrItem(input: $input) {
+      id
+      idMaterial
+      bomDescription
+      bomSpecification
+      bomModel
+      bomBrand
+      bomQty
+      bomUnit
+      bomQtyRqd
+      bomQtyBalance
+      bomQtyStock
+      bomEta
+      bomQtyRec
+      bomDateRec
+      bomCurrSizeC
+      bomCurrSizeV
+      bomCurrEaC
+      bomCurrEaV
+      bomUsdEa
+      bomUsdUnit
+      bomUsdTotal
+      materialsProcessed
+      yetToPurchase
+      bomSupplier
+      bomPoDate
+      bomPoNo
+      bomRemarks
+      priority
+      bomEtaStatus
+      sr
+      isMpr
+      packing
+      hold
+      cancel
+      idHeader
+      idModule
+      qtyIssued
+      wmrPrRemarks
+      wmrWhRemarks
+      stockReady
+      colorClass
+      mpr {
+        id
+        no
+      }
+      wmr3 {
+        id
+        no
+      }
+    }
+  }
+`;

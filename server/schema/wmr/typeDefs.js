@@ -13,6 +13,7 @@ const typeDefs = `
     deleteWmr(input: [DeleteWmrInput]): [Wmr]
     stockWmrItem(input: [StockWmrItemInput]): [WOITEM]
     updateWmrWhItem(input: UpdateWmrWhItemInput): WOITEM
+    updateWmrPrItem(input: UpdateWmrPrItemInput): WOITEM
   }
 
   type Wmr {
@@ -66,6 +67,12 @@ const typeDefs = `
     isMpr: Int
     qtyIssued: Float
     wmrWhRemarks: String
+  }
+  
+  input UpdateWmrPrItemInput {
+    id: Int
+    isMpr: Int
+    wmrPrRemarks: String
   }
 `;
 

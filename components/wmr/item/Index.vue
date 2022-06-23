@@ -118,7 +118,15 @@
             :show-overflow-tooltip="true"
           >
             <template slot-scope="scope">
-              {{ scope.row.bomDescription }}
+              <a
+                v-if="$auth.$state.user.section!==213"
+                @click="showWmrPrEdit(scope.row)"
+              >
+                {{ scope.row.bomDescription }}
+              </a>
+              <span v-else>
+                {{ scope.row.bomDescription }}
+              </span>
             </template>
           </el-table-column>
           <el-table-column
@@ -223,6 +231,12 @@
       :data="row"
       @close="closeWmrWhEditDialog"
     />
+
+    <WmrItemPrEdit
+      :show="showWmrPrEditDialog"
+      :data="row"
+      @close="closeWmrPrEditDialog"
+    />
   </div>
 </template>
 
@@ -238,6 +252,7 @@ export default {
       multipleSelection: [],
       row: {},
       showWmrWhEditDialog: false,
+      showWmrPrEditDialog: false,
       errors: [],
     };
   },
@@ -254,6 +269,13 @@ export default {
     },
     closeWmrWhEditDialog(value) {
       this.showWmrWhEditDialog = value;
+    },
+    showWmrPrEdit(row) {
+      this.row = row;
+      this.showWmrPrEditDialog = true;
+    },
+    closeWmrPrEditDialog(value) {
+      this.showWmrPrEditDialog = value;
     },
     handleStock(val) {
       const arr = this.multipleSelection.map((v) => ({
