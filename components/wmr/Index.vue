@@ -25,6 +25,7 @@
       <div>
         <div class="my-4">
           <el-button
+            v-if="production.includes($auth.$state.user.department)"
             type="danger"
             :disabled="!multipleSelection.length"
             @click="handleDelete"

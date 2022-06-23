@@ -33,6 +33,7 @@
               :remote-method="getPersonDept"
               :loading="getPersonDeptLoading"
               filterable
+              :disabled="$auth.$state.user.section===213"
             >
               <el-option
                 v-for="person in persons"
@@ -56,6 +57,7 @@
               :remote-method="getPersonDept"
               :loading="getPersonDeptLoading"
               filterable
+              :disabled="$auth.$state.user.section===213"
             >
               <el-option
                 v-for="person in persons"
@@ -92,9 +94,10 @@
 <script>
 import { GetPersonDept } from '../../apollo/bom/query';
 import { EditWmr } from '../../apollo/wmr/mutation';
-// import { GetWmrByWo } from '../../apollo/wmr/query';
+import utils from '../../mixins/utils';
 
 export default {
+  mixins: [utils],
   props: {
     data: {
       type: Object,
@@ -168,24 +171,6 @@ export default {
                   idWo: parseInt(this.form.wo.id, 10),
                 },
               },
-              // update: (store, { data: { editWmr } }) => {
-              //   const cdata = store.readQuery({
-              //     query: GetWmrByWo,
-              //     variables: {
-              //       idWo: parseInt(this.$route.params.id, 10),
-              //     },
-              //   });
-
-              //   cdata.getWmrByWo.push(editWmr);
-
-              //   store.writeQuery({
-              //     query: GetWmrByWo,
-              //     variables: {
-              //       idWo: parseInt(this.$route.params.id, 10),
-              //     },
-              //     data: cdata,
-              //   });
-              // },
             });
 
             this.$message({
