@@ -1,4 +1,5 @@
 const fs = require('fs');
+const { format } = require('date-fns');
 const PdfPrinter = require('pdfmake');
 const { ErrorWithProps } = require('mercurius');
 const sequelize = require('../../config/db');
@@ -145,6 +146,12 @@ const printWmrDocument = async (wmr) => {
             heights: 12,
             body: arrTbl,
           },
+        },
+        {
+          margin: [0, 40, 0, 0],
+          fontSize: 8,
+          text: `Date, ${format(new Date(), 'dd-MM-yyyy')}`,
+          alignment: 'right',
         },
       ],
     };
