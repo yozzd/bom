@@ -83,14 +83,61 @@ const oneWmr = async (id) => {
 
 const printWmrDocument = async (wmr) => {
   try {
+    const arrTbl = [
+      [{ text: 'No', rowSpan: 2, alignment: 'center' }, { text: 'Material CD', rowSpan: 2, alignment: 'center' }, { text: 'Material Name', rowSpan: 2, alignment: 'center' }, { text: 'Material Desc.', rowSpan: 2, alignment: 'center' }, { text: 'WO No.', rowSpan: 2, alignment: 'center' }, { text: 'Quantity', colSpan: 2, alignment: 'center' }, '', { text: 'Remarks', rowSpan: 2, alignment: 'center' }],
+      ['', '', '', '', '', { text: 'Request', alignment: 'center' }, { text: 'Issued', alignment: 'center' }, ''],
+    ];
+
     const docDefinition = {
       content: [
         {
           columns: [
-            { text: 'test1' },
-            { text: 'test1' },
-            { text: 'test1' },
+            {
+              width: 'auto',
+              style: { fontSize: 8 },
+              table: {
+                widths: [50, 5, 70],
+                heights: 12,
+                body: [
+                  [{ text: 'Approved by', border: [true, true, false, true] }, { text: ':', border: [false, true, false, true] }, { text: '', border: [false, true, true, true] }],
+                  [{ text: 'Originator', border: [true, false, false, true] }, { text: ':', border: [false, false, false, true] }, { text: 'MRP-WH', border: [false, false, true, true] }],
+                  [{ text: 'Doc. No.', border: [true, false, false, true] }, { text: ':', border: [false, false, false, true] }, { text: 'Frm-213-001', border: [false, false, true, true] }],
+                  [{ text: 'Date.', border: [true, false, false, true] }, { text: ':', border: [false, false, false, true] }, { text: '05/05/2008', border: [false, false, true, true] }],
+                  [{ text: 'Version.', border: [true, false, false, true] }, { text: ':', border: [false, false, false, true] }, { text: '2', border: [false, false, true, true] }],
+                ],
+              },
+            },
+            {
+              width: 200, text: 'WAREHOUSE MATERIAL REQUISITION', alignment: 'center', bold: true,
+            },
+            {
+              width: 'auto',
+              style: { fontSize: 8 },
+              table: {
+                widths: [50, 5, 70],
+                heights: 12,
+                body: [
+                  [{
+                    text: 'Stock Card', colSpan: 3, alignment: 'center', border: [true, true, true, false],
+                  }, '', ''],
+                  [{ text: '', border: [true, false, false, false] }, { text: '', border: [false, false, false, false] }, { text: '', border: [false, false, true, false] }],
+                  [{ text: '......', alignment: 'center', border: [true, false, false, false] }, { text: '', border: [false, false, false, false] }, { text: '........', alignment: 'center', border: [false, false, true, false] }],
+                  [{ text: '(Initial)', alignment: 'center', border: [true, false, false, false] }, { text: '', border: [false, false, false, false] }, { text: '(Date)', alignment: 'center', border: [false, false, true, false] }],
+                  [{ text: 'WMR No.', border: [true, true, false, true] }, { text: ':', border: [false, true, false, true] }, { text: wmr.no, border: [false, true, true, true] }],
+                ],
+              },
+            },
           ],
+        },
+        {
+          margin: [0, 20, 0, 0],
+          style: { fontSize: 8 },
+          table: {
+            widths: [20, 50, 80, 80, 50, 40, 40, 70],
+            headerRows: 2,
+            heights: 12,
+            body: arrTbl,
+          },
         },
       ],
     };
