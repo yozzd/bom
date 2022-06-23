@@ -315,17 +315,23 @@ export default {
       }).catch(() => {});
     },
     async handlePrint() {
-      this.loading = true;
+      try {
+        this.loading = true;
 
-      const { data } = await this.$apollo.mutate({
-        mutation: PrintWmr,
-        variables: {
-          id: parseInt(this.$route.params.id, 10),
-        },
-      });
+        await this.$apollo.mutate({
+          mutation: PrintWmr,
+          variables: {
+            id: parseInt(this.$route.params.id, 10),
+          },
+        });
 
-      this.loading = false;
-      console.log(data);
+        this.loading = false;
+        window.open(`/report/${this.wmr.no}.pdf`);
+        return true;
+      } catch ({ graphQLErrors, networkError }) {
+        this.errors = graphQLErrors || networkError.result.errors;
+        return false;
+      }
     },
   },
   apollo: {

@@ -1,8 +1,26 @@
+const fs = require('fs');
+const PdfPrinter = require('pdfmake');
+const { ErrorWithProps } = require('mercurius');
 const sequelize = require('../../config/db');
 const {
   Wmr, WO, WOITEM, MPRITEM,
 } = require('../relations');
 const { itemAttributes } = require('../bom/resolvers');
+
+const fonts = {
+  Roboto: {
+    normal: 'static/font/Roboto-Regular.ttf',
+    bold: 'static/font/Roboto-Medium.ttf',
+    bolditalics: 'static/font/Roboto-MediumItalic.ttf',
+  },
+  Times: {
+    normal: 'static/font/times-new-roman.ttf',
+    bold: 'static/font/times-new-roman-bold.ttf',
+    italics: 'static/font//times-new-roman-italic.ttf',
+    bolditalics: 'static/font/times-new-roman-bold-italic.ttf',
+  },
+};
+const printer = new PdfPrinter(fonts);
 
 const wmrSerial = (count) => {
   if (count < 10) return `00000${count}`;
@@ -63,4 +81,35 @@ const oneWmr = async (id) => {
   return wmr;
 };
 
-module.exports = { wmrSerial, oneWmr };
+const printWmrDocument = async (wmr) => {
+  try {
+    const docDefinition = {
+      content: [
+        {
+          columns: [
+            { text: 'test1' },
+            { text: 'test1' },
+            { text: 'test1' },
+          ],
+        },
+      ],
+    };
+
+    return new Promise((resolve) => {
+      const pdfDoc = printer.createPdfKitDocument(docDefinition);
+      pdfDoc.pipe(fs.createWriteStream(`static/report/${wmr.no}.pdf`));
+      pdfDoc.on('end', () => {
+        resolve({ status: 1 });
+      });
+      pdfDoc.end();
+    });
+  } catch (err) {
+    if (typeof err === 'string') {
+      throw new ErrorWithProps(err);
+    } else {
+      throw new ErrorWithProps(err.message);
+    }
+  }
+};
+
+module.exports = { wmrSerial, oneWmr, printWmrDocument };
