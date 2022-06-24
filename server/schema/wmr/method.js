@@ -85,14 +85,14 @@ const oneWmr = async (id) => {
 const printWmrDocument = async (wmr) => {
   try {
     const arrTbl = [
-      [{ text: 'No', rowSpan: 2, alignment: 'center' }, { text: 'Material CD', rowSpan: 2, alignment: 'center' }, { text: 'Material Name', rowSpan: 2, alignment: 'center' }, { text: 'Material Desc.', rowSpan: 2, alignment: 'center' }, { text: 'WO No.', rowSpan: 2, alignment: 'center' }, { text: 'Quantity', colSpan: 2, alignment: 'center' }, '', { text: 'Remarks', rowSpan: 2, alignment: 'center' }],
-      ['', '', '', '', '', { text: 'Request', alignment: 'center' }, { text: 'Issued', alignment: 'center' }, ''],
+      [{ text: 'No', rowSpan: 2, alignment: 'center' }, { text: 'Material CD', rowSpan: 2, alignment: 'center' }, { text: 'Material Name', rowSpan: 2, alignment: 'center' }, { text: 'Material Desc.', rowSpan: 2, alignment: 'center' }, { text: 'WO No.', rowSpan: 2, alignment: 'center' }, { text: 'Quantity', colSpan: 2, alignment: 'center' }, '', { text: 'Remarks', colSpan: 2, alignment: 'center' }, ''],
+      ['', '', '', '', '', { text: 'Request', alignment: 'center' }, { text: 'Issued', alignment: 'center' }, { text: 'Production', alignment: 'center' }, { text: 'Warehouse', alignment: 'center' }],
     ];
 
     const woNo = await wmr.wo.woNo;
 
     wmr.items.map(async (v, i) => {
-      arrTbl.push([{ text: `${i + 1}`, alignment: 'center' }, { text: v.idMaterial, alignment: 'center' }, v.bomDescription, v.bomSpecification, woNo, { text: `${v.bomQty} ${v.bomUnit}`, alignment: 'center' }, { text: `${v.qtyIssued} ${v.bomUnit}`, alignment: 'center' }, '']);
+      arrTbl.push([{ text: `${i + 1}`, alignment: 'center' }, { text: v.idMaterial, alignment: 'center' }, v.bomDescription, v.bomSpecification, woNo, { text: `${v.bomQty} ${v.bomUnit}`, alignment: 'center' }, { text: `${v.qtyIssued} ${v.bomUnit}`, alignment: 'center' }, v.wmrPrRemarks, v.wmrWhRemarks ]);
       return true;
     });
 
@@ -141,7 +141,7 @@ const printWmrDocument = async (wmr) => {
           margin: [0, 20, 0, 0],
           style: { fontSize: 8 },
           table: {
-            widths: [20, 50, 80, 80, 50, 40, 40, 70],
+            widths: [20, 50, 80, 80, 50, 40, 40, 45, 45],
             headerRows: 2,
             heights: 12,
             body: arrTbl,
