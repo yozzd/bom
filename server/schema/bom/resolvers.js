@@ -368,6 +368,9 @@ const resolvers = {
         attributes: ['id', 'no'],
         required: false,
       }, {
+        model: OUTSTANDINGPO,
+        attributes: ['poStatus', 'poArrival', 'poNo'],
+      }, {
         model: Wmr,
         attributes: ['id', 'no'],
       }];
@@ -383,6 +386,9 @@ const resolvers = {
           attributes,
           where: { id: obj.id },
           include: [{
+            model: OUTSTANDINGPO,
+            attributes: ['poStatus', 'poArrival', 'poNo'],
+          },{
             model: Wmr,
             attributes: ['id', 'no'],
           }],
