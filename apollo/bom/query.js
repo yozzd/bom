@@ -302,6 +302,9 @@ export const GetAllWoRunning = gql`
     getAllWoRunning(key: $key) {
       id
       woNo
+      model
+      product
+      unit
       lt {
         id
         ltNo

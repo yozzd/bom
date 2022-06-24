@@ -51,6 +51,7 @@
               :remote-method="woRunningRemote"
               :loading="woRunningLoading"
               filterable
+              @change="handleWoChange"
             >
               <el-option
                 v-for="item in woRunning"
@@ -203,6 +204,11 @@ export default {
       this.loading = false;
       this.errors = [];
       this.$emit('close', false);
+    },
+    handleWoChange() {
+      this.form.model = this.form.wo.model;
+      this.form.product = this.form.wo.product;
+      this.form.unit = this.form.wo.unit;
     },
     handleCreate() {
       this.$refs.form.validate(async (valid) => {

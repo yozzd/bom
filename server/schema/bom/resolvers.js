@@ -256,7 +256,7 @@ const resolvers = {
     }),
     getAllWoRunning: isAuthenticated(async (_, { key }) => {
       const wo = await WO.findAll({
-        attributes: ['id', 'woNo'],
+        attributes: ['id', 'woNo', 'model', 'product', 'unit'],
         where: { woNo: { [Op.substring]: key } },
         include: [{
           model: LT,
