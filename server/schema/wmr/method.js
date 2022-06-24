@@ -102,22 +102,26 @@ const printWmrDocument = async (wmr) => {
         {
           columns: [
             {
-              width: 'auto',
-              style: { fontSize: 8 },
-              table: {
-                widths: [50, 5, 70],
-                heights: 12,
-                body: [
-                  [{ text: 'Approved by', border: [true, true, false, true] }, { text: ':', border: [false, true, false, true] }, { text: '', border: [false, true, true, true] }],
-                  [{ text: 'Originator', border: [true, false, false, true] }, { text: ':', border: [false, false, false, true] }, { text: 'MRP-WH', border: [false, false, true, true] }],
-                  [{ text: 'Doc. No.', border: [true, false, false, true] }, { text: ':', border: [false, false, false, true] }, { text: 'Frm-213-001', border: [false, false, true, true] }],
-                  [{ text: 'Date.', border: [true, false, false, true] }, { text: ':', border: [false, false, false, true] }, { text: '05/05/2008', border: [false, false, true, true] }],
-                  [{ text: 'Version.', border: [true, false, false, true] }, { text: ':', border: [false, false, false, true] }, { text: '2', border: [false, false, true, true] }],
-                ],
-              },
+              stack: [
+                { image: 'static/images/stempel.jpg', width: 60, absolutePosition: { x: 150, y: 15 } },
+                {
+                  width: 'auto',
+                  table: {
+                    widths: [50, 5, 70],
+                    heights: 12,
+                    body: [
+                      [{ text: 'Approved by', border: [true, true, false, true] }, { text: ':', border: [false, true, false, true] }, { text: '', border: [false, true, true, true] }],
+                      [{ text: 'Originator', border: [true, false, false, true] }, { text: ':', border: [false, false, false, true] }, { text: 'MRP-WH', border: [false, false, true, true] }],
+                      [{ text: 'Doc. No.', border: [true, false, false, true] }, { text: ':', border: [false, false, false, true] }, { text: 'Frm-213-001', border: [false, false, true, true] }],
+                      [{ text: 'Date.', border: [true, false, false, true] }, { text: ':', border: [false, false, false, true] }, { text: '05/05/2008', border: [false, false, true, true] }],
+                      [{ text: 'Version.', border: [true, false, false, true] }, { text: ':', border: [false, false, false, true] }, { text: '2', border: [false, false, true, true] }],
+                    ],
+                  },
+                },
+              ],
             },
             {
-              width: 200, text: 'WAREHOUSE MATERIAL REQUISITION', alignment: 'center', bold: true,
+              width: 200, text: 'WAREHOUSE MATERIAL REQUISITION', alignment: 'center', fontSize: 12, bold: true,
             },
             {
               width: 'auto',
@@ -140,7 +144,6 @@ const printWmrDocument = async (wmr) => {
         },
         {
           margin: [0, 20, 0, 0],
-          style: { fontSize: 8 },
           table: {
             widths: [20, 50, 80, 80, 50, 40, 40, 45, 45],
             headerRows: 2,
@@ -150,13 +153,11 @@ const printWmrDocument = async (wmr) => {
         },
         {
           margin: [0, 40, 0, 0],
-          fontSize: 8,
           text: `Batam, ${format(new Date(), 'dd-MM-yyyy')}`,
           alignment: 'right',
         },
         {
           margin: [0, 40, 0, 0],
-          fontSize: 8,
           table: {
             widths: [120, 260, 120],
             heights: [36, 12, 12, 36, 12, 12],
@@ -171,6 +172,9 @@ const printWmrDocument = async (wmr) => {
           },
         },
       ],
+      defaultStyle: {
+        fontSize: 8,
+      },
     };
 
     return new Promise((resolve) => {
