@@ -35,7 +35,8 @@ const wmrSerial = (count) => {
 const oneWmr = async (id) => {
   const wmr = await Wmr.findOne({
     attributes: [
-      'id', 'no', 'requestedBy', 'authorizedBy', 'issuedBy', 'receivedBy',
+      'id', 'no', 'requestedBy', 'requestedById', 'authorizedBy', 'authorizedById',
+      'issuedBy', 'issuedById', 'receivedBy', 'receivedById',
     ],
     where: { id },
     include: [{
@@ -92,7 +93,7 @@ const printWmrDocument = async (wmr) => {
     const woNo = await wmr.wo.woNo;
 
     wmr.items.map(async (v, i) => {
-      arrTbl.push([{ text: `${i + 1}`, alignment: 'center' }, { text: v.idMaterial, alignment: 'center' }, v.bomDescription, v.bomSpecification, woNo, { text: `${v.bomQty} ${v.bomUnit}`, alignment: 'center' }, { text: `${v.qtyIssued} ${v.bomUnit}`, alignment: 'center' }, v.wmrPrRemarks, v.wmrWhRemarks ]);
+      arrTbl.push([{ text: `${i + 1}`, alignment: 'center' }, { text: v.idMaterial, alignment: 'center' }, v.bomDescription, v.bomSpecification, woNo, { text: `${v.bomQty} ${v.bomUnit}`, alignment: 'center' }, { text: `${v.qtyIssued} ${v.bomUnit}`, alignment: 'center' }, v.wmrPrRemarks, v.wmrWhRemarks]);
       return true;
     });
 
@@ -150,8 +151,24 @@ const printWmrDocument = async (wmr) => {
         {
           margin: [0, 40, 0, 0],
           fontSize: 8,
-          text: `Date, ${format(new Date(), 'dd-MM-yyyy')}`,
+          text: `Batam, ${format(new Date(), 'dd-MM-yyyy')}`,
           alignment: 'right',
+        },
+        {
+          margin: [0, 40, 0, 0],
+          fontSize: 8,
+          table: {
+            widths: [120, 260, 120],
+            heights: [36, 12, 12, 36, 12, 12],
+            body: [
+              [{ text: '', border: [false, false, false, false] }, { text: '', border: [false, false, false, false] }, { text: '', border: [false, false, false, false] }],
+              [{ text: `${wmr.issuedById} ${wmr.issuedBy}`, alignment: 'center', border: [false, false, false, true] }, { text: '', border: [false, false, false, false] }, { text: `${wmr.requestedById} ${wmr.requestedBy}`, alignment: 'center', border: [false, false, false, true] }],
+              [{ text: 'Issued By', alignment: 'center', border: [false, false, false, false] }, { text: '', border: [false, false, false, false] }, { text: 'Requested By', alignment: 'center', border: [false, false, false, false] }],
+              [{ text: '', border: [false, false, false, false] }, { text: '', border: [false, false, false, false] }, { text: '', border: [false, false, false, false] }],
+              [{ text: `${wmr.receivedById} ${wmr.receivedBy}`, alignment: 'center', border: [false, false, false, true] }, { text: '', border: [false, false, false, false] }, { text: `${wmr.authorizedById} ${wmr.authorizedBy}`, alignment: 'center', border: [false, false, false, true] }],
+              [{ text: 'Received By', alignment: 'center', border: [false, false, false, false] }, { text: '', border: [false, false, false, false] }, { text: 'Authorized By', alignment: 'center', border: [false, false, false, false] }],
+            ],
+          },
         },
       ],
     };

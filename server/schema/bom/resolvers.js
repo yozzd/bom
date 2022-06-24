@@ -388,7 +388,7 @@ const resolvers = {
           include: [{
             model: OUTSTANDINGPO,
             attributes: ['poStatus', 'poArrival', 'poNo'],
-          },{
+          }, {
             model: Wmr,
             attributes: ['id', 'no'],
           }],
