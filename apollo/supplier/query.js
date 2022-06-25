@@ -1,8 +1,8 @@
 import gql from 'graphql-tag';
 
 export default gql`
-  query getAllSupplier($key: String) {
-    getAllSupplier(key: $key) {
+  query searchSupplier($key: String) {
+    searchSupplier(key: $key) {
       suplierID
       suplierNM
     }

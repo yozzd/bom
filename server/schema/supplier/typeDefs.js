@@ -1,6 +1,6 @@
 const typeDefs = `
   extend type Query {
-    getAllSupplier(key: String): [Supplier]
+    searchSupplier(key: String): [Supplier]
   }
   
   type Supplier {

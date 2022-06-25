@@ -559,7 +559,7 @@ export default {
     async supplierRemote(key) {
       if (key) {
         this.supplierLoading = true;
-        const { data: { getAllSupplier } } = await this.$apollo.query({
+        const { data: { searchSupplier } } = await this.$apollo.query({
           query: GetAllSupplier,
           variables: { key },
           prefetch: false,
@@ -567,7 +567,7 @@ export default {
             this.errors = graphQLErrors || networkError.result.errors;
           },
         });
-        this.supplier = getAllSupplier;
+        this.supplier = searchSupplier;
         this.supplierLoading = false;
       } else {
         this.supplier = [];
