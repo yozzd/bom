@@ -84,22 +84,44 @@
       </nuxt-link>
     </div>
     <div class="flex-1"></div>
-    <el-dropdown trigger="click" @command="handleCommand">
-      <el-link
-        type="primary"
-        :underline="false"
+    <div class="flex space-x-2">
+      <el-dropdown
+        v-if="users.includes($auth.$state.user.section)"
+        trigger="click"
+        @command="handleMaster"
       >
-        {{ $auth.$state.user.fullname }}
-        <client-only>
-          <v-icon name="ri-arrow-down-s-line" class="remixicons w-4 h-4" />
-        </client-only>
-      </el-link>
-      <el-dropdown-menu slot="dropdown">
-        <el-dropdown-item command="logout">
-          Logout
-        </el-dropdown-item>
-      </el-dropdown-menu>
-    </el-dropdown>
+        <el-link
+          type="primary"
+          :underline="false"
+        >
+          Master
+          <client-only>
+            <v-icon name="ri-arrow-down-s-line" class="remixicons w-4 h-4" />
+          </client-only>
+        </el-link>
+        <el-dropdown-menu slot="dropdown">
+          <el-dropdown-item command="supplier">
+            Supplier
+          </el-dropdown-item>
+        </el-dropdown-menu>
+      </el-dropdown>
+      <el-dropdown trigger="click" @command="handleCommand">
+        <el-link
+          type="primary"
+          :underline="false"
+        >
+          {{ $auth.$state.user.fullname }}
+          <client-only>
+            <v-icon name="ri-arrow-down-s-line" class="remixicons w-4 h-4" />
+          </client-only>
+        </el-link>
+        <el-dropdown-menu slot="dropdown">
+          <el-dropdown-item command="logout">
+            Logout
+          </el-dropdown-item>
+        </el-dropdown-menu>
+      </el-dropdown>
+    </div>
   </div>
 </template>
 
@@ -114,6 +136,7 @@ export default {
     return {
       len: 0,
       mpr: [],
+      users: [211, 212, 213, 214, 219],
       errors: [],
     };
   },
@@ -127,6 +150,9 @@ export default {
     async handleCommand(name) {
       if (name === 'logout') await this.$auth.logout();
       else this.$router.push({ name });
+    },
+    handleMaster(name) {
+      this.$router.push({ name });
     },
     handleVisibleChange(v) {
       this.len = 0;
