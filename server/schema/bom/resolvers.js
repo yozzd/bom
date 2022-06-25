@@ -1086,6 +1086,86 @@ const resolvers = {
 
       return saved;
     }),
+    processMaterials: isAuthenticated(async (_, { id }) => {
+      const saved = [];
+
+      const wo = await WO.findOne({
+        attributes: [
+          'unit', 'euro', 'gbp', 'myr', 'idr', 'sgd',
+        ],
+        where: { id },
+      });
+
+      const currObj = {
+        euro: wo.euro,
+        gbp: wo.gbp,
+        myr: wo.myr,
+        idr: wo.idr,
+        sgd: wo.sgd,
+      };
+
+      const items1 = await WOITEM.findAll({
+        attributes: itemAttributes,
+        where: {
+          [Op.and]: [
+            { cancel: 0 },
+            { idWo: id },
+            { bomQtyBalance: { [Op.gte]: 0 } },
+          ],
+        },
+        include: [{
+          model: OUTSTANDINGPO,
+          attributes: ['poStatus', 'poArrival', 'poNo'],
+        }, {
+          model: Wmr,
+          attributes: ['id', 'no'],
+        }],
+      });
+
+      const items2 = await MPRITEM.findAll({
+        attributes: itemAttributes,
+        where: {
+          [Op.and]: [
+            { cancel: 0 },
+            { idWo: id },
+            { bomQtyBalance: { [Op.gte]: 0 } },
+          ],
+        },
+        include: [{
+          model: MPR,
+          attributes: ['id', 'no'],
+        }, {
+          model: OUTSTANDINGPO,
+          attributes: ['poStatus', 'poArrival', 'poNo'],
+        }, {
+          model: Wmr,
+          attributes: ['id', 'no'],
+        }],
+      });
+
+      if (items2.length) {
+        items1.push(...items2);
+      }
+
+      await Promise.all(
+        items1.map(async (v) => {
+          const item = v;
+          const unit = item.sr ? 1 : wo.unit;
+          const value = getCurrency(item.bomCurrEaC, item.bomCurrEaV, currObj);
+          const qtyBalance = item.bomQtyStock - ((unit * item.bomQty) - item.bomQtyRec);
+          const usdTotal = unit * value * item.bomQty;
+
+          item.materialsProcessed = qtyBalance === 0 ? usdTotal : 0;
+          item.yetToPurchase = qtyBalance < 0 ? usdTotal : 0;
+
+          Object.assign(v, item);
+          const save = await v.save();
+          saved.push(save);
+        }),
+      );
+
+      return saved;
+    }),
   },
 };
 

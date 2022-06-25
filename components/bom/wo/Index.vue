@@ -422,6 +422,16 @@
               </Dropdown>
             </DropdownMenu>
           </Dropdown>
+          <el-button
+            v-if="$auth.$state.user.department === 210"
+            type="success"
+            @click="processMaterials"
+          >
+            <client-only>
+              <v-icon name="ri-check-line" class="remixicons w-4 h-4" />
+            </client-only>
+            Process
+          </el-button>
           <div class="flex-1"></div>
         </div>
       </div>
@@ -569,6 +579,7 @@ import flatten from 'lodash/flatten';
 import { GetOneWO, GenWoXLS } from '../../../apollo/bom/query';
 import {
   DeleteWoModule, ValidateWo, ValidateWoItem, StockItem,
+  ProcessMaterials,
 } from '../../../apollo/bom/mutation';
 import { GetWmrByWo } from '../../../apollo/wmr/query';
 import { AddItemsToWmr } from '../../../apollo/wmr/mutation';
@@ -886,6 +897,28 @@ export default {
         this.$message({
           type: 'success',
           message: 'Item(s) has been added/removed from WMR successfully',
+        });
+      }).catch(() => {});
+    },
+    async processMaterials() {
+      this.$confirm('This action will fill Materials Processed column, are you sure?', 'Confirmation', {
+        confirmButtonText: 'Yes',
+        cancelButtonText: 'Cancel',
+        type: 'warning',
+      }).then(async () => {
+        this.loading = true;
+
+        await this.$apollo.mutate({
+          mutation: ProcessMaterials,
+          variables: {
+            id: parseInt(this.$route.params.id, 10),
+          },
+        });
+
+        this.loading = false;
+        this.$message({
+          type: 'success',
+          message: 'Item(s) has been update successfully',
         });
       }).catch(() => {});
     },

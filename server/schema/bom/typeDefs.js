@@ -29,6 +29,7 @@ const typeDefs = `
     updateWo(input: UpdateWoInput): WO
     validateWo(id: Int, validated: Int): WO
     stockItem(input: [StockItemInput]): [WOITEM]
+    processMaterials(id: Int): [WOITEM]
   }
 
   type WODetail {

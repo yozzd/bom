@@ -361,3 +361,60 @@ export const StockItem = gql`
     }
   }
 `;
+
+export const ProcessMaterials = gql`
+  mutation processMaterials($id: Int) {
+    processMaterials(id: $id) {
+      id
+      idMaterial
+      bomDescription
+      bomSpecification
+      bomModel
+      bomBrand
+      bomQty
+      bomUnit
+      bomQtyRqd
+      bomQtyBalance
+      bomQtyStock
+      bomEta
+      bomQtyRec
+      bomDateRec
+      bomCurrSizeC
+      bomCurrSizeV
+      bomCurrEaC
+      bomCurrEaV
+      bomUsdEa
+      bomUsdUnit
+      bomUsdTotal
+      materialsProcessed
+      yetToPurchase
+      bomSupplier
+      bomPoDate
+      bomPoNo
+      bomRemarks
+      priority
+      bomEtaStatus
+      sr
+      isMpr
+      packing
+      hold
+      cancel
+      idHeader
+      idModule
+      colorClass
+      module {
+        id
+        hid
+        header
+      }
+      mpr {
+        id
+        no
+      }
+      wmr3 {
+        id
+        no
+      }
+    }
+  }
+`;
