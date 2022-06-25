@@ -121,6 +121,7 @@ const typeDefs = `
     category: Int
     status: Int
     zone: String
+    poNo: String
     header: String
   }
 `;

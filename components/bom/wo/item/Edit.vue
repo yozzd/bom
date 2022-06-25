@@ -316,7 +316,7 @@ import currency from '../../../../mixins/currency';
 import { GetOneWO, GetWoModules } from '../../../../apollo/bom/query';
 import { GetOneMPR, GetMprModules } from '../../../../apollo/mpr/query';
 import { UpdateItem } from '../../../../apollo/bom/mutation';
-import GetAllSupplier from '../../../../apollo/supplier/query';
+import { SearchSupplier } from '../../../../apollo/supplier/query';
 
 export default {
   mixins: [currency],
@@ -560,7 +560,7 @@ export default {
       if (key) {
         this.supplierLoading = true;
         const { data: { searchSupplier } } = await this.$apollo.query({
-          query: GetAllSupplier,
+          query: SearchSupplier,
           variables: { key },
           prefetch: false,
           error({ graphQLErrors, networkError }) {

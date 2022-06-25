@@ -72,19 +72,22 @@ const resolvers = {
     }),
     genOutXLS: isAuthenticated(async (_, { input }) => {
       const {
-        mode, category, status, zone, header,
+        mode, category, status, zone, poNo, header,
       } = input;
       let result = null;
 
       if (mode === 1) {
         const where = whereCategory(category);
-        result = await byCategory(where);
+        result = await byFilter(where);
       } else if (mode === 2) {
         const where = whereStatus(status);
-        result = await byStatus(where);
+        result = await byFilter(where);
       } else if (mode === 3) {
         const where = whereZones(zone);
-        result = await byZone(where);
+        result = await byFilter(where);
+      } else if (mode === 4) {
+        const where = wherePoNo(poNo);
+        result = await byFilter(where);
       }
 
       const gen = await genOut(result, header);

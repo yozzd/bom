@@ -889,7 +889,7 @@ export default {
           const { items, totals: [totals] } = getAllOutstandingPoByPoNo;
           this.items = items;
           this.totals = totals;
-          this.header = this.form.category;
+          this.header = `PO No.: ${this.form.poNo}`;
 
           this.query = GetAllOutstandingPoByPoNo;
           this.variables = { poNo: this.form.poNo };
@@ -988,6 +988,7 @@ export default {
               category: this.variables.category ? parseInt(this.variables.category, 10) : 0,
               status: this.variables.status ? parseInt(this.variables.status, 10) : 0,
               zone: this.variables.zone ? this.variables.zone : '',
+              poNo: this.variables.poNo ? this.variables.poNo : '',
               header: this.header,
             },
           },
