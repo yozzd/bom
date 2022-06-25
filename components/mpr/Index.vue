@@ -541,10 +541,10 @@ export default {
         fields: ['id', 'no', 'woNo', 'model', 'product', 'projectName'],
         storeFields: [
           'id', 'no', 'woNo', 'model', 'product', 'projectName', 'status',
-          'unit', 'category', 'dor', 'idWo', 'packing', 'requestorSection',
-          'requestorName', 'requestorTimestamp', 'managerApproved',
-          'managerTimestamp', 'whApproved', 'whTimestamp', 'bomApproved',
-          'bomTimestamp', 'attachment', 'remark', 'wo',
+          'unit', 'category', 'dor', 'idWo', 'packing', 'requestorName',
+          'requestorTimestamp', 'managerApproved', 'managerTimestamp',
+          'whApproved', 'whTimestamp', 'bomApproved', 'bomTimestamp',
+          'attachment', 'remark', 'packing', 'hold', 'cancel', 'wo',
         ],
       }),
       query: {},
@@ -615,6 +615,8 @@ export default {
     updateList(value) {
       this.items = {};
       this.items = value;
+      this.miniSearch.removeAll();
+      this.miniSearch.addAll(this.items);
     },
     handleSelectionChange(arr) {
       this.multipleSelection = arr.map((v) => ({ id: v.id }));
@@ -686,10 +688,6 @@ export default {
               data: cdata,
             });
           },
-          optimisticResponse: {
-            __typename: 'Mutation',
-            approveMpr: mpr,
-          },
         });
 
         this.$message({
@@ -725,10 +723,6 @@ export default {
               variables: this.variables,
               data: cdata,
             });
-          },
-          optimisticResponse: {
-            __typename: 'Mutation',
-            disapproveMpr: mpr,
           },
         });
 
