@@ -250,6 +250,7 @@
 </template>
 
 <script>
+import { saveAs } from 'file-saver';
 import { GetOneWmr, PrintWmr } from '../../../apollo/wmr/query';
 import { StockWmrItem } from '../../../apollo/wmr/mutation';
 import utils from '../../../mixins/utils';
@@ -326,7 +327,7 @@ export default {
         });
 
         this.loading = false;
-        window.open(`/report/${this.wmr.no}.pdf`);
+        saveAs(`/report/${this.wmr.no}.pdf`, `${this.wmr.no}.pdf`);
         return true;
       } catch ({ graphQLErrors, networkError }) {
         this.errors = graphQLErrors || networkError.result.errors;

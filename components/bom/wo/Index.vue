@@ -333,7 +333,7 @@
               </el-button>
             </el-button-group>
           </div>
-          <!--<div
+          <div
             v-if="production.includes($auth.$state.user.department)"
           >
             <Dropdown
@@ -403,7 +403,7 @@
                 </Dropdown>
               </DropdownMenu>
             </Dropdown>
-          </div>-->
+          </div>
           <Dropdown trigger="click" placement="bottom-start" @on-click="handleExport">
             <VButton type="primary" size="large">
               <client-only>
@@ -574,6 +574,7 @@
 </template>
 
 <script>
+import { saveAs } from 'file-saver';
 import pullAllBy from 'lodash/pullAllBy';
 import flatten from 'lodash/flatten';
 import { GetOneWO, GenWoXLS } from '../../../apollo/bom/query';
@@ -812,7 +813,7 @@ export default {
 
         if (status) {
           this.loading = false;
-          window.open(`/report/${this.wo.woNo}.xlsx`);
+          saveAs(`/report/${this.wo.woNo}.xlsx`, `${this.wo.woNo}.xlsx`);
         }
 
         return true;

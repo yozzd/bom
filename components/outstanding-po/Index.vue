@@ -678,6 +678,7 @@
 </template>
 
 <script>
+import { saveAs } from 'file-saver';
 import pullAllBy from 'lodash/pullAllBy';
 import MiniSearch from 'minisearch';
 import table from '../../mixins/table';
@@ -996,7 +997,7 @@ export default {
 
         if (status) {
           this.loading = false;
-          window.open(`/report/${this.header}.xlsx`);
+          saveAs(`/report/${this.header}.xlsx`, `${this.header}.xlsx`);
         }
 
         return true;

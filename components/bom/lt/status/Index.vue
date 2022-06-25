@@ -487,6 +487,7 @@
 </template>
 
 <script>
+import { saveAs } from 'file-saver';
 import pullAllBy from 'lodash/pullAllBy';
 import MiniSearch from 'minisearch';
 import table from '../../../../mixins/table';
@@ -601,7 +602,7 @@ export default {
 
         if (status) {
           this.loading = false;
-          window.open(`/report/${this.lt.ltNo}.xlsx`);
+          saveAs(`/report/${this.lt.ltNo}.xlsx`, `${this.lt.ltNo}.xlsx`);
         }
 
         return true;

@@ -79,9 +79,9 @@
       <nuxt-link :to="{ name: 'outstanding-po' }">
         OUTSTANDING PO
       </nuxt-link>
-      <!--<nuxt-link :to="{ name: 'wmr' }">
+      <nuxt-link :to="{ name: 'wmr' }">
         WMR
-      </nuxt-link>-->
+      </nuxt-link>
     </div>
     <div class="flex-1"></div>
     <div class="flex space-x-2">
