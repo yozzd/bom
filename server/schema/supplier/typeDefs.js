@@ -12,6 +12,7 @@ const typeDefs = `
     Country: String
     PostCode: String
     OfficePhone: String
+    FaxNo: String
     Email: String
     HomePage: String
     Remark: String

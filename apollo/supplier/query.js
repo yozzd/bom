@@ -10,6 +10,7 @@ export const GetAllSupplier = gql`
       Country
       PostCode
       OfficePhone
+      FaxNo
       Email
       HomePage
       Remark

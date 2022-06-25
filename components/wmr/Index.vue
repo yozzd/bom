@@ -23,7 +23,7 @@
       </el-breadcrumb>
 
       <div>
-        <div class="my-4">
+        <div class="flex my-4 space-x-4 items-center">
           <el-button
             v-if="production.includes($auth.$state.user.department)"
             type="danger"
@@ -217,6 +217,23 @@
               </el-table-column>
               <el-table-column label="" min-width="50"></el-table-column>
             </el-table>
+          </div>
+          <div>
+            <el-pagination
+              :current-page.sync="page"
+              :page-sizes="pageSizes"
+              :page-size="pageSize"
+              :total="search ? tableData.length : items.length"
+              :pager-count="pagerCount"
+              layout="slot, sizes, prev, pager, next"
+              class="flex justify-end"
+              @size-change="handleSizeChange"
+              @current-change="handleCurrentChange"
+            >
+              <template #default>
+                <span class="font-normal">Total {{ tableData.length }}/{{ items.length }}</span>
+              </template>
+            </el-pagination>
           </div>
         </div>
       </div>

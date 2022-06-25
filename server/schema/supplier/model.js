@@ -34,6 +34,9 @@ const Supplier = sequelize.define('supplier', {
   OfficePhone1: {
     type: DataTypes.STRING,
   },
+  FaxNo: {
+    type: DataTypes.STRING,
+  },
   Email: {
     type: DataTypes.STRING,
   },

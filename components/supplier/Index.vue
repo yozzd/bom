@@ -23,12 +23,25 @@
       </el-breadcrumb>
 
       <div>
+        <div class="flex my-4 space-x-4 items-center">
+          <div class="flex-1"></div>
+          <div class="w-64">
+            <el-input
+              v-model="search"
+              placeholder="Search"
+              clearable
+            />
+          </div>
+        </div>
+      </div>
+      <div>
         <div class="flex flex-col space-y-4 my-4">
           <div>
             <el-table
               :data="tableData"
               size="mini"
               border
+              stripe
               @selection-change="handleSelectionChange"
             >
               <el-table-column
@@ -38,12 +51,94 @@
               ></el-table-column>
               <el-table-column type="index" align="center" width="50"></el-table-column>
               <el-table-column
-                label="WMR No."
+                label="Supplier Name"
                 :show-overflow-tooltip="true"
-                width="130"
+                width="240"
+              >
+                <template slot-scope="scope">
+                  {{ scope.row.suplierNM }}
+                </template>
+              </el-table-column>
+              <el-table-column
+                label="Contact Person"
+                prop="ContactPerson"
+                :show-overflow-tooltip="true"
+                width="140"
+              >
+              </el-table-column>
+              <el-table-column
+                label="Address"
+                prop="Address"
+                :show-overflow-tooltip="true"
+                width="340"
+              >
+              </el-table-column>
+              <el-table-column
+                label="Country"
+                prop="Country"
+                :show-overflow-tooltip="true"
+                width="140"
+              >
+              </el-table-column>
+              <el-table-column
+                label="Post Code"
+                prop="PostCode"
+                :show-overflow-tooltip="true"
+                width="100"
+              >
+              </el-table-column>
+              <el-table-column
+                label="Phone"
+                prop="OfficePhone"
+                :show-overflow-tooltip="true"
+                width="140"
+              >
+              </el-table-column>
+              <el-table-column
+                label="Fax. No"
+                prop="FaxNo"
+                :show-overflow-tooltip="true"
+                width="140"
+              >
+              </el-table-column>
+              <el-table-column
+                label="Email"
+                prop="Email"
+                :show-overflow-tooltip="true"
+                width="160"
+              >
+              </el-table-column>
+              <el-table-column
+                label="Homepage"
+                prop="HomePage"
+                :show-overflow-tooltip="true"
+                width="160"
+              >
+              </el-table-column>
+              <el-table-column
+                label="Remark"
+                prop="Remark"
+                :show-overflow-tooltip="true"
               >
               </el-table-column>
             </el-table>
+          </div>
+          <div>
+            <el-pagination
+              :current-page.sync="page"
+              :page-sizes="pageSizes"
+              :page-size="pageSize"
+              :total="search ? tableData.length : items.length"
+              :pager-count="pagerCount"
+              layout="slot, sizes, prev, pager, next"
+              class="flex justify-end"
+              @size-change="handleSizeChange"
+              @current-change="handleCurrentChange"
+            >
+              <template #default>
+                <span class="font-normal">Total {{ tableData.length }}/{{ items.length }}</span>
+              </template>
+            </el-pagination>
           </div>
         </div>
       </div>
@@ -62,11 +157,11 @@ export default {
   data() {
     return {
       miniSearch: new MiniSearch({
-        idField: 'id',
-        fields: ['supplierNM', 'Country'],
+        idField: 'suplierID',
+        fields: ['suplierNM', 'Country'],
         storeFields: [
           'suplierID', 'suplierNM', 'ContactPerson', 'Address', 'Country',
-          'PostCode', 'OfficePhone', 'Email', 'HomePage', 'Remark',
+          'PostCode', 'OfficePhone', 'FaxNo', 'Email', 'HomePage', 'Remark',
         ],
       }),
     };
