@@ -4,6 +4,17 @@ const { isAuthenticated } = require('../auth/service');
 
 const resolvers = {
   Query: {
+    getAllSupplier: isAuthenticated(async () => {
+      const supplier = await Supplier.findAll({
+        attributes: [
+          'suplierID', 'suplierNM', 'ContactPerson', 'Address', 'Country',
+          'PostCode', 'OfficePhone', 'Email', 'HomePage', 'Remark',
+        ],
+        order: ['suplierNM'],
+      });
+
+      return supplier;
+    }),
     searchSupplier: isAuthenticated(async (_, { key }) => {
       const supplier = await Supplier.findAll({
         attributes: ['suplierID', 'suplierNM'],

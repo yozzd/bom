@@ -1,8 +1,8 @@
 import gql from 'graphql-tag';
 
 export const GetAllSupplier = gql`
-  query getSupplier {
-    getSupplier {
+  query getAllSupplier {
+    getAllSupplier {
       suplierID
       suplierNM
       ContactPerson

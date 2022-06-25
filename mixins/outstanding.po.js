@@ -1,5 +1,5 @@
 import { GetZones } from '../apollo/outstandingPo/query';
-import GetAllSupplier from '../apollo/supplier/query';
+import { SearchSupplier } from '../apollo/supplier/query';
 
 export default {
   data() {
@@ -45,15 +45,15 @@ export default {
     async supplierRemote(key) {
       if (key) {
         this.supplierLoading = true;
-        const { data: { getAllSupplier } } = await this.$apollo.query({
-          query: GetAllSupplier,
+        const { data: { searchSupplier } } = await this.$apollo.query({
+          query: SearchSupplier,
           variables: { key },
           prefetch: false,
           error({ graphQLErrors, networkError }) {
             this.errors = graphQLErrors || networkError.result.errors;
           },
         });
-        this.supplier = getAllSupplier;
+        this.supplier = searchSupplier;
         this.supplierLoading = false;
       } else {
         this.supplier = [];
