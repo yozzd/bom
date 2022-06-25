@@ -25,7 +25,19 @@ const resolvers = {
       return supplier;
     }),
   },
-  Mutation: {},
+  Mutation: {
+    deleteSupplier: isAuthenticated(async (_, { input }) => {
+      await Promise.all(
+        input.map(async (v) => {
+          await Supplier.destroy({
+            where: { suplierID: v.suplierID },
+          });
+        }),
+      );
+
+      return input;
+    }),
+  },
 };
 
 module.exports = { resolvers };

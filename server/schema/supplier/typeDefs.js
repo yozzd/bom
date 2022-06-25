@@ -3,6 +3,10 @@ const typeDefs = `
     getAllSupplier: [Supplier]
     searchSupplier(key: String): [Supplier]
   }
+
+  extend type Mutation {
+    deleteSupplier(input: [DeleteSupplierInput]): [Supplier]
+  }
   
   type Supplier {
     suplierID: Int
@@ -16,6 +20,10 @@ const typeDefs = `
     Email: String
     HomePage: String
     Remark: String
+  }
+  
+  input DeleteSupplierInput {
+    suplierID: Int
   }
 `;
 

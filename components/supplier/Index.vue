@@ -24,6 +24,17 @@
 
       <div>
         <div class="flex my-4 space-x-4 items-center">
+          <el-button
+            v-if="mrp.includes($auth.$state.user.section)"
+            type="danger"
+            :disabled="!multipleSelection.length"
+            @click="handleDelete"
+          >
+            <client-only>
+              <v-icon name="ri-delete-bin-2-line" class="remixicons w-4 h-4" />
+            </client-only>
+            Delete
+          </el-button>
           <div class="flex-1"></div>
           <div class="w-64">
             <el-input
@@ -147,15 +158,21 @@
 </template>
 
 <script>
+import pullAllBy from 'lodash/pullAllBy';
 import MiniSearch from 'minisearch';
 import table from '../../mixins/table';
 import outp from '../../mixins/outstanding.po';
+import utils from '../../mixins/utils';
 import { GetAllSupplier } from '../../apollo/supplier/query';
+import { DeleteSupplier } from '../../apollo/supplier/mutation';
 
 export default {
-  mixins: [table, outp],
+  mixins: [table, outp, utils],
   data() {
     return {
+      loading: false,
+      multipleSelection: [],
+      cachedArr: [],
       miniSearch: new MiniSearch({
         idField: 'suplierID',
         fields: ['suplierNM', 'Country'],
@@ -167,7 +184,46 @@ export default {
     };
   },
   methods: {
-    handleSelectionChange() {},
+    handleSelectionChange(arr) {
+      this.multipleSelection = arr.map((v) => ({ suplierID: v.suplierID }));
+      this.cachedArr = arr;
+    },
+    handleDelete() {
+      this.$confirm('This will permanently delete the data. Continue?', 'Warning', {
+        confirmButtonText: 'Yes',
+        cancelButtonText: 'Cancel',
+        type: 'warning',
+      }).then(async () => {
+        await this.$apollo.mutate({
+          mutation: DeleteSupplier,
+          variables: {
+            input: this.multipleSelection,
+          },
+          update: (store, { data: { deleteSupplier } }) => {
+            const cdata = store.readQuery({
+              query: GetAllSupplier,
+            });
+
+            pullAllBy(cdata.getAllSupplier, deleteSupplier, 'suplierID');
+
+            store.writeQuery({
+              query: GetAllSupplier,
+              data: cdata,
+            });
+          },
+          optimisticResponse: {
+            __typename: 'Mutation',
+            deleteSupplier: this.cachedArr,
+          },
+        });
+
+        this.$message({
+          type: 'success',
+          message: 'Data has been delete successfully',
+        });
+        this.multipleSelection = [];
+      }).catch(() => {});
+    },
   },
   apollo: {
     getAllSupplier: {

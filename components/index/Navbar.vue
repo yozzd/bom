@@ -86,7 +86,7 @@
     <div class="flex-1"></div>
     <div class="flex space-x-2">
       <el-dropdown
-        v-if="users.includes($auth.$state.user.section)"
+        v-if="mrp.includes($auth.$state.user.section)"
         trigger="click"
         @command="handleMaster"
       >
@@ -129,14 +129,15 @@
 import { format, formatDistance } from 'date-fns';
 import maxBy from 'lodash/maxBy';
 import Cookies from 'js-cookie';
+import utils from '../../mixins/utils';
 import { GetMprNotifications } from '../../apollo/mpr/query';
 
 export default {
+  mixins: [utils],
   data() {
     return {
       len: 0,
       mpr: [],
-      users: [211, 212, 213, 214, 219],
       errors: [],
     };
   },
