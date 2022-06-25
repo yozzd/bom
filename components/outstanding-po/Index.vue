@@ -44,6 +44,9 @@
               <el-dropdown-item command="c">
                 By Zone
               </el-dropdown-item>
+              <el-dropdown-item command="d">
+                By PO No.
+              </el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
           <el-button
@@ -614,6 +617,44 @@
       </span>
     </el-dialog>
 
+    <el-dialog
+      title="Filter By PO No."
+      :visible.sync="showFilterByPoNoDialog"
+      :close-on-click-modal="false"
+      :close-on-press-escape="false"
+      width="40%"
+    >
+      <el-form
+        ref="form"
+        :model="form"
+        :rules="rules"
+        :hide-required-asterisk="true"
+        label-position="top"
+      >
+        <el-form-item
+          label="PO No."
+          prop="poNo"
+        >
+          <el-input v-model="form.poNo"></el-input>
+        </el-form-item>
+      </el-form>
+      <span slot="footer" class="dialog-footer">
+        <el-button
+          type="text"
+          @click="showFilterByPoNoDialog = false"
+        >
+          Cancel
+        </el-button>
+        <el-button
+          type="primary"
+          :loading="loading"
+          @click="handleFilterByPoNo('form')"
+        >
+          Filter
+        </el-button>
+      </span>
+    </el-dialog>
+
     <OutstandingPoAdd
       :show="showAddDialog"
       :query="query"
@@ -645,6 +686,7 @@ import {
   GetAllOutstandingPoByCategory,
   GetAllOutstandingPoByStatus,
   GetAllOutstandingPoByZones,
+  GetAllOutstandingPoByPoNo,
   GetProposedPoNo,
   GenOutXLS,
 } from '../../apollo/outstandingPo/query';
@@ -654,10 +696,11 @@ export default {
   mixins: [table, outp],
   data() {
     return {
-      users: [211, 212, 213, 219, 331],
+      users: [211, 212, 213, 219, 330, 331],
       showFilterByCategoryDialog: false,
       showFilterByStatusDialog: false,
       showFilterByZonesDialog: false,
+      showFilterByPoNoDialog: false,
       loading: false,
       form: {},
       header: '',
@@ -702,6 +745,7 @@ export default {
       if (command === 'a') this.showFilterByCategory();
       if (command === 'b') this.showFilterByStatus();
       if (command === 'c') this.showFilterByZones();
+      if (command === 'd') this.showFilterByPoNo();
     },
     showFilterByCategory() {
       this.showFilterByCategoryDialog = true;
@@ -822,6 +866,44 @@ export default {
           this.loading = false;
           this.showFilterByZonesDialog = false;
           this.mode = 3;
+        }
+      });
+    },
+    showFilterByPoNo() {
+      this.showFilterByPoNoDialog = true;
+    },
+    handleFilterByPoNo(form) {
+      this.$refs[form].validate(async (valid) => {
+        if (valid) {
+          this.loading = true;
+
+          const { data: { getAllOutstandingPoByPoNo } } = await this.$apollo.query({
+            query: GetAllOutstandingPoByPoNo,
+            variables: { poNo: this.form.poNo },
+            prefetch: false,
+            error({ graphQLErrors, networkError }) {
+              this.errors = graphQLErrors || networkError.result.errors;
+            },
+          });
+          this.items = {};
+          const { items, totals: [totals] } = getAllOutstandingPoByPoNo;
+          this.items = items;
+          this.totals = totals;
+          this.header = this.form.category;
+
+          this.query = GetAllOutstandingPoByPoNo;
+          this.variables = { poNo: this.form.poNo };
+          this.sdata = 'getAllOutstandingPoByPoNo';
+
+          this.page = 1;
+          this.pageSize = 10;
+
+          this.miniSearch.removeAll();
+          this.miniSearch.addAll(this.items);
+
+          this.loading = false;
+          this.showFilterByPoNoDialog = false;
+          this.mode = 4;
         }
       });
     },

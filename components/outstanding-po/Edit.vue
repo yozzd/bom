@@ -197,7 +197,7 @@
               v-model="form.poFinance"
               type="date"
               value-format="yyyy-MM-dd"
-              :disabled="$auth.$state.user.section !== 331"
+              :disabled="$auth.$state.user.department !== 330"
             ></el-date-picker>
           </el-form-item>
           <el-form-item
@@ -310,7 +310,7 @@
             </client-only>
           </el-form-item>
           <el-form-item
-            v-if="$auth.$state.user.section === 331"
+            v-if="$auth.$state.user.department === 330"
             label="Remarks"
             prop="poRemarksFinance"
             class="col-span-2"

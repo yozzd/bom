@@ -131,6 +131,17 @@ const whereZones = (zone) => {
   return where;
 };
 
+const wherePoNo = (poNo) => {
+  const where = {
+    [Op.and]: [
+      { poCancel: 0 },
+      { poNo },
+    ],
+  };
+
+  return where;
+};
+
 const genOut = async ({ items, totals }, header) => {
   try {
     const dir = 'static/report';
@@ -230,5 +241,5 @@ const genOut = async ({ items, totals }, header) => {
 };
 
 module.exports = {
-  whereCategory, whereStatus, whereZones, genOut,
+  whereCategory, whereStatus, whereZones, wherePoNo, genOut,
 };

@@ -4,6 +4,7 @@ const typeDefs = `
     getAllOutstandingPoByCategory(category: Int): outstandingPo
     getAllOutstandingPoByStatus(status: Int): outstandingPo
     getAllOutstandingPoByZones(zone: String): outstandingPo
+    getAllOutstandingPoByPoNo(poNo: String): outstandingPo
     getProposedPoNo: [poNum]
     checkPo(poNo: String): GenStatus
     genOutXLS(input: GenOutXLSInput): GenStatus

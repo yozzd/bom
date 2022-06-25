@@ -5,9 +5,9 @@ const {
 } = require('../relations');
 const { isAuthenticated } = require('../auth/service');
 const {
-  whereCategory, whereStatus, whereZones, genOut,
+  whereCategory, whereStatus, whereZones, wherePoNo, genOut,
 } = require('./methods');
-const { byCategory, byStatus, byZone } = require('./query');
+const { byFilter } = require('./query');
 
 const itemAttributes = [
   'id', 'poIssue', 'poZone', 'poNo', 'poSupplier', 'poDescription',
@@ -31,19 +31,25 @@ const resolvers = {
     }),
     getAllOutstandingPoByCategory: isAuthenticated(async (_, { category }) => {
       const where = whereCategory(category);
-      const result = await byCategory(where);
+      const result = await byFilter(where);
 
       return result;
     }),
     getAllOutstandingPoByStatus: isAuthenticated(async (_, { status }) => {
       const where = whereStatus(status);
-      const result = await byStatus(where);
+      const result = await byFilter(where);
 
       return result;
     }),
     getAllOutstandingPoByZones: isAuthenticated(async (_, { zone }) => {
       const where = whereZones(zone);
-      const result = await byZone(where);
+      const result = await byFilter(where);
+
+      return result;
+    }),
+    getAllOutstandingPoByPoNo: isAuthenticated(async (_, { poNo }) => {
+      const where = wherePoNo(poNo);
+      const result = await byFilter(where);
 
       return result;
     }),
