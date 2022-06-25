@@ -333,7 +333,7 @@
               </el-button>
             </el-button-group>
           </div>
-          <div
+          <!--<div
             v-if="production.includes($auth.$state.user.department)"
           >
             <Dropdown
@@ -403,7 +403,7 @@
                 </Dropdown>
               </DropdownMenu>
             </Dropdown>
-          </div>
+          </div>-->
           <Dropdown trigger="click" placement="bottom-start" @on-click="handleExport">
             <VButton type="primary" size="large">
               <client-only>

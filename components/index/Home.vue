@@ -24,13 +24,13 @@
         OUTSTANDING PO
       </div>
     </nuxt-link>
-    <nuxt-link :to="{ name: 'wmr'}" class="card-button">
+    <!--<nuxt-link :to="{ name: 'wmr'}" class="card-button">
       <div>
         04
       </div>
       <div class="text-3xl">
         WMR
       </div>
-    </nuxt-link>
+    </nuxt-link>-->
   </div>
 </template>
