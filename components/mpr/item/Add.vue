@@ -152,6 +152,7 @@ export default {
       loadingSearch: false,
       searchItems: [],
       multipleSelection: [],
+      cachedArr: [],
       loadingSave: false,
       visible: false,
       errors: [],
@@ -193,6 +194,7 @@ export default {
         idModule: parseInt(this.idModule, 10),
         idMaterial: parseInt(v.MaterialCD, 10),
       }));
+      this.cachedArr.push(...this.multipleSelection);
     },
     handleCancel() {
       this.$refs.form.resetFields();
@@ -208,7 +210,7 @@ export default {
         await this.$apollo.mutate({
           mutation: AddMprItems,
           variables: {
-            input: this.multipleSelection,
+            input: this.cachedArr,
           },
           update: async (store, { data: { addMprItems } }) => {
             const cdata = store.readQuery({
@@ -242,6 +244,7 @@ export default {
           message: 'Data has been saved successfully',
           onClose: setTimeout(() => {
             this.handleCancel();
+            this.cachedArr = [];
             this.loading = false;
           }, 1000),
         });
