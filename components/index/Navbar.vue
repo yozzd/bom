@@ -10,7 +10,7 @@
         BOM
       </nuxt-link>
       <nuxt-link :to="{ name: 'mpr' }">
-        <el-badge v-if="len" :value="len" class="item">
+        <el-badge v-if="lenMpr" :value="lenMpr" class="item">
           MPR
         </el-badge>
         <span v-else>
@@ -21,7 +21,7 @@
         v-if="mpr.length"
         trigger="click"
         @command="handleToMpr"
-        @visible-change="handleVisibleChange"
+        @visible-change="handleVisibleChangeMpr"
       >
         <el-link
           type="primary"
@@ -80,8 +80,84 @@
         OUTSTANDING PO
       </nuxt-link>
       <nuxt-link :to="{ name: 'wmr' }">
-        WMR
+        <el-badge v-if="lenWmr" :value="lenWmr" class="item">
+          WMR
+        </el-badge>
+        <span v-else>
+          WMR
+        </span>
       </nuxt-link>
+      <el-dropdown
+        v-if="wmr.length"
+        trigger="click"
+        @command="handleToWmr"
+        @visible-change="handleVisibleChangeWmr"
+      >
+        <el-link
+          type="primary"
+          :underline="false"
+        >
+          <client-only>
+            <v-icon name="ri-arrow-down-s-line" class="remixicons w-4 h-4" />
+          </client-only>
+        </el-link>
+        <el-dropdown-menu
+          slot="dropdown"
+          class="notification"
+        >
+          <el-dropdown-item
+            v-for="item in wmr"
+            :key="item.id"
+            :command="item.id"
+          >
+            <div v-if="$auth.$state.user.section === 213" class="flex items-center space-x-4">
+              <el-tag size="mini" type="success">
+                Approved
+              </el-tag>
+              <div>Approved WMR by {{ item.authorizedBy }}  with no {{ item.no }}</div>
+              <div class="text-xs">
+                {{ ago(item.authorizedByTimestamp) }}
+              </div>
+            </div>
+            <div
+              v-else-if="!item.authorizedByTimestamp"
+              class="flex items-center space-x-4"
+            >
+              <el-tag size="mini" type="danger">
+                New
+              </el-tag>
+              <div>Created WMR by {{ item.requestedBy }} with no {{ item.no }}</div>
+              <div class="text-xs">
+                {{ ago(item.requestedByTimestamp) }}
+              </div>
+            </div>
+            <div
+              v-else-if="item.authorizedByTimestamp && !item.issuedByTimestamp"
+              class="flex items-center space-x-4"
+            >
+              <el-tag size="mini" type="success">
+                Approved
+              </el-tag>
+              <div>Approved WMR by {{ item.authorizedBy }} with no {{ item.no }}</div>
+              <div class="text-xs">
+                {{ ago(item.authorizedByTimestamp) }}
+              </div>
+            </div>
+            <div
+              v-else-if="item.authorizedByTimestamp && item.issuedByTimestamp"
+              class="flex items-center space-x-4"
+            >
+              <el-tag size="mini" type="success">
+                Approved
+              </el-tag>
+              <div>Approved WMR by {{ item.issuedBy }} with no {{ item.no }}</div>
+              <div class="text-xs">
+                {{ ago(item.issuedByTimestamp) }}
+              </div>
+            </div>
+          </el-dropdown-item>
+        </el-dropdown-menu>
+      </el-dropdown>
     </div>
     <div class="flex-1"></div>
     <div class="flex space-x-2">
@@ -131,13 +207,16 @@ import maxBy from 'lodash/maxBy';
 import Cookies from 'js-cookie';
 import utils from '../../mixins/utils';
 import { GetMprNotifications } from '../../apollo/mpr/query';
+import { GetWmrNotifications } from '../../apollo/wmr/query';
 
 export default {
   mixins: [utils],
   data() {
     return {
-      len: 0,
+      lenMpr: 0,
+      lenWmr: 0,
       mpr: [],
+      wmr: [],
       errors: [],
     };
   },
@@ -145,6 +224,10 @@ export default {
     if (!Cookies.get('timestamps')) {
       const now = format(new Date(new Date().setHours(0, 1, 0)), 'yyyy-MM-dd HH:mm:ss');
       Cookies.set('timestamps', now, { sameSite: 'strict' });
+    }
+    if (!Cookies.get('timestamps2')) {
+      const now = format(new Date(new Date().setHours(0, 1, 0)), 'yyyy-MM-dd HH:mm:ss');
+      Cookies.set('timestamps2', now, { sameSite: 'strict' });
     }
   },
   methods: {
@@ -155,8 +238,8 @@ export default {
     handleMaster(name) {
       this.$router.push({ name });
     },
-    handleVisibleChange(v) {
-      this.len = 0;
+    handleVisibleChangeMpr(v) {
+      this.lenMpr = 0;
 
       if (v && this.$auth.$state.user.isManager) {
         const { requestorTimestamp } = maxBy(this.mpr, 'requestorTimestamp');
@@ -174,6 +257,20 @@ export default {
     },
     handleToMpr(id) {
       this.$router.push({ name: 'mpr-id', params: { id } });
+    },
+    handleVisibleChangeWmr(v) {
+      this.lenWmr = 0;
+      const { requestedByTimestamp } = maxBy(this.wmr, 'requestedByTimestamp');
+
+      if (v && this.$auth.$state.user.section === 213) {
+        const { authorizedByTimestamp } = maxBy(this.wmr, 'authorizedByTimestamp');
+        Cookies.set('timestamps2', authorizedByTimestamp, { sameSite: 'strict' });
+      } else {
+        Cookies.set('timestamps2', requestedByTimestamp, { sameSite: 'strict' });
+      }
+    },
+    handleToWmr(id) {
+      this.$router.push({ name: 'wmr-id', params: { id } });
     },
     ago(v) {
       return formatDistance(new Date(v), new Date(), { addSuffix: true });
@@ -195,9 +292,34 @@ export default {
       result({ data, loading }) {
         if (!loading) {
           const { getMprNotifications } = data;
-          this.len = getMprNotifications.length;
-          if (this.len) {
+          this.lenMpr = getMprNotifications.length;
+          if (this.lenMpr) {
             this.mpr.push(...getMprNotifications);
+          }
+        }
+      },
+      error({ graphQLErrors, networkError }) {
+        this.errors = graphQLErrors || networkError.result.errors;
+      },
+    },
+    getWmrNotifications: {
+      query: GetWmrNotifications,
+      variables() {
+        return {
+          date: Cookies.get('timestamps2'),
+        };
+      },
+      skip() {
+        return !Cookies.get('timestamps2');
+      },
+      pollInterval: 180000,
+      fetchPolicy: 'no-cache',
+      result({ data, loading }) {
+        if (!loading) {
+          const { getWmrNotifications } = data;
+          this.lenWmr = getWmrNotifications.length;
+          if (this.lenWmr) {
+            this.wmr.push(...getWmrNotifications);
           }
         }
       },

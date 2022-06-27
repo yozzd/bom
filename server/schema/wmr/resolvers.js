@@ -2,7 +2,7 @@ const sequelize = require('../../config/db');
 const {
   Wmr, WO, WOITEM, MPR, MPRITEM,
 } = require('../relations');
-const { wmrSerial, oneWmr, printWmrDocument } = require('./method');
+const { wmrSerial, oneWmr, printWmrDocument, getNotif } = require('./method');
 const { dateNow } = require('../mpr/resolvers');
 const { isAuthenticated } = require('../auth/service');
 const { itemAttributes } = require('../bom/resolvers');
@@ -60,6 +60,11 @@ const resolvers = {
       const wmr = await oneWmr(id);
       const print = await printWmrDocument(wmr);
       return print;
+    }),
+    getWmrNotifications: isAuthenticated(async (_, { date }, ctx) => {
+      const notif = await getNotif(date, ctx);
+
+      return notif;
     }),
   },
   Mutation: {

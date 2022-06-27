@@ -2,6 +2,7 @@ const fs = require('fs');
 const { format } = require('date-fns');
 const PdfPrinter = require('pdfmake');
 const { ErrorWithProps } = require('mercurius');
+const { Op } = require('sequelize');
 const sequelize = require('../../config/db');
 const {
   Wmr, WO, WOITEM, MPRITEM,
@@ -22,6 +23,8 @@ const fonts = {
   },
 };
 const printer = new PdfPrinter(fonts);
+
+const production = [110, 120, 130, 150, 170];
 
 const wmrSerial = (count) => {
   if (count < 10) return `00000${count}`;
@@ -194,4 +197,39 @@ const printWmrDocument = async (wmr) => {
   }
 };
 
-module.exports = { wmrSerial, oneWmr, printWmrDocument };
+getNotif = (async (date, ctx) => {
+  const { department, section } = ctx.req.user;
+
+  const tzoffset = (new Date()).getTimezoneOffset() * 60000;
+  const fdate = new Date(new Date(date) - tzoffset).toISOString();
+
+  let where = {};
+
+  if (section === 213) {
+    where = {
+      [Op.and]: [
+        { authorizedByTimestamp: { [Op.gt]: fdate } },
+        { authorizedByApproved: 1 },
+      ],
+    };
+  } else {
+    where = {
+      [Op.and]: [
+        { requestedByTimestamp: { [Op.gt]: fdate } },
+        { requestedBy: { [Op.not]: null } },
+      ],
+    };
+  }
+
+  const wmr = await Wmr.findAll({
+    attributes: [
+      'id', 'no', 'requestedBy', 'requestedByTimestamp', 'authorizedBy', 'authorizedByTimestamp',
+      'issuedBy' ,'issuedByTimestamp',
+    ],
+    where,
+  });
+
+  return wmr;
+});
+
+module.exports = { wmrSerial, oneWmr, printWmrDocument, getNotif };

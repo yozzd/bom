@@ -333,9 +333,7 @@
               </el-button>
             </el-button-group>
           </div>
-          <div
-            v-if="production.includes($auth.$state.user.department)"
-          >
+          <div>
             <Dropdown
               trigger="custom"
               :visible="visible"

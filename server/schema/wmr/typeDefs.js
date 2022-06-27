@@ -4,6 +4,7 @@ const typeDefs = `
     getOneWmr(id: Int): Wmr
     getWmrByWo(idWo: Int): [Wmr]
     printWmr(id: Int): WmrStatus
+    getWmrNotifications(date: String): [Wmr]
   }
 
   extend type Mutation {

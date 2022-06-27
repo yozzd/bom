@@ -111,3 +111,18 @@ export const PrintWmr = gql`
     }
   }
 `;
+
+export const GetWmrNotifications = gql`
+  query getWmrNotifications($date: String) {
+    getWmrNotifications(date: $date) {
+      id
+      no
+      requestedBy
+      requestedByTimestamp
+      authorizedBy
+      authorizedByTimestamp
+      issuedBy
+      issuedByTimestamp
+    }
+  }
+`;
