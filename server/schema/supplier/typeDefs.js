@@ -5,11 +5,25 @@ const typeDefs = `
   }
 
   extend type Mutation {
+    addSupplier(input: AddSupplierInput): Supplier
     deleteSupplier(input: [DeleteSupplierInput]): [Supplier]
   }
   
   type Supplier {
     suplierID: Int
+    suplierNM: String
+    ContactPerson: String
+    Address: String
+    Country: String
+    PostCode: String
+    OfficePhone: String
+    FaxNo: String
+    Email: String
+    HomePage: String
+    Remark: String
+  }
+  
+  input AddSupplierInput {
     suplierNM: String
     ContactPerson: String
     Address: String

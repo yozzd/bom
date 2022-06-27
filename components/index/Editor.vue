@@ -197,7 +197,7 @@ export default {
 
 <style>
 .editor {
-  @apply flex flex-col border border-gray-200;
+  @apply flex flex-col border border-gray-200 w-full;
   @apply bg-white rounded-lg;
 }
 .editor__header {

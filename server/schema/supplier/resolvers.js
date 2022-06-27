@@ -26,6 +26,12 @@ const resolvers = {
     }),
   },
   Mutation: {
+    addSupplier: isAuthenticated(async (_, { input }) => {
+      const newSupplier = new Supplier(input);
+      const save = await newSupplier.save();
+
+      return save;
+    }),
     deleteSupplier: isAuthenticated(async (_, { input }) => {
       await Promise.all(
         input.map(async (v) => {

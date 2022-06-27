@@ -26,6 +26,16 @@
         <div class="flex my-4 space-x-4 items-center">
           <el-button
             v-if="mrp.includes($auth.$state.user.section)"
+            type="primary"
+            @click="showAdd"
+          >
+            <client-only>
+              <v-icon name="ri-add-line" class="remixicons w-4 h-4" />
+            </client-only>
+            Add
+          </el-button>
+          <el-button
+            v-if="mrp.includes($auth.$state.user.section)"
             type="danger"
             :disabled="!multipleSelection.length"
             @click="handleDelete"
@@ -131,6 +141,9 @@
                 prop="Remark"
                 :show-overflow-tooltip="true"
               >
+                <template slot-scope="scope">
+                  <div v-html="scope.row.Remark"></div>
+                </template>
               </el-table-column>
             </el-table>
           </div>
@@ -154,6 +167,11 @@
         </div>
       </div>
     </div>
+
+    <SupplierAdd
+      :show="showAddDialog"
+      @close="closeAddDialog"
+    />
   </div>
 </template>
 
@@ -171,6 +189,7 @@ export default {
   data() {
     return {
       loading: false,
+      showAddDialog: false,
       multipleSelection: [],
       cachedArr: [],
       miniSearch: new MiniSearch({
@@ -187,6 +206,12 @@ export default {
     handleSelectionChange(arr) {
       this.multipleSelection = arr.map((v) => ({ suplierID: v.suplierID }));
       this.cachedArr = arr;
+    },
+    showAdd() {
+      this.showAddDialog = true;
+    },
+    closeAddDialog(value) {
+      this.showAddDialog = value;
     },
     handleDelete() {
       this.$confirm('This will permanently delete the data. Continue?', 'Warning', {
