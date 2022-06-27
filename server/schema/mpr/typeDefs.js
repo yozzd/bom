@@ -153,11 +153,15 @@ const typeDefs = `
   }
 
   input AddMprItemsInput {
-    id: Int
-    isMpr: Int
+    bomDescription: String,
+    bomSpecification: String,
+    bomModel: String,
+    bomBrand: String,
+    bomUnit: String,
     idMpr: Int
     idWo: Int
     idModule: Int
+    idMaterial: Int
   }
 
   input AddMprModuleInput {

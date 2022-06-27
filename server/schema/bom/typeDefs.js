@@ -234,11 +234,15 @@ const typeDefs = `
   }
 
   input AddWoItemsInput {
-    id: Int
-    isMpr: Int
+    bomDescription: String,
+    bomSpecification: String,
+    bomModel: String,
+    bomBrand: String,
+    bomUnit: String,
     idWo: Int
     idHeader: Int
     idLt: Int
+    idMaterial: Int
   }
 
   input UpdateWoModuleInput {

@@ -432,41 +432,16 @@ const resolvers = {
     }),
     addWoItems: isAuthenticated(async (_, { input }) => {
       const saved = [];
-      const cAttributes = [
-        ...itemAttributes, 'idWo', 'idLt', 'poZone', 'whRemarks', 'prRemarks',
-        'rndRemarks', 'hvacRemarks', 'mechanicalRemarks', 'electronicRemarks',
-        'fabricationRemarks',
-      ];
-
-      const include = [{
-        model: Wmr,
-        attributes: ['id', 'no'],
-      }];
 
       await Promise.all(
         input.map(async (v) => {
-          let item = {};
-          const where = { id: v.id };
+          const item = {};
 
-          if (v.isMpr) {
-            item = await MPRITEM.findOne({
-              attributes: cAttributes,
-              where,
-              include,
-              raw: true,
-            });
-          } else {
-            item = await WOITEM.findOne({
-              attributes: cAttributes,
-              where,
-              include,
-              raw: true,
-            });
-          }
-
-          delete item.id;
-          delete item.moduleId;
-
+          item.bomDescription = v.bomDescription;
+          item.bomSpecification = v.bomSpecification;
+          item.bomModel = v.bomModel;
+          item.bomBrand = v.bomBrand;
+          item.bomUnit = v.bomUnit;
           item.bomQty = 0;
           item.bomQtyRqd = 0;
           item.bomQtyBalance = 0;
@@ -507,6 +482,7 @@ const resolvers = {
           item.idWo = v.idWo;
           item.idHeader = v.idHeader;
           item.idLt = v.idLt;
+          item.idMaterial = v.idMaterial;
           item.colorClass = null;
           item.bomStatus = null;
           item.poQty = null;

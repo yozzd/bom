@@ -54,12 +54,21 @@
           width="50"
         ></el-table-column>
         <el-table-column
+          label="CD"
+          width="100"
+          :show-overflow-tooltip="true"
+        >
+          <template slot-scope="scope">
+            {{ scope.row.MaterialCD }}
+          </template>
+        </el-table-column>
+        <el-table-column
           label="Description"
           width="180"
           :show-overflow-tooltip="true"
         >
           <template slot-scope="scope">
-            {{ scope.row.bomDescription }}
+            {{ scope.row.MaterialNM }}
           </template>
         </el-table-column>
         <el-table-column
@@ -68,7 +77,7 @@
           :show-overflow-tooltip="true"
         >
           <template slot-scope="scope">
-            {{ scope.row.bomSpecification }}
+            {{ scope.row.MaterialDesc }}
           </template>
         </el-table-column>
         <el-table-column
@@ -77,7 +86,7 @@
           :show-overflow-tooltip="true"
         >
           <template slot-scope="scope">
-            {{ scope.row.bomModel }}
+            {{ scope.row.Model }}
           </template>
         </el-table-column>
         <el-table-column
@@ -86,16 +95,7 @@
           :show-overflow-tooltip="true"
         >
           <template slot-scope="scope">
-            {{ scope.row.bomBrand }}
-          </template>
-        </el-table-column>
-        <el-table-column
-          label="Supplier"
-          width="140"
-          :show-overflow-tooltip="true"
-        >
-          <template slot-scope="scope">
-            {{ scope.row.bomSupplier }}
+            {{ scope.row.Brand }}
           </template>
         </el-table-column>
         <el-table-column label="" min-width="50"></el-table-column>
@@ -180,11 +180,15 @@ export default {
     },
     handleSelectionChange(arr) {
       this.multipleSelection = arr.map((v) => ({
-        id: v.id,
-        isMpr: v.isMpr,
+        bomDescription: v.MaterialNM,
+        bomSpecification: v.MaterialDesc,
+        bomModel: v.Model,
+        bomBrand: v.Brand,
+        bomUnit: v.unit,
         idWo: parseInt(this.wo.id, 10),
         idHeader: parseInt(this.idHeader, 10),
         idLt: parseInt(this.$route.params.idLt, 10),
+        idMaterial: parseInt(v.MaterialCD, 10),
       }));
     },
     handleCancel() {

@@ -139,6 +139,7 @@ export default {
       type: Number,
       default: 0,
     },
+
   },
   data() {
     return {
@@ -182,11 +183,15 @@ export default {
     },
     handleSelectionChange(arr) {
       this.multipleSelection = arr.map((v) => ({
-        id: v.id,
-        isMpr: v.isMpr,
+        bomDescription: v.MaterialNM,
+        bomSpecification: v.MaterialDesc,
+        bomModel: v.Model,
+        bomBrand: v.Brand,
+        bomUnit: v.unit,
         idMpr: parseInt(this.$route.params.id, 10),
         idWo: parseInt(this.wo.id, 10),
         idModule: parseInt(this.idModule, 10),
+        idMaterial: parseInt(v.MaterialCD, 10),
       }));
     },
     handleCancel() {
