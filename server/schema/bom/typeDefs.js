@@ -8,7 +8,6 @@ const typeDefs = `
     getWoModules(idWo: Int): [WOMODULE]
     getAllWoRunning(key: String): [WO]
     getAllWoModules(key: String): [WO]
-    getSearchItems(key: String): [WOITEM]
     getSearchModules(idHeader: Int): [WOITEM]
     genLtXLS(id: Int, status: Int): GenStatus
     genWoXLS(id: Int): GenStatus

@@ -54,12 +54,21 @@
           width="50"
         ></el-table-column>
         <el-table-column
+          label="CD"
+          width="100"
+          :show-overflow-tooltip="true"
+        >
+          <template slot-scope="scope">
+            {{ scope.row.MaterialCD }}
+          </template>
+        </el-table-column>
+        <el-table-column
           label="Description"
           width="180"
           :show-overflow-tooltip="true"
         >
           <template slot-scope="scope">
-            {{ scope.row.bomDescription }}
+            {{ scope.row.MaterialNM }}
           </template>
         </el-table-column>
         <el-table-column
@@ -68,7 +77,7 @@
           :show-overflow-tooltip="true"
         >
           <template slot-scope="scope">
-            {{ scope.row.bomSpecification }}
+            {{ scope.row.MaterialDesc }}
           </template>
         </el-table-column>
         <el-table-column
@@ -77,7 +86,7 @@
           :show-overflow-tooltip="true"
         >
           <template slot-scope="scope">
-            {{ scope.row.bomModel }}
+            {{ scope.row.Model }}
           </template>
         </el-table-column>
         <el-table-column
@@ -86,16 +95,7 @@
           :show-overflow-tooltip="true"
         >
           <template slot-scope="scope">
-            {{ scope.row.bomBrand }}
-          </template>
-        </el-table-column>
-        <el-table-column
-          label="Supplier"
-          width="140"
-          :show-overflow-tooltip="true"
-        >
-          <template slot-scope="scope">
-            {{ scope.row.bomSupplier }}
+            {{ scope.row.Brand }}
           </template>
         </el-table-column>
         <el-table-column label="" min-width="50"></el-table-column>
@@ -122,7 +122,7 @@
 
 <script>
 import { GetOneMPR } from '../../../apollo/mpr/query';
-import { GetSearchItems } from '../../../apollo/bom/query';
+import { GetSearchItems } from '../../../apollo/material/query';
 import { AddMprItems } from '../../../apollo/mpr/mutation';
 
 export default {
@@ -229,56 +229,6 @@ export default {
               },
               data: cdata,
             });
-          },
-          optimisticResponse: {
-            __typename: 'Mutation',
-            addMprItems: [{
-              __typename: 'MPRITEM',
-              id: -1,
-              idMaterial: -1,
-              bomDescription: '...',
-              bomSpecification: '...',
-              bomModel: '...',
-              bomBrand: '...',
-              bomQty: null,
-              bomUnit: null,
-              bomQtyRqd: null,
-              bomQtyBalance: null,
-              bomQtyStock: null,
-              bomEta: null,
-              bomQtyRec: null,
-              bomDateRec: null,
-              bomCurrSizeC: null,
-              bomCurrSizeV: null,
-              bomCurrEaC: null,
-              bomCurrEaV: null,
-              bomUsdEa: null,
-              bomUsdUnit: null,
-              bomUsdTotal: null,
-              materialsProcessed: null,
-              yetToPurchase: null,
-              bomSupplier: '...',
-              bomPoDate: null,
-              bomPoNo: null,
-              bomRemarks: null,
-              priority: null,
-              bomEtaStatus: null,
-              sr: null,
-              isMpr: 1,
-              packing: null,
-              hold: null,
-              cancel: null,
-              idHeader: null,
-              idMpr: parseInt(this.$route.params.id, 10),
-              idModule: parseInt(this.idModule, 10),
-              colorClass: null,
-              module: {
-                __typename: 'WOMODULE',
-                id: -1,
-                hid: null,
-                header: null,
-              },
-            }],
           },
         });
 

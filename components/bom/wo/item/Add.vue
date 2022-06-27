@@ -121,7 +121,8 @@
 </template>
 
 <script>
-import { GetOneWO, GetSearchItems } from '../../../../apollo/bom/query';
+import { GetOneWO } from '../../../../apollo/bom/query';
+import { GetSearchItems } from '../../../../apollo/material/query';
 import { AddWoItems } from '../../../../apollo/bom/mutation';
 
 export default {

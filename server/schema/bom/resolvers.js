@@ -291,33 +291,6 @@ const resolvers = {
 
       return wo;
     }),
-    getSearchItems: isAuthenticated(async (_, { key }) => {
-      const attributes = [
-        'id', 'bomDescription', 'bomSpecification', 'bomModel', 'bomBrand',
-        'bomSupplier', 'isMpr',
-      ];
-      const where = {
-        [Op.or]: [
-          { bomDescription: { [Op.substring]: key } },
-          { bomSpecification: { [Op.substring]: key } },
-        ],
-      };
-
-      const bomItems = await WOITEM.findAll({
-        attributes,
-        where,
-        raw: true,
-      });
-
-      const mprItems = await MPRITEM.findAll({
-        attributes,
-        where,
-        raw: true,
-      });
-
-      const items = [...bomItems, ...mprItems];
-      return items;
-    }),
     getSearchModules: isAuthenticated(async (_, { idHeader }) => {
       const items = await WOITEM.findAll({
         attributes: [

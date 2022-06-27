@@ -336,20 +336,6 @@ export const GetAllWoModules = gql`
   }
 `;
 
-export const GetSearchItems = gql`
-  query getSearchItems($key: String) {
-    getSearchItems(key: $key) {
-      id
-      bomDescription
-      bomSpecification
-      bomModel
-      bomBrand
-      bomSupplier
-      isMpr
-    }
-  }
-`;
-
 export const GetSearchModules = gql`
   query getSearchModules($idHeader: Int) {
     getSearchModules(idHeader: $idHeader) {
