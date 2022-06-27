@@ -24,8 +24,6 @@ const fonts = {
 };
 const printer = new PdfPrinter(fonts);
 
-const production = [110, 120, 130, 150, 170];
-
 const wmrSerial = (count) => {
   if (count < 10) return `00000${count}`;
   if (count < 100) return `0000${count}`;
@@ -197,8 +195,8 @@ const printWmrDocument = async (wmr) => {
   }
 };
 
-getNotif = (async (date, ctx) => {
-  const { department, section } = ctx.req.user;
+const getNotif = (async (date, ctx) => {
+  const { section } = ctx.req.user;
 
   const tzoffset = (new Date()).getTimezoneOffset() * 60000;
   const fdate = new Date(new Date(date) - tzoffset).toISOString();
@@ -224,7 +222,7 @@ getNotif = (async (date, ctx) => {
   const wmr = await Wmr.findAll({
     attributes: [
       'id', 'no', 'requestedBy', 'requestedByTimestamp', 'authorizedBy', 'authorizedByTimestamp',
-      'issuedBy' ,'issuedByTimestamp',
+      'issuedBy', 'issuedByTimestamp',
     ],
     where,
   });
@@ -232,4 +230,6 @@ getNotif = (async (date, ctx) => {
   return wmr;
 });
 
-module.exports = { wmrSerial, oneWmr, printWmrDocument, getNotif };
+module.exports = {
+  wmrSerial, oneWmr, printWmrDocument, getNotif,
+};

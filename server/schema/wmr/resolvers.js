@@ -2,7 +2,9 @@ const sequelize = require('../../config/db');
 const {
   Wmr, WO, WOITEM, MPR, MPRITEM,
 } = require('../relations');
-const { wmrSerial, oneWmr, printWmrDocument, getNotif } = require('./method');
+const {
+  wmrSerial, oneWmr, printWmrDocument, getNotif,
+} = require('./method');
 const { dateNow } = require('../mpr/resolvers');
 const { isAuthenticated } = require('../auth/service');
 const { itemAttributes } = require('../bom/resolvers');
