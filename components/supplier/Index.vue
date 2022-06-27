@@ -77,7 +77,7 @@
                 width="240"
               >
                 <template slot-scope="scope">
-                  {{ scope.row.suplierNM }}
+                  <a @click="showEdit(scope.row)">{{ scope.row.suplierNM }}</a>
                 </template>
               </el-table-column>
               <el-table-column
@@ -172,6 +172,13 @@
       :show="showAddDialog"
       @close="closeAddDialog"
     />
+
+    <SupplierEdit
+      :show="showEditDialog"
+      :data="row"
+      @close="closeEditDialog"
+      @update="updateList"
+    />
   </div>
 </template>
 
@@ -190,6 +197,8 @@ export default {
     return {
       loading: false,
       showAddDialog: false,
+      showEditDialog: false,
+      row: {},
       multipleSelection: [],
       cachedArr: [],
       miniSearch: new MiniSearch({
@@ -212,6 +221,16 @@ export default {
     },
     closeAddDialog(value) {
       this.showAddDialog = value;
+    },
+    showEdit(row) {
+      this.row = row;
+      this.showEditDialog = true;
+    },
+    closeEditDialog(value) {
+      this.showEditDialog = value;
+    },
+    updateList(value, index) {
+      this.items[index] = value;
     },
     handleDelete() {
       this.$confirm('This will permanently delete the data. Continue?', 'Warning', {

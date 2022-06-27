@@ -32,6 +32,19 @@ const resolvers = {
 
       return save;
     }),
+    updateSupplier: isAuthenticated(async (_, { input }) => {
+      const supplier = await Supplier.findOne({
+        attributes: [
+          'suplierID', 'suplierNM', 'ContactPerson', 'Address', 'Country',
+          'PostCode', 'OfficePhone', 'Email', 'HomePage', 'Remark',
+        ],
+        where: { suplierID: input.suplierID },
+      });
+
+      Object.assign(supplier, input);
+      const save = await supplier.save();
+      return save;
+    }),
     deleteSupplier: isAuthenticated(async (_, { input }) => {
       await Promise.all(
         input.map(async (v) => {
