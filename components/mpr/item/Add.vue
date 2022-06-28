@@ -39,6 +39,7 @@
         size="mini"
         border
         class="mt-4"
+        height="200"
         @selection-change="handleSelectionChange"
       >
         <el-table-column
@@ -100,6 +101,79 @@
         </el-table-column>
         <el-table-column label="" min-width="50"></el-table-column>
       </el-table>
+
+      <div class="mt-4">
+        Selected ({{ cachedArr2.length }}) &bull;
+        <a :disabled="!arrSelected.length" @click="handleSelectedDelete">Delete</a>
+      </div>
+      <el-table
+        ref="stable"
+        :data="cachedArr2"
+        size="mini"
+        border
+        class="mt-4"
+        height="200"
+        @selection-change="handleSelected"
+      >
+        <el-table-column
+          type="selection"
+          width="40"
+          align="center"
+          fixed
+        ></el-table-column>
+        <el-table-column
+          type="index"
+          label="No"
+          align="center"
+          width="50"
+        ></el-table-column>
+        <el-table-column
+          label="CD"
+          width="100"
+          :show-overflow-tooltip="true"
+        >
+          <template slot-scope="scope">
+            {{ scope.row.idMaterial }}
+          </template>
+        </el-table-column>
+        <el-table-column
+          label="Description"
+          width="180"
+          :show-overflow-tooltip="true"
+        >
+          <template slot-scope="scope">
+            {{ scope.row.bomDescription }}
+          </template>
+        </el-table-column>
+        <el-table-column
+          label="Specification"
+          width="180"
+          :show-overflow-tooltip="true"
+        >
+          <template slot-scope="scope">
+            {{ scope.row.bomSpecification }}
+          </template>
+        </el-table-column>
+        <el-table-column
+          label="Model"
+          width="140"
+          :show-overflow-tooltip="true"
+        >
+          <template slot-scope="scope">
+            {{ scope.row.bomModel }}
+          </template>
+        </el-table-column>
+        <el-table-column
+          label="Brand"
+          width="140"
+          :show-overflow-tooltip="true"
+        >
+          <template slot-scope="scope">
+            {{ scope.row.bomBrand }}
+          </template>
+        </el-table-column>
+        <el-table-column label="" min-width="50"></el-table-column>
+      </el-table>
       <span slot="footer" class="dialog-footer">
         <el-button
           type="text"
@@ -121,6 +195,8 @@
 </template>
 
 <script>
+import uniqBy from 'lodash/uniqBy';
+import pullAllBy from 'lodash/pullAllBy';
 import { GetOneMPR } from '../../../apollo/mpr/query';
 import { GetSearchItems } from '../../../apollo/material/query';
 import { AddMprItems } from '../../../apollo/mpr/mutation';
@@ -152,7 +228,9 @@ export default {
       loadingSearch: false,
       searchItems: [],
       multipleSelection: [],
-      cachedArr: [],
+      arrSelected: [],
+      cachedArr1: [],
+      cachedArr2: [],
       loadingSave: false,
       visible: false,
       errors: [],
@@ -194,12 +272,23 @@ export default {
         idModule: parseInt(this.idModule, 10),
         idMaterial: parseInt(v.MaterialCD, 10),
       }));
-      this.cachedArr.push(...this.multipleSelection);
+      this.cachedArr1.push(...this.multipleSelection);
+      this.cachedArr2 = uniqBy(this.cachedArr1, 'idMaterial');
+    },
+    handleSelected(arr) {
+      this.arrSelected = arr;
+    },
+    handleSelectedDelete() {
+      pullAllBy(this.cachedArr2, this.arrSelected, 'idMaterial');
+      this.$refs.stable.clearSelection();
     },
     handleCancel() {
       this.$refs.form.resetFields();
       this.searchItems = [];
       this.multipleSelection = [];
+      this.cachedArr1 = [];
+      this.cachedArr2 = [];
+      this.arrSelected = [];
       this.errors = [];
       this.$emit('close', false);
     },
@@ -210,7 +299,7 @@ export default {
         await this.$apollo.mutate({
           mutation: AddMprItems,
           variables: {
-            input: this.cachedArr,
+            input: this.cachedArr2,
           },
           update: async (store, { data: { addMprItems } }) => {
             const cdata = store.readQuery({
@@ -244,7 +333,9 @@ export default {
           message: 'Data has been saved successfully',
           onClose: setTimeout(() => {
             this.handleCancel();
-            this.cachedArr = [];
+            this.cachedArr1 = [];
+            this.cachedArr2 = [];
+            this.arrSelected = [];
             this.loading = false;
           }, 1000),
         });
