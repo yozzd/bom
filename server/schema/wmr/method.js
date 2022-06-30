@@ -94,7 +94,7 @@ const printWmrDocument = async (wmr) => {
     const woNo = await wmr.wo.woNo;
 
     wmr.items.map(async (v, i) => {
-      arrTbl.push([{ text: `${i + 1}`, alignment: 'center' }, { text: v.idMaterial, alignment: 'center' }, v.bomDescription, v.bomSpecification, woNo, { text: `${v.bomQty} ${v.bomUnit}`, alignment: 'center' }, { text: `${v.qtyIssued} ${v.bomUnit}`, alignment: 'center' }, v.wmrPrRemarks, v.wmrWhRemarks]);
+      arrTbl.push([{ text: `${i + 1}`, alignment: 'center' }, { text: v.idMaterial, alignment: 'center' }, v.bomDescription, v.bomSpecification, woNo, { text: `${v.bomQtyRqd} ${v.bomUnit}`, alignment: 'center' }, { text: `${v.qtyIssued} ${v.bomUnit}`, alignment: 'center' }, v.wmrPrRemarks, v.wmrWhRemarks]);
       return true;
     });
 

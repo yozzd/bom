@@ -69,7 +69,7 @@
               <client-only>
                 <v-icon name="ri-check-line" class="remixicons w-4 h-4" />
               </client-only>
-              Stock
+              Issued
             </el-button>
             <el-button
               type="primary"
@@ -79,7 +79,7 @@
               <client-only>
                 <v-icon name="ri-close-line" class="remixicons w-4 h-4" />
               </client-only>
-              Unstock
+              Unissued
             </el-button>
           </el-button-group>
           <el-button
@@ -168,7 +168,7 @@
           <el-table-column label="Quantity" align="center">
             <el-table-column label="Request" align="center" width="80">
               <template slot-scope="scope">
-                {{ scope.row.bomQty }} {{ scope.row.bomUnit }}
+                {{ scope.row.bomQtyRqd }} {{ scope.row.bomUnit }}
               </template>
             </el-table-column>
             <el-table-column label="Issued" align="center" width="80">

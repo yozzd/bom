@@ -249,7 +249,7 @@ const resolvers = {
           if (v.type === 0) {
             item.qtyIssued = 0;
           } else {
-            item.qtyIssued = item.bomQty;
+            item.qtyIssued = item.bomQtyRqd;
           }
 
           const save = await item.save();
