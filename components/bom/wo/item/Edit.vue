@@ -473,8 +473,7 @@ export default {
 
                   if (
                     this.form.idHeader
-                  && this.form.idHeader === this.oIdHeader
-                  && !this.form.isMpr) {
+                  && this.form.idHeader === this.oIdHeader) {
                     const idx1 = cdata.getOneWO.wo
                       .modules.findIndex((e) => e.id === this.form.idHeader);
                     const idx2 = cdata.getOneWO.wo
