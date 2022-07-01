@@ -59,8 +59,7 @@ const resolvers = {
       return wmr;
     }),
     printWmr: isAuthenticated(async (_, { id }) => {
-      const wmr = await oneWmr(id);
-      const print = await printWmrDocument(wmr);
+      const print = await printWmrDocument(id);
       return print;
     }),
     getWmrNotifications: isAuthenticated(async (_, { date }, ctx) => {
