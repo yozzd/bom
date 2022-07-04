@@ -121,7 +121,7 @@
                   >
                     {{ scope.row.no }}
                   </nuxt-link>
-                  <div class="hidden group-hover:inline-block absolute top-1 right-0">
+                  <div class="hidden group-hover:inline-block absolute top-1.5 right-1.5">
                     <el-tooltip effect="dark" content="Open in new tab" placement="top">
                       <a
                         :href="`/mpr/${scope.row.id}`"
@@ -162,7 +162,7 @@
                   >
                     {{ scope.row.woNo }}
                   </nuxt-link>
-                  <div class="hidden group-hover:inline-block absolute top-1 right-0">
+                  <div class="hidden group-hover:inline-block absolute top-1.5 right-1.5">
                     <el-tooltip effect="dark" content="Open in new tab" placement="top">
                       <a
                         :href="`/bom/wo/${scope.row.wo.idLt}/${scope.row.idWo}`"
@@ -387,7 +387,7 @@
                     <client-only slot="reference">
                       <v-icon
                         name="ri-time-line"
-                        class="remixicons w-4 h-4 absolute top-1 right-0"
+                        class="remixicons w-4 h-4 absolute top-1.5 right-1.5"
                       />
                     </client-only>
                   </el-popover>
