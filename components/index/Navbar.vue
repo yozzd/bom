@@ -232,11 +232,8 @@ export default {
   },
   methods: {
     async handleCommand(name) {
-      if (name === 'logout') {
-        await this.$auth.logout();
-        Cookies.remove('timestamps', { path: '' });
-        Cookies.remove('timestamps2', { path: '' });
-      } else { this.$router.push({ name }); }
+      if (name === 'logout') await this.$auth.logout();
+      this.$router.push({ name });
     },
     handleMaster(name) {
       this.$router.push({ name });
