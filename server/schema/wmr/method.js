@@ -8,7 +8,7 @@ const { ErrorWithProps } = require('mercurius');
 const { Op } = require('sequelize');
 const sequelize = require('../../config/db');
 const {
-  Wmr, WO, WOITEM, WOMODULE, MPRITEM, MPRMODULE,
+  Wmr, WO, WOITEM, WOMODULE, MPR, MPRITEM, MPRMODULE,
 } = require('../relations');
 const { itemAttributes } = require('../bom/resolvers');
 
@@ -88,7 +88,7 @@ const oneWmr = async (id) => {
 };
 
 const oneWmrPrint = async (id) => {
-  const wmrQuery = await Wmr.findOne({
+  const wmrQuery1 = await Wmr.findOne({
     attributes: [
       'id', 'no', 'requestedBy', 'requestedById', 'authorizedBy', 'authorizedById',
       'issuedBy', 'issuedById', 'receivedBy', 'receivedById',
@@ -115,11 +115,39 @@ const oneWmrPrint = async (id) => {
     }],
   });
 
+  const wmrQuery2 = await Wmr.findOne({
+    attributes: [
+      'id', 'no', 'requestedBy', 'requestedById', 'authorizedBy', 'authorizedById',
+      'issuedBy', 'issuedById', 'receivedBy', 'receivedById',
+    ],
+    where: { id },
+    include: [{
+      model: MPRITEM,
+      where: { idHeader: { [Op.not]: null } },
+      attributes: [
+        ...itemAttributes,
+        [sequelize.literal('(SELECT IFNULL(SUM(qty), 0) FROM MaterialStock WHERE MaterialCD = items.id_material)'), 'stock1'],
+        [sequelize.literal('(SELECT IFNULL(SUM(qty), 0) FROM lokasimaterial WHERE MaterialCD = items.id_material AND type_alokasi = \'stock\')'), 'stock2'],
+        [sequelize.literal('(SELECT IFNULL(SUM(request), 0) FROM wmr_detail_consumable WHERE MaterialCD = items.id_material)'), 'stock3'],
+      ],
+      include: [{
+        model: WOMODULE,
+        attributes: ['id', 'hid', 'header'],
+      }, {
+        model: Wmr,
+        attributes: ['id', 'no'],
+      }],
+    }],
+  });
+
+  wmrQuery1.items.push(...wmrQuery2.items);
+
   const wmrMprQuery = await Wmr.findOne({
     attributes: ['id'],
     where: { id },
     include: [{
       model: MPRITEM,
+      where: { idHeader: { [Op.is]: null } },
       attributes: [
         ...itemAttributes,
         [sequelize.literal('(SELECT IFNULL(SUM(qty), 0) FROM MaterialStock WHERE MaterialCD = items.id_material)'), 'stock1'],
@@ -130,13 +158,16 @@ const oneWmrPrint = async (id) => {
         model: MPRMODULE,
         attributes: ['id', 'moduleChar', 'moduleName'],
       }, {
+        model: MPR,
+        attributes: ['id', 'no'],
+      }, {
         model: Wmr,
         attributes: ['id', 'no'],
       }],
     }],
   });
 
-  const { items, ...wmr } = wmrQuery.dataValues;
+  const { items, ...wmr } = wmrQuery1.dataValues;
 
   const modWo = flow(
     groupBy('idHeader'),
@@ -151,7 +182,7 @@ const oneWmrPrint = async (id) => {
   )(items);
 
   const modMpr = flow(
-    groupBy('idModule'),
+    groupBy((value) => [value.idModule, value.mpr.id]),
     map((value) => ({
       module: {
         id: value[0].module ? value[0].module.id : null,
@@ -168,6 +199,8 @@ const oneWmrPrint = async (id) => {
 const printWmrDocument = async (id) => {
   try {
     const { wmr, modWo, modMpr } = await oneWmrPrint(id);
+    let mprNo = '';
+
     const arrTbl = [
       [{ text: 'No', rowSpan: 2, alignment: 'center' }, { text: 'Material CD', rowSpan: 2, alignment: 'center' }, { text: 'Material Name', rowSpan: 2, alignment: 'center' }, { text: 'Material Desc.', rowSpan: 2, alignment: 'center' }, { text: 'WO No.', rowSpan: 2, alignment: 'center' }, { text: 'Quantity', colSpan: 2, alignment: 'center' }, '', { text: 'Remarks', colSpan: 2, alignment: 'center' }, ''],
       ['', '', '', '', '', { text: 'Request', alignment: 'center' }, { text: 'Issued', alignment: 'center' }, { text: 'Production', alignment: 'center' }, { text: 'Warehouse', alignment: 'center' }],
@@ -179,14 +212,22 @@ const printWmrDocument = async (id) => {
       arrTbl.push([{ text: m.module.hid, alignment: 'center' }, { text: m.module.header, colSpan: 8 }, '', '', '', '', '', '', '']);
 
       m.items.map(async (v, i) => {
-        arrTbl.push([{ text: `${i + 1}`, alignment: 'center' }, { text: v.idMaterial, alignment: 'center' }, v.bomDescription, v.bomSpecification, woNo, { text: `${v.bomQtyRqd} ${v.bomUnit}`, alignment: 'center' }, { text: `${v.qtyIssued} ${v.bomUnit}`, alignment: 'center' }, v.wmrPrRemarks, v.wmrWhRemarks]);
+        arrTbl.push([{ text: `${i + 1}`, alignment: 'center' }, { text: v.idMaterial, alignment: 'center' }, v.bomDescription, v.bomSpecification, woNo, { text: `${v.bomQtyRqd} ${v.bomUnit}`, alignment: 'center' }, { text: v.qtyIssued ? `${v.qtyIssued} ${v.bomUnit}` : '', alignment: 'center' }, v.wmrPrRemarks, v.wmrWhRemarks]);
         return true;
       });
       return true;
     });
+
     if (modMpr.length) {
+      arrTbl.push([{ text: '', colSpan: 9 }, '', '', '', '', '', '', '', '']);
+
       modMpr.map((m) => {
-        if (m.module) {
+        if (mprNo !== m.items[0].mpr.no) {
+          arrTbl.push([{ text: 'MPR', alignment: 'center' }, { text: m.items[0].mpr.no, colSpan: 8 }, '', '', '', '', '', '', '']);
+        }
+        mprNo = m.items[0].mpr.no;
+
+        if (m.module.id) {
           arrTbl.push([{ text: m.module.moduleChar, alignment: 'center' }, { text: m.module.moduleName, colSpan: 8 }, '', '', '', '', '', '', '']);
         }
         m.items.map(async (v, i) => {
