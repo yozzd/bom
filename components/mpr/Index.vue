@@ -184,13 +184,12 @@
                 label="Packing"
                 align="center"
                 width="60"
-                fixed
               >
                 <template slot-scope="scope">
                   {{ scope.row.packing ? 'Yes' : 'No' }}
                 </template>
               </el-table-column>
-              <el-table-column label="Model" width="100" fixed>
+              <el-table-column label="Model" width="100">
                 <template slot-scope="scope">
                   <p :title="scope.row.model" class="truncate">
                     {{ scope.row.model }}
@@ -201,7 +200,6 @@
                 label="Product Name"
                 width="180"
                 :show-overflow-tooltip="true"
-                fixed
               >
                 <template slot-scope="scope">
                   {{ scope.row.product }}
@@ -211,7 +209,6 @@
                 label="Project Name"
                 width="180"
                 :show-overflow-tooltip="true"
-                fixed
               >
                 <template slot-scope="scope">
                   {{ scope.row.projectName }}
