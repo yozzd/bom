@@ -87,82 +87,87 @@ const oneWmr = async (id) => {
   return wmr;
 };
 
+const oneWmrPrint = async (id) => {
+  const wmrQuery = await Wmr.findOne({
+    attributes: [
+      'id', 'no', 'requestedBy', 'requestedById', 'authorizedBy', 'authorizedById',
+      'issuedBy', 'issuedById', 'receivedBy', 'receivedById',
+    ],
+    where: { id },
+    include: [{
+      model: WOITEM,
+      attributes: [
+        ...itemAttributes,
+        [sequelize.literal('(SELECT IFNULL(SUM(qty), 0) FROM MaterialStock WHERE MaterialCD = items.id_material)'), 'stock1'],
+        [sequelize.literal('(SELECT IFNULL(SUM(qty), 0) FROM lokasimaterial WHERE MaterialCD = items.id_material AND type_alokasi = \'stock\')'), 'stock2'],
+        [sequelize.literal('(SELECT IFNULL(SUM(request), 0) FROM wmr_detail_consumable WHERE MaterialCD = items.id_material)'), 'stock3'],
+      ],
+      include: [{
+        model: WOMODULE,
+        attributes: ['id', 'hid', 'header'],
+      }, {
+        model: Wmr,
+        attributes: ['id', 'no'],
+      }],
+    }, {
+      model: WO,
+      attributes: ['id', 'woNo', 'idLt'],
+    }],
+  });
+
+  const wmrMprQuery = await Wmr.findOne({
+    attributes: ['id'],
+    where: { id },
+    include: [{
+      model: MPRITEM,
+      attributes: [
+        ...itemAttributes,
+        [sequelize.literal('(SELECT IFNULL(SUM(qty), 0) FROM MaterialStock WHERE MaterialCD = items.id_material)'), 'stock1'],
+        [sequelize.literal('(SELECT IFNULL(SUM(qty), 0) FROM lokasimaterial WHERE MaterialCD = items.id_material AND type_alokasi = \'stock\')'), 'stock2'],
+        [sequelize.literal('(SELECT IFNULL(SUM(request), 0) FROM wmr_detail_consumable WHERE MaterialCD = items.id_material)'), 'stock3'],
+      ],
+      include: [{
+        model: MPRMODULE,
+        attributes: ['id', 'moduleChar', 'moduleName'],
+      }, {
+        model: Wmr,
+        attributes: ['id', 'no'],
+      }],
+    }],
+  });
+
+  const { items, ...wmr } = wmrQuery.dataValues;
+
+  const modWo = flow(
+    groupBy('idHeader'),
+    map((value) => ({
+      module: {
+        id: value[0].module ? value[0].module.id : null,
+        hid: value[0].module ? value[0].module.hid : null,
+        header: value[0].module ? value[0].module.header : null,
+      },
+      items: value,
+    })),
+  )(items);
+
+  const modMpr = flow(
+    groupBy('idModule'),
+    map((value) => ({
+      module: {
+        id: value[0].module ? value[0].module.id : null,
+        moduleChar: value[0].module ? value[0].module.moduleChar : null,
+        moduleName: value[0].module ? value[0].module.moduleName : null,
+      },
+      items: value,
+    })),
+  )(wmrMprQuery.items);
+
+  return { wmr, modWo, modMpr };
+};
+
 const printWmrDocument = async (id) => {
   try {
-    const wmrQuery = await Wmr.findOne({
-      attributes: [
-        'id', 'no', 'requestedBy', 'requestedById', 'authorizedBy', 'authorizedById',
-        'issuedBy', 'issuedById', 'receivedBy', 'receivedById',
-      ],
-      where: { id },
-      include: [{
-        model: WOITEM,
-        attributes: [
-          ...itemAttributes,
-          [sequelize.literal('(SELECT IFNULL(SUM(qty), 0) FROM MaterialStock WHERE MaterialCD = items.id_material)'), 'stock1'],
-          [sequelize.literal('(SELECT IFNULL(SUM(qty), 0) FROM lokasimaterial WHERE MaterialCD = items.id_material AND type_alokasi = \'stock\')'), 'stock2'],
-          [sequelize.literal('(SELECT IFNULL(SUM(request), 0) FROM wmr_detail_consumable WHERE MaterialCD = items.id_material)'), 'stock3'],
-        ],
-        include: [{
-          model: WOMODULE,
-          attributes: ['id', 'hid', 'header'],
-        }, {
-          model: Wmr,
-          attributes: ['id', 'no'],
-        }],
-      }, {
-        model: WO,
-        attributes: ['id', 'woNo', 'idLt'],
-      }],
-    });
-
-    const wmrMprQuery = await Wmr.findOne({
-      attributes: ['id'],
-      where: { id },
-      include: [{
-        model: MPRITEM,
-        attributes: [
-          ...itemAttributes,
-          [sequelize.literal('(SELECT IFNULL(SUM(qty), 0) FROM MaterialStock WHERE MaterialCD = items.id_material)'), 'stock1'],
-          [sequelize.literal('(SELECT IFNULL(SUM(qty), 0) FROM lokasimaterial WHERE MaterialCD = items.id_material AND type_alokasi = \'stock\')'), 'stock2'],
-          [sequelize.literal('(SELECT IFNULL(SUM(request), 0) FROM wmr_detail_consumable WHERE MaterialCD = items.id_material)'), 'stock3'],
-        ],
-        include: [{
-          model: MPRMODULE,
-          attributes: ['id', 'moduleChar', 'moduleName'],
-        }, {
-          model: Wmr,
-          attributes: ['id', 'no'],
-        }],
-      }],
-    });
-
-    const { items, ...wmr } = wmrQuery.dataValues;
-
-    const modWo = flow(
-      groupBy('idHeader'),
-      map((value) => ({
-        module: {
-          id: value[0].module ? value[0].module.id : null,
-          hid: value[0].module ? value[0].module.hid : null,
-          header: value[0].module ? value[0].module.header : null,
-        },
-        items: value,
-      })),
-    )(items);
-
-    const modMpr = flow(
-      groupBy('idModule'),
-      map((value) => ({
-        module: {
-          id: value[0].module ? value[0].module.id : null,
-          moduleChar: value[0].module ? value[0].module.moduleChar : null,
-          moduleName: value[0].module ? value[0].module.moduleName : null,
-        },
-        items: value,
-      })),
-    )(wmrMprQuery.items);
-
+    const { wmr, modWo, modMpr } = await oneWmrPrint(id);
     const arrTbl = [
       [{ text: 'No', rowSpan: 2, alignment: 'center' }, { text: 'Material CD', rowSpan: 2, alignment: 'center' }, { text: 'Material Name', rowSpan: 2, alignment: 'center' }, { text: 'Material Desc.', rowSpan: 2, alignment: 'center' }, { text: 'WO No.', rowSpan: 2, alignment: 'center' }, { text: 'Quantity', colSpan: 2, alignment: 'center' }, '', { text: 'Remarks', colSpan: 2, alignment: 'center' }, ''],
       ['', '', '', '', '', { text: 'Request', alignment: 'center' }, { text: 'Issued', alignment: 'center' }, { text: 'Production', alignment: 'center' }, { text: 'Warehouse', alignment: 'center' }],
