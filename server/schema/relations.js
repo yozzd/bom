@@ -83,10 +83,10 @@ MPRITEM.belongsTo(MPR, {
 WOMODULE.hasMany(MPRITEM, {
   foreignKey: 'idHeader',
 });
-MPRITEM.belongsTo(WOMODULE, {
-  foreignKey: 'idHeader',
-  targetKey: 'id',
-});
+// MPRITEM.belongsTo(WOMODULE, {
+//   foreignKey: 'idHeader',
+//   targetKey: 'id',
+// });
 
 WO.hasMany(WOITEM, {
   foreignKey: 'idWo',

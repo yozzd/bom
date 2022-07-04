@@ -59,8 +59,7 @@ const resolvers = {
       return wmr;
     }),
     printWmr: isAuthenticated(async (_, { id }) => {
-      const wmr = await oneWmr(id);
-      const print = await printWmrDocument(wmr);
+      const print = await printWmrDocument(id);
       return print;
     }),
     getWmrNotifications: isAuthenticated(async (_, { date }, ctx) => {
@@ -249,7 +248,7 @@ const resolvers = {
           if (v.type === 0) {
             item.qtyIssued = 0;
           } else {
-            item.qtyIssued = item.bomQty;
+            item.qtyIssued = item.bomQtyRqd;
           }
 
           const save = await item.save();
