@@ -50,6 +50,7 @@
             <el-input
               v-model="search"
               placeholder="Search"
+              class="search"
               clearable
             />
           </div>

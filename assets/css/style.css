@@ -302,3 +302,7 @@ table.plain {
 .el-dropdown-menu.notification {
   @apply max-h-[32rem] overflow-y-scroll;
 }
+
+.search .el-input__inner {
+  @apply bg-gray-100;
+}
