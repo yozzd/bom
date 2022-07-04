@@ -218,6 +218,9 @@ const resolvers = {
                 model: MPR,
                 attributes: ['id', 'no'],
                 required: false,
+              }, {
+                model: OUTSTANDINGPO,
+                attributes: ['poStatus', 'poArrival', 'poNo'],
               }],
             }],
           }, {
@@ -234,6 +237,9 @@ const resolvers = {
               model: MPR,
               attributes: ['id', 'no'],
               required: false,
+            }, {
+              model: OUTSTANDINGPO,
+              attributes: ['poStatus', 'poArrival', 'poNo'],
             }, {
               model: Wmr,
               attributes: ['id', 'no'],
