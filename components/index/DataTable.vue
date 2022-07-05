@@ -232,6 +232,7 @@
       <el-table-column
         label="WMR"
         :show-overflow-tooltip="true"
+        align="center"
         width="100"
         class-name="relative group"
       >
@@ -246,7 +247,7 @@
           >
             {{ scope.row.wmr3.no }}
           </nuxt-link>
-          <div class="hidden group-hover:inline-block absolute top-1 right-0">
+          <div class="hidden group-hover:inline-block absolute top-1.5 right-1.5">
             <el-tooltip effect="dark" content="Open in new tab" placement="top">
               <a
                 v-if="scope.row.wmr3 && $route.name!=='wmr-id'"

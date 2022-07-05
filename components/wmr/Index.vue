@@ -69,7 +69,7 @@
                   >
                     {{ scope.row.no }}
                   </nuxt-link>
-                  <div class="hidden group-hover:inline-block absolute top-1 right-0">
+                  <div class="hidden group-hover:inline-block absolute top-1.5 right-1.5">
                     <el-tooltip effect="dark" content="Open in new tab" placement="top">
                       <a
                         :href="`/wmr/${scope.row.id}`"
@@ -113,7 +113,7 @@
                   >
                     {{ scope.row.wo.woNo }}
                   </nuxt-link>
-                  <div class="hidden group-hover:inline-block absolute top-1 right-0">
+                  <div class="hidden group-hover:inline-block absolute top-1.5 right-1.5">
                     <el-tooltip effect="dark" content="Open in new tab" placement="top">
                       <a
                         :href="`/bom/wo/${scope.row.wo.idLt}/${scope.row.wo.id}`"

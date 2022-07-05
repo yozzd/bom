@@ -313,7 +313,7 @@
             <el-button-group>
               <el-button
                 type="primary"
-                :disabled="!multipleSelection.length"
+                :disabled="!multipleSelectionWh.length"
                 @click="handleStock(1)"
               >
                 <client-only>
@@ -323,7 +323,7 @@
               </el-button>
               <el-button
                 type="primary"
-                :disabled="!multipleSelection.length"
+                :disabled="!multipleSelectionWh.length"
                 @click="handleStock(0)"
               >
                 <client-only>
@@ -431,10 +431,32 @@
             Process
           </el-button>
           <div class="flex-1"></div>
+          <div class="w-64">
+            <el-input
+              v-if="$auth.$state.user.section === 213"
+              v-model="search"
+              placeholder="Search"
+              class="search"
+              clearable
+            />
+          </div>
         </div>
       </div>
 
-      <div>
+      <div v-if="$auth.$state.user.section === 213">
+        <el-tabs type="border-card" tab-position="top" class="my-4">
+          <el-tab-pane label="BOM">
+            <index-data-table
+              v-if="items.length"
+              :data="tableData"
+              :wo="wo"
+              @selection-change="handleSelectionChangeWh"
+            />
+            <div></div>
+          </el-tab-pane>
+        </el-tabs>
+      </div>
+      <div v-else>
         <el-tabs type="border-card" tab-position="top" class="my-4">
           <el-tab-pane label="BOM">
             <div
@@ -575,6 +597,7 @@
 import { saveAs } from 'file-saver';
 import pullAllBy from 'lodash/pullAllBy';
 import flatten from 'lodash/flatten';
+import MiniSearch from 'minisearch';
 import { GetOneWO, GenWoXLS } from '../../../apollo/bom/query';
 import {
   DeleteWoModule, ValidateWo, ValidateWoItem, StockItem,
@@ -601,10 +624,40 @@ export default {
       showEditModuleDialog: false,
       showWmrAddDialog: false,
       multipleSelection: [],
+      multipleSelectionWh: [],
       wmr: [],
+      items: [],
       loading: false,
       visible: false,
+      search: '',
+      miniSearch: new MiniSearch({
+        idField: 'id',
+        fields: [
+          'id', 'idMaterial', 'bomDescription', 'bomSpecification',
+          'bomModel', 'bomBrand',
+        ],
+        storeFields: [
+          'id', 'idMaterial', 'bomDescription', 'bomSpecification',
+          'bomModel', 'bomBrand', 'bomQty', 'bomUnit', 'bomQtyRqd',
+          'bomQtyBalance', 'bomQtyStock', 'bomEta', 'bomQtyRec',
+          'bomDateRec', 'bomCurrSizeC', 'bomCurrSizeV', 'bomCurrEaC',
+          'bomCurrEaV', 'bomUsdEa', 'bomUsdUnit', 'bomUsdTotal',
+          'materialsProcessed', 'yetToPurchase', 'bomSupplier',
+          'bomPoDate', 'bomPoNo', 'poNo', 'bomRemarks', 'priority', 'bomEtaStatus',
+          'sr', 'isMpr', 'validasi', 'packing', 'hold', 'cancel',
+          'idHeader', 'idModule', 'idWmr', 'qtyIssued', 'wmrPrRemarks', 'wmrWhRemarks',
+          'stockReady', 'colorClass',
+        ],
+      }),
     };
+  },
+  computed: {
+    tableData() {
+      if (this.search) {
+        return this.miniSearch.search(this.search, { prefix: true });
+      }
+      return this.items;
+    },
   },
   methods: {
     highlighter({ row }) {
@@ -677,6 +730,9 @@ export default {
     },
     handleSelectionChange() {
       this.multipleSelection = flatten(this.$refs.ptable.map((v) => [...v.$refs.ctable.selection]));
+    },
+    handleSelectionChangeWh(arr) {
+      this.multipleSelectionWh = arr;
     },
     clearSelection() {
       this.$refs.ptable.map((v) => {
@@ -771,7 +827,7 @@ export default {
       }).catch(() => {});
     },
     handleStock(val) {
-      const arr = this.multipleSelection.map((v) => ({
+      const arr = this.multipleSelectionWh.map((v) => ({
         id: v.id,
         isMpr: v.isMpr,
         bomQtyRqd: v.bomQtyRqd,
@@ -787,6 +843,48 @@ export default {
           mutation: StockItem,
           variables: {
             input: arr,
+          },
+          update: (store, { data: { stockItem } }) => {
+            const cdata = store.readQuery({
+              query: GetOneWO,
+              variables: {
+                idLt: parseInt(this.$route.params.idLt, 10),
+                id: parseInt(this.$route.params.id, 10),
+              },
+            });
+
+            const {
+              getOneWO: {
+                wo: { modules },
+                mpr: { mprs },
+              },
+            } = cdata;
+
+            this.items = modules.reduce((acc, item) => [...acc, ...item.items], []);
+            const mpr = flatten(mprs.map((v) => {
+              if (v.modules.length) {
+                return v.modules.reduce((acc, item) => [...acc, ...item.items], []);
+              }
+              return v.items;
+            }));
+
+            if (mpr.length) this.items.push(...mpr);
+
+            stockItem.map((v) => {
+              const idx = this.items.findIndex((e) => e.id === v.id);
+              this.items[idx] = v;
+
+              return true;
+            });
+
+            store.writeQuery({
+              query: GetOneWO,
+              variables: {
+                idLt: parseInt(this.$route.params.idLt, 10),
+                id: parseInt(this.$route.params.id, 10),
+              },
+              data: cdata,
+            });
           },
         });
 
@@ -945,12 +1043,28 @@ export default {
           this.total = wos;
           this.lt = lt;
           this.wo = wo;
-          this.modules = modules;
 
-          this.mprs = mprs.filter((v) => {
-            const { modules: m, items } = v;
-            return (m.filter((n) => n.items.length).length) || items.length;
-          });
+          if (this.$auth.$state.user.section === 213) {
+            this.items = modules.reduce((acc, item) => [...acc, ...item.items], []);
+            const mpr = flatten(mprs.map((v) => {
+              if (v.modules.length) {
+                return v.modules.reduce((acc, item) => [...acc, ...item.items], []);
+              }
+              return v.items;
+            }));
+
+            if (mpr.length) this.items.push(...mpr);
+
+            this.miniSearch.removeAll();
+            this.miniSearch.addAll(this.items);
+          } else {
+            this.modules = modules;
+
+            this.mprs = mprs.filter((v) => {
+              const { modules: m, items } = v;
+              return (m.filter((n) => n.items.length).length) || items.length;
+            });
+          }
         }
       },
       error({ graphQLErrors, networkError }) {
