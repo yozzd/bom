@@ -434,7 +434,6 @@ const MPRITEM = sequelize.define('item', {
       const outPoNo = this.outstandingPo ? this.outstandingPo.poNo : null;
       const outPoStatus = this.outstandingPo ? this.outstandingPo.poStatus : null;
       const outPoArrival = this.outstandingPo ? this.outstandingPo.poArrival : null;
-      console.log(outPoNo);
 
       if (this.idWmr && !this.cancel) return 'wmr-row';
       if (this.validasi && !this.cancel) return 'validated-row';

@@ -232,6 +232,7 @@
       <el-table-column
         label="WMR"
         :show-overflow-tooltip="true"
+        align="center"
         width="100"
         class-name="relative group"
       >

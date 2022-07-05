@@ -1001,6 +1001,14 @@ export default {
 
           if (this.$auth.$state.user.section === 213) {
             this.items = modules.reduce((acc, item) => [...acc, ...item.items], []);
+            const mpr = flatten(mprs.map((v) => {
+              if (v.modules.length) {
+                return v.modules.reduce((acc, item) => [...acc, ...item.items], []);
+              }
+              return v.items;
+            }));
+
+            if (mpr.length) this.items.push(...mpr);
 
             this.miniSearch.removeAll();
             this.miniSearch.addAll(this.items);
