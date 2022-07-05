@@ -536,7 +536,10 @@ export default {
       },
       miniSearch: new MiniSearch({
         idField: 'id',
-        fields: ['id', 'no', 'woNo', 'model', 'product', 'projectName'],
+        fields: [
+          'id', 'no', 'woNo', 'model', 'product', 'projectName',
+          'requestorName',
+        ],
         storeFields: [
           'id', 'no', 'woNo', 'model', 'product', 'projectName', 'status',
           'unit', 'category', 'dor', 'idWo', 'packing', 'requestorName',

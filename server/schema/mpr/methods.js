@@ -9,7 +9,8 @@ const inSection = (department) => {
 
   if (department === 110) sections = [111, 113];
   else if (department === 120) sections = [121, 122, 129];
-  else if (department === 130) sections = [131, 132, 133, 134, 135, 136, 139];
+  else if (department === 130) sections = [131, 132, 133, 134, 135, 136, 137, 139];
+  else if (department === 137) sections = [137];
   else if (department === 140) sections = [142, 143, 561];
   else if (department === 150) sections = [151, 152, 153, 154, 159];
   else if (department === 170) sections = [171, 179];
@@ -32,6 +33,7 @@ const secName = (section) => {
   if (section === 133) return 'R&D MECHATRONIC & AUTOMATION';
   if (section === 134) return 'R&D MECHANICAL';
   if (section === 136) return 'QUALITY CONTROL';
+  if (section === 137) return 'VIRTUAL LEARNING';
   if (section === 139) return 'R&D ADMIN';
   if (section === 142) return 'IT INFRASTRUCTURE';
   if (section === 561) return 'ENNOVATION';
