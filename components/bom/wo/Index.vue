@@ -313,7 +313,7 @@
             <el-button-group>
               <el-button
                 type="primary"
-                :disabled="!multipleSelection.length"
+                :disabled="!multipleSelectionWh.length"
                 @click="handleStock(1)"
               >
                 <client-only>
@@ -323,7 +323,7 @@
               </el-button>
               <el-button
                 type="primary"
-                :disabled="!multipleSelection.length"
+                :disabled="!multipleSelectionWh.length"
                 @click="handleStock(0)"
               >
                 <client-only>
@@ -624,6 +624,7 @@ export default {
       showEditModuleDialog: false,
       showWmrAddDialog: false,
       multipleSelection: [],
+      multipleSelectionWh: [],
       wmr: [],
       items: [],
       loading: false,
@@ -730,7 +731,9 @@ export default {
     handleSelectionChange() {
       this.multipleSelection = flatten(this.$refs.ptable.map((v) => [...v.$refs.ctable.selection]));
     },
-    handleSelectionChangeWh() {},
+    handleSelectionChangeWh(arr) {
+      this.multipleSelectionWh = arr;
+    },
     clearSelection() {
       this.$refs.ptable.map((v) => {
         v.$refs.ctable.clearSelection();
@@ -824,7 +827,7 @@ export default {
       }).catch(() => {});
     },
     handleStock(val) {
-      const arr = this.multipleSelection.map((v) => ({
+      const arr = this.multipleSelectionWh.map((v) => ({
         id: v.id,
         isMpr: v.isMpr,
         bomQtyRqd: v.bomQtyRqd,
@@ -840,6 +843,48 @@ export default {
           mutation: StockItem,
           variables: {
             input: arr,
+          },
+          update: (store, { data: { stockItem } }) => {
+            const cdata = store.readQuery({
+              query: GetOneWO,
+              variables: {
+                idLt: parseInt(this.$route.params.idLt, 10),
+                id: parseInt(this.$route.params.id, 10),
+              },
+            });
+
+            const {
+              getOneWO: {
+                wo: { modules },
+                mpr: { mprs },
+              },
+            } = cdata;
+
+            this.items = modules.reduce((acc, item) => [...acc, ...item.items], []);
+            const mpr = flatten(mprs.map((v) => {
+              if (v.modules.length) {
+                return v.modules.reduce((acc, item) => [...acc, ...item.items], []);
+              }
+              return v.items;
+            }));
+
+            if (mpr.length) this.items.push(...mpr);
+
+            stockItem.map((v) => {
+              const idx = this.items.findIndex((e) => e.id === v.id);
+              this.items[idx] = v;
+
+              return true;
+            });
+
+            store.writeQuery({
+              query: GetOneWO,
+              variables: {
+                idLt: parseInt(this.$route.params.idLt, 10),
+                id: parseInt(this.$route.params.id, 10),
+              },
+              data: cdata,
+            });
           },
         });
 
