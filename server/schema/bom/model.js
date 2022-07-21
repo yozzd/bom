@@ -195,6 +195,21 @@ const WO = sequelize.define('wo', {
   totalMpr: {
     type: DataTypes.VIRTUAL,
   },
+  totalOntimeItems: {
+    type: DataTypes.VIRTUAL,
+  },
+  totalLateItems: {
+    type: DataTypes.VIRTUAL,
+    get() {
+      return this.totalItems - this.totalOntimeItems;
+    },
+  },
+  totalJot: {
+    type: DataTypes.VIRTUAL,
+    get() {
+      return (this.totalOntimeItems / this.totalItems) * 100;
+    },
+  },
 }, {
   tableName: 'bom_wo',
   underscored: true,
@@ -336,8 +351,8 @@ const WOITEM = sequelize.define('item', {
   bomEtaStatus: {
     type: DataTypes.STRING,
     get() {
-      if ((this.bomQty > 0 && this.bomQtyStock > 0 && this.bomQtyBalance >= 0) || (this.bomDateRec && this.bomDateRec <= this.bomEta)) return 'ONTIME';
-      if (this.bomEta === '0000-00-00' || !this.bomEta) return 'LATE';
+      if ((this.bomQty > 0 && this.bomQtyStock >= 0 && this.bomQtyBalance >= 0) || (this.bomDateRec && this.bomDateRec <= this.bomEta)) return 'ONTIME';
+      if (this.bomQtyBalance < 0 || this.bomEta === '0000-00-00' || !this.bomEta) return 'LATE';
       return '';
     },
   },

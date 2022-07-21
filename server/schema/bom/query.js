@@ -38,6 +38,7 @@ const queryLt = async (id, status) => {
         [sequelize.literal('SUM(`wos->modules->items`.yet_to_purchase)'), 'totalYetToPurchase'],
         [sequelize.literal('SUM(CASE WHEN `wos->modules`.header LIKE ("%deviation%") THEN `wos->modules->items`.bom_usd_total ELSE 0 END)'), 'totalDeviation'],
         [sequelize.literal('SUM(CASE WHEN `wos->modules->items`.packing THEN `wos->modules->items`.bom_usd_total ELSE 0 END)'), 'totalPackingPerWO'],
+        [sequelize.literal('COUNT(CASE WHEN `wos->modules->items`.bom_qty > 0 AND `wos->modules->items`.bom_qty_stock >= 0 AND `wos->modules->items`.bom_qty_balance >= 0 THEN 1 ELSE NULL END)'), 'totalOntimeItems'],
       ],
       where: { status },
       required: false,
@@ -79,6 +80,7 @@ const queryLt = async (id, status) => {
         [sequelize.literal('SUM(`wos->mprs->items`.yet_to_purchase)'), 'totalYetToPurchase'],
         [sequelize.literal('SUM(CASE WHEN `wos->mprs->items`.packing THEN `wos->mprs->items`.bom_usd_total ELSE 0 END)'), 'totalPackingPerWO'],
         [sequelize.literal('COUNT(DISTINCT `wos->mprs`.id)'), 'totalMpr'],
+        [sequelize.literal('COUNT(CASE WHEN `wos->mprs->items`.bom_qty > 0 AND `wos->mprs->items`.bom_qty_stock >= 0 AND `wos->mprs->items`.bom_qty_balance >= 0 THEN 1 ELSE NULL END)'), 'totalOntimeItems'],
       ],
       where: { status },
       required: false,
@@ -133,6 +135,8 @@ const queryLt = async (id, status) => {
 
     item.percentIncoming = (item.totalIncoming / item.totalIncomingItems) * 100;
     item.percentValidation = (item.totalValidation / item.totalItems) * 100;
+
+    item.totalOntimeItems += ltMpr.wos[i].totalOntimeItems;
 
     return item;
   }));

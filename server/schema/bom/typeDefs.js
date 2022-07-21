@@ -92,6 +92,9 @@ const typeDefs = `
     bomPercentValidation: Float
     mprPercentValidation: Float
     totalMpr: Int
+    totalOntimeItems: Int
+    totalLateItems: Int
+    totalJot: Float
     lt: LT
   }
   

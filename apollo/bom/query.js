@@ -67,6 +67,9 @@ export const GetOneLT = gql`
         bomPercentValidation
         mprPercentValidation
         totalMpr
+        totalOntimeItems
+        totalLateItems
+        totalJot
         euro
         gbp
         myr
