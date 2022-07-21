@@ -267,8 +267,8 @@ const MPRITEM = sequelize.define('item', {
   bomEtaStatus: {
     type: DataTypes.STRING,
     get() {
-      if ((this.bomQty > 0 && this.bomQtyStock > 0 && this.bomQtyBalance >= 0) || (this.bomDateRec && this.bomDateRec <= this.bomEta)) return 'ONTIME';
-      if (this.bomEta === '0000-00-00' || !this.bomEta) return 'LATE';
+      if ((this.bomQty > 0 && this.bomQtyStock >= 0 && this.bomQtyBalance >= 0) || (this.bomDateRec && this.bomDateRec <= this.bomEta)) return 'ONTIME';
+      if (this.bomQtyBalance < 0 || this.bomEta === '0000-00-00' || !this.bomEta) return 'LATE';
       return '';
     },
   },

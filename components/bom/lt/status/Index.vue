@@ -373,6 +373,28 @@
               </div>
             </template>
           </el-table-column>
+          <el-table-column
+            align="center"
+            width="90"
+          >
+            <template slot="header">
+              <p title="Ontime / Late" class="truncate">
+                Ontime / Late
+              </p>
+            </template>
+            <template slot-scope="scope">
+              {{ scope.row.totalOntimeItems }} / {{ scope.row.totalLateItems }}
+            </template>
+          </el-table-column>
+          <el-table-column
+            label="JOT"
+            align="center"
+            width="90"
+          >
+            <template slot-scope="scope">
+              {{ scope.row.totalJot | currency }}%
+            </template>
+          </el-table-column>
           <el-table-column prop="unit" label="Unit" align="center" width="50"></el-table-column>
           <el-table-column prop="totalMpr" label="MPR" align="center" width="50"></el-table-column>
           <el-table-column
