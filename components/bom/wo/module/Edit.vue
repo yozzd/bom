@@ -6,7 +6,7 @@
       :close-on-click-modal="false"
       :close-on-press-escape="false"
       :before-close="handleCancel"
-      width="40%"
+      width="30%"
     >
       <IndexErrorHandler
         v-if="errors.length"
@@ -19,10 +19,9 @@
         :model="form"
         :rules="rules"
         :hide-required-asterisk="true"
-        :inline="true"
       >
         <el-form-item label="Title">
-          <el-input v-model="form.hid" style="width: 60px;"></el-input>
+          <el-input v-model="form.hid"></el-input>
         </el-form-item>
         <el-form-item label="" prop="header">
           <el-input v-model="form.header"></el-input>
