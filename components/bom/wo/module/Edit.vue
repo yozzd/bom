@@ -6,7 +6,7 @@
       :close-on-click-modal="false"
       :close-on-press-escape="false"
       :before-close="handleCancel"
-      width="40%"
+      width="30%"
     >
       <IndexErrorHandler
         v-if="errors.length"
@@ -19,13 +19,19 @@
         :model="form"
         :rules="rules"
         :hide-required-asterisk="true"
-        :inline="true"
       >
         <el-form-item label="Title">
-          <el-input v-model="form.hid" style="width: 60px;"></el-input>
+          <el-input v-model="form.hid"></el-input>
         </el-form-item>
         <el-form-item label="" prop="header">
           <el-input v-model="form.header"></el-input>
+        </el-form-item>
+        <el-form-item label="ETA">
+          <el-date-picker
+            v-model="form.bomEta"
+            type="date"
+            value-format="yyyy-MM-dd"
+          ></el-date-picker>
         </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
@@ -89,7 +95,7 @@ export default {
     },
     async handleSave() {
       try {
-        this.loading = false;
+        this.loading = true;
 
         await this.$apollo.mutate({
           mutation: UpdateWoModule,
@@ -98,6 +104,7 @@ export default {
               id: parseInt(this.form.id, 10),
               hid: this.form.hid,
               header: this.form.header,
+              bomEta: this.form.bomEta,
             },
           },
           update: async (store, { data: { updateWoModule } }) => {
@@ -127,6 +134,7 @@ export default {
           },
         });
 
+        this.loading = false;
         this.$message({
           type: 'success',
           message: 'Data has been saved successfully',
