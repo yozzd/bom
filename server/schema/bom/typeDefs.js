@@ -233,7 +233,9 @@ const typeDefs = `
   input DeleteItemInput {
     id: Int
     isMpr: Int
+    idHeader: Int
     idModule: Int
+    idMpr: Int
   }
 
   input AddWoItemsInput {

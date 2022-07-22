@@ -421,6 +421,17 @@
             </DropdownMenu>
           </Dropdown>
           <el-button
+            v-if="$auth.$state.user.section === 211"
+            type="danger"
+            :disabled="!multipleSelection.length"
+            @click="handleDelete"
+          >
+            <client-only>
+              <v-icon name="ri-delete-bin-2-line" class="remixicons w-4 h-4" />
+            </client-only>
+            Delete
+          </el-button>
+          <el-button
             v-if="$auth.$state.user.department === 210"
             type="success"
             @click="processMaterials"
@@ -601,7 +612,7 @@ import MiniSearch from 'minisearch';
 import { GetOneWO, GenWoXLS } from '../../../apollo/bom/query';
 import {
   DeleteWoModule, ValidateWo, ValidateWoItem, StockItem,
-  ProcessMaterials,
+  DeleteItem, ProcessMaterials,
 } from '../../../apollo/bom/mutation';
 import { GetWmrByWo } from '../../../apollo/wmr/query';
 import { AddItemsToWmr } from '../../../apollo/wmr/mutation';
@@ -995,6 +1006,76 @@ export default {
           type: 'success',
           message: 'Item(s) has been added/removed from WMR successfully',
         });
+      }).catch(() => {});
+    },
+    handleDelete() {
+      const arr = this.multipleSelection.map((v) => ({
+        id: v.id,
+        isMpr: v.isMpr,
+        idHeader: v.idHeader,
+        idModule: v.idModule,
+        idMpr: v.mpr ? v.mpr.id : null,
+      }));
+
+      this.$confirm('This will permanently delete the data. Continue?', 'Warning', {
+        confirmButtonText: 'Yes',
+        cancelButtonText: 'Cancel',
+        type: 'warning',
+      }).then(async () => {
+        await this.$apollo.mutate({
+          mutation: DeleteItem,
+          variables: {
+            input: arr,
+          },
+          update: (store, { data: { deleteItem } }) => {
+            const cdata = store.readQuery({
+              query: GetOneWO,
+              variables: {
+                idLt: parseInt(this.$route.params.idLt, 10),
+                id: parseInt(this.$route.params.id, 10),
+              },
+            });
+
+            deleteItem.map((v) => {
+              if (v.isMpr && v.idModule) {
+                const idx1 = cdata.getOneWO
+                  .mpr.mprs.findIndex((e) => e.id === v.mpr.id);
+                const idx2 = cdata.getOneWO
+                  .mpr.mprs[idx1].modules.findIndex((e) => e.id === v.idModule);
+                pullAllBy(cdata.getOneWO.mpr.mprs[idx1].modules[idx2].items, [v], 'id');
+              } else if (v.isMpr && !v.idModule) {
+                const idx1 = cdata.getOneWO
+                  .mpr.mprs.findIndex((e) => e.id === v.mpr.id);
+                pullAllBy(cdata.getOneWO.mpr.mprs[idx1].items, [v], 'id');
+              } else {
+                const index = cdata.getOneWO
+                  .wo.modules.findIndex((e) => e.id === v.idHeader);
+                pullAllBy(cdata.getOneWO.wo.modules[index].items, [v], 'id');
+              }
+
+              return true;
+            });
+
+            store.writeQuery({
+              query: GetOneWO,
+              variables: {
+                idLt: parseInt(this.$route.params.idLt, 10),
+                id: parseInt(this.$route.params.id, 10),
+              },
+              data: cdata,
+            });
+          },
+          optimisticResponse: {
+            __typename: 'Mutation',
+            deleteItem: this.multipleSelection,
+          },
+        });
+
+        this.$message({
+          type: 'success',
+          message: 'Data has been delete successfully',
+        });
+        this.multipleSelection = [];
       }).catch(() => {});
     },
     async processMaterials() {
