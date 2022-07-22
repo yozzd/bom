@@ -121,7 +121,7 @@
                 {{ scope.row.woNo }}
                 <span v-if="scope.row.stage">[STAGE-{{ scope.row.stage }}]</span>
               </nuxt-link>
-              <div class="hidden group-hover:inline-block absolute top-1.5 right-1.5">
+              <div class="hidden group-hover:inline-block absolute top-0.5 right-1.5">
                 <el-tooltip effect="dark" content="Open in new tab" placement="top">
                   <a
                     :href="`/bom/wo/${$route.params.id}/${scope.row.id}`"
