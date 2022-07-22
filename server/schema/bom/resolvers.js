@@ -523,6 +523,17 @@ const resolvers = {
 
       module.hid = input.hid;
       module.header = input.header;
+
+      if (input.bomEta) {
+        await Promise.all(
+          module.items.map(async (v) => {
+            const item = v;
+            item.bomEta = input.bomEta;
+
+            await item.save();
+          }),
+        );
+      }
       const save = await module.save();
       return save;
     }),

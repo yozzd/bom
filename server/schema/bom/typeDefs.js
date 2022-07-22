@@ -252,6 +252,7 @@ const typeDefs = `
     id: Int
     hid: String
     header: String
+    bomEta: String
   }
 
   input ImportWoInput {

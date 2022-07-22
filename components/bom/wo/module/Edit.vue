@@ -26,6 +26,13 @@
         <el-form-item label="" prop="header">
           <el-input v-model="form.header"></el-input>
         </el-form-item>
+        <el-form-item label="ETA">
+          <el-date-picker
+            v-model="form.bomEta"
+            type="date"
+            value-format="yyyy-MM-dd"
+          ></el-date-picker>
+        </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
         <el-button
@@ -88,7 +95,7 @@ export default {
     },
     async handleSave() {
       try {
-        this.loading = false;
+        this.loading = true;
 
         await this.$apollo.mutate({
           mutation: UpdateWoModule,
@@ -97,6 +104,7 @@ export default {
               id: parseInt(this.form.id, 10),
               hid: this.form.hid,
               header: this.form.header,
+              bomEta: this.form.bomEta,
             },
           },
           update: async (store, { data: { updateWoModule } }) => {
@@ -126,6 +134,7 @@ export default {
           },
         });
 
+        this.loading = false;
         this.$message({
           type: 'success',
           message: 'Data has been saved successfully',
