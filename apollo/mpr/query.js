@@ -111,6 +111,9 @@ export const GetOneMPR = gql`
             id
             no
           }
+          mpr {
+            id
+          }
         }
       }
       items {
@@ -159,6 +162,9 @@ export const GetOneMPR = gql`
         wmr3 {
           id
           no
+        }
+        mpr {
+          id
         }
       }
     }

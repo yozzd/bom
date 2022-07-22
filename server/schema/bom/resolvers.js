@@ -420,8 +420,16 @@ const resolvers = {
       return save;
     }),
     deleteItem: isAuthenticated(async (_, { input }) => {
+      const arr = input.map((v) => ({
+        id: v.id,
+        isMpr: v.isMpr,
+        idHeader: v.idHeader,
+        idModule: v.idModule,
+        mpr: { id: v.idMpr ? v.idMpr : null },
+      }));
+
       await Promise.all(
-        input.map(async (v) => {
+        arr.map(async (v) => {
           if (v.isMpr) {
             await MPRITEM.destroy({
               where: { id: v.id },
@@ -434,7 +442,7 @@ const resolvers = {
         }),
       );
 
-      return input;
+      return arr;
     }),
     addWoItems: isAuthenticated(async (_, { input }) => {
       const saved = [];

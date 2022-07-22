@@ -62,7 +62,11 @@ export const DeleteItem = gql`
     deleteItem(input: $input) {
       id
       isMpr
+      idHeader
       idModule
+      mpr {
+        id
+      }
     }
   }
 `;

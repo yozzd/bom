@@ -502,6 +502,7 @@ export default {
         id: v.id,
         isMpr: v.isMpr,
         idModule: v.idModule,
+        idMpr: v.mpr ? v.mpr.id : null,
       }));
 
       this.$confirm('This will permanently delete the data. Continue?', 'Warning', {
