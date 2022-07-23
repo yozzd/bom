@@ -44,6 +44,7 @@
           <el-select
             v-model="select.desc"
             placeholder="Description"
+            filterable
             @change="selection => $emit('handle-select-desc', selection)"
           >
             <el-option
@@ -80,8 +81,9 @@
           <el-select
             v-model="select.spec"
             placeholder="Specification"
-            @change="selection => $emit('handle-select-spec', selection)"
+            filterable
             :disabled="!select.desc"
+            @change="selection => $emit('handle-select-spec', selection)"
           >
             <el-option
               v-for="item in filterSpec"
@@ -363,7 +365,9 @@
 </template>
 
 <script>
-import uniqBy from 'lodash/uniqBy';
+import flow from 'lodash/fp/flow';
+import sortBy from 'lodash/fp/sortBy';
+import uniqBy from 'lodash/fp/uniqBy';
 import utils from '../../mixins/utils';
 
 export default {
@@ -406,18 +410,29 @@ export default {
       },
     };
   },
+  computed: {
+    filterDesc() {
+      return flow(
+        uniqBy('bomDescription'),
+        sortBy('bomDescription'),
+      )(this.rdata);
+    },
+    filterSpec() {
+      if (this.sdata.length) {
+        return flow(
+          uniqBy('bomSpecification'),
+          sortBy('bomSpecification'),
+        )(this.sdata);
+      }
+      return flow(
+        uniqBy('bomSpecification'),
+        sortBy('bomSpecification'),
+      )(this.data);
+    },
+  },
   watch: {
     emptySpec(value) {
       if (value) this.select.spec = '';
-    },
-  },
-  computed: {
-    filterDesc() {
-      return uniqBy(this.rdata, 'bomDescription');
-    },
-    filterSpec() {
-      if (this.sdata.length) return uniqBy(this.sdata, 'bomSpecification');
-      return uniqBy(this.data, 'bomSpecification');
     },
   },
   methods: {
