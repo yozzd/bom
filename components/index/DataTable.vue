@@ -33,10 +33,28 @@
       </el-table-column>
       <el-table-column
         label="Description"
-        width="140"
+        width="260"
         :show-overflow-tooltip="true"
         fixed
       >
+        <template
+          v-if="$auth.$state.user.section === 213"
+          slot="header"
+        >
+          <el-select
+            v-model="select.desc"
+            placeholder="Description"
+            @change="selection => $emit('handle-select-desc', selection)"
+          >
+            <el-option
+              v-for="item in filterDesc"
+              :key="item.id"
+              :label="item.bomDescription"
+              :value="item.bomDescription"
+            >
+            </el-option>
+          </el-select>
+        </template>
         <template slot-scope="scope">
           <a
             v-if="$auth.$state.user.department === 210 || fromMpr"
@@ -55,6 +73,25 @@
         :show-overflow-tooltip="true"
         fixed
       >
+        <template
+          v-if="$auth.$state.user.section === 213"
+          slot="header"
+        >
+          <el-select
+            v-model="select.spec"
+            placeholder="Specification"
+            @change="selection => $emit('handle-select-spec', selection)"
+            :disabled="!select.desc"
+          >
+            <el-option
+              v-for="item in filterSpec"
+              :key="item.id"
+              :label="item.bomSpecification"
+              :value="item.bomSpecification"
+            >
+            </el-option>
+          </el-select>
+        </template>
         <template slot-scope="scope">
           {{ scope.row.bomSpecification }}
         </template>
@@ -326,6 +363,7 @@
 </template>
 
 <script>
+import uniqBy from 'lodash/uniqBy';
 import utils from '../../mixins/utils';
 
 export default {
@@ -334,6 +372,16 @@ export default {
     data: {
       type: Array,
       required: true,
+    },
+    rdata: {
+      type: Array,
+    },
+    sdata: {
+      type: Array,
+    },
+    emptySpec: {
+      type: Boolean,
+      default: false,
     },
     wo: {
       type: Object,
@@ -352,7 +400,25 @@ export default {
     return {
       dataEditItem: {},
       showEditItemDialog: false,
+      select: {
+        desc: '',
+        spec: '',
+      },
     };
+  },
+  watch: {
+    emptySpec(value) {
+      if (value) this.select.spec = '';
+    },
+  },
+  computed: {
+    filterDesc() {
+      return uniqBy(this.rdata, 'bomDescription');
+    },
+    filterSpec() {
+      if (this.sdata.length) return uniqBy(this.sdata, 'bomSpecification');
+      return uniqBy(this.data, 'bomSpecification');
+    },
   },
   methods: {
     highlighter({ row }) {

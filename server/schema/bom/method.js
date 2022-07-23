@@ -8,7 +8,9 @@ const { Op } = require('sequelize');
 const { float2 } = require('../scalar/number');
 
 const wherePic = (status, ctx) => {
-  const { group, department, section, isManager } = ctx.req.user;
+  const {
+    group, department, section, isManager,
+  } = ctx.req.user;
   let where = null;
 
   if (group === 15 || (department === 170 && isManager)) {
