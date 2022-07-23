@@ -49,6 +49,7 @@ export const GetOneMPR = gql`
       dor
       idWo
       requestorName
+      whApproved
       packing
       hold
       cancel
