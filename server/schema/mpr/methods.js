@@ -248,7 +248,7 @@ const oneMpr = async (id) => {
     attributes: [
       'id', 'no', 'woNo', 'model', 'product', 'projectName',
       'unit', 'category', 'dor', 'idWo', 'requestorName',
-      'packing', 'hold', 'cancel',
+      'whApproved', 'packing', 'hold', 'cancel',
     ],
     where: { id },
     required: false,
