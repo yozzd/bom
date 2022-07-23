@@ -379,9 +379,11 @@ export default {
     },
     rdata: {
       type: Array,
+      default: () => ([]),
     },
     sdata: {
       type: Array,
+      default: () => ([]),
     },
     emptySpec: {
       type: Boolean,
