@@ -460,8 +460,13 @@
             <index-data-table
               v-if="items.length"
               :data="tableData"
+              :rdata="items"
+              :sdata="sdata"
+              :empty-spec="emptySpec"
               :wo="wo"
               @selection-change="handleSelectionChangeWh"
+              @handle-select-desc="handleSelectDesc"
+              @handle-select-spec="handleSelectSpec"
             />
             <div></div>
           </el-tab-pane>
@@ -641,6 +646,10 @@ export default {
       loading: false,
       visible: false,
       search: '',
+      selectedDesc: '',
+      selectedSpec: '',
+      sdata: [],
+      emptySpec: false,
       miniSearch: new MiniSearch({
         idField: 'id',
         fields: [
@@ -666,6 +675,12 @@ export default {
     tableData() {
       if (this.search) {
         return this.miniSearch.search(this.search, { prefix: true });
+      }
+      if (this.selectedDesc && !this.selectedSpec) {
+        return this.items.filter((item) => item.bomDescription.includes(this.selectedDesc));
+      }
+      if (this.selectedDesc && this.selectedSpec) {
+        return this.items.filter((item) => item.bomSpecification.includes(this.selectedSpec));
       }
       return this.items;
     },
@@ -1099,6 +1114,16 @@ export default {
           message: 'Item(s) has been update successfully',
         });
       }).catch(() => {});
+    },
+    handleSelectDesc(selection) {
+      this.emptySpec = true;
+      this.selectedDesc = selection;
+      this.selectedSpec = '';
+      this.sdata = this.items.filter((item) => item.bomDescription.includes(this.selectedDesc));
+    },
+    handleSelectSpec(selection) {
+      this.emptySpec = false;
+      this.selectedSpec = selection;
     },
   },
   apollo: {
