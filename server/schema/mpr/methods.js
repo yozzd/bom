@@ -149,6 +149,15 @@ const whereUser = async ({
             { requestorSection: section },
           ],
         },
+        {
+          [Op.and]: [
+            { cancel: 0 },
+            { hold: 0 },
+            { managerApproved: 1 },
+            { whApproved: 1 },
+            { bomApproved: 0 },
+          ],
+        },
       ],
     };
   } else if (group === 11 && section === 213 && status === 0) {
