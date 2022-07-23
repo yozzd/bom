@@ -439,11 +439,14 @@ const resolvers = {
                   if (ws[`L${R}`] && section === 513) {
                     bomQtyBalance = (ws[`L${R}`].v * mpr.unit) - (bomQty * mpr.unit);
                     bomQtyStock = ws[`L${R}`].v * mpr.unit;
+                    packing = 1;
                   } else if (ws[`L${R}`] && section !== 513) {
                     bomQtyBalance = ws[`L${R}`].v - (mpr.unit * bomQty);
                     bomQtyStock = ws[`L${R}`].v;
+                    packing = 0;
                   } else {
                     bomQtyBalance = 0 - (mpr.unit * bomQty);
+                    packing = 0;
                   }
 
                   if (ws[`Y${R}`] && ws[`Y${R}`].v) {
@@ -474,6 +477,7 @@ const resolvers = {
                     poZone,
                     poNo,
                     bomRemarks: ws[`Z${R}`] ? ws[`Z${R}`].v : null,
+                    packing,
                     idMpr,
                     idWo,
                     idModule,
